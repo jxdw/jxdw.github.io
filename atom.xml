@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>接口-服务-系统-平台</title>
+  <title>技术学习笔记</title>
   
-  <subtitle>知识能力化、能力产品化</subtitle>
+  <subtitle>接口-服务-系统-平台</subtitle>
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://youxia999.github.io/"/>

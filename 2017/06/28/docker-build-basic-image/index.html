@@ -14,7 +14,7 @@
     
     
     
-    <title>构建自定义基础镜像 | 接口-服务-系统-平台 | 知识能力化、能力产品化</title>
+    <title>构建自定义基础镜像 | 技术学习笔记 | 接口-服务-系统-平台</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
@@ -26,7 +26,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="构建自定义基础镜像">
 <meta property="og:url" content="https://youxia999.github.io/2017/06/28/docker-build-basic-image/index.html">
-<meta property="og:site_name" content="接口-服务-系统-平台">
+<meta property="og:site_name" content="技术学习笔记">
 <meta property="og:description" content="本文背景最近一年，时不时都在玩docker，有时候想实操一些特性或者功能的时候，发现从hub.docker.com上pull下的镜像，不是ubuntu就是最简版的linux,或者jre，好多命令都没有，甚是烦躁。今天终于忍不住，下定决心自己构建一个基础镜像。 编写dockerfile一直觉得centos7不错，也用习惯了。所以，基础镜像就基于centosFROM centos:7ADD jdk-8">
 <meta property="og:locale" content="ZH_CN">
 <meta property="og:updated_time" content="2019-11-14T02:09:28.275Z">
@@ -34,7 +34,7 @@
 <meta name="twitter:title" content="构建自定义基础镜像">
 <meta name="twitter:description" content="本文背景最近一年，时不时都在玩docker，有时候想实操一些特性或者功能的时候，发现从hub.docker.com上pull下的镜像，不是ubuntu就是最简版的linux,或者jre，好多命令都没有，甚是烦躁。今天终于忍不住，下定决心自己构建一个基础镜像。 编写dockerfile一直觉得centos7不错，也用习惯了。所以，基础镜像就基于centosFROM centos:7ADD jdk-8">
     
-        <link rel="alternate" type="application/atom+xml" title="接口-服务-系统-平台" href="/atom.xml">
+        <link rel="alternate" type="application/atom+xml" title="技术学习笔记" href="/atom.xml">
     
     <link rel="shortcut icon" href="/favicon.ico">
     <link rel="stylesheet" href="/css/style.css?v=1.7.2">
@@ -253,7 +253,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://youxia999.github.io/2017/06/28/docker-build-basic-image/&title=《构建自定义基础镜像》 — 接口-服务-系统-平台&pic=https://youxia999.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://youxia999.github.io/2017/06/28/docker-build-basic-image/&title=《构建自定义基础镜像》 — 技术学习笔记&pic=https://youxia999.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -263,7 +263,7 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://youxia999.github.io/2017/06/28/docker-build-basic-image/&title=《构建自定义基础镜像》 — 接口-服务-系统-平台&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://youxia999.github.io/2017/06/28/docker-build-basic-image/&title=《构建自定义基础镜像》 — 技术学习笔记&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -273,7 +273,7 @@
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《构建自定义基础镜像》 — 接口-服务-系统-平台&url=https://youxia999.github.io/2017/06/28/docker-build-basic-image/&via=https://youxia999.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《构建自定义基础镜像》 — 技术学习笔记&url=https://youxia999.github.io/2017/06/28/docker-build-basic-image/&via=https://youxia999.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
@@ -404,7 +404,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://youxia999.github.io/2017/06/28/docker-build-basic-image/&title=《构建自定义基础镜像》 — 接口-服务-系统-平台&pic=https://youxia999.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://youxia999.github.io/2017/06/28/docker-build-basic-image/&title=《构建自定义基础镜像》 — 技术学习笔记&pic=https://youxia999.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -414,7 +414,7 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://youxia999.github.io/2017/06/28/docker-build-basic-image/&title=《构建自定义基础镜像》 — 接口-服务-系统-平台&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://youxia999.github.io/2017/06/28/docker-build-basic-image/&title=《构建自定义基础镜像》 — 技术学习笔记&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -424,7 +424,7 @@
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《构建自定义基础镜像》 — 接口-服务-系统-平台&url=https://youxia999.github.io/2017/06/28/docker-build-basic-image/&via=https://youxia999.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《构建自定义基础镜像》 — 技术学习笔记&url=https://youxia999.github.io/2017/06/28/docker-build-basic-image/&via=https://youxia999.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>

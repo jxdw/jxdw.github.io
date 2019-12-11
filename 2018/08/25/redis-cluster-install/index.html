@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>单节点安装redis 3.2版本集群 | 接口-服务-系统-平台 | 知识能力化、能力产品化</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="中间件技术,redis">
+    <meta name="description" content="本文参考资料https://blog.csdn.net/qq_37595946/article/details/77800147https://blog.csdn.net/ahzxj2012/article/details/73468119https://www.jianshu.com/p/854d702e6153 背景交代公司有些没权限的机器又抽风，于是想把部分服务放到有权限的机器上。比如red">
+<meta name="keywords" content="中间件技术,redis">
+<meta property="og:type" content="article">
+<meta property="og:title" content="单节点安装redis 3.2版本集群">
+<meta property="og:url" content="https://youxia999.github.io/2018/08/25/redis-cluster-install/index.html">
+<meta property="og:site_name" content="接口-服务-系统-平台">
+<meta property="og:description" content="本文参考资料https://blog.csdn.net/qq_37595946/article/details/77800147https://blog.csdn.net/ahzxj2012/article/details/73468119https://www.jianshu.com/p/854d702e6153 背景交代公司有些没权限的机器又抽风，于是想把部分服务放到有权限的机器上。比如red">
+<meta property="og:locale" content="ZH_CN">
+<meta property="og:image" content="https://youxia999.github.io/img/redis/redis3.2_clusterinfo.png">
+<meta property="og:updated_time" content="2019-12-03T02:44:15.604Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="单节点安装redis 3.2版本集群">
+<meta name="twitter:description" content="本文参考资料https://blog.csdn.net/qq_37595946/article/details/77800147https://blog.csdn.net/ahzxj2012/article/details/73468119https://www.jianshu.com/p/854d702e6153 背景交代公司有些没权限的机器又抽风，于是想把部分服务放到有权限的机器上。比如red">
+<meta name="twitter:image" content="https://youxia999.github.io/img/redis/redis3.2_clusterinfo.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="接口-服务-系统-平台" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class>
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">游侠</h5>
+          <a href="mailto:jingzhouyouxia@gmail.com" title="jingzhouyouxia@gmail.com" class="mail">jingzhouyouxia@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6%E6%8A%80%E6%9C%AF/">
+                <i class="icon icon-lg icon-fire"></i>
+                中间件技术
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/%E7%9B%91%E6%8E%A7%E6%8A%80%E6%9C%AF/">
+                <i class="icon icon-lg icon-camera"></i>
+                监控技术
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%8A%80%E6%9C%AF/">
+                <i class="icon icon-lg icon-cogs"></i>
+                持续集成
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/">
+                <i class="icon icon-lg icon-cloud"></i>
+                容器技术
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/service%20mesh/">
+                <i class="icon icon-lg icon-car"></i>
+                service mesh
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/%E7%BC%96%E7%A8%8B%E6%A1%86%E6%9E%B6%E4%B8%8E%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AE%A2%E6%88%B7%E7%AB%AF/">
+                <i class="icon icon-lg icon-coffee"></i>
+                编程语言与框架
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-lg icon-inbox"></i>
+                文章归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about">
+                <i class="icon icon-lg icon-th-list"></i>
+                关于
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">单节点安装redis 3.2版本集群</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">单节点安装redis 3.2版本集群</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-08-25T06:09:47.000Z" itemprop="datePublished" class="page-time">
+  2018-08-25 14:09:47
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>目录</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#本文参考资料"><span class="post-toc-number">1.</span> <span class="post-toc-text">本文参考资料</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#背景交代"><span class="post-toc-number">2.</span> <span class="post-toc-text">背景交代</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#安装规划"><span class="post-toc-number">3.</span> <span class="post-toc-text">安装规划</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#安装过程"><span class="post-toc-number">4.</span> <span class="post-toc-text">安装过程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#docker安装redisnode"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">docker安装redisnode</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#准备配置文件"><span class="post-toc-number">4.1.1.</span> <span class="post-toc-text">准备配置文件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#拉取镜像并启动"><span class="post-toc-number">4.1.2.</span> <span class="post-toc-text">拉取镜像并启动</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#下载redis源码并解压"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">下载redis源码并解压</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#常见错误以及处理"><span class="post-toc-number">4.3.</span> <span class="post-toc-text">常见错误以及处理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#出现”kernel-require-rb-55-in-require’-cannot-load-suc”"><span class="post-toc-number">4.3.1.</span> <span class="post-toc-text">出现”kernel_require.rb:55:in `require’: cannot load suc”</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#出现”报错redis-requires-Ruby-version-2-2-2”"><span class="post-toc-number">4.3.2.</span> <span class="post-toc-text">出现”报错redis requires Ruby version -= 2.2.2”</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#ruby版本失效"><span class="post-toc-number">4.3.3.</span> <span class="post-toc-text">ruby版本失效</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#体验"><span class="post-toc-number">5.</span> <span class="post-toc-text">体验</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-redis-cluster-install" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">单节点安装redis 3.2版本集群</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-08-25 14:09:47 14:09:47" datetime="2018-08-25T06:09:47.000Z" itemprop="datePublished">2018-08-25 14:09:47</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="本文参考资料"><a href="#本文参考资料" class="headerlink" title="本文参考资料"></a>本文参考资料</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">https://blog.csdn.net/qq_37595946/article/details/77800147</span><br><span class="line">https://blog.csdn.net/ahzxj2012/article/details/73468119</span><br><span class="line">https://www.jianshu.com/p/854d702e6153</span><br></pre></td></tr></table></figure>
+<h1 id="背景交代"><a href="#背景交代" class="headerlink" title="背景交代"></a>背景交代</h1><p>公司有些没权限的机器又抽风，于是想把部分服务放到有权限的机器上。比如redis cluster。</p>
+<h1 id="安装规划"><a href="#安装规划" class="headerlink" title="安装规划"></a>安装规划</h1><p>采用docker安装redis node。<br>由redis-trib.rb构建集群。</p>
+<h1 id="安装过程"><a href="#安装过程" class="headerlink" title="安装过程"></a>安装过程</h1><h2 id="docker安装redisnode"><a href="#docker安装redisnode" class="headerlink" title="docker安装redisnode"></a>docker安装redisnode</h2><h3 id="准备配置文件"><a href="#准备配置文件" class="headerlink" title="准备配置文件"></a>准备配置文件</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">port 6381</span><br><span class="line">bind 10.2.1.31</span><br><span class="line">cluster-enabled yes</span><br><span class="line">cluster-config-file nodes.conf</span><br><span class="line">cluster-node-timeout 5000</span><br><span class="line">appendonly yes</span><br></pre></td></tr></table></figure>
+<h3 id="拉取镜像并启动"><a href="#拉取镜像并启动" class="headerlink" title="拉取镜像并启动"></a>拉取镜像并启动</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker pull redis:3.2.0</span><br><span class="line">docker run --net=host -m 100m --name=redis1  -v `pwd`/redis1.conf:/usr/local/etc/redis/redis.conf -d redis:3.2.0 redis-server /usr/local/etc/redis/redis.conf</span><br><span class="line">docker run --net=host -m 100m --name=redis2  -v `pwd`/redis2.conf:/usr/local/etc/redis/redis.conf -d redis:3.2.0 redis-server /usr/local/etc/redis/redis.conf</span><br><span class="line">docker run --net=host -m 100m --name=redis3  -v `pwd`/redis3.conf:/usr/local/etc/redis/redis.conf -d redis:3.2.0 redis-server /usr/local/etc/redis/redis.conf</span><br><span class="line">docker run --net=host -m 100m --name=redis4  -v `pwd`/redis4.conf:/usr/local/etc/redis/redis.conf -d redis:3.2.0 redis-server /usr/local/etc/redis/redis.conf</span><br><span class="line">docker run --net=host -m 100m --name=redis5  -v `pwd`/redis5.conf:/usr/local/etc/redis/redis.conf -d redis:3.2.0 redis-server /usr/local/etc/redis/redis.conf</span><br><span class="line">docker run --net=host -m 100m --name=redis6  -v `pwd`/redis6.conf:/usr/local/etc/redis/redis.conf -d redis:3.2.0 redis-server /usr/local/etc/redis/redis.conf</span><br></pre></td></tr></table></figure>
+<h2 id="下载redis源码并解压"><a href="#下载redis源码并解压" class="headerlink" title="下载redis源码并解压"></a>下载redis源码并解压</h2><p>执行下面的命令前，请确保ruby版本已经升级到2.2.0。<br>ps:yum install ruby时，centos只会安装ruby2.0版本。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget http://download.redis.io/releases/redis-3.2.1.tar.gz</span><br><span class="line">tar xvf redis-3.2.1.tar.gz</span><br><span class="line">mv redis-3.2.1 redis</span><br><span class="line">ruby redis/src/redis-trib.rb create --replicas 1 10.2.1.31:6381 10.2.1.31:6382 10.2.1.31:6383 10.2.1.31:6384 10.2.1.31:6385 10.2.1.31:6386</span><br></pre></td></tr></table></figure>
+<p>顺利的话，能看到如下信息：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt; Creating cluster</span><br><span class="line">&gt;&gt;&gt; Performing hash slots allocation on 6 nodes...</span><br><span class="line">Using 3 masters:</span><br><span class="line">10.2.1.31:6381</span><br><span class="line">10.2.1.31:6382</span><br><span class="line">10.2.1.31:6383</span><br><span class="line">Adding replica 10.2.1.31:6384 to 10.2.1.31:6381</span><br><span class="line">Adding replica 10.2.1.31:6385 to 10.2.1.31:6382</span><br><span class="line">Adding replica 10.2.1.31:6386 to 10.2.1.31:6383</span><br><span class="line">M: cb4258f0a219065492d519ebf4417833c397718a 10.2.1.31:6381</span><br><span class="line">   slots:0-5460 (5461 slots) master</span><br><span class="line">M: 5e1c70538ec4ddd28b0dbc79bce491ac1d25e452 10.2.1.31:6382</span><br><span class="line">   slots:5461-10922 (5462 slots) master</span><br><span class="line">M: 31c913e81bbb994e843d8874d8063debd2e82363 10.2.1.31:6383</span><br><span class="line">   slots:10923-16383 (5461 slots) master</span><br><span class="line">S: 34750039ae8d7010a06a7691b95ae81f48e44cb9 10.2.1.31:6384</span><br><span class="line">   replicates cb4258f0a219065492d519ebf4417833c397718a</span><br><span class="line">S: 48f5de18c92ebdc277c4eaee9d73ea6f1cc91c8e 10.2.1.31:6385</span><br><span class="line">   replicates 5e1c70538ec4ddd28b0dbc79bce491ac1d25e452</span><br><span class="line">S: 1a349016ed6f326bb4118ec94951301eb3ca7815 10.2.1.31:6386</span><br><span class="line">   replicates 31c913e81bbb994e843d8874d8063debd2e82363</span><br><span class="line">Can I set the above configuration? (type &apos;yes&apos; to accept): yes</span><br><span class="line">&gt;&gt;&gt; Nodes configuration updated</span><br><span class="line">&gt;&gt;&gt; Assign a different config epoch to each node</span><br><span class="line">&gt;&gt;&gt; Sending CLUSTER MEET messages to join the cluster</span><br><span class="line">Waiting for the cluster to join...</span><br><span class="line">&gt;&gt;&gt; Performing Cluster Check (using node 10.2.1.31:6381)</span><br><span class="line">M: cb4258f0a219065492d519ebf4417833c397718a 10.2.1.31:6381</span><br><span class="line">   slots:0-5460 (5461 slots) master</span><br><span class="line">M: 5e1c70538ec4ddd28b0dbc79bce491ac1d25e452 10.2.1.31:6382</span><br><span class="line">   slots:5461-10922 (5462 slots) master</span><br><span class="line">M: 31c913e81bbb994e843d8874d8063debd2e82363 10.2.1.31:6383</span><br><span class="line">   slots:10923-16383 (5461 slots) master</span><br><span class="line">M: 34750039ae8d7010a06a7691b95ae81f48e44cb9 10.2.1.31:6384</span><br><span class="line">   slots: (0 slots) master</span><br><span class="line">   replicates cb4258f0a219065492d519ebf4417833c397718a</span><br><span class="line">M: 48f5de18c92ebdc277c4eaee9d73ea6f1cc91c8e 10.2.1.31:6385</span><br><span class="line">   slots: (0 slots) master</span><br><span class="line">   replicates 5e1c70538ec4ddd28b0dbc79bce491ac1d25e452</span><br><span class="line">M: 1a349016ed6f326bb4118ec94951301eb3ca7815 10.2.1.31:6386</span><br><span class="line">   slots: (0 slots) master</span><br><span class="line">   replicates 31c913e81bbb994e843d8874d8063debd2e82363</span><br><span class="line">[OK] All nodes agree about slots configuration.</span><br><span class="line">&gt;&gt;&gt; Check for open slots...</span><br><span class="line">&gt;&gt;&gt; Check slots coverage...</span><br><span class="line">[OK] All 16384 slots covered.</span><br></pre></td></tr></table></figure></p>
+<p>但是一般没有那么顺利。</p>
+<h2 id="常见错误以及处理"><a href="#常见错误以及处理" class="headerlink" title="常见错误以及处理"></a>常见错误以及处理</h2><h3 id="出现”kernel-require-rb-55-in-require’-cannot-load-suc”"><a href="#出现”kernel-require-rb-55-in-require’-cannot-load-suc”" class="headerlink" title="出现”kernel_require.rb:55:in `require’: cannot load suc”"></a>出现”kernel_require.rb:55:in `require’: cannot load suc”</h3><p>解决办法：gem install redis</p>
+<h3 id="出现”报错redis-requires-Ruby-version-2-2-2”"><a href="#出现”报错redis-requires-Ruby-version-2-2-2”" class="headerlink" title="出现”报错redis requires Ruby version -= 2.2.2”"></a>出现”报错redis requires Ruby version -= 2.2.2”</h3><p>解决办法：升级ruby版本。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">curl -L get.rvm.io | bash -s stable</span><br><span class="line">source /usr/local/rvm/scripts/rvm</span><br><span class="line">rvm list known</span><br><span class="line">rvm install  2.4.0</span><br><span class="line">rvm remove 2.0.0</span><br><span class="line">ruby  --version</span><br><span class="line">gem install redis</span><br></pre></td></tr></table></figure></p>
+<p>然后执行:ruby redis/src/redis-trib.rb create –replicas 1 10.2.1.31:6381 10.2.1.31:6382 10.2.1.31:6383 10.2.1.31:6384 10.2.1.31:6385 10.2.1.31:6386<br>就可以看到上面的提示信息了。</p>
+<h3 id="ruby版本失效"><a href="#ruby版本失效" class="headerlink" title="ruby版本失效"></a>ruby版本失效</h3><p>解决办法：<br>rvm use ruby-2.4.0</p>
+<h1 id="体验"><a href="#体验" class="headerlink" title="体验"></a>体验</h1><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://youxia999.github.io/img/redis/redis3.2_clusterinfo.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content" style="display:none">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2019-12-03T02:44:15.604Z" itemprop="dateUpdated">2019-12-03 10:44:15 10:44:15</time>
+</span><br>
+
+
+        
+        <a href="/2018/08/25/redis-cluster-install/" target="_blank" rel="external">https://youxia999.github.io/2018/08/25/redis-cluster-install/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://youxia999.github.io">
+            <img src="/img/avatar.jpg" alt="游侠">
+            游侠
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redis/">redis</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/中间件技术/">中间件技术</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://youxia999.github.io/2018/08/25/redis-cluster-install/&title=《单节点安装redis 3.2版本集群》 — 接口-服务-系统-平台&pic=https://youxia999.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://youxia999.github.io/2018/08/25/redis-cluster-install/&title=《单节点安装redis 3.2版本集群》 — 接口-服务-系统-平台&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://youxia999.github.io/2018/08/25/redis-cluster-install/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《单节点安装redis 3.2版本集群》 — 接口-服务-系统-平台&url=https://youxia999.github.io/2018/08/25/redis-cluster-install/&via=https://youxia999.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://youxia999.github.io/2018/08/25/redis-cluster-install/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/09/11/golang-reflect-learn/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">go语言反射学习</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/08/14/docker-monitor-tech/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">【转载】打造高逼格、可视化的Docker容器监控系统平台</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitment_thread"></div>
+	<link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+	<script src="https://jjeejj.github.io/js/gitment.js"></script>
+    <script>
+        var gitment = new Gitment({
+		    id: 'Sat Aug 25 2018 14:09:47 GMT+0800',
+            owner: 'youxia999',
+            repo: 'gitment_comments',
+            oauth: {
+                client_id: '46d6bcb60b3252945f23',
+                client_secret: '954a7427590c10667e9497f77996a1d2e88620e8',
+            },
+        })
+        gitment.render('comments')
+    </script>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>游侠 &copy; 2015 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://youxia999.github.io/2018/08/25/redis-cluster-install/&title=《单节点安装redis 3.2版本集群》 — 接口-服务-系统-平台&pic=https://youxia999.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://youxia999.github.io/2018/08/25/redis-cluster-install/&title=《单节点安装redis 3.2版本集群》 — 接口-服务-系统-平台&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://youxia999.github.io/2018/08/25/redis-cluster-install/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《单节点安装redis 3.2版本集群》 — 接口-服务-系统-平台&url=https://youxia999.github.io/2018/08/25/redis-cluster-install/&via=https://youxia999.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://youxia999.github.io/2018/08/25/redis-cluster-install/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://youxia999.github.io/2018/08/25/redis-cluster-install/" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

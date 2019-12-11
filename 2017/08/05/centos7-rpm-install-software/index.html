@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>玩转centos7之程序安装与启动(rpm、yum、systemd) | 接口-服务-系统-平台 | 知识能力化、能力产品化</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="CentOS操作">
+    <meta name="description" content="提示进行下面的操作前，最好修改下dns(查找速度)：vim /etc/resolv.conf升级curl、nss：yum update nss curl  程序安装包技术rpmrpm介绍见附录。 rpm包与源码包的对比">
+<meta name="keywords" content="CentOS操作">
+<meta property="og:type" content="article">
+<meta property="og:title" content="玩转centos7之程序安装与启动(rpm、yum、systemd)">
+<meta property="og:url" content="https://youxia999.github.io/2017/08/05/centos7-rpm-install-software/index.html">
+<meta property="og:site_name" content="接口-服务-系统-平台">
+<meta property="og:description" content="提示进行下面的操作前，最好修改下dns(查找速度)：vim /etc/resolv.conf升级curl、nss：yum update nss curl  程序安装包技术rpmrpm介绍见附录。 rpm包与源码包的对比">
+<meta property="og:locale" content="ZH_CN">
+<meta property="og:image" content="https://youxia999.github.io/img/centos7/rpm_vs_sourcecode.png">
+<meta property="og:image" content="https://youxia999.github.io/img/centos7/rpm_man.png">
+<meta property="og:image" content="https://youxia999.github.io/img/centos7/rpm_qa.png">
+<meta property="og:image" content="https://youxia999.github.io/img/centos7/yum_introduce.png">
+<meta property="og:image" content="https://youxia999.github.io/img/centos7/yum_introduce.png">
+<meta property="og:image" content="https://youxia999.github.io/img/centos7/2016062508410641.png">
+<meta property="og:image" content="https://youxia999.github.io/img/centos7/rpm_command_introduce.png">
+<meta property="og:updated_time" content="2019-11-14T02:38:57.062Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="玩转centos7之程序安装与启动(rpm、yum、systemd)">
+<meta name="twitter:description" content="提示进行下面的操作前，最好修改下dns(查找速度)：vim /etc/resolv.conf升级curl、nss：yum update nss curl  程序安装包技术rpmrpm介绍见附录。 rpm包与源码包的对比">
+<meta name="twitter:image" content="https://youxia999.github.io/img/centos7/rpm_vs_sourcecode.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="接口-服务-系统-平台" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class>
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">游侠</h5>
+          <a href="mailto:jingzhouyouxia@gmail.com" title="jingzhouyouxia@gmail.com" class="mail">jingzhouyouxia@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6%E6%8A%80%E6%9C%AF/">
+                <i class="icon icon-lg icon-fire"></i>
+                中间件技术
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/%E7%9B%91%E6%8E%A7%E6%8A%80%E6%9C%AF/">
+                <i class="icon icon-lg icon-camera"></i>
+                监控技术
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%8A%80%E6%9C%AF/">
+                <i class="icon icon-lg icon-cogs"></i>
+                持续集成
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/">
+                <i class="icon icon-lg icon-cloud"></i>
+                容器技术
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/service%20mesh/">
+                <i class="icon icon-lg icon-car"></i>
+                service mesh
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/%E7%BC%96%E7%A8%8B%E6%A1%86%E6%9E%B6%E4%B8%8E%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AE%A2%E6%88%B7%E7%AB%AF/">
+                <i class="icon icon-lg icon-coffee"></i>
+                编程语言与框架
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-lg icon-inbox"></i>
+                文章归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about">
+                <i class="icon icon-lg icon-th-list"></i>
+                关于
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">玩转centos7之程序安装与启动(rpm、yum、systemd)</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">玩转centos7之程序安装与启动(rpm、yum、systemd)</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-08-05T13:11:16.000Z" itemprop="datePublished" class="page-time">
+  2017-08-05 21:11:16
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>目录</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#提示"><span class="post-toc-number">1.</span> <span class="post-toc-text">提示</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#程序安装包技术rpm"><span class="post-toc-number">2.</span> <span class="post-toc-text">程序安装包技术rpm</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#rpm介绍"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">rpm介绍</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#rpm包与源码包的对比"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">rpm包与源码包的对比</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#rpm-help命令"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">rpm help命令</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#本机已安装的包"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">本机已安装的包</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#程序安装关键技术yum"><span class="post-toc-number">3.</span> <span class="post-toc-text">程序安装关键技术yum</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#repo概念"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">repo概念</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#yum介绍"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">yum介绍</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#yum配置文件解析"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">yum配置文件解析</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#更换yum源"><span class="post-toc-number">3.4.</span> <span class="post-toc-text">更换yum源</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#备份原来的yum源"><span class="post-toc-number">3.4.1.</span> <span class="post-toc-text">备份原来的yum源</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#设置aliyun的yum源"><span class="post-toc-number">3.4.2.</span> <span class="post-toc-text">设置aliyun的yum源</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#添加EPEL源"><span class="post-toc-number">3.4.3.</span> <span class="post-toc-text">添加EPEL源</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#清理缓存并生成新的缓存"><span class="post-toc-number">3.4.4.</span> <span class="post-toc-text">清理缓存并生成新的缓存</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#其他的源"><span class="post-toc-number">3.4.5.</span> <span class="post-toc-text">其他的源</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#yum其他命令"><span class="post-toc-number">3.5.</span> <span class="post-toc-text">yum其他命令</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#程序启动关键技术systemd"><span class="post-toc-number">4.</span> <span class="post-toc-text">程序启动关键技术systemd</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#systemd的历史"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">systemd的历史</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#systemd的特点"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">systemd的特点</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#systemd的架构和优缺点"><span class="post-toc-number">4.3.</span> <span class="post-toc-text">systemd的架构和优缺点</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#systemd的概念模型"><span class="post-toc-number">4.4.</span> <span class="post-toc-text">systemd的概念模型</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#单元的概念"><span class="post-toc-number">4.4.1.</span> <span class="post-toc-text">单元的概念</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#systemd命令"><span class="post-toc-number">4.5.</span> <span class="post-toc-text">systemd命令</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#例子-mysqld为例"><span class="post-toc-number">4.6.</span> <span class="post-toc-text">例子(mysqld为例)</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#附录"><span class="post-toc-number">5.</span> <span class="post-toc-text">附录</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-centos7-rpm-install-software" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">玩转centos7之程序安装与启动(rpm、yum、systemd)</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-08-05 21:11:16 21:11:16" datetime="2017-08-05T13:11:16.000Z" itemprop="datePublished">2017-08-05 21:11:16</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="提示"><a href="#提示" class="headerlink" title="提示"></a>提示</h1><font color="red">进行下面的操作前，最好修改下dns(查找速度)：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">vim /etc/resolv.conf</span><br></pre></td></tr></table></figure><br><br>升级curl、nss：<br>yum update nss curl<br></font>
+
+<h1 id="程序安装包技术rpm"><a href="#程序安装包技术rpm" class="headerlink" title="程序安装包技术rpm"></a>程序安装包技术rpm</h1><h2 id="rpm介绍"><a href="#rpm介绍" class="headerlink" title="rpm介绍"></a>rpm介绍</h2><p>见附录。</p>
+<h2 id="rpm包与源码包的对比"><a href="#rpm包与源码包的对比" class="headerlink" title="rpm包与源码包的对比"></a>rpm包与源码包的对比</h2><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://youxia999.github.io/img/centos7/rpm_vs_sourcecode.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h2 id="rpm-help命令"><a href="#rpm-help命令" class="headerlink" title="rpm help命令"></a>rpm help命令</h2><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://youxia999.github.io/img/centos7/rpm_man.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h2 id="本机已安装的包"><a href="#本机已安装的包" class="headerlink" title="本机已安装的包"></a>本机已安装的包</h2><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://youxia999.github.io/img/centos7/rpm_qa.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h1 id="程序安装关键技术yum"><a href="#程序安装关键技术yum" class="headerlink" title="程序安装关键技术yum"></a>程序安装关键技术yum</h1><h2 id="repo概念"><a href="#repo概念" class="headerlink" title="repo概念"></a>repo概念</h2><p>repo文件是Fedora中yum源（软件仓库）的配置文件，通常一个repo文件定义了一个或者多个软件仓库的细节内容。<br>例如<font color="red">我们将从哪里下载需要安装或者升级的软件包</font>，repo文件中的设置内容将被yum读取和应用！<br>更多的源介绍，可以参考: <a href="https://youxia999.github.io/2017/08/05/centos7-repo-introduce/">https://youxia999.github.io/2017/08/05/centos7-repo-introduce/</a></p>
+<h2 id="yum介绍"><a href="#yum介绍" class="headerlink" title="yum介绍"></a>yum介绍</h2><p>yum(Yellow dog Updater, Modified)是一个在Fedora和RedHat以及SUSE中的Shell前端软件包管理器。<br>基于RPM包管理，能够从指定的服务器自动下载RPM包并且安装，可以自动处理依赖性关系，并且一次安装所有依赖的软体包，无须繁琐地一次次下载、安装。<br>yum提供了查找、安装、删除某一个、一组甚至全部软件包的命令，而且命令简洁而又好记。<br>YUM的工作原理并不复杂，每一个 RPM软件的头（header）里面都会纪录该软件的依赖关系，那么如果可以将该头的内容纪录下来并且进行分析，可以知道每个软件在安装之前需要额外安装 哪些基础软件。<br>也就是说，在服务器上面先以分析工具将所有的RPM档案进行分析，然后将该分析纪录下来，只要在进行安装或升级时先查询该纪录的文件，就可以知道所有相关联的软件。<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://youxia999.github.io/img/centos7/yum_introduce.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+<h2 id="yum配置文件解析"><a href="#yum配置文件解析" class="headerlink" title="yum配置文件解析"></a>yum配置文件解析</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cat /etc/yum.conf</span><br><span class="line">[main]</span><br><span class="line">cachedir=/var/cache/yum/$basearch/$releasever</span><br><span class="line">keepcache=0</span><br><span class="line">debuglevel=2</span><br><span class="line">logfile=/var/log/yum.log</span><br><span class="line">exactarch=1</span><br><span class="line">obsoletes=1</span><br><span class="line">gpgcheck=1</span><br><span class="line">plugins=1</span><br><span class="line">installonly_limit=5</span><br><span class="line">bugtracker_url=http://bugs.centos.org/set_project.php?project_id=23&amp;ref=http://bugs.centos.org/bug_report_page.php?category=yum</span><br><span class="line">distroverpkg=centos-release</span><br></pre></td></tr></table></figure>
+<p>各个文件存放在/etc/yum.repos.d目录下。</p>
+<h2 id="更换yum源"><a href="#更换yum源" class="headerlink" title="更换yum源"></a>更换yum源</h2><p>一直有一个现实的问题：<font color="red">在国内下载某些国外的软件会很慢。所以，一般会选择aliyun或者163的源仓库。</font><br>更换步骤：</p>
+<h3 id="备份原来的yum源"><a href="#备份原来的yum源" class="headerlink" title="备份原来的yum源"></a>备份原来的yum源</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cp /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.bak</span><br></pre></td></tr></table></figure>
+<h3 id="设置aliyun的yum源"><a href="#设置aliyun的yum源" class="headerlink" title="设置aliyun的yum源"></a>设置aliyun的yum源</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo</span><br></pre></td></tr></table></figure>
+<h3 id="添加EPEL源"><a href="#添加EPEL源" class="headerlink" title="添加EPEL源"></a>添加EPEL源</h3><p>EPEL (<a href="http://fedoraproject.org/wiki/EPEL" target="_blank" rel="noopener">http://fedoraproject.org/wiki/EPEL</a>) 是由 Fedora 社区打造，为 RHEL 及衍生发行版如 CentOS、Scientific Linux 等提供高质量软件包的项目。<br>装上 EPEL后，可以像在 Fedora 上一样，可以通过 yum install package-name，安装更多软件。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget -P /etc/yum.repos.d/ http://mirrors.aliyun.com/repo/epel-7.repo</span><br></pre></td></tr></table></figure></p>
+<h3 id="清理缓存并生成新的缓存"><a href="#清理缓存并生成新的缓存" class="headerlink" title="清理缓存并生成新的缓存"></a>清理缓存并生成新的缓存</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">yum clean all  </span><br><span class="line">yum makecache</span><br></pre></td></tr></table></figure>
+<h3 id="其他的源"><a href="#其他的源" class="headerlink" title="其他的源"></a>其他的源</h3><p><font color="red">暂时不需要更新内核，所以，就不用装elrepo源。</font><br>自此，结束。</p>
+<h2 id="yum其他命令"><a href="#yum其他命令" class="headerlink" title="yum其他命令"></a>yum其他命令</h2><p>输入man yum可以看到参考手册：<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://youxia999.github.io/img/centos7/yum_introduce.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+<h1 id="程序启动关键技术systemd"><a href="#程序启动关键技术systemd" class="headerlink" title="程序启动关键技术systemd"></a>程序启动关键技术systemd</h1><h2 id="systemd的历史"><a href="#systemd的历史" class="headerlink" title="systemd的历史"></a>systemd的历史</h2><p>Systemd目的是要取代Unix时代以来一直在使用的init系统，兼容SysV和LSB的启动脚本，而且够在进程启动过程中更有效地引导加载服务。<br>Systemd的很多概念来源于苹果Mac OS操作系统上的launchd，不过launchd专用于苹果系统，因此长期未能获得应有的广泛关注。Systemd借鉴了很多launchd的思想。<br>Systemd是Linux系统中最新的初始化系统（init），它主要的设计目标是克服SysV init 固有的缺点，提高系统的启动速度。<br>systemd和ubuntu的upstart 是竞争对手，预计会取代 UpStart，然而在Ubuntu 15.04采用systemd作为默认引导程序，debian8也开始使用systemd。足以看出systemd的流行度。</p>
+<h2 id="systemd的特点"><a href="#systemd的特点" class="headerlink" title="systemd的特点"></a>systemd的特点</h2><p>CentOS 7使用systemd替换了SysV。下面是一些特别要注意的和之前主要版本的RHEL不再兼容的部分。<br>1.systemd对运行级别支持有限<br>为了保存兼容，systemd提供一定数量的target单元，可以直接和运行级别对应，也可以被早期的分布式的运行级别命令支持。不是所有的target都可以被映射到运行级别，在这种情况下，使用runlevel命令有可能会返回一个为N的不知道的运行级别，所以推荐尽量避免在RHEL7中使用runlevel命令。</p>
+<p>2.systemd不支持像init脚本那样的个性化命令。<br>除了一些标准命令参数例如：start、stop、status，SysV init脚本可以根据需要支持想要的任何参数，通过参数提供附加的功能，因为SysV init的服务器脚本实际上就是shell脚本，命令参数实际上就是shell子函数。举个例子，RHEL6的iptables服务脚本可以执行panic命令行参数，这个参数可以让系统立即进入紧急模式，丢弃所有的进入和发出的数据包。但是类似这样的命令行参数在systemd中是不支持的，systemd只支持在配置文件中指定命令行参数。</p>
+<p>3.systemd不支持和没有从systemd启动的服务通讯<br>当systemd启动服务的时候，他保存进程的主ID以便于追踪，systemctl工具使用进程PID查询和管理服务。相反的，如果用户从命令行启动特定的服务，systemctl命令是没有办法判断这个服务的状态是启动还是运行的。</p>
+<p>4.systemd可以只停止运行的服务<br>在RHEL6及之前的版本，当关闭系统的程序启动之后，RHEL6的系统会执行/etc/rc0.d/下所有服务脚本的关闭操作，不管服务是处于运行或者根本没有运行的状态。而systemd可以做到只关闭在运行的服务，这样可以大大节省关机的时间。</p>
+<p>5.不能从标准输出设备读到系统服务信息。<br>systemd启动服务的时候，将标准输出信息定向到/dev/null，以免打扰用户。</p>
+<p>6.systemd不继承任何上下文环境。<br>systemd不继承任何上下文环境，如用户或者会话的HOME或者PATH的环境变量。每个服务得到的是干净的上下文环境。</p>
+<p>7.SysV init脚本依赖性。<br>当systemd启动SysV init脚本，systemd在运行的时候，从LinuxStandardBase(LSB)Linux标准库头文件读取服务的依赖信息并继承。</p>
+<p>8.超时机制。<br>为了防止系统被卡住，所有的服务有5分钟的超时机制。</p>
+<h2 id="systemd的架构和优缺点"><a href="#systemd的架构和优缺点" class="headerlink" title="systemd的架构和优缺点"></a>systemd的架构和优缺点</h2><p>Systemd 的优点是功能强大，使用方便，缺点是体系庞大，非常复杂。<br>事实上，现在还有很多人反对使用 Systemd，理由就是它过于复杂，与操作系统的其他部分强耦合，违反”keep simple, keep stupid”的Unix 哲学。<br>下图是systemd的架构图（图片来自网络）：<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://youxia999.github.io/img/centos7/2016062508410641.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+<h2 id="systemd的概念模型"><a href="#systemd的概念模型" class="headerlink" title="systemd的概念模型"></a>systemd的概念模型</h2><h3 id="单元的概念"><a href="#单元的概念" class="headerlink" title="单元的概念"></a>单元的概念</h3><p>在RHEL7之前，服务管理是分布式的被SysV init或UpStart通过/etc/rc.d/init.d下的脚本管理。这些脚本是经典的Bash脚本，允许管理员控制服务的状态。在RHEL7中，这些脚本被服务单元文件替换。<br>系统初始化需要做的事情非常多。需要启动后台服务，比如启动 SSHD 服务；需要做配置工作，比如挂载文件系统。这个过程中的每一步都被 systemd 抽象为一个配置单元，即 unit。Systemd可以管理所有系统资源。不同的资源统称为 Unit（单位）。可以认为一个服务是一个配置单元；一个挂载点是一个配置单元；一个交换分区的配置是一个配置单元；等等。systemd 将配置单元归纳为以下一些不同的类型。然而，systemd 正在快速发展，新功能不断增加。所以配置单元类型可能在不久的将来继续增加。systemd中有许多单元类型，服务单元文件的扩展名是.service，同脚本的功能相似。例如有查看、启动、停止、重启、启用或者禁止服务的参数。<br>下面说明下，systemd单元文件放置位置：<br>/run/systemd/system #单元运行时创建，这个目录优先于按照目录<br>/etc/systemd/system #系统管理员创建和管理的单元目录，优先级最高<br>/usr/lib/systemd/system/system #默认单元文件安装目录<br>有了对systemd的基本认识后，下面就开始来介绍相关的操作命令。但是注意一点，systemd并不是一个命令，而是一组命令，涉及到系统管理的方方面面。</p>
+<h2 id="systemd命令"><a href="#systemd命令" class="headerlink" title="systemd命令"></a>systemd命令</h2><p>1.查看当前系统的所有Unit<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">systemctl list-units #列出正在运行的Unit</span><br><span class="line">systemctl list-units --all #列出所有Unit，包括没有找到配置文件的或者启动失败的</span><br><span class="line">systemctl list-units --all --state=inactive #列出所有没有运行的Unit</span><br><span class="line">systemctl list-units --failed #列出所有加载失败的Unit</span><br><span class="line">systemctl list-units --type=service #列出所有正在运行的、类型为service的Unit</span><br></pre></td></tr></table></figure></p>
+<p>2.unit.service管理命令<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">systemctl start name.service #启动一个服务</span><br><span class="line">systemctl stop name.service #关闭一个服务</span><br><span class="line">systemctl restart name.service #重启一个服务</span><br><span class="line">systemctl reload name.service #重载一个服务</span><br><span class="line">systemctl try-restart name.service #仅当服务运行的时候，重启服务</span><br><span class="line">systemctl kill name.service # 杀死一个服务的所有子进程</span><br><span class="line">systemctl daemon-reload #重载所有修改过的配置文件</span><br><span class="line">systemctl enable name.service #允许服务开机启动</span><br><span class="line">systemclt disable name.service #禁止服务开机启动</span><br><span class="line">systemctl list-dependencies nginx.service #命令列出一个Unit的所有依赖</span><br><span class="line">systemctl show httpd.service #显示某个Unit的所有底层参数</span><br><span class="line">systemctl show -p CPUShares httpd.service #显示某个Unit的指定属性的值</span><br><span class="line">systemctl set-property httpd.service CPUShares=500 # 设置某个Unit的指定属性</span><br></pre></td></tr></table></figure></p>
+<p>3.电源管理命令（systemctl）<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">systemctl reboot         #重启机器</span><br><span class="line">systemctl poweroff       #关机</span><br><span class="line">systemctl suspend        #待机</span><br><span class="line">systemctl hibernate      #休眠</span><br><span class="line">systemctl hybrid-sleep   #混合休眠模式（同时休眠到硬盘并待机）</span><br></pre></td></tr></table></figure></p>
+<p>4.系统引导性能分析命令（systemd-analyze）</p>
+<p>5.systemd的日志服务<br>systemd 自带日志服务 journald，该日志服务的设计初衷是克服现有的 syslog 服务的缺点。比如：syslog不安全，消息的内容无法验证。每一个本地进程都可以声称自己是 Apache PID 4711，而 syslog 也就相信并保存到磁盘上。数据没有严格的格式，非常随意。自动化的日志分析器需要分析人类语言字符串来识别消息。一方面此类分析困难低效；此外日志格式的变化会导致分析代码需要更新甚至重写。<br>Systemd Journal 用二进制格式保存所有日志信息，用户使用 journalctl 命令来查看日志信息。无需自己编写复杂脆弱的字符串分析处理程序。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">journalctl #查看所有日志（默认情况下 ，只保存本次启动的日志）</span><br><span class="line">journalctl -k #查看内核日志（不显示应用日志）</span><br><span class="line">journalctl -b #查看系统本次启动的日志</span><br><span class="line">journalctl -b -0</span><br><span class="line">journalctl -b -1 # 查看上一次启动的日志（需更改设置）</span><br><span class="line">journalctl --since=&quot;2012-10-30 18:17:16&quot; # 查看指定时间的日志</span><br><span class="line">journalctl --since &quot;20 min ago&quot; # 查看指定时间的日志</span><br><span class="line">journalctl --since yesterday # 查看指定时间的日志</span><br><span class="line">journalctl --since &quot;2015-01-10&quot; --until &quot;2015-01-11 03:00&quot; # 查看指定时间的日志</span><br><span class="line">journalctl --since 09:00 --until &quot;1 hour ago&quot; # 查看指定时间的日志</span><br><span class="line">journalctl -n # 显示尾部的最新10行日志</span><br><span class="line">journalctl -n 20 # 显示尾部指定行数的日志</span><br><span class="line">journalctl -f # 实时滚动显示最新日志</span><br><span class="line">journalctl /usr/lib/systemd/systemd # 查看指定服务的日志</span><br><span class="line">journalctl _PID=1 # 查看指定进程的日志</span><br><span class="line">journalctl /usr/bin/bash # 查看某个路径的脚本的日志</span><br><span class="line">journalctl _UID=33 --since today # 查看指定用户的日志</span><br><span class="line">journalctl -u nginx.service # 查看某个 Unit 的日志</span><br><span class="line">journalctl -u nginx.service --since today</span><br><span class="line">journalctl -u nginx.service -f # 实时滚动显示某个 Unit 的最新日志</span><br><span class="line">journalctl -u nginx.service -u php-fpm.service --since today # 合并显示多个 Unit 的日志</span><br><span class="line">journalctl -p err -b # 查看指定优先级（及其以上级别）的日志，共有8级-0: emerg、1: alert、2: crit、3: err、4: warning、5: notice、6: info、7: debug</span><br><span class="line">journalctl --no-pager # 日志默认分页输出，--no-pager 改为正常的标准输出</span><br><span class="line">journalctl -b -u nginx.service -o json # 以JSON格式（单行）输出</span><br><span class="line">journalctl -b -u nginx.serviceqq -o json-pretty # 以JSON格式（多行）输出，可读性更好</span><br><span class="line">journalctl --disk-usage # 显示日志占据的硬盘空间</span><br><span class="line">journalctl --vacuum-size=1G # 指定日志文件占据的最大空间</span><br><span class="line">journalctl --vacuum-time=1years # 指定日志文件保存多久</span><br></pre></td></tr></table></figure>
+<h2 id="例子-mysqld为例"><a href="#例子-mysqld为例" class="headerlink" title="例子(mysqld为例)"></a>例子(mysqld为例)</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># systemd service file for MySQL forking server</span><br><span class="line"></span><br><span class="line">[Unit]</span><br><span class="line">Description=MySQL Server</span><br><span class="line">Documentation=man:mysqld(8)</span><br><span class="line">Documentation=http://dev.mysql.com/doc/refman/en/using-systemd.html</span><br><span class="line">After=network.target</span><br><span class="line">After=syslog.target</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br><span class="line">[Service]</span><br><span class="line">User=mysql</span><br><span class="line">Group=mysql</span><br><span class="line">Type=forking</span><br><span class="line">PIDFile=/data/mysql/run/mysqld.pid</span><br><span class="line"># Disable service start and stop timeout logic of systemd for mysqld service.</span><br><span class="line">TimeoutSec=0</span><br><span class="line"># Execute pre and post scripts as root</span><br><span class="line">PermissionsStartOnly=true</span><br><span class="line"># Needed to create system tables</span><br><span class="line">#ExecStartPre=/home/bin/mysqld_pre_systemd</span><br><span class="line"># Start main service</span><br><span class="line">ExecStart=/data/mysql/bin/mysqld --daemonize --pid-file=/data/mysql/run/mysqld.pid $MYSQLD_OPTS</span><br><span class="line"># Use this to switch malloc implementation</span><br><span class="line">EnvironmentFile=-/etc/sysconfig/mysq</span><br><span class="line"># Sets open_files_limit</span><br><span class="line">LimitNOFILE = 65535</span><br><span class="line">Restart=on-failure</span><br><span class="line">RestartPreventExitStatus=1</span><br><span class="line">PrivateTmp=false</span><br></pre></td></tr></table></figure>
+<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://youxia999.github.io/img/centos7/rpm_command_introduce.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content" style="display:none">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2019-11-14T02:38:57.062Z" itemprop="dateUpdated">2019-11-14 10:38:57 10:38:57</time>
+</span><br>
+
+
+        
+        <a href="/2017/08/05/centos7-rpm-install-software/" target="_blank" rel="external">https://youxia999.github.io/2017/08/05/centos7-rpm-install-software/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://youxia999.github.io">
+            <img src="/img/avatar.jpg" alt="游侠">
+            游侠
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CentOS操作/">CentOS操作</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://youxia999.github.io/2017/08/05/centos7-rpm-install-software/&title=《玩转centos7之程序安装与启动(rpm、yum、systemd)》 — 接口-服务-系统-平台&pic=https://youxia999.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://youxia999.github.io/2017/08/05/centos7-rpm-install-software/&title=《玩转centos7之程序安装与启动(rpm、yum、systemd)》 — 接口-服务-系统-平台&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://youxia999.github.io/2017/08/05/centos7-rpm-install-software/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《玩转centos7之程序安装与启动(rpm、yum、systemd)》 — 接口-服务-系统-平台&url=https://youxia999.github.io/2017/08/05/centos7-rpm-install-software/&via=https://youxia999.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://youxia999.github.io/2017/08/05/centos7-rpm-install-software/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/08/05/centos7-install-software/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">玩转centos7之程序安装与启动(rpm、yum、systemd)</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/08/05/centos7-repo-introduce/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">【转载】centos7源介绍与软件安装</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitment_thread"></div>
+	<link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+	<script src="https://jjeejj.github.io/js/gitment.js"></script>
+    <script>
+        var gitment = new Gitment({
+		    id: 'Sat Aug 05 2017 21:11:16 GMT+0800',
+            owner: 'youxia999',
+            repo: 'gitment_comments',
+            oauth: {
+                client_id: '46d6bcb60b3252945f23',
+                client_secret: '954a7427590c10667e9497f77996a1d2e88620e8',
+            },
+        })
+        gitment.render('comments')
+    </script>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>游侠 &copy; 2015 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://youxia999.github.io/2017/08/05/centos7-rpm-install-software/&title=《玩转centos7之程序安装与启动(rpm、yum、systemd)》 — 接口-服务-系统-平台&pic=https://youxia999.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://youxia999.github.io/2017/08/05/centos7-rpm-install-software/&title=《玩转centos7之程序安装与启动(rpm、yum、systemd)》 — 接口-服务-系统-平台&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://youxia999.github.io/2017/08/05/centos7-rpm-install-software/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《玩转centos7之程序安装与启动(rpm、yum、systemd)》 — 接口-服务-系统-平台&url=https://youxia999.github.io/2017/08/05/centos7-rpm-install-software/&via=https://youxia999.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://youxia999.github.io/2017/08/05/centos7-rpm-install-software/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://youxia999.github.io/2017/08/05/centos7-rpm-install-software/" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

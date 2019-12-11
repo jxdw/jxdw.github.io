@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>redis通信协议及与mysql互通 | 接口-服务-系统-平台 | 知识能力化、能力产品化</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="中间件技术,redis">
+    <meta name="description" content="本文参考资料https://redis.io/topics/protocol redis-cli命令与redis通信协议redis-cli命令redis命令在从提交到返回处理结果的过程中，消耗的时间我们称之为RTT（往返时间）。在需要批量执行redis 命令的场景下，如果命令单条逐个执行，那么总共花费的时间是命令条数 N * RTT。redis 提供了管道技术来提高批量执行效率，即将多个命令打包发">
+<meta name="keywords" content="中间件技术,redis">
+<meta property="og:type" content="article">
+<meta property="og:title" content="redis通信协议及与mysql互通">
+<meta property="og:url" content="https://youxia999.github.io/2016/07/21/redis-protocol/index.html">
+<meta property="og:site_name" content="接口-服务-系统-平台">
+<meta property="og:description" content="本文参考资料https://redis.io/topics/protocol redis-cli命令与redis通信协议redis-cli命令redis命令在从提交到返回处理结果的过程中，消耗的时间我们称之为RTT（往返时间）。在需要批量执行redis 命令的场景下，如果命令单条逐个执行，那么总共花费的时间是命令条数 N * RTT。redis 提供了管道技术来提高批量执行效率，即将多个命令打包发">
+<meta property="og:locale" content="ZH_CN">
+<meta property="og:image" content="https://youxia999.github.io/img/redis/redis3.2_clihelpcmand.png">
+<meta property="og:updated_time" content="2019-12-03T02:44:31.763Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="redis通信协议及与mysql互通">
+<meta name="twitter:description" content="本文参考资料https://redis.io/topics/protocol redis-cli命令与redis通信协议redis-cli命令redis命令在从提交到返回处理结果的过程中，消耗的时间我们称之为RTT（往返时间）。在需要批量执行redis 命令的场景下，如果命令单条逐个执行，那么总共花费的时间是命令条数 N * RTT。redis 提供了管道技术来提高批量执行效率，即将多个命令打包发">
+<meta name="twitter:image" content="https://youxia999.github.io/img/redis/redis3.2_clihelpcmand.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="接口-服务-系统-平台" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class>
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">游侠</h5>
+          <a href="mailto:jingzhouyouxia@gmail.com" title="jingzhouyouxia@gmail.com" class="mail">jingzhouyouxia@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6%E6%8A%80%E6%9C%AF/">
+                <i class="icon icon-lg icon-fire"></i>
+                中间件技术
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/%E7%9B%91%E6%8E%A7%E6%8A%80%E6%9C%AF/">
+                <i class="icon icon-lg icon-camera"></i>
+                监控技术
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%8A%80%E6%9C%AF/">
+                <i class="icon icon-lg icon-cogs"></i>
+                持续集成
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/">
+                <i class="icon icon-lg icon-cloud"></i>
+                容器技术
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/service%20mesh/">
+                <i class="icon icon-lg icon-car"></i>
+                service mesh
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/%E7%BC%96%E7%A8%8B%E6%A1%86%E6%9E%B6%E4%B8%8E%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AE%A2%E6%88%B7%E7%AB%AF/">
+                <i class="icon icon-lg icon-coffee"></i>
+                编程语言与框架
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-lg icon-inbox"></i>
+                文章归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about">
+                <i class="icon icon-lg icon-th-list"></i>
+                关于
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">redis通信协议及与mysql互通</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">redis通信协议及与mysql互通</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2016-07-21T11:58:10.000Z" itemprop="datePublished" class="page-time">
+  2016-07-21 19:58:10
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>目录</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#本文参考资料"><span class="post-toc-number">1.</span> <span class="post-toc-text">本文参考资料</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#redis-cli命令与redis通信协议"><span class="post-toc-number">2.</span> <span class="post-toc-text">redis-cli命令与redis通信协议</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#redis-cli命令"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">redis-cli命令</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#redis通信协议"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">redis通信协议</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#go与redis通信（2018年补充）"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">go与redis通信（2018年补充）</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#mysql数据导入redis"><span class="post-toc-number">3.</span> <span class="post-toc-text">mysql数据导入redis</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#mysql数据导入redis-1"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">mysql数据导入redis</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#创建表"><span class="post-toc-number">3.1.1.</span> <span class="post-toc-text">创建表</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#编写脚本"><span class="post-toc-number">3.1.2.</span> <span class="post-toc-text">编写脚本</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#测试脚本"><span class="post-toc-number">3.1.3.</span> <span class="post-toc-text">测试脚本</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#正式执行"><span class="post-toc-number">3.1.4.</span> <span class="post-toc-text">正式执行</span></a></li></ol></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-redis-protocol" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">redis通信协议及与mysql互通</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2016-07-21 19:58:10 19:58:10" datetime="2016-07-21T11:58:10.000Z" itemprop="datePublished">2016-07-21 19:58:10</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="本文参考资料"><a href="#本文参考资料" class="headerlink" title="本文参考资料"></a>本文参考资料</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">https://redis.io/topics/protocol</span><br></pre></td></tr></table></figure>
+<h1 id="redis-cli命令与redis通信协议"><a href="#redis-cli命令与redis通信协议" class="headerlink" title="redis-cli命令与redis通信协议"></a>redis-cli命令与redis通信协议</h1><h2 id="redis-cli命令"><a href="#redis-cli命令" class="headerlink" title="redis-cli命令"></a>redis-cli命令</h2><p>redis命令在从提交到返回处理结果的过程中，消耗的时间我们称之为RTT（往返时间）。在需要批量执行redis 命令的场景下，如果命令单条逐个执行，那么总共花费的时间是命令条数 N * RTT。redis 提供了管道技术来提高批量执行效率，即将多个命令打包发送给redis服务端，所有命令执行完后，再将所有结果打包返回。在所有命令执行结束前，redis服务器会缓存已执行结束的结果。<br>在redis-cli命令行中，使用redis管道技术时，我们通常将待执行的命令放到一个文本里，比如commands.txt，然后使用命令：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cat commands.txt | redis-cli --pipe</span><br></pre></td></tr></table></figure></p>
+<p>去读取文本里的命令，然后打包已pipe管道的方式发送给redis服务端。<br>其他命令见<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://youxia999.github.io/img/redis/redis3.2_clihelpcmand.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+<h2 id="redis通信协议"><a href="#redis通信协议" class="headerlink" title="redis通信协议"></a>redis通信协议</h2><p>Redis服务器与客户端通过RESP（REdis Serialization Protocol）协议通信。协议用 \r\n 做间隔。对于简单的字符串，以 + 开头，例如 :+OK\r\n。对于错误消息，以 - 开头 ，例如:<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">-ERR unknown command &apos;foobar&apos;\r\n</span><br><span class="line">-WRONGTYPE Operation against a key holding the wrong kind of value\r\n</span><br></pre></td></tr></table></figure></p>
+<p>对于整数，以:开头，例如:<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">:100\r\n</span><br></pre></td></tr></table></figure></p>
+<p>对于大字符串，以$开头，接着跟上字符串长度的数字。 最长512MB 。 例如:<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$6\r\nfoobar\r\n      代表一个长6的字符串， foobar </span><br><span class="line">$0\r\n\r\n            长度为0 的空字符串</span><br><span class="line">$-1\r\n                Null</span><br></pre></td></tr></table></figure></p>
+<p>对于数组， 以 * 开头， 接上数组元素个数。 加数组元素<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">*0\r\n    一个空的数组</span><br><span class="line">*2\r\n$3\r\nfoo\r\n$3\r\nbar\r\n 一个有两个元素的数组   foo  bar</span><br></pre></td></tr></table></figure></p>
+<p>数组可以有更多复杂的用法，具体的建议去看官方文档。此处就不一一介绍了</p>
+<h2 id="go与redis通信（2018年补充）"><a href="#go与redis通信（2018年补充）" class="headerlink" title="go与redis通信（2018年补充）"></a>go与redis通信（2018年补充）</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">func main() &#123;</span><br><span class="line">	tcpAddr, err := net.ResolveTCPAddr(&quot;tcp4&quot;, &quot;10.2.1.30:6379&quot;)</span><br><span class="line">	conn, err := net.DialTCP(&quot;tcp&quot;, nil, tcpAddr)</span><br><span class="line">	if err != nil &#123;</span><br><span class="line">		fmt.Println(err, conn)</span><br><span class="line">		return</span><br><span class="line">	&#125;</span><br><span class="line">	req := &quot;*3\r\n&quot; +</span><br><span class="line">		&quot;$3\r\n&quot; +</span><br><span class="line">		&quot;set\r\n&quot; +</span><br><span class="line">		&quot;$3\r\n&quot; +</span><br><span class="line">		&quot;foo\r\n&quot; +</span><br><span class="line">		&quot;$3\r\n&quot; +</span><br><span class="line">		&quot;bar\r\n&quot;</span><br><span class="line"></span><br><span class="line">	conn.Write([]byte(req))</span><br><span class="line"></span><br><span class="line">	req = &quot;*2\r\n&quot; +</span><br><span class="line">		&quot;$3\r\n&quot; +</span><br><span class="line">		&quot;get\r\n&quot; +</span><br><span class="line">		&quot;$3\r\n&quot; +</span><br><span class="line">		&quot;foo\r\n&quot;</span><br><span class="line"></span><br><span class="line">	buffer := make([]byte, 2048)</span><br><span class="line">	conn.Write([]byte(req))</span><br><span class="line">	time.Sleep(10 * time.Millisecond)</span><br><span class="line">	conn.Read(buffer)</span><br><span class="line">	fmt.Println(string(buffer))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="mysql数据导入redis"><a href="#mysql数据导入redis" class="headerlink" title="mysql数据导入redis"></a>mysql数据导入redis</h1><h2 id="mysql数据导入redis-1"><a href="#mysql数据导入redis-1" class="headerlink" title="mysql数据导入redis"></a>mysql数据导入redis</h2><h3 id="创建表"><a href="#创建表" class="headerlink" title="创建表"></a>创建表</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">DROP TABLE IF EXISTS `t_area`;</span><br><span class="line">CREATE TABLE `t_area` (</span><br><span class="line">  `id` int(11) NOT NULL AUTO_INCREMENT,</span><br><span class="line">  `pid` int(11) NOT NULL,</span><br><span class="line">  `areaname` varchar(255) NOT NULL,</span><br><span class="line">  `arealevel` varchar(255) DEFAULT NULL,</span><br><span class="line">  PRIMARY KEY (`id`)</span><br><span class="line">) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;</span><br><span class="line"></span><br><span class="line">-- ----------------------------</span><br><span class="line">-- Records of t_area</span><br><span class="line">-- ----------------------------</span><br><span class="line">INSERT INTO `t_area` VALUES (&apos;1&apos;, &apos;0&apos;, &apos;北京&apos;, &apos;0&apos;);</span><br><span class="line">INSERT INTO `t_area` VALUES (&apos;2&apos;, &apos;0&apos;, &apos;上海&apos;, &apos;0&apos;);</span><br><span class="line">INSERT INTO `t_area` VALUES (&apos;3&apos;, &apos;0&apos;, &apos;广州&apos;, &apos;0&apos;);</span><br><span class="line">INSERT INTO `t_area` VALUES (&apos;4&apos;, &apos;0&apos;, &apos;深圳&apos;, &apos;0&apos;);</span><br><span class="line">INSERT INTO `t_area` VALUES (&apos;5&apos;, &apos;0&apos;, &apos;杭州&apos;, &apos;0&apos;);</span><br></pre></td></tr></table></figure>
+<h3 id="编写脚本"><a href="#编写脚本" class="headerlink" title="编写脚本"></a>编写脚本</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT CONCAT(</span><br><span class="line">  &quot;*4\r\n&quot;,</span><br><span class="line">  &apos;$&apos;, LENGTH(redis_cmd), &apos;\r\n&apos;,</span><br><span class="line">  redis_cmd, &apos;\r\n&apos;,</span><br><span class="line">  &apos;$&apos;, LENGTH(redis_key), &apos;\r\n&apos;,</span><br><span class="line">  redis_key, &apos;\r\n&apos;,</span><br><span class="line">  &apos;$&apos;, LENGTH(hkey), &apos;\r\n&apos;,</span><br><span class="line">  hkey, &apos;\r\n&apos;,</span><br><span class="line">  &apos;$&apos;, LENGTH(hval), &apos;\r\n&apos;,</span><br><span class="line">  hval, &apos;\r&apos;</span><br><span class="line">)</span><br><span class="line">FROM (</span><br><span class="line">  SELECT</span><br><span class="line">  &apos;HSET&apos; as redis_cmd,</span><br><span class="line">  CONCAT(&apos;pid:&apos; ,pid) AS redis_key,</span><br><span class="line">  id AS hkey,</span><br><span class="line">  areaname AS hval</span><br><span class="line">  FROM t_area</span><br><span class="line">) AS t;</span><br></pre></td></tr></table></figure>
+<h3 id="测试脚本"><a href="#测试脚本" class="headerlink" title="测试脚本"></a>测试脚本</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mysql -uroot -p -h mysql服务器所在ip 数据库名 --skip-column-names --raw &lt; redis.sql</span><br></pre></td></tr></table></figure>
+<h3 id="正式执行"><a href="#正式执行" class="headerlink" title="正式执行"></a>正式执行</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mysql -uroot -p -h mysql服务器所在ip 数据库名 --skip-column-names --raw &lt; redis.sql |/usr/local/redis-3.2.12/bin/redis-cli -p 6379 --pipe</span><br></pre></td></tr></table></figure>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content" style="display:none">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2019-12-03T02:44:31.763Z" itemprop="dateUpdated">2019-12-03 10:44:31 10:44:31</time>
+</span><br>
+
+
+        
+        <a href="/2016/07/21/redis-protocol/" target="_blank" rel="external">https://youxia999.github.io/2016/07/21/redis-protocol/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://youxia999.github.io">
+            <img src="/img/avatar.jpg" alt="游侠">
+            游侠
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redis/">redis</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/中间件技术/">中间件技术</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://youxia999.github.io/2016/07/21/redis-protocol/&title=《redis通信协议及与mysql互通》 — 接口-服务-系统-平台&pic=https://youxia999.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://youxia999.github.io/2016/07/21/redis-protocol/&title=《redis通信协议及与mysql互通》 — 接口-服务-系统-平台&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://youxia999.github.io/2016/07/21/redis-protocol/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《redis通信协议及与mysql互通》 — 接口-服务-系统-平台&url=https://youxia999.github.io/2016/07/21/redis-protocol/&via=https://youxia999.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://youxia999.github.io/2016/07/21/redis-protocol/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2016/07/30/spring_boot_1.4.0_exprience/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">spring boot 1.4.0体验</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2016/07/21/redis3-2-1-install/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">redis3.2.1安装和基本操作</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitment_thread"></div>
+	<link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+	<script src="https://jjeejj.github.io/js/gitment.js"></script>
+    <script>
+        var gitment = new Gitment({
+		    id: 'Thu Jul 21 2016 19:58:10 GMT+0800',
+            owner: 'youxia999',
+            repo: 'gitment_comments',
+            oauth: {
+                client_id: '46d6bcb60b3252945f23',
+                client_secret: '954a7427590c10667e9497f77996a1d2e88620e8',
+            },
+        })
+        gitment.render('comments')
+    </script>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>游侠 &copy; 2015 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://youxia999.github.io/2016/07/21/redis-protocol/&title=《redis通信协议及与mysql互通》 — 接口-服务-系统-平台&pic=https://youxia999.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://youxia999.github.io/2016/07/21/redis-protocol/&title=《redis通信协议及与mysql互通》 — 接口-服务-系统-平台&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://youxia999.github.io/2016/07/21/redis-protocol/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《redis通信协议及与mysql互通》 — 接口-服务-系统-平台&url=https://youxia999.github.io/2016/07/21/redis-protocol/&via=https://youxia999.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://youxia999.github.io/2016/07/21/redis-protocol/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://youxia999.github.io/2016/07/21/redis-protocol/" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

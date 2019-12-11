@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>centos7下rabbitmq3.7.2集群配置 | 接口-服务-系统-平台 | 知识能力化、能力产品化</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="中间件技术,rabbitmq">
+    <meta name="description" content="参考资料和更新历史本文参考资料http://www.cnblogs.com/luxiaoxun/p/3918054.htmlhttps://www.jianshu.com/p/518a504fe2cchttps://www.rabbitmq.com/changelog.htmlhttp://blog.didispace.com/spring-boot-rabbitmq/https://blog.c">
+<meta name="keywords" content="中间件技术,rabbitmq">
+<meta property="og:type" content="article">
+<meta property="og:title" content="centos7下rabbitmq3.7.2集群配置">
+<meta property="og:url" content="https://youxia999.github.io/2017/12/23/rabbitmq-cluster-install/index.html">
+<meta property="og:site_name" content="接口-服务-系统-平台">
+<meta property="og:description" content="参考资料和更新历史本文参考资料http://www.cnblogs.com/luxiaoxun/p/3918054.htmlhttps://www.jianshu.com/p/518a504fe2cchttps://www.rabbitmq.com/changelog.htmlhttp://blog.didispace.com/spring-boot-rabbitmq/https://blog.c">
+<meta property="og:locale" content="ZH_CN">
+<meta property="og:image" content="https://youxia999.github.io/img/rabbitmq/rabbitmq_erlang.png">
+<meta property="og:image" content="https://youxia999.github.io/img/rabbitmq/rabbitmq_cluster_lxg53.png">
+<meta property="og:image" content="https://youxia999.github.io/img/rabbitmq/rabbitmq_cluster_lxg54.png">
+<meta property="og:image" content="https://youxia999.github.io/img/rabbitmq/rabbitmq_cluster_lxg55.png">
+<meta property="og:image" content="https://youxia999.github.io/img/rabbitmq/rabbitmq_conf_file_location.png">
+<meta property="og:image" content="https://youxia999.github.io/img/rabbitmq/rabbitmq_configuration.png">
+<meta property="og:image" content="https://youxia999.github.io/img/rabbitmq/rabbitmq_conf.png">
+<meta property="og:image" content="https://youxia999.github.io/img/rabbitmq/rabbitmq_env_conf.png">
+<meta property="og:image" content="https://youxia999.github.io/img/rabbitmq/rabbit_cluster.png">
+<meta property="og:updated_time" content="2019-12-03T02:43:38.073Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="centos7下rabbitmq3.7.2集群配置">
+<meta name="twitter:description" content="参考资料和更新历史本文参考资料http://www.cnblogs.com/luxiaoxun/p/3918054.htmlhttps://www.jianshu.com/p/518a504fe2cchttps://www.rabbitmq.com/changelog.htmlhttp://blog.didispace.com/spring-boot-rabbitmq/https://blog.c">
+<meta name="twitter:image" content="https://youxia999.github.io/img/rabbitmq/rabbitmq_erlang.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="接口-服务-系统-平台" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class>
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">游侠</h5>
+          <a href="mailto:jingzhouyouxia@gmail.com" title="jingzhouyouxia@gmail.com" class="mail">jingzhouyouxia@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6%E6%8A%80%E6%9C%AF/">
+                <i class="icon icon-lg icon-fire"></i>
+                中间件技术
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/%E7%9B%91%E6%8E%A7%E6%8A%80%E6%9C%AF/">
+                <i class="icon icon-lg icon-camera"></i>
+                监控技术
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%8A%80%E6%9C%AF/">
+                <i class="icon icon-lg icon-cogs"></i>
+                持续集成
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/">
+                <i class="icon icon-lg icon-cloud"></i>
+                容器技术
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/service%20mesh/">
+                <i class="icon icon-lg icon-car"></i>
+                service mesh
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/%E7%BC%96%E7%A8%8B%E6%A1%86%E6%9E%B6%E4%B8%8E%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AE%A2%E6%88%B7%E7%AB%AF/">
+                <i class="icon icon-lg icon-coffee"></i>
+                编程语言与框架
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-lg icon-inbox"></i>
+                文章归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about">
+                <i class="icon icon-lg icon-th-list"></i>
+                关于
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">centos7下rabbitmq3.7.2集群配置</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">centos7下rabbitmq3.7.2集群配置</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-12-23T11:30:54.000Z" itemprop="datePublished" class="page-time">
+  2017-12-23 19:30:54
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>目录</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#参考资料和更新历史"><span class="post-toc-number">1.</span> <span class="post-toc-text">参考资料和更新历史</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#本文参考资料"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">本文参考资料</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#文章更新历史"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">文章更新历史</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#部署规划"><span class="post-toc-number">2.</span> <span class="post-toc-text">部署规划</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#集群所有机器增加hosts"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">集群所有机器增加hosts</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#目录规划"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">目录规划</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#安装erlang与rabbit-server集群"><span class="post-toc-number">3.</span> <span class="post-toc-text">安装erlang与rabbit-server集群</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#更新curl程序"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">更新curl程序</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#更新erlang的repo"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">更新erlang的repo</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装erlang"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">安装erlang</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装rabbitmq-server"><span class="post-toc-number">3.4.</span> <span class="post-toc-text">安装rabbitmq-server</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#修改rabbitmq配置"><span class="post-toc-number">3.5.</span> <span class="post-toc-text">修改rabbitmq配置</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#配置文件位置"><span class="post-toc-number">3.5.1.</span> <span class="post-toc-text">配置文件位置</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#rabbitmq-conf"><span class="post-toc-number">3.5.2.</span> <span class="post-toc-text">rabbitmq.conf</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#rabbitmq-env-conf"><span class="post-toc-number">3.5.3.</span> <span class="post-toc-text">rabbitmq-env.conf</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#启动rabbitmq主节点和插件"><span class="post-toc-number">3.6.</span> <span class="post-toc-text">启动rabbitmq主节点和插件</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#创建目录及启动rabbit-server"><span class="post-toc-number">3.6.1.</span> <span class="post-toc-text">创建目录及启动rabbit-server</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#启用插件授权登录"><span class="post-toc-number">3.6.2.</span> <span class="post-toc-text">启用插件授权登录</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#其他的插件"><span class="post-toc-number">3.6.3.</span> <span class="post-toc-text">其他的插件</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#同步cookie和启动从节点"><span class="post-toc-number">3.7.</span> <span class="post-toc-text">同步cookie和启动从节点</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#同步cookie到从节点"><span class="post-toc-number">3.7.1.</span> <span class="post-toc-text">同步cookie到从节点</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#启动从节点"><span class="post-toc-number">3.7.2.</span> <span class="post-toc-text">启动从节点</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#从节点加入到集群"><span class="post-toc-number">3.7.3.</span> <span class="post-toc-text">从节点加入到集群</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#某个从节点重启"><span class="post-toc-number">3.7.4.</span> <span class="post-toc-text">某个从节点重启</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#镜像队列"><span class="post-toc-number">3.8.</span> <span class="post-toc-text">镜像队列</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#负载均衡"><span class="post-toc-number">4.</span> <span class="post-toc-text">负载均衡</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#负载均衡-1"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">负载均衡</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#最终效果"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">最终效果</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-rabbitmq-cluster-install" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">centos7下rabbitmq3.7.2集群配置</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-12-23 19:30:54 19:30:54" datetime="2017-12-23T11:30:54.000Z" itemprop="datePublished">2017-12-23 19:30:54</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="参考资料和更新历史"><a href="#参考资料和更新历史" class="headerlink" title="参考资料和更新历史"></a>参考资料和更新历史</h1><h2 id="本文参考资料"><a href="#本文参考资料" class="headerlink" title="本文参考资料"></a>本文参考资料</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http://www.cnblogs.com/luxiaoxun/p/3918054.html</span><br><span class="line">https://www.jianshu.com/p/518a504fe2cc</span><br><span class="line">https://www.rabbitmq.com/changelog.html</span><br><span class="line">http://blog.didispace.com/spring-boot-rabbitmq/</span><br><span class="line">https://blog.csdn.net/zyz511919766/article/details/41896747</span><br><span class="line">https://www.rabbitmq.com/configure.html</span><br><span class="line">https://www.jianshu.com/p/b6bdd6f56f9c</span><br></pre></td></tr></table></figure>
+<h2 id="文章更新历史"><a href="#文章更新历史" class="headerlink" title="文章更新历史"></a>文章更新历史</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">2017-12-23 19:30:54 初稿</span><br><span class="line">2019-04-29 20:30:54 因为erlang的rpm包被移走了，需要更新repo文件</span><br></pre></td></tr></table></figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://youxia999.github.io/img/rabbitmq/rabbitmq_erlang.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h1 id="部署规划"><a href="#部署规划" class="headerlink" title="部署规划"></a>部署规划</h1><h2 id="集群所有机器增加hosts"><a href="#集群所有机器增加hosts" class="headerlink" title="集群所有机器增加hosts"></a>集群所有机器增加hosts</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">10.2.1.53 lxg53</span><br><span class="line">10.2.1.54 lxg54</span><br><span class="line">10.2.1.55 lxg55</span><br></pre></td></tr></table></figure>
+<h2 id="目录规划"><a href="#目录规划" class="headerlink" title="目录规划"></a>目录规划</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">配置文件目录:/etc/rabbitmq/</span><br><span class="line">主要工作目录:/var/lib/rabbitmq</span><br><span class="line">日志文件目录:/data/rabbitmq/log</span><br><span class="line">数据库目录：/data/rabbitmq/mnesia/rabbit@lxg53</span><br></pre></td></tr></table></figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://youxia999.github.io/img/rabbitmq/rabbitmq_cluster_lxg53.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://youxia999.github.io/img/rabbitmq/rabbitmq_cluster_lxg54.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://youxia999.github.io/img/rabbitmq/rabbitmq_cluster_lxg55.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>ps:真的很讨厌程序的工作目录放在/var/lib目录下（这是系统盘下，如果系统盘符小，分分钟撑爆系统盘符）。<br>但是目前也没有找到有效的办法，修改工作目录。</p>
+<h1 id="安装erlang与rabbit-server集群"><a href="#安装erlang与rabbit-server集群" class="headerlink" title="安装erlang与rabbit-server集群"></a>安装erlang与rabbit-server集群</h1><h2 id="更新curl程序"><a href="#更新curl程序" class="headerlink" title="更新curl程序"></a>更新curl程序</h2><p>yum update nss curl</p>
+<h2 id="更新erlang的repo"><a href="#更新erlang的repo" class="headerlink" title="更新erlang的repo"></a>更新erlang的repo</h2><p>vim /etc/yum.repos.d/rabbitmq-erlang.repo<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[rabbitmq-erlang]</span><br><span class="line">name=rabbitmq-erlang</span><br><span class="line">baseurl=https://dl.bintray.com/rabbitmq-erlang/rpm/erlang/20/el/7</span><br><span class="line">gpgcheck=1</span><br><span class="line">gpgkey=https://dl.bintray.com/rabbitmq/Keys/rabbitmq-release-signing-key.asc</span><br><span class="line">repo_gpgcheck=0</span><br><span class="line">enabled=1</span><br></pre></td></tr></table></figure></p>
+<h2 id="安装erlang"><a href="#安装erlang" class="headerlink" title="安装erlang"></a>安装erlang</h2><p>yum install erlang</p>
+<h2 id="安装rabbitmq-server"><a href="#安装rabbitmq-server" class="headerlink" title="安装rabbitmq-server"></a>安装rabbitmq-server</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget https://dl.bintray.com/rabbitmq/all/rabbitmq-server/3.7.2/rabbitmq-server-3.7.2-1.el7.noarch.rpm</span><br><span class="line">rpm --import https://dl.bintray.com/rabbitmq/Keys/rabbitmq-release-signing-key.asc</span><br><span class="line">yum install rabbitmq-server-3.7.2-1.el7.noarch.rpm</span><br></pre></td></tr></table></figure>
+<h2 id="修改rabbitmq配置"><a href="#修改rabbitmq配置" class="headerlink" title="修改rabbitmq配置"></a>修改rabbitmq配置</h2><h3 id="配置文件位置"><a href="#配置文件位置" class="headerlink" title="配置文件位置"></a>配置文件位置</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://youxia999.github.io/img/rabbitmq/rabbitmq_conf_file_location.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>rabbit3.7之后，采用了rabbitmq.conf、rabbitmq-env.conf。（网上很多照抄的说，从3.7开始命名叫rabbitmq.config，看着蛋疼）<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://youxia999.github.io/img/rabbitmq/rabbitmq_configuration.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+<h3 id="rabbitmq-conf"><a href="#rabbitmq-conf" class="headerlink" title="rabbitmq.conf"></a>rabbitmq.conf</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://youxia999.github.io/img/rabbitmq/rabbitmq_conf.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h3 id="rabbitmq-env-conf"><a href="#rabbitmq-env-conf" class="headerlink" title="rabbitmq-env.conf"></a>rabbitmq-env.conf</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://youxia999.github.io/img/rabbitmq/rabbitmq_env_conf.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h2 id="启动rabbitmq主节点和插件"><a href="#启动rabbitmq主节点和插件" class="headerlink" title="启动rabbitmq主节点和插件"></a>启动rabbitmq主节点和插件</h2><h3 id="创建目录及启动rabbit-server"><a href="#创建目录及启动rabbit-server" class="headerlink" title="创建目录及启动rabbit-server"></a>创建目录及启动rabbit-server</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">chown -R rabbitmq:rabbitmq /var/lib/rabbitmq/</span><br><span class="line">mkdir -p data/rabbitmq/log</span><br><span class="line">mkdir -p /data/rabbitmq/mnesia</span><br><span class="line">chown -R rabbitmq:rabbitmq /data/rabbitmq/</span><br><span class="line">systemctl start rabbitmq-server</span><br></pre></td></tr></table></figure>
+<h3 id="启用插件授权登录"><a href="#启用插件授权登录" class="headerlink" title="启用插件授权登录"></a>启用插件授权登录</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">rabbitmq-plugins enable rabbitmq_management</span><br><span class="line">rabbitmqctl add_user admin admin</span><br><span class="line">rabbitmqctl set_user_tags admin administrator</span><br><span class="line">rabbitmqctl set_permissions -p / admin &quot;.*&quot; &quot;.*&quot; &quot;.*&quot;</span><br><span class="line">rabbitmqctl status</span><br></pre></td></tr></table></figure>
+<h3 id="其他的插件"><a href="#其他的插件" class="headerlink" title="其他的插件"></a>其他的插件</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">rabbitmq-plugins enable rabbitmq_mqtt</span><br><span class="line">rabbitmq-plugins enable rabbitmq_stomp</span><br><span class="line">rabbitmq-plugins enable rabbitmq_web_mqtt</span><br><span class="line">rabbitmq-plugins enable rabbitmq_web_stomp</span><br></pre></td></tr></table></figure>
+<h2 id="同步cookie和启动从节点"><a href="#同步cookie和启动从节点" class="headerlink" title="同步cookie和启动从节点"></a>同步cookie和启动从节点</h2><h3 id="同步cookie到从节点"><a href="#同步cookie到从节点" class="headerlink" title="同步cookie到从节点"></a>同步cookie到从节点</h3><p>cat /var/lib/rabbitmq/.erlang.cookie<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">DSXSMAIWGQYIUAALJXQH</span><br></pre></td></tr></table></figure></p>
+<p>nc到从节点的/var/lib/rabbitmq/目录。</p>
+<h3 id="启动从节点"><a href="#启动从节点" class="headerlink" title="启动从节点"></a>启动从节点</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">systemctl start rabbitmq-server</span><br><span class="line">rabbitmq-plugins enable rabbitmq_management</span><br><span class="line">rabbitmqctl add_user admin admin</span><br><span class="line">rabbitmqctl set_user_tags admin administrator</span><br><span class="line">rabbitmqctl set_permissions -p / admin &quot;.*&quot; &quot;.*&quot; &quot;.*&quot;</span><br><span class="line">rabbitmqctl stop_app</span><br><span class="line">rabbitmqctl reset</span><br></pre></td></tr></table></figure>
+<h3 id="从节点加入到集群"><a href="#从节点加入到集群" class="headerlink" title="从节点加入到集群"></a>从节点加入到集群</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">rabbitmqctl join_cluster --ram rabbit@lxg53</span><br><span class="line">rabbitmqctl start_app</span><br></pre></td></tr></table></figure>
+<h3 id="某个从节点重启"><a href="#某个从节点重启" class="headerlink" title="某个从节点重启"></a>某个从节点重启</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">systemctl start rabbitmq-server</span><br><span class="line">rabbitmqctl stop_app</span><br><span class="line">rabbitmqctl start_app</span><br></pre></td></tr></table></figure>
+<h2 id="镜像队列"><a href="#镜像队列" class="headerlink" title="镜像队列"></a>镜像队列</h2><h1 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h1><h2 id="负载均衡-1"><a href="#负载均衡-1" class="headerlink" title="负载均衡"></a>负载均衡</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#---------------------------------------------------------------------</span><br><span class="line"># Example configuration for a possible web application.  See the</span><br><span class="line"># full configuration options online.</span><br><span class="line">#</span><br><span class="line">#   http://haproxy.1wt.eu/download/1.4/doc/configuration.txt</span><br><span class="line">#</span><br><span class="line">#---------------------------------------------------------------------</span><br><span class="line"></span><br><span class="line">#---------------------------------------------------------------------</span><br><span class="line"># Global settings</span><br><span class="line">#---------------------------------------------------------------------</span><br><span class="line">global</span><br><span class="line">    # to have these messages end up in /var/log/haproxy.log you will</span><br><span class="line">    # need to:</span><br><span class="line">    #</span><br><span class="line">    # 1) configure syslog to accept network log events.  This is done</span><br><span class="line">    #    by adding the &apos;-r&apos; option to the SYSLOGD_OPTIONS in</span><br><span class="line">    #    /etc/sysconfig/syslog</span><br><span class="line">    #</span><br><span class="line">    # 2) configure local2 events to go to the /var/log/haproxy.log</span><br><span class="line">    #   file. A line like the following can be added to</span><br><span class="line">    #   /etc/sysconfig/syslog</span><br><span class="line">    #</span><br><span class="line">    #    local2.*                       /var/log/haproxy.log</span><br><span class="line">    #</span><br><span class="line">    log         127.0.0.1 local0 info</span><br><span class="line">    chroot      /var/lib/haproxy</span><br><span class="line">    pidfile     /var/run/haproxy.pid</span><br><span class="line">    maxconn     4000</span><br><span class="line">    user        haproxy</span><br><span class="line">    group       haproxy</span><br><span class="line">    daemon</span><br><span class="line"></span><br><span class="line">    # turn on stats unix socket</span><br><span class="line">    stats socket /var/lib/haproxy/stats</span><br><span class="line"></span><br><span class="line">#---------------------------------------------------------------------</span><br><span class="line"># common defaults that all the &apos;listen&apos; and &apos;backend&apos; sections will</span><br><span class="line"># use if not designated in their block</span><br><span class="line">#---------------------------------------------------------------------</span><br><span class="line">defaults</span><br><span class="line">    mode                    http</span><br><span class="line">    log                     global</span><br><span class="line">    option                  httplog</span><br><span class="line">    option                  dontlognull</span><br><span class="line">    option http-server-close</span><br><span class="line">    option forwardfor       except 127.0.0.0/8</span><br><span class="line">    option                  redispatch</span><br><span class="line">    retries                 3</span><br><span class="line">    timeout http-request    10s</span><br><span class="line">    timeout queue           1m</span><br><span class="line">    timeout connect         10s</span><br><span class="line">    timeout client          1m</span><br><span class="line">    timeout server          1m</span><br><span class="line">    timeout http-keep-alive 10s</span><br><span class="line">    timeout check           10s</span><br><span class="line">    maxconn                 3000</span><br><span class="line"></span><br><span class="line">listen status</span><br><span class="line">    bind 10.2.1.30:18080 #监听的地址和端口，默认端口1080</span><br><span class="line">    mode http #模式</span><br><span class="line">    stats enable #启用状态监控</span><br><span class="line">    stats hide-version #隐藏软件版本号</span><br><span class="line">    stats auth admin:admin #登陆用户名和密码</span><br><span class="line">    stats realm HAproxy\ stats #提示信息，空格之前加\</span><br><span class="line">    stats admin if TRUE #当通过认证才可管理</span><br><span class="line">    stats uri /stats #访问路径，在域名后面添加/stats可以查看haproxy监控状态,默认为/haproxy?stats</span><br><span class="line">    stats refresh 5 #页面自动刷新间隔,每隔5s刷新</span><br><span class="line"></span><br><span class="line">frontend rabbitmq_broker</span><br><span class="line">    bind 10.2.1.30:5672</span><br><span class="line">    default_backend rabbitmq_broker_backend</span><br><span class="line"></span><br><span class="line">backend rabbitmq_broker_backend</span><br><span class="line">	balance roundrobin</span><br><span class="line">	server lxg53 10.2.1.53:5672 check</span><br><span class="line">	server lxg54 10.2.1.54:5672 check</span><br><span class="line">    server lxg55 10.2.1.55:5672 check</span><br><span class="line"></span><br><span class="line">frontend rabbitmq_management</span><br><span class="line">    bind 10.2.1.30:15672</span><br><span class="line">    default_backend rabbitmq_management_backend</span><br><span class="line"></span><br><span class="line">backend rabbitmq_management_backend</span><br><span class="line">        balance roundrobin</span><br><span class="line">        server lxg53 10.2.1.53:15672 check</span><br><span class="line">        server lxg54 10.2.1.54:15672 check</span><br><span class="line">        server lxg55 10.2.1.55:15672 check</span><br><span class="line">	</span><br><span class="line">#---------------------------------------------------------------------</span><br><span class="line"># main frontend which proxys to the backends</span><br><span class="line">#---------------------------------------------------------------------</span><br><span class="line">#frontend  main *:5000</span><br><span class="line">#    acl url_static       path_beg       -i /static /images /javascript /stylesheets</span><br><span class="line">#    acl url_static       path_end       -i .jpg .gif .png .css .js</span><br><span class="line"></span><br><span class="line">#    use_backend static          if url_static</span><br><span class="line">#    default_backend             app</span><br><span class="line"></span><br><span class="line">#---------------------------------------------------------------------</span><br><span class="line"># static backend for serving up images, stylesheets and such</span><br><span class="line">#---------------------------------------------------------------------</span><br><span class="line">#backend static</span><br><span class="line">#    balance     roundrobin</span><br><span class="line">#    server      static 127.0.0.1:4331 check</span><br><span class="line"></span><br><span class="line">#---------------------------------------------------------------------</span><br><span class="line"># round robin balancing between the various backends</span><br><span class="line">#---------------------------------------------------------------------</span><br><span class="line">#backend app</span><br><span class="line">#    balance     roundrobin</span><br><span class="line">#    server  app1 127.0.0.1:5001 check</span><br><span class="line">#    server  app2 127.0.0.1:5002 check</span><br><span class="line">#    server  app3 127.0.0.1:5003 check</span><br><span class="line">#    server  app4 127.0.0.1:5004 check</span><br></pre></td></tr></table></figure>
+<h2 id="最终效果"><a href="#最终效果" class="headerlink" title="最终效果"></a>最终效果</h2><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://youxia999.github.io/img/rabbitmq/rabbit_cluster.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content" style="display:none">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2019-12-03T02:43:38.073Z" itemprop="dateUpdated">2019-12-03 10:43:38 10:43:38</time>
+</span><br>
+
+
+        
+        <a href="/2017/12/23/rabbitmq-cluster-install/" target="_blank" rel="external">https://youxia999.github.io/2017/12/23/rabbitmq-cluster-install/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://youxia999.github.io">
+            <img src="/img/avatar.jpg" alt="游侠">
+            游侠
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rabbitmq/">rabbitmq</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/中间件技术/">中间件技术</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://youxia999.github.io/2017/12/23/rabbitmq-cluster-install/&title=《centos7下rabbitmq3.7.2集群配置》 — 接口-服务-系统-平台&pic=https://youxia999.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://youxia999.github.io/2017/12/23/rabbitmq-cluster-install/&title=《centos7下rabbitmq3.7.2集群配置》 — 接口-服务-系统-平台&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://youxia999.github.io/2017/12/23/rabbitmq-cluster-install/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《centos7下rabbitmq3.7.2集群配置》 — 接口-服务-系统-平台&url=https://youxia999.github.io/2017/12/23/rabbitmq-cluster-install/&via=https://youxia999.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://youxia999.github.io/2017/12/23/rabbitmq-cluster-install/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/12/23/rabbitmq-cluster-install_2/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">centos7下rabbitmq3.7.2集群配置(续)</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/12/22/rabbitmqctl-handbook/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">【转载】rabbitmq手册之rabbitmqctl</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitment_thread"></div>
+	<link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+	<script src="https://jjeejj.github.io/js/gitment.js"></script>
+    <script>
+        var gitment = new Gitment({
+		    id: 'Sat Dec 23 2017 19:30:54 GMT+0800',
+            owner: 'youxia999',
+            repo: 'gitment_comments',
+            oauth: {
+                client_id: '46d6bcb60b3252945f23',
+                client_secret: '954a7427590c10667e9497f77996a1d2e88620e8',
+            },
+        })
+        gitment.render('comments')
+    </script>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>游侠 &copy; 2015 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://youxia999.github.io/2017/12/23/rabbitmq-cluster-install/&title=《centos7下rabbitmq3.7.2集群配置》 — 接口-服务-系统-平台&pic=https://youxia999.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://youxia999.github.io/2017/12/23/rabbitmq-cluster-install/&title=《centos7下rabbitmq3.7.2集群配置》 — 接口-服务-系统-平台&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://youxia999.github.io/2017/12/23/rabbitmq-cluster-install/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《centos7下rabbitmq3.7.2集群配置》 — 接口-服务-系统-平台&url=https://youxia999.github.io/2017/12/23/rabbitmq-cluster-install/&via=https://youxia999.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://youxia999.github.io/2017/12/23/rabbitmq-cluster-install/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://youxia999.github.io/2017/12/23/rabbitmq-cluster-install/" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

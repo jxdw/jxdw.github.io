@@ -373,6 +373,29 @@
   </entry>
   
   <entry>
+    <title>docker 1.17安装和初步使用</title>
+    <link href="https://youxia999.github.io/2019/02/07/docker-1-17-install/"/>
+    <id>https://youxia999.github.io/2019/02/07/docker-1-17-install/</id>
+    <published>2019-02-07T02:51:23.000Z</published>
+    <updated>2019-12-12T04:52:48.485Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p>1.docker-ce 1.17的relase notes<br><br><a href="https://docs.docker.com/v17.12/release-notes/docker-ce/" target="_blank" rel="noopener">https://docs.docker.com/v17.12/release-notes/docker-ce/</a><br><br>2.docker engine api<br><br><a href="https://docs.docker.com/engine/api/v1.19/#21-containers" target="_blank" rel="noopener">https://docs.docker.com/engine/api/v1.19/#21-containers</a><br></p><h1 id="安装过程"><a href="#安装过程" class="headerlink" title="安装过程"></a>安装过程</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">yum install -y yum-utils device-mapper-persistent-data lvm2</span><br><span class="line">yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo</span><br><span class="line">yum-config-manager --enable docker-ce-edge</span><br><span class="line">yum-config-manager --enable docker-ce-test</span><br><span class="line">yum makecache fast</span><br><span class="line">yum list docker-ce --showduplicates|sort -r</span><br><span class="line">yum-config-manager --disable docker-ce-test</span><br><span class="line">yum-config-manager --disable docker-ce-edge</span><br></pre></td></tr></table></figure><h1 id="配置过程"><a href="#配置过程" class="headerlink" title="配置过程"></a>配置过程</h1><p>docker1.13.1之后的版本，和之前有很大的不同，有些参数都丢弃了,可以通过dockerd COMMAND –help<br><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://youxia999.github.io/img/docker/docker_1.17_docker_command.png" alt title>                </div>                <div class="image-caption"></div>            </figure><br>docker.service配置如下：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=Docker Application Container Engine</span><br><span class="line">Documentation=https://docs.docker.com</span><br><span class="line">After=network-online.target firewalld.service</span><br><span class="line">Wants=network-online.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=notify</span><br><span class="line"># the default is not to use systemd for cgroups because the delegate issues still</span><br><span class="line"># exists and systemd currently does not support the cgroup feature set required</span><br><span class="line"># for containers run by docker</span><br><span class="line">ExecStart=/usr/bin/dockerd --storage-driver=devicemapper --exec-opt native.cgroupdriver=systemd -D --pidfile=/var/run/docker.pid</span><br><span class="line">ExecReload=/bin/kill -s HUP $MAINPID</span><br><span class="line"># Having non-zero Limit*s causes performance problems due to accounting overhead</span><br><span class="line"># in the kernel. We recommend using cgroups to do container-local accounting.</span><br><span class="line">LimitNOFILE=infinity</span><br><span class="line">LimitNPROC=infinity</span><br><span class="line">LimitCORE=infinity</span><br><span class="line"># Uncomment TasksMax if your systemd version supports it.</span><br><span class="line"># Only systemd 226 and above support this version.</span><br><span class="line">#TasksMax=infinity</span><br><span class="line">TimeoutStartSec=0</span><br><span class="line"># set delegate yes so that systemd does not reset the cgroups of docker containers</span><br><span class="line">Delegate=yes</span><br><span class="line"># kill only the docker process, not all processes in the cgroup</span><br><span class="line">KillMode=process</span><br><span class="line"># restart the docker process if it exits prematurely</span><br><span class="line">Restart=on-failure</span><br><span class="line">StartLimitBurst=3</span><br><span class="line">StartLimitInterval=60s</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure></p><p>daemon.json<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;data-root&quot;:&quot;/data/docker&quot;,</span><br><span class="line">  &quot;registry-mirror&quot;: [</span><br><span class="line">        &quot;https://csokz3oi.mirror.aliyuncs.com&quot;</span><br><span class="line">   ],</span><br><span class="line">   &quot;hosts&quot;: [&quot;unix:///var/run/docker.sock&quot;,&quot;tcp://10.2.1.31:2375&quot;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><h1 id="启动和相关操作"><a href="#启动和相关操作" class="headerlink" title="启动和相关操作"></a>启动和相关操作</h1><p>启动命令：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl restart docker.service</span><br></pre></td></tr></table></figure></p><p>api操作：<br><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://youxia999.github.io/img/docker/docker117_api_image_json.png" alt title>                </div>                <div class="image-caption"></div>            </figure></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;参考资料&quot;&gt;&lt;a href=&quot;#参考资料&quot; class=&quot;headerlink&quot; title=&quot;参考资料&quot;&gt;&lt;/a&gt;参考资料&lt;/h1&gt;&lt;p&gt;1.docker-ce 1.17的relase notes&lt;br&gt;&lt;br&gt;&lt;a href=&quot;https://docs.doc
+      
+    
+    </summary>
+    
+    
+      <category term="容器技术" scheme="https://youxia999.github.io/tags/%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/"/>
+    
+  </entry>
+  
+  <entry>
     <title>spring框架系列之spring-cloud-stream</title>
     <link href="https://youxia999.github.io/2019/02/02/spring-cloud-2x-cloud-stream/"/>
     <id>https://youxia999.github.io/2019/02/02/spring-cloud-2x-cloud-stream/</id>
@@ -459,29 +482,6 @@
       
       
         &lt;h1 id=&quot;背景资料&quot;&gt;&lt;a href=&quot;#背景资料&quot; class=&quot;headerlink&quot; title=&quot;背景资料&quot;&gt;&lt;/a&gt;背景资料&lt;/h1&gt;&lt;h2 id=&quot;本文主要参考资料-建议收藏&quot;&gt;&lt;a href=&quot;#本文主要参考资料-建议收藏&quot; class=&quot;headerlink
-      
-    
-    </summary>
-    
-    
-      <category term="容器技术" scheme="https://youxia999.github.io/tags/%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>docker1.12管理技术之portainer</title>
-    <link href="https://youxia999.github.io/2018/12/27/docker-1-12-management/"/>
-    <id>https://youxia999.github.io/2018/12/27/docker-1-12-management/</id>
-    <published>2018-12-27T04:51:23.000Z</published>
-    <updated>2019-11-14T02:09:28.265Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="本文背景"><a href="#本文背景" class="headerlink" title="本文背景"></a>本文背景</h1><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http://www.manongjc.com/article/11900.html</span><br></pre></td></tr></table></figure><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>现在docker部署的越来越多，但是还没有上百台，所以kubernete技术用不到(投入和产出不匹配，有时间写写kubernetes）。于是乎，portainer进入我们的视野。</p><h2 id="文章更新历史"><a href="#文章更新历史" class="headerlink" title="文章更新历史"></a>文章更新历史</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">2019-03-06 portainer更新至1.20.2版本</span><br></pre></td></tr></table></figure><h1 id="实操过程"><a href="#实操过程" class="headerlink" title="实操过程"></a>实操过程</h1><h2 id="docker-Daemon配置"><a href="#docker-Daemon配置" class="headerlink" title="docker Daemon配置"></a>docker Daemon配置</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;insecure-registries&quot;: [</span><br><span class="line">        &quot;10.2.1.30:5000&quot;</span><br><span class="line">    ],</span><br><span class="line">    &quot;registry-mirror&quot;: [</span><br><span class="line">        &quot;https://csokz3oi.mirror.aliyuncs.com&quot;</span><br><span class="line">    ],</span><br><span class="line">   &quot;graph&quot;:&quot;/data/docker&quot;,</span><br><span class="line">   &quot;hosts&quot;: [&quot;unix:///var/run/docker.sock&quot;,&quot;tcp://192.168.172.1:2375&quot;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="portainer配置"><a href="#portainer配置" class="headerlink" title="portainer配置"></a>portainer配置</h2><p>因为所有服务器的docker daemon进程都开启了2375端口，所以只用在页面配置，即可进行相应管理。截图如下：<br><img src="https://youxia999.github.io/img/centos7/portainer_snapshot.png" alt></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;本文背景&quot;&gt;&lt;a href=&quot;#本文背景&quot; class=&quot;headerlink&quot; title=&quot;本文背景&quot;&gt;&lt;/a&gt;本文背景&lt;/h1&gt;&lt;h2 id=&quot;参考资料&quot;&gt;&lt;a href=&quot;#参考资料&quot; class=&quot;headerlink&quot; title=&quot;参考资料&quot;&gt;&lt;/a
       
     
     </summary>

@@ -14,7 +14,7 @@
     
     
     
-    <title>docker1.10安装和初步使用 | 技术学习笔记 | 接口-服务-系统-平台</title>
+    <title>docker1.10安装和初步使用 | 技术学习笔记 | 接口-服务-系统(中心)-平台</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
@@ -114,7 +114,7 @@
             <li class="waves-block waves-effect">
               <a href="/tags/%E7%BC%96%E7%A8%8B%E6%A1%86%E6%9E%B6%E4%B8%8E%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AE%A2%E6%88%B7%E7%AB%AF/">
                 <i class="icon icon-lg icon-coffee"></i>
-                编程语言与框架
+                语言和开发脚手架
               </a>
             </li>
         
@@ -218,13 +218,7 @@
 <p>这里没有配置私有的镜像仓库地址（线上环境还是要配置仓库，比如打标签、push镜像用）</p>
 <h2 id="其他可能会出问题的地方"><a href="#其他可能会出问题的地方" class="headerlink" title="其他可能会出问题的地方"></a>其他可能会出问题的地方</h2><p>其他可能会出现问题的地方，基本上都是在启动命令这一行。有问题，修改就好<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ExecStart=/usr/bin/docker-current daemon \</span><br><span class="line">          --exec-opt native.cgroupdriver=systemd \</span><br><span class="line">          $OPTIONS \</span><br><span class="line">          $DOCKER_STORAGE_OPTIONS \</span><br><span class="line">          $DOCKER_NETWORK_OPTIONS \</span><br><span class="line">          $ADD_REGISTRY \</span><br><span class="line">          $BLOCK_REGISTRY \</span><br><span class="line">          $INSECURE_REGISTRY</span><br></pre></td></tr></table></figure></p>
 <h1 id="启动命令"><a href="#启动命令" class="headerlink" title="启动命令"></a>启动命令</h1><p>systemctl daemon-reload<br>systemctl restart docker.service</p>
-<h1 id="docker实操"><a href="#docker实操" class="headerlink" title="docker实操"></a>docker实操</h1><p>可以见docker help命令和官网指南<br><figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="https://youxia999.github.io/img/docker/docker_help.png" alt title>
-                </div>
-                <div class="image-caption"></div>
-            </figure></p>
+<h1 id="docker实操"><a href="#docker实操" class="headerlink" title="docker实操"></a>docker实操</h1><p>可以见docker help命令和官网指南<br><img src="https://youxia999.github.io/img/docker/docker_help.png" alt></p>
 
         </div>
 

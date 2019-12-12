@@ -14,7 +14,7 @@
     
     
     
-    <title>玩转centos7之局域网文件传输 | 技术学习笔记 | 接口-服务-系统-平台</title>
+    <title>玩转centos7之局域网文件传输 | 技术学习笔记 | 接口-服务-系统(中心)-平台</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
@@ -114,7 +114,7 @@
             <li class="waves-block waves-effect">
               <a href="/tags/%E7%BC%96%E7%A8%8B%E6%A1%86%E6%9E%B6%E4%B8%8E%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AE%A2%E6%88%B7%E7%AB%AF/">
                 <i class="icon icon-lg icon-coffee"></i>
-                编程语言与框架
+                语言和开发脚手架
               </a>
             </li>
         
@@ -216,13 +216,7 @@
 <h1 id="不知道目标机器的账号-密码的情况"><a href="#不知道目标机器的账号-密码的情况" class="headerlink" title="不知道目标机器的账号/密码的情况"></a>不知道目标机器的账号/密码的情况</h1><h2 id="nc安装"><a href="#nc安装" class="headerlink" title="nc安装"></a>nc安装</h2><p>这种场景下，只能安装nc。(netcat)<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">yum install nmap-ncat</span><br></pre></td></tr></table></figure></p>
 <h2 id="nc用法"><a href="#nc用法" class="headerlink" title="nc用法"></a>nc用法</h2><p>目标机器:<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">nc -l 端口 &gt; 文件名</span><br></pre></td></tr></table></figure></p>
 <p>源机器:<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">nc 目标机器ip 目标机器端口 &lt; 文件名</span><br></pre></td></tr></table></figure></p>
-<p>更多用法参考:<br><figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="https://youxia999.github.io/img/centos7/ncat__help.png" alt title>
-                </div>
-                <div class="image-caption"></div>
-            </figure></p>
+<p>更多用法参考:<br><img src="https://youxia999.github.io/img/centos7/ncat__help.png" alt></p>
 
         </div>
 

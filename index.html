@@ -14,7 +14,7 @@
     
     
     
-    <title>技术学习笔记 | 接口-服务-系统-平台</title>
+    <title>技术学习笔记 | 接口-服务-系统(中心)-平台</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
@@ -107,7 +107,7 @@
             <li class="waves-block waves-effect">
               <a href="/tags/%E7%BC%96%E7%A8%8B%E6%A1%86%E6%9E%B6%E4%B8%8E%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AE%A2%E6%88%B7%E7%AB%AF/">
                 <i class="icon icon-lg icon-coffee"></i>
-                编程语言与框架
+                语言和开发脚手架
               </a>
             </li>
         
@@ -161,7 +161,7 @@
         <h1 class="title">技术学习笔记</h1>
         <h5 class="subtitle">
             
-                接口-服务-系统-平台
+                接口-服务-系统(中心)-平台
             
         </h5>
     </div>
@@ -174,6 +174,43 @@
 <div class="container body-wrap">
 
     <ul class="post-list">
+    
+        <li class="post-list-item fade">
+            <article id="post-e6_introduce" class="article-card article-type-post" itemprop="blogPost">
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2019/12/11/e6_introduce/">No title</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-meta">
+        <time class="post-time" title="2019-12-11 10:45:11 10:45:11" datetime="2019-12-11T02:45:11.469Z" itemprop="datePublished">2019-12-11 10:45:11</time>
+
+        
+
+
+    </div>
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        
+    
+
+        <a href="/2019/12/11/e6_introduce/" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+</article>
+
+        </li>
     
         <li class="post-list-item fade">
             <article id="post-prometheus_monitor_rabbitmq" class="article-card article-type-post" itemprop="blogPost">
@@ -290,20 +327,8 @@ provider方工程代码添加pom依赖1.brave对dubbo的集成:brave-instrumenta
 
     
         
-                
-                    
-                    
-                
-                
-            
 附原文
 
-                
-                    
-                    
-                
-                
-            
 
     
 
@@ -451,7 +476,7 @@ redis-sentinel节点三个节点(生产环境不要部署在一台机器上，�
         背景和参考资料参考资料https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html-single/8.0_release_notes/indexhttps://access.redhat.com/documentation/zh-cn/red_hat_enterprise_linux/8/html-single/8.0_release_notes/index(机器翻译版)https://blog.51cto.com/vanehsuan/2392207https://www.itzgeek.com/how-tos/linux/centos-how-tos/how-to-install-mysql-8-0-on-rhel-8.html
 背景正文上面的参考资料所说，5月7号，红帽子公司发布了REDHAT ENTERPRISE LINUX 8(简称RHEL8)。于是乎，想先体验一把新特性和原有功能，为后面的centos8做技术储备。
 rhel8的release note
-            ...
+虚拟机安装RHEL8下载...
     
 
         <a href="/2019/05/12/centos8-base-rhel8-release/" class="post-more waves-effect waves-button">
@@ -592,27 +617,11 @@ xtrabackup...
     
         参考资料https://linux.cn/article-8310-1.html
 背景基于以下三点，让我有种升级内核的冲动：1.docker容器近期暴露的漏洞，问了”专家”说是都是内核的问题。2.centos7还是用的3.10，centos8（RHEL用的是4.18版本）发布时间表还不知道。3.linux的内核稳定版本已经到5.0.X。
-升级步骤检查已安装版本
-                
-                    
-                    
-                
-                
-            
-修改下hostname先。
-升级内核
-                
-                    
-                    
-                
-                
-            
+升级步骤检查已安装版本修改下hostname先。
+升级内核然后reboot。
+结果
+建议在新操作系统安装好以后，就先yum update、然后升级内核。再安装其他的数据库、中间件、(java、go、python、ruby、erlang)语言runtime。
 
-                
-                    
-                    
-                
-       ...
     
 
         <a href="/2019/04/01/centos7-kernel-upgrade/" class="post-more waves-effect waves-button">
@@ -996,12 +1005,6 @@ docker和kubernetes这一年，开...
     
         这两天到搭建好的kubernetes集群上，把公司的一个项目放到了集群上。最终的架构如下。
 未在线上环境校验的方案
-                
-                    
-                    
-                
-                
-            
 
     
 
@@ -1506,29 +1509,12 @@ docker swarm操作docker swarm集群初始化如果docker1.12的swarm机制是in
     
         本文参考https://www.cnblogs.com/foxgab/p/6896957.html
 iptables的概念iptables基础概念
-                
-                    
-                    
-                
-                
-            
 iptables表的分类
-                
-                    
-                    
-                
-                
-            
 iptable链的走向
-                
-                    
-                    
-                
-                
-            
 docker对于iptables的应用docker对iptables filter表的扩展
-                
-                 ...
+docker对iptables nat表的扩展
+docker之后的iptables链的走向
+
     
 
         <a href="/2018/10/09/docker-network-basic/" class="post-more waves-effect waves-button">
@@ -1807,31 +1793,13 @@ docker对于iptables的应用docker对iptables filter表的扩展
 
     
         node与npm介绍
-                
-                    
-                    
-                
-                
-            
 centos下安装nodejs下载执行脚本curl -sL https://rpm.nodesource.com/setup_10.x | bash -
 安装依赖yum install gcc-c++ make
 安装nodejsyum install -y nodejs
 初步使用node帮助命令
-                
-                    
-                    
-                
-                
-            
 npm帮助命令
-                
-                    
-                    
-                
-                
-            
 npm安装命令
-   ...
+第一个nodejs程序var http=require(&apos;http&apos;)http.createServer(function(req,res)&#123;  res.writeHead(200,&#123;&apos;Content-type&apos;:&apos;test/plain&apos;&#125;);  res.end(&apos;hello,wordl\n&apos;);&#125;).listen(1337,&apos;127.0.0.1&apos;);console.log(&apos;server running  at http://127.0.0.1:1337&apos;);
     
 
         <a href="/2018/08/12/centos7-install-nodejs/" class="post-more waves-effect waves-button">
@@ -2052,12 +2020,7 @@ go语言和框架主要是go-micro框架。
 
     
         
-                
-                    
-                    
-                
-                
-            
+
     
 
         <a href="/2018/06/21/oauth2-technologies-understanding/" class="post-more waves-effect waves-button">
@@ -2340,12 +2303,6 @@ Annotationspan的注解，用来记录请求特定事件相关信息（例如时
     
         以下内容属于阅读/转载。
 kubernetes与微服务架构
-                
-                    
-                    
-                
-                
-            
 图片来源博客园，版权属163云刘超
 
 附录为什么kubernetes天然适合微服务:http://www.cnblogs.com/163yun/p/8855360.html
@@ -2599,53 +2556,6 @@ http编程基础类http包下的ListenAndServe、Server、conn、serverHandler�
     <div class="post-footer">
         
 	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编程框架与中间件客户端/">编程框架与中间件客户端</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-rabbitmq-cluster-install_2" class="article-card article-type-post" itemprop="blogPost">
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2017/12/23/rabbitmq-cluster-install_2/">centos7下rabbitmq3.7.2集群配置(续)</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-meta">
-        <time class="post-time" title="2017-12-23 21:26:52 21:26:52" datetime="2017-12-23T13:26:52.000Z" itemprop="datePublished">2017-12-23 21:26:52</time>
-
-        
-
-
-    </div>
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        参考资料https://www.cnblogs.com/me-sa/p/erlang-epmd.html
-erlang虚拟机查询官网后得知，rabbitmq是一个基于erlang语言的应用程序。在 Erlang中有两个概念：节点(node)和应用程序(application)。
-节点(node)node为运行Erlang虚拟机的一个实例。
-应用程序(application)多个Erlang应用程序(application)可以运行在同一个节点(node)之上。
-erlang节点特点节点(node)之间可进行通信（无论是否运行在同一台服务器)。简单来说：1.一个运行在节点A上的应用程序（application）可以调用节点B上应用程序的方法，就好像调用本地函数一样。2.如果要关闭整个RabbitMQ节点可以使用stop参数，它会和本地节点通信并指示其干净得关闭：/sbin/rabbitmqctl stop。比如：默认node名称是rabbit@server，如果主机名是server.example.com，那么node名称就是 rabbit@server.example.com/s...
-    
-
-        <a href="/2017/12/23/rabbitmq-cluster-install_2/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rabbitmq/">rabbitmq</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/中间件技术/">中间件技术</a></li></ul>
 
     </div>
     

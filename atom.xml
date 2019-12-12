@@ -133,7 +133,7 @@
     <link href="https://youxia999.github.io/2019/05/12/spring-architecture/"/>
     <id>https://youxia999.github.io/2019/05/12/spring-architecture/</id>
     <published>2019-05-12T13:46:07.000Z</published>
-    <updated>2019-12-03T02:22:20.349Z</updated>
+    <updated>2019-12-12T04:19:35.391Z</updated>
     
     <content type="html"><![CDATA[<p>最近有学PHP的朋友想转到java（说公司要求用spring boot做项目），问我有没有什么捷径或者经验，给他一个换语言的学习指引。<br>看得出来，他还没有搭建自己的知识体系，我就趁机给他灌输一个观念：先要有完整的知识体系结构（或者通用技术架构），然后编程语言只是工具，是可以被替换的。当然，这不是我的原创，是一些前辈告诉我的（我相信很多高手都会觉得:语言都是工具,架构模式才是关键。用java写的，用go语言、Python也可以，只是效果、代码管理、维护性的差异）。<br>当然，计算机是讲究动手的学科，不能空谈理论，得输出点东西才可信，然后基于本人最近的一些思考（看了几张别人spring全家桶教程的ppt），画了一张整体架构图给朋友。<br>并且告知：java是可以被换成go、python语言实现的，就看技术决策者熟悉哪门语言、以及要实现什么样的系统（其实是废话：单讲语言生态，目前java确实是生态最好的语言，尤其是在spring的助攻下。呵呵）<br><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://youxia999.github.io/img/architectrue/spring_architecture.png" alt title>                </div>                <div class="image-caption"></div>            </figure></p>]]></content>
     
@@ -149,7 +149,7 @@
     
       <category term="java" scheme="https://youxia999.github.io/tags/java/"/>
     
-      <category term="编程框架与中间件客户端" scheme="https://youxia999.github.io/tags/%E7%BC%96%E7%A8%8B%E6%A1%86%E6%9E%B6%E4%B8%8E%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AE%A2%E6%88%B7%E7%AB%AF/"/>
+      <category term="编程语言与开发脚手架" scheme="https://youxia999.github.io/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E4%B8%8E%E5%BC%80%E5%8F%91%E8%84%9A%E6%89%8B%E6%9E%B6/"/>
     
   </entry>
   
@@ -277,7 +277,7 @@
     <link href="https://youxia999.github.io/2019/03/24/golang-gin-source-code-v1/"/>
     <id>https://youxia999.github.io/2019/03/24/golang-gin-source-code-v1/</id>
     <published>2019-03-24T04:48:30.000Z</published>
-    <updated>2019-12-03T02:22:00.871Z</updated>
+    <updated>2019-12-12T04:19:35.288Z</updated>
     
     <content type="html"><![CDATA[<h1 id="demo源码"><a href="#demo源码" class="headerlink" title="demo源码"></a>demo源码</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">&quot;encoding/json&quot;</span><br><span class="line">&quot;fmt&quot;</span><br><span class="line">&quot;github.com/gin-gonic/gin&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">type User struct &#123;</span><br><span class="line">Id int</span><br><span class="line">Name string</span><br><span class="line">Age int</span><br><span class="line">&#125;</span><br><span class="line">func main()  &#123;</span><br><span class="line">defaultServer:=gin.New();</span><br><span class="line">defaultServer.RouterGroup.GET(&quot;/&quot;,defaultHandeler)</span><br><span class="line">v1 := defaultServer.Group(&quot;/v1&quot;)</span><br><span class="line">v1.GET(&quot;/ping&quot;,v1pingHandeler)</span><br><span class="line"></span><br><span class="line">defaultServer.Run(&quot;:8083&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">func defaultHandeler(ctx *gin.Context)  &#123;</span><br><span class="line">ctx.JSON(200,gin.H&#123;</span><br><span class="line">&quot;status&quot;:200,</span><br><span class="line">&quot;success&quot;:true,</span><br><span class="line">&quot;data&quot;:&quot;&#123;&#125;&quot;,</span><br><span class="line">&#125;)</span><br><span class="line">&#125;</span><br><span class="line">func v1pingHandeler(context *gin.Context) &#123;</span><br><span class="line">user:=User&#123;1,&quot;golang&quot;,20&#125;</span><br><span class="line">data,_:=json.Marshal(user)</span><br><span class="line">fmt.Println(user,data)</span><br><span class="line">context.JSON(200,gin.H&#123;</span><br><span class="line">&quot;status&quot;:200,</span><br><span class="line">&quot;success&quot;:true,</span><br><span class="line">&quot;data&quot;:string(data),</span><br><span class="line">&#125;)</span><br><span class="line">//context.Redirect(http.StatusMovedPermanently,&quot;https://github.com/gin-goinc/gin&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h1 id="时序图"><a href="#时序图" class="headerlink" title="时序图"></a>时序图</h1><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://youxia999.github.io/img/go/ginsourcev1.png" alt title>                </div>                <div class="image-caption"></div>            </figure>]]></content>
     
@@ -293,7 +293,7 @@
     
       <category term="golang" scheme="https://youxia999.github.io/tags/golang/"/>
     
-      <category term="编程框架与中间件客户端" scheme="https://youxia999.github.io/tags/%E7%BC%96%E7%A8%8B%E6%A1%86%E6%9E%B6%E4%B8%8E%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AE%A2%E6%88%B7%E7%AB%AF/"/>
+      <category term="编程语言与开发脚手架" scheme="https://youxia999.github.io/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E4%B8%8E%E5%BC%80%E5%8F%91%E8%84%9A%E6%89%8B%E6%9E%B6/"/>
     
   </entry>
   
@@ -327,7 +327,7 @@
     <link href="https://youxia999.github.io/2019/02/26/golang-1-12-experience/"/>
     <id>https://youxia999.github.io/2019/02/26/golang-1-12-experience/</id>
     <published>2019-02-26T11:10:08.000Z</published>
-    <updated>2019-12-03T02:21:48.559Z</updated>
+    <updated>2019-12-12T04:19:35.275Z</updated>
     
     <content type="html"><![CDATA[<h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>golang 1.12于2月25号发布了，迫不及待的体验了一把。<br>除了下载golang1.12，goland也更下2018.3.4。</p><h1 id="体验"><a href="#体验" class="headerlink" title="体验"></a>体验</h1><p>把之前的项目（1.11版本开发）的mod更新了，设置了把代理（不设置代理，就要用replace）。<br><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://youxia999.github.io/img/go/go_mod_settings.png" alt title>                </div>                <div class="image-caption"></div>            </figure><br>然后体验了一把go list -m -json all。贼快了。有点激动哈。<br>重温下go mod相关的命令。<br><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://youxia999.github.io/img/go/go_mod_command.png" alt title>                </div>                <div class="image-caption"></div>            </figure></p>]]></content>
     
@@ -343,7 +343,7 @@
     
       <category term="golang" scheme="https://youxia999.github.io/tags/golang/"/>
     
-      <category term="编程框架与中间件客户端" scheme="https://youxia999.github.io/tags/%E7%BC%96%E7%A8%8B%E6%A1%86%E6%9E%B6%E4%B8%8E%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AE%A2%E6%88%B7%E7%AB%AF/"/>
+      <category term="编程语言与开发脚手架" scheme="https://youxia999.github.io/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E4%B8%8E%E5%BC%80%E5%8F%91%E8%84%9A%E6%89%8B%E6%9E%B6/"/>
     
   </entry>
   
@@ -352,7 +352,7 @@
     <link href="https://youxia999.github.io/2019/02/09/spring-cloud-2x-cloud-sleuth/"/>
     <id>https://youxia999.github.io/2019/02/09/spring-cloud-2x-cloud-sleuth/</id>
     <published>2019-02-09T09:15:36.000Z</published>
-    <updated>2019-12-03T03:13:00.571Z</updated>
+    <updated>2019-12-12T04:19:35.483Z</updated>
     
     <content type="html"><![CDATA[<h1 id="关于spring-cloud-2-X系列"><a href="#关于spring-cloud-2-X系列" class="headerlink" title="关于spring cloud 2.X系列"></a>关于spring cloud 2.X系列</h1><p>spring.io在spring boot和springcloud推出之前，开源了很多的框架（见下文附录），但是除了spring framework自身，影响力都不够。直到spring boot、spring cloud系列框架推出，才成了spring框架的扩展中最有影响力的两个(或者说集大成者)。<br>Spring Boot的设计目的是用来简化新Spring应用的初始搭建以及开发过程。该框架使用了特定的方式来进行配置，从而使开发人员不再需要定义样板化的配置。<br>通俗点理解，就是spring boot其实不是什么新的框架，它默认配置了很多框架的使用方式，就像maven整合了很多的jar包，比如散落在各处的spring框架：spring amqp、spring data redis client、spring web service、prometheus client，进而集大成。<br>Spring Cloud为开发人员提供了快速构建分布式系统中一些常见模式的工具，例如配置管理，服务发现，断路器，智能路由，微代理，控制总线，一次性令牌，全局锁定，领导选举，分布式会话，集群状态。<br>从技术实现上来说，也是集成开源届的各种方案比如 client、rabbitmq client。</p>]]></content>
     
@@ -368,7 +368,7 @@
     
       <category term="java" scheme="https://youxia999.github.io/tags/java/"/>
     
-      <category term="编程框架与中间件客户端" scheme="https://youxia999.github.io/tags/%E7%BC%96%E7%A8%8B%E6%A1%86%E6%9E%B6%E4%B8%8E%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AE%A2%E6%88%B7%E7%AB%AF/"/>
+      <category term="编程语言与开发脚手架" scheme="https://youxia999.github.io/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E4%B8%8E%E5%BC%80%E5%8F%91%E8%84%9A%E6%89%8B%E6%9E%B6/"/>
     
   </entry>
   
@@ -377,7 +377,7 @@
     <link href="https://youxia999.github.io/2019/02/02/spring-cloud-2x-cloud-stream/"/>
     <id>https://youxia999.github.io/2019/02/02/spring-cloud-2x-cloud-stream/</id>
     <published>2019-02-02T09:44:15.000Z</published>
-    <updated>2019-12-03T03:13:00.573Z</updated>
+    <updated>2019-12-12T04:19:35.490Z</updated>
     
     <content type="html"><![CDATA[<h1 id="关于spring-cloud-2-X系列"><a href="#关于spring-cloud-2-X系列" class="headerlink" title="关于spring cloud 2.X系列"></a>关于spring cloud 2.X系列</h1><p>spring.io在spring boot和springcloud推出之前，开源了很多的框架（见下文附录），但是除了spring framework自身，影响力都不够。直到spring boot、spring cloud系列框架推出，才成了spring框架的扩展中最有影响力的两个(或者说集大成者)。<br>Spring Boot的设计目的是用来简化新Spring应用的初始搭建以及开发过程。该框架使用了特定的方式来进行配置，从而使开发人员不再需要定义样板化的配置。<br>通俗点理解，就是spring boot其实不是什么新的框架，它默认配置了很多框架的使用方式，就像maven整合了很多的jar包，比如散落在各处的spring框架：spring amqp、spring dat redis client、spring web service、prometheus client，进而集大成。<br>Spring Cloud为开发人员提供了快速构建分布式系统中一些常见模式的工具，例如配置管理，服务发现，断路器，智能路由，微代理，控制总线，一次性令牌，全局锁定，领导选举，分布式会话，集群状态。<br>从技术实现上来说，也是集成开源届的各种方案比如 client、rabbitmq client。</p><h1 id="个人研判"><a href="#个人研判" class="headerlink" title="个人研判"></a>个人研判</h1><p>此module不具备商用要求。</p>]]></content>
     
@@ -393,7 +393,7 @@
     
       <category term="java" scheme="https://youxia999.github.io/tags/java/"/>
     
-      <category term="编程框架与中间件客户端" scheme="https://youxia999.github.io/tags/%E7%BC%96%E7%A8%8B%E6%A1%86%E6%9E%B6%E4%B8%8E%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AE%A2%E6%88%B7%E7%AB%AF/"/>
+      <category term="编程语言与开发脚手架" scheme="https://youxia999.github.io/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E4%B8%8E%E5%BC%80%E5%8F%91%E8%84%9A%E6%89%8B%E6%9E%B6/"/>
     
   </entry>
   

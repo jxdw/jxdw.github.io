@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>技术学习笔记</title>
   
-  <subtitle>接口-服务-系统(中心)-平台</subtitle>
+  <subtitle>接口 -&gt; 服务 -&gt; 系统(中心) -&gt; 平台</subtitle>
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://youxia999.github.io/"/>

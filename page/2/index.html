@@ -176,6 +176,54 @@
     <ul class="post-list">
     
         <li class="post-list-item fade">
+            <article id="post-apollo-config-wrapper-install" class="article-card article-type-post" itemprop="blogPost">
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2018/02/05/apollo-config-wrapper-install/">apollo配置中心wrapper启动</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-meta">
+        <time class="post-time" title="2018-02-05 19:54:55 19:54:55" datetime="2018-02-05T11:54:55.000Z" itemprop="datePublished">2018-02-05 19:54:55</time>
+
+        
+
+
+    </div>
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        非官方参考资料https://286.iteye.com/blog/1915478
+本文背景几个业务平台的几套环境的配置参数管理很混乱，让有些新进入的小伙伴很混乱，所以，引入配置中心迫在眉睫。
+配置中心的部署规划图部署ip规划configservice+eurekaserver的ip端口：10.2.1.30:8761adminservice的ip端口：10.2.1.30:8762portald的ip端口：10.2.1.30:8763
+1.2 账户和路径规划由root创建apolloconfig账号.并创建/data/server/apolloconfig目录、/data/server/logs/apolloconfig目录,并授权给apolloconfig用户。
+1.3 配置中心的最终使用使用入口：http://10.2.1.30:8763/注册中心：http://10.2.1.30:8761/
+下载github源码打包clone源码目前来说，apollo最高版本的v1.1.0，但还是snapshot版本的，因此不建议使用，而源码master分支是对应v1.1版本，这时先切换到v...
+    
+
+        <a href="/2018/02/05/apollo-config-wrapper-install/" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RPC与服务治理技术/">RPC与服务治理技术</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/apollo-config/">apollo config</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
             <article id="post-docker-registry-harbor-05-install" class="article-card article-type-post" itemprop="blogPost">
 
     

@@ -14,7 +14,7 @@
     
     
     
-    <title>玩转kubernetes之kubernetes1.8安装 | 永远在路上 | 记录技术的学习和实践过程</title>
+    <title>玩转kubernetes之kubernetes1.8安装 | 思路比努力更重要 | 记录技术的学习和实践过程</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
@@ -26,7 +26,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="玩转kubernetes之kubernetes1.8安装">
 <meta property="og:url" content="https://youxia999.github.io/2018/12/28/container-kubernetes-1-8-install/index.html">
-<meta property="og:site_name" content="永远在路上">
+<meta property="og:site_name" content="思路比努力更重要">
 <meta property="og:description" content="背景资料本文主要参考资料(建议收藏)https://jimmysong.io/kubernetes-handbook/https://anjia0532.github.io/2017/11/15/gcr-io-image-mirror/ 本文的收获实践“纸上读来终觉浅，绝知此事要躬行”，上手操作第5章 安装之前三件事熟悉kubernetes基本架构和工作原理建议好好看《Kubernetes Han">
 <meta property="og:locale" content="ZH_CN">
 <meta property="og:image" content="https://youxia999.github.io/img/docker/falnneldconfig.png">
@@ -38,7 +38,7 @@
 <meta name="twitter:description" content="背景资料本文主要参考资料(建议收藏)https://jimmysong.io/kubernetes-handbook/https://anjia0532.github.io/2017/11/15/gcr-io-image-mirror/ 本文的收获实践“纸上读来终觉浅，绝知此事要躬行”，上手操作第5章 安装之前三件事熟悉kubernetes基本架构和工作原理建议好好看《Kubernetes Han">
 <meta name="twitter:image" content="https://youxia999.github.io/img/docker/falnneldconfig.png">
     
-        <link rel="alternate" type="application/atom+xml" title="永远在路上" href="/atom.xml">
+        <link rel="alternate" type="application/atom+xml" title="思路比努力更重要" href="/atom.xml">
     
     <link rel="shortcut icon" href="/favicon.ico">
     <link rel="stylesheet" href="/css/style.css?v=1.7.2">
@@ -279,7 +279,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://youxia999.github.io/2018/12/28/container-kubernetes-1-8-install/&title=《玩转kubernetes之kubernetes1.8安装》 — 永远在路上&pic=https://youxia999.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://youxia999.github.io/2018/12/28/container-kubernetes-1-8-install/&title=《玩转kubernetes之kubernetes1.8安装》 — 思路比努力更重要&pic=https://youxia999.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -289,7 +289,7 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://youxia999.github.io/2018/12/28/container-kubernetes-1-8-install/&title=《玩转kubernetes之kubernetes1.8安装》 — 永远在路上&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://youxia999.github.io/2018/12/28/container-kubernetes-1-8-install/&title=《玩转kubernetes之kubernetes1.8安装》 — 思路比努力更重要&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -299,7 +299,7 @@
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《玩转kubernetes之kubernetes1.8安装》 — 永远在路上&url=https://youxia999.github.io/2018/12/28/container-kubernetes-1-8-install/&via=https://youxia999.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《玩转kubernetes之kubernetes1.8安装》 — 思路比努力更重要&url=https://youxia999.github.io/2018/12/28/container-kubernetes-1-8-install/&via=https://youxia999.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
@@ -430,7 +430,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://youxia999.github.io/2018/12/28/container-kubernetes-1-8-install/&title=《玩转kubernetes之kubernetes1.8安装》 — 永远在路上&pic=https://youxia999.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://youxia999.github.io/2018/12/28/container-kubernetes-1-8-install/&title=《玩转kubernetes之kubernetes1.8安装》 — 思路比努力更重要&pic=https://youxia999.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -440,7 +440,7 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://youxia999.github.io/2018/12/28/container-kubernetes-1-8-install/&title=《玩转kubernetes之kubernetes1.8安装》 — 永远在路上&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://youxia999.github.io/2018/12/28/container-kubernetes-1-8-install/&title=《玩转kubernetes之kubernetes1.8安装》 — 思路比努力更重要&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -450,7 +450,7 @@
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《玩转kubernetes之kubernetes1.8安装》 — 永远在路上&url=https://youxia999.github.io/2018/12/28/container-kubernetes-1-8-install/&via=https://youxia999.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《玩转kubernetes之kubernetes1.8安装》 — 思路比努力更重要&url=https://youxia999.github.io/2018/12/28/container-kubernetes-1-8-install/&via=https://youxia999.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>

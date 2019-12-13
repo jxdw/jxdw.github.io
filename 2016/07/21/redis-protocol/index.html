@@ -14,7 +14,7 @@
     
     
     
-    <title>redis通信协议及与mysql互通 | 永远在路上 | 记录技术的学习和实践过程</title>
+    <title>redis通信协议及与mysql互通 | 思路比努力更重要 | 记录技术的学习和实践过程</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
@@ -26,7 +26,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="redis通信协议及与mysql互通">
 <meta property="og:url" content="https://youxia999.github.io/2016/07/21/redis-protocol/index.html">
-<meta property="og:site_name" content="永远在路上">
+<meta property="og:site_name" content="思路比努力更重要">
 <meta property="og:description" content="本文参考资料https://redis.io/topics/protocol redis-cli命令与redis通信协议redis-cli命令redis命令在从提交到返回处理结果的过程中，消耗的时间我们称之为RTT（往返时间）。在需要批量执行redis 命令的场景下，如果命令单条逐个执行，那么总共花费的时间是命令条数 N * RTT。redis 提供了管道技术来提高批量执行效率，即将多个命令打包发">
 <meta property="og:locale" content="ZH_CN">
 <meta property="og:image" content="https://youxia999.github.io/img/redis/redis3.2_clihelpcmand.png">
@@ -36,7 +36,7 @@
 <meta name="twitter:description" content="本文参考资料https://redis.io/topics/protocol redis-cli命令与redis通信协议redis-cli命令redis命令在从提交到返回处理结果的过程中，消耗的时间我们称之为RTT（往返时间）。在需要批量执行redis 命令的场景下，如果命令单条逐个执行，那么总共花费的时间是命令条数 N * RTT。redis 提供了管道技术来提高批量执行效率，即将多个命令打包发">
 <meta name="twitter:image" content="https://youxia999.github.io/img/redis/redis3.2_clihelpcmand.png">
     
-        <link rel="alternate" type="application/atom+xml" title="永远在路上" href="/atom.xml">
+        <link rel="alternate" type="application/atom+xml" title="思路比努力更重要" href="/atom.xml">
     
     <link rel="shortcut icon" href="/favicon.ico">
     <link rel="stylesheet" href="/css/style.css?v=1.7.2">
@@ -270,7 +270,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://youxia999.github.io/2016/07/21/redis-protocol/&title=《redis通信协议及与mysql互通》 — 永远在路上&pic=https://youxia999.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://youxia999.github.io/2016/07/21/redis-protocol/&title=《redis通信协议及与mysql互通》 — 思路比努力更重要&pic=https://youxia999.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -280,7 +280,7 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://youxia999.github.io/2016/07/21/redis-protocol/&title=《redis通信协议及与mysql互通》 — 永远在路上&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://youxia999.github.io/2016/07/21/redis-protocol/&title=《redis通信协议及与mysql互通》 — 思路比努力更重要&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -290,7 +290,7 @@
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《redis通信协议及与mysql互通》 — 永远在路上&url=https://youxia999.github.io/2016/07/21/redis-protocol/&via=https://youxia999.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《redis通信协议及与mysql互通》 — 思路比努力更重要&url=https://youxia999.github.io/2016/07/21/redis-protocol/&via=https://youxia999.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
@@ -421,7 +421,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://youxia999.github.io/2016/07/21/redis-protocol/&title=《redis通信协议及与mysql互通》 — 永远在路上&pic=https://youxia999.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://youxia999.github.io/2016/07/21/redis-protocol/&title=《redis通信协议及与mysql互通》 — 思路比努力更重要&pic=https://youxia999.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -431,7 +431,7 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://youxia999.github.io/2016/07/21/redis-protocol/&title=《redis通信协议及与mysql互通》 — 永远在路上&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://youxia999.github.io/2016/07/21/redis-protocol/&title=《redis通信协议及与mysql互通》 — 思路比努力更重要&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -441,7 +441,7 @@
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《redis通信协议及与mysql互通》 — 永远在路上&url=https://youxia999.github.io/2016/07/21/redis-protocol/&via=https://youxia999.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《redis通信协议及与mysql互通》 — 思路比努力更重要&url=https://youxia999.github.io/2016/07/21/redis-protocol/&via=https://youxia999.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>

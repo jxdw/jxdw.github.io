@@ -14,26 +14,26 @@
     
     
     
-    <title>spring框架系列之spring boot核心类和扩展点(web) | 思路比试错更重要 | 记录技术的学习和实践过程</title>
+    <title>【java语言开发脚手架系列】spring boot核心类和扩展点(web) | 思路比试错更重要 | 记录技术的学习和实践过程</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="java,编程语言开发脚手架">
+    <meta name="keywords" content="java,应用开发脚手架">
     <meta name="description" content="springboot1.5.x web程序的核心类和扩展点关于spring boot/cloud 1.X系列spring.io在spring boot和springcloud推出之前，开源了很多的框架（见下文附录），但是除了spring framework自身，影响力都不够。直到spring boot、spring cloud系列框架推出，才成了spring框架的扩展中最有影响力的两个(或者说集大">
-<meta name="keywords" content="java,编程语言开发脚手架">
+<meta name="keywords" content="java,应用开发脚手架">
 <meta property="og:type" content="article">
-<meta property="og:title" content="spring框架系列之spring boot核心类和扩展点(web)">
+<meta property="og:title" content="【java语言开发脚手架系列】spring boot核心类和扩展点(web)">
 <meta property="og:url" content="https://youxia999.github.io/2017/10/22/spring-boot-1x-boot-core-2/index.html">
 <meta property="og:site_name" content="思路比试错更重要">
 <meta property="og:description" content="springboot1.5.x web程序的核心类和扩展点关于spring boot/cloud 1.X系列spring.io在spring boot和springcloud推出之前，开源了很多的框架（见下文附录），但是除了spring framework自身，影响力都不够。直到spring boot、spring cloud系列框架推出，才成了spring框架的扩展中最有影响力的两个(或者说集大">
 <meta property="og:locale" content="ZH_CN">
 <meta property="og:image" content="https://youxia999.github.io/img/java/spring_boot_web_source.png">
 <meta property="og:image" content="https://youxia999.github.io/img/java/chongxinrenshi_springframework.png">
-<meta property="og:updated_time" content="2019-12-12T04:56:05.053Z">
+<meta property="og:updated_time" content="2019-12-14T14:32:04.505Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="spring框架系列之spring boot核心类和扩展点(web)">
+<meta name="twitter:title" content="【java语言开发脚手架系列】spring boot核心类和扩展点(web)">
 <meta name="twitter:description" content="springboot1.5.x web程序的核心类和扩展点关于spring boot/cloud 1.X系列spring.io在spring boot和springcloud推出之前，开源了很多的框架（见下文附录），但是除了spring framework自身，影响力都不够。直到spring boot、spring cloud系列框架推出，才成了spring框架的扩展中最有影响力的两个(或者说集大">
 <meta name="twitter:image" content="https://youxia999.github.io/img/java/spring_boot_web_source.png">
     
@@ -101,7 +101,7 @@
             <li class="waves-block waves-effect">
               <a href="/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E5%BC%80%E5%8F%91%E8%84%9A%E6%89%8B%E6%9E%B6/">
                 <i class="icon icon-lg icon-coffee"></i>
-                开发脚手架
+                应用开发脚手架
               </a>
             </li>
         
@@ -123,7 +123,7 @@
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">spring框架系列之spring boot核心类和扩展点(web)</div>
+        <div class="flex-col header-title ellipsis">【java语言开发脚手架系列】spring boot核心类和扩展点(web)</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
@@ -145,7 +145,7 @@
 <header class="content-header post-header">
 
     <div class="container fade-scale">
-        <h1 class="title">spring框架系列之spring boot核心类和扩展点(web)</h1>
+        <h1 class="title">【java语言开发脚手架系列】spring boot核心类和扩展点(web)</h1>
         <h5 class="subtitle">
             
                 <time datetime="2017-10-22T12:46:32.000Z" itemprop="datePublished" class="page-time">
@@ -176,7 +176,7 @@
 <article id="post-spring-boot-1x-boot-core-2" class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
-        <h1 class="post-card-title">spring框架系列之spring boot核心类和扩展点(web)</h1>
+        <h1 class="post-card-title">【java语言开发脚手架系列】spring boot核心类和扩展点(web)</h1>
         <div class="post-meta">
             <time class="post-time" title="2017-10-22 20:46:32 20:46:32" datetime="2017-10-22T12:46:32.000Z" itemprop="datePublished">2017-10-22 20:46:32</time>
 
@@ -213,7 +213,7 @@
     <div class="content" style="display:none">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2019-12-12T04:56:05.053Z" itemprop="dateUpdated">2019-12-12 12:56:05 12:56:05</time>
+    最后更新时间：<time datetime="2019-12-14T14:32:04.505Z" itemprop="dateUpdated">2019-12-14 22:32:04 22:32:04</time>
 </span><br>
 
 
@@ -235,7 +235,7 @@
 
         <div class="post-footer">
             
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编程语言开发脚手架/">编程语言开发脚手架</a></li></ul>
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/应用开发脚手架/">应用开发脚手架</a></li></ul>
 
 
             
@@ -245,7 +245,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://youxia999.github.io/2017/10/22/spring-boot-1x-boot-core-2/&title=《spring框架系列之spring boot核心类和扩展点(web)》 — 思路比试错更重要&pic=https://youxia999.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://youxia999.github.io/2017/10/22/spring-boot-1x-boot-core-2/&title=《【java语言开发脚手架系列】spring boot核心类和扩展点(web)》 — 思路比试错更重要&pic=https://youxia999.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -255,7 +255,7 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://youxia999.github.io/2017/10/22/spring-boot-1x-boot-core-2/&title=《spring框架系列之spring boot核心类和扩展点(web)》 — 思路比试错更重要&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://youxia999.github.io/2017/10/22/spring-boot-1x-boot-core-2/&title=《【java语言开发脚手架系列】spring boot核心类和扩展点(web)》 — 思路比试错更重要&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -265,7 +265,7 @@
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《spring框架系列之spring boot核心类和扩展点(web)》 — 思路比试错更重要&url=https://youxia999.github.io/2017/10/22/spring-boot-1x-boot-core-2/&via=https://youxia999.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《【java语言开发脚手架系列】spring boot核心类和扩展点(web)》 — 思路比试错更重要&url=https://youxia999.github.io/2017/10/22/spring-boot-1x-boot-core-2/&via=https://youxia999.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
@@ -304,7 +304,7 @@
     <div class="waves-block waves-effect next">
       <a href="/2017/10/22/spring-boot-1x-boot-core/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">spring框架系列之spring boot核心类和扩展点</h4>
+        <h4 class="title">【java应用开发脚手架系列】spring boot核心类和扩展点</h4>
       </a>
     </div>
   
@@ -396,7 +396,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://youxia999.github.io/2017/10/22/spring-boot-1x-boot-core-2/&title=《spring框架系列之spring boot核心类和扩展点(web)》 — 思路比试错更重要&pic=https://youxia999.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://youxia999.github.io/2017/10/22/spring-boot-1x-boot-core-2/&title=《【java语言开发脚手架系列】spring boot核心类和扩展点(web)》 — 思路比试错更重要&pic=https://youxia999.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -406,7 +406,7 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://youxia999.github.io/2017/10/22/spring-boot-1x-boot-core-2/&title=《spring框架系列之spring boot核心类和扩展点(web)》 — 思路比试错更重要&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://youxia999.github.io/2017/10/22/spring-boot-1x-boot-core-2/&title=《【java语言开发脚手架系列】spring boot核心类和扩展点(web)》 — 思路比试错更重要&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -416,7 +416,7 @@
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《spring框架系列之spring boot核心类和扩展点(web)》 — 思路比试错更重要&url=https://youxia999.github.io/2017/10/22/spring-boot-1x-boot-core-2/&via=https://youxia999.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《【java语言开发脚手架系列】spring boot核心类和扩展点(web)》 — 思路比试错更重要&url=https://youxia999.github.io/2017/10/22/spring-boot-1x-boot-core-2/&via=https://youxia999.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>

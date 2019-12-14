@@ -14,7 +14,7 @@
     
     
     
-    <title>apache dubbo 2.7.3版本与zipkin结合进行接口监控 | 思路比努力更重要 | 记录技术的学习和实践过程</title>
+    <title>apache dubbo 2.7.3版本与zipkin结合进行接口监控 | 思路比试错更重要 | 记录技术的学习和实践过程</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
@@ -26,7 +26,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="apache dubbo 2.7.3版本与zipkin结合进行接口监控">
 <meta property="og:url" content="https://youxia999.github.io/2019/08/11/apache_dubbo_zipkin_merge/index.html">
-<meta property="og:site_name" content="思路比努力更重要">
+<meta property="og:site_name" content="思路比试错更重要">
 <meta property="og:description" content="本文背景因为:1.dubbo已经从apache毕业，而zipkin官方的brave-instrumentation-dubbo-rpc的5.6版本支持的dubbo版本是2.6.6版本、且对2.7.3版本支持不太友好(2.6.6这个版本是未毕业前的版本，不太喜欢），只能把brave-instrumentation-dubbo-rpc抠出来，用以支撑2.7.3版本。2.dubbo官方提供的例子还是xm">
 <meta property="og:locale" content="ZH_CN">
 <meta property="og:image" content="https://youxia999.github.io/img/zipkin/zipkin_pom.png">
@@ -37,7 +37,7 @@
 <meta name="twitter:description" content="本文背景因为:1.dubbo已经从apache毕业，而zipkin官方的brave-instrumentation-dubbo-rpc的5.6版本支持的dubbo版本是2.6.6版本、且对2.7.3版本支持不太友好(2.6.6这个版本是未毕业前的版本，不太喜欢），只能把brave-instrumentation-dubbo-rpc抠出来，用以支撑2.7.3版本。2.dubbo官方提供的例子还是xm">
 <meta name="twitter:image" content="https://youxia999.github.io/img/zipkin/zipkin_pom.png">
     
-        <link rel="alternate" type="application/atom+xml" title="思路比努力更重要" href="/atom.xml">
+        <link rel="alternate" type="application/atom+xml" title="思路比试错更重要" href="/atom.xml">
     
     <link rel="shortcut icon" href="/favicon.ico">
     <link rel="stylesheet" href="/css/style.css?v=1.7.2">
@@ -275,7 +275,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://youxia999.github.io/2019/08/11/apache_dubbo_zipkin_merge/&title=《apache dubbo 2.7.3版本与zipkin结合进行接口监控》 — 思路比努力更重要&pic=https://youxia999.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://youxia999.github.io/2019/08/11/apache_dubbo_zipkin_merge/&title=《apache dubbo 2.7.3版本与zipkin结合进行接口监控》 — 思路比试错更重要&pic=https://youxia999.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -285,7 +285,7 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://youxia999.github.io/2019/08/11/apache_dubbo_zipkin_merge/&title=《apache dubbo 2.7.3版本与zipkin结合进行接口监控》 — 思路比努力更重要&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://youxia999.github.io/2019/08/11/apache_dubbo_zipkin_merge/&title=《apache dubbo 2.7.3版本与zipkin结合进行接口监控》 — 思路比试错更重要&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -295,7 +295,7 @@
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《apache dubbo 2.7.3版本与zipkin结合进行接口监控》 — 思路比努力更重要&url=https://youxia999.github.io/2019/08/11/apache_dubbo_zipkin_merge/&via=https://youxia999.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《apache dubbo 2.7.3版本与zipkin结合进行接口监控》 — 思路比试错更重要&url=https://youxia999.github.io/2019/08/11/apache_dubbo_zipkin_merge/&via=https://youxia999.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
@@ -426,7 +426,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://youxia999.github.io/2019/08/11/apache_dubbo_zipkin_merge/&title=《apache dubbo 2.7.3版本与zipkin结合进行接口监控》 — 思路比努力更重要&pic=https://youxia999.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://youxia999.github.io/2019/08/11/apache_dubbo_zipkin_merge/&title=《apache dubbo 2.7.3版本与zipkin结合进行接口监控》 — 思路比试错更重要&pic=https://youxia999.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -436,7 +436,7 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://youxia999.github.io/2019/08/11/apache_dubbo_zipkin_merge/&title=《apache dubbo 2.7.3版本与zipkin结合进行接口监控》 — 思路比努力更重要&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://youxia999.github.io/2019/08/11/apache_dubbo_zipkin_merge/&title=《apache dubbo 2.7.3版本与zipkin结合进行接口监控》 — 思路比试错更重要&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -446,7 +446,7 @@
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《apache dubbo 2.7.3版本与zipkin结合进行接口监控》 — 思路比努力更重要&url=https://youxia999.github.io/2019/08/11/apache_dubbo_zipkin_merge/&via=https://youxia999.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《apache dubbo 2.7.3版本与zipkin结合进行接口监控》 — 思路比试错更重要&url=https://youxia999.github.io/2019/08/11/apache_dubbo_zipkin_merge/&via=https://youxia999.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>

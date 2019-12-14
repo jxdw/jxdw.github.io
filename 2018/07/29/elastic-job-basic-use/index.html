@@ -14,7 +14,7 @@
     
     
     
-    <title>elastic-job-lite使用和源码初步分析 | 思路比努力更重要 | 记录技术的学习和实践过程</title>
+    <title>elastic-job-lite使用和源码初步分析 | 思路比试错更重要 | 记录技术的学习和实践过程</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
@@ -26,7 +26,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="elastic-job-lite使用和源码初步分析">
 <meta property="og:url" content="https://youxia999.github.io/2018/07/29/elastic-job-basic-use/index.html">
-<meta property="og:site_name" content="思路比努力更重要">
+<meta property="og:site_name" content="思路比试错更重要">
 <meta property="og:description" content="elastic-job使用elasticjob概念模型elastic-job的概念模型主要分为5类：  注册中心bean(ZookeeperRegistryCenter) job配置bean 业务逻辑job(需要实现simpleJob/DataJob) job事件配置(需要写入到存储中去) job调度器bean开发者显示调用jobscheduler的init方法（或者采用spring注解，初始化i">
 <meta property="og:locale" content="ZH_CN">
 <meta property="og:image" content="https://youxia999.github.io/img/zookeeper/elastic_job_source_code.png">
@@ -36,7 +36,7 @@
 <meta name="twitter:description" content="elastic-job使用elasticjob概念模型elastic-job的概念模型主要分为5类：  注册中心bean(ZookeeperRegistryCenter) job配置bean 业务逻辑job(需要实现simpleJob/DataJob) job事件配置(需要写入到存储中去) job调度器bean开发者显示调用jobscheduler的init方法（或者采用spring注解，初始化i">
 <meta name="twitter:image" content="https://youxia999.github.io/img/zookeeper/elastic_job_source_code.png">
     
-        <link rel="alternate" type="application/atom+xml" title="思路比努力更重要" href="/atom.xml">
+        <link rel="alternate" type="application/atom+xml" title="思路比试错更重要" href="/atom.xml">
     
     <link rel="shortcut icon" href="/favicon.ico">
     <link rel="stylesheet" href="/css/style.css?v=1.7.2">
@@ -273,7 +273,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://youxia999.github.io/2018/07/29/elastic-job-basic-use/&title=《elastic-job-lite使用和源码初步分析》 — 思路比努力更重要&pic=https://youxia999.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://youxia999.github.io/2018/07/29/elastic-job-basic-use/&title=《elastic-job-lite使用和源码初步分析》 — 思路比试错更重要&pic=https://youxia999.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -283,7 +283,7 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://youxia999.github.io/2018/07/29/elastic-job-basic-use/&title=《elastic-job-lite使用和源码初步分析》 — 思路比努力更重要&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://youxia999.github.io/2018/07/29/elastic-job-basic-use/&title=《elastic-job-lite使用和源码初步分析》 — 思路比试错更重要&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -293,7 +293,7 @@
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《elastic-job-lite使用和源码初步分析》 — 思路比努力更重要&url=https://youxia999.github.io/2018/07/29/elastic-job-basic-use/&via=https://youxia999.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《elastic-job-lite使用和源码初步分析》 — 思路比试错更重要&url=https://youxia999.github.io/2018/07/29/elastic-job-basic-use/&via=https://youxia999.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
@@ -424,7 +424,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://youxia999.github.io/2018/07/29/elastic-job-basic-use/&title=《elastic-job-lite使用和源码初步分析》 — 思路比努力更重要&pic=https://youxia999.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://youxia999.github.io/2018/07/29/elastic-job-basic-use/&title=《elastic-job-lite使用和源码初步分析》 — 思路比试错更重要&pic=https://youxia999.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -434,7 +434,7 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://youxia999.github.io/2018/07/29/elastic-job-basic-use/&title=《elastic-job-lite使用和源码初步分析》 — 思路比努力更重要&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://youxia999.github.io/2018/07/29/elastic-job-basic-use/&title=《elastic-job-lite使用和源码初步分析》 — 思路比试错更重要&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -444,7 +444,7 @@
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《elastic-job-lite使用和源码初步分析》 — 思路比努力更重要&url=https://youxia999.github.io/2018/07/29/elastic-job-basic-use/&via=https://youxia999.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《elastic-job-lite使用和源码初步分析》 — 思路比试错更重要&url=https://youxia999.github.io/2018/07/29/elastic-job-basic-use/&via=https://youxia999.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>

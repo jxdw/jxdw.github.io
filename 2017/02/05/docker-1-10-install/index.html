@@ -20,9 +20,9 @@
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="容器技术">
+    <meta name="keywords" content="容器技术,云原生方法论">
     <meta name="description" content="本文背景背景经同事推荐，觉得docker对于我们这些centos菜鸟很不错（把安装步骤在dokcerfile写好了），建议学习一下。 参考资料https://hub.docker.com (很重要，类似于官方文档)https://cr.console.aliyun.com/cn-hangzhou/mirrors (镜像加速器，在国内绕不过去的点)http://mirrors.aliyun.com/">
-<meta name="keywords" content="容器技术">
+<meta name="keywords" content="容器技术,云原生方法论">
 <meta property="og:type" content="article">
 <meta property="og:title" content="docker1.10安装和初步使用">
 <meta property="og:url" content="https://youxia999.github.io/2017/02/05/docker-1-10-install/index.html">
@@ -30,7 +30,7 @@
 <meta property="og:description" content="本文背景背景经同事推荐，觉得docker对于我们这些centos菜鸟很不错（把安装步骤在dokcerfile写好了），建议学习一下。 参考资料https://hub.docker.com (很重要，类似于官方文档)https://cr.console.aliyun.com/cn-hangzhou/mirrors (镜像加速器，在国内绕不过去的点)http://mirrors.aliyun.com/">
 <meta property="og:locale" content="ZH_CN">
 <meta property="og:image" content="https://youxia999.github.io/img/cloudnative/docker/docker_help.png">
-<meta property="og:updated_time" content="2019-12-14T12:18:32.217Z">
+<meta property="og:updated_time" content="2019-12-14T13:48:26.562Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="docker1.10安装和初步使用">
 <meta name="twitter:description" content="本文背景背景经同事推荐，觉得docker对于我们这些centos菜鸟很不错（把安装步骤在dokcerfile写好了），建议学习一下。 参考资料https://hub.docker.com (很重要，类似于官方文档)https://cr.console.aliyun.com/cn-hangzhou/mirrors (镜像加速器，在国内绕不过去的点)http://mirrors.aliyun.com/">
@@ -197,7 +197,13 @@
 <p>这里没有配置私有的镜像仓库地址（线上环境还是要配置仓库，比如打标签、push镜像用）</p>
 <h2 id="其他可能会出问题的地方"><a href="#其他可能会出问题的地方" class="headerlink" title="其他可能会出问题的地方"></a>其他可能会出问题的地方</h2><p>其他可能会出现问题的地方，基本上都是在启动命令这一行。有问题，修改就好<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ExecStart=/usr/bin/docker-current daemon \</span><br><span class="line">          --exec-opt native.cgroupdriver=systemd \</span><br><span class="line">          $OPTIONS \</span><br><span class="line">          $DOCKER_STORAGE_OPTIONS \</span><br><span class="line">          $DOCKER_NETWORK_OPTIONS \</span><br><span class="line">          $ADD_REGISTRY \</span><br><span class="line">          $BLOCK_REGISTRY \</span><br><span class="line">          $INSECURE_REGISTRY</span><br></pre></td></tr></table></figure></p>
 <h1 id="启动命令"><a href="#启动命令" class="headerlink" title="启动命令"></a>启动命令</h1><p>systemctl daemon-reload<br>systemctl restart docker.service</p>
-<h1 id="docker实操"><a href="#docker实操" class="headerlink" title="docker实操"></a>docker实操</h1><p>可以见docker help命令和官网指南<br><img src="https://youxia999.github.io/img/cloudnative/docker/docker_help.png" alt></p>
+<h1 id="docker实操"><a href="#docker实操" class="headerlink" title="docker实操"></a>docker实操</h1><p>可以见docker help命令和官网指南<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://youxia999.github.io/img/cloudnative/docker/docker_help.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
 
         </div>
 
@@ -206,7 +212,7 @@
     <div class="content" style="display:none">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2019-12-14T12:18:32.217Z" itemprop="dateUpdated">2019-12-14 20:18:32 20:18:32</time>
+    最后更新时间：<time datetime="2019-12-14T13:48:26.562Z" itemprop="dateUpdated">2019-12-14 21:48:26 21:48:26</time>
 </span><br>
 
 
@@ -228,7 +234,7 @@
 
         <div class="post-footer">
             
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/容器技术/">容器技术</a></li></ul>
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/云原生方法论/">云原生方法论</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/容器技术/">容器技术</a></li></ul>
 
 
             

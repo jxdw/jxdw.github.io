@@ -20,22 +20,22 @@
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="zipkin,服务链路跟踪技术,云原生方法论">
-    <meta name="description" content="参考文档https://blog.csdn.net/apei830/article/details/78722168 概念与协议协议概念英文版(spring官网) 概念中文版 Span基本工作单元，一次链路调用（可以是RPC，DB等没有特定的限制）创建一个span，通过一个64位ID标识它，span通过还有其他的数据，例如描述信息，时间戳，key-value对的（Annotation）tag信息，">
-<meta name="keywords" content="zipkin,服务链路跟踪技术,云原生方法论">
+    <meta name="keywords" content="zipkin,云原生方法论,链路跟踪技术">
+    <meta name="description" content="参考文档https://blog.csdn.net/apei830/article/details/78722168 概念与协议协议概念英文版(spring官网)                                                                                                           概念中文版 Span基本">
+<meta name="keywords" content="zipkin,云原生方法论,链路跟踪技术">
 <meta property="og:type" content="article">
 <meta property="og:title" content="zipkin的基本概念和初步体验">
 <meta property="og:url" content="https://youxia999.github.io/2018/05/26/zipkin-install/index.html">
 <meta property="og:site_name" content="思路比试错更重要">
-<meta property="og:description" content="参考文档https://blog.csdn.net/apei830/article/details/78722168 概念与协议协议概念英文版(spring官网) 概念中文版 Span基本工作单元，一次链路调用（可以是RPC，DB等没有特定的限制）创建一个span，通过一个64位ID标识它，span通过还有其他的数据，例如描述信息，时间戳，key-value对的（Annotation）tag信息，">
+<meta property="og:description" content="参考文档https://blog.csdn.net/apei830/article/details/78722168 概念与协议协议概念英文版(spring官网)                                                                                                           概念中文版 Span基本">
 <meta property="og:locale" content="ZH_CN">
 <meta property="og:image" content="https://youxia999.github.io/img//_terminology_english.png">
 <meta property="og:image" content="https://youxia999.github.io/img//_protocol.png">
 <meta property="og:image" content="https://youxia999.github.io/img//_architecture.png">
-<meta property="og:updated_time" content="2019-12-14T12:53:48.876Z">
+<meta property="og:updated_time" content="2019-12-15T06:19:51.569Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="zipkin的基本概念和初步体验">
-<meta name="twitter:description" content="参考文档https://blog.csdn.net/apei830/article/details/78722168 概念与协议协议概念英文版(spring官网) 概念中文版 Span基本工作单元，一次链路调用（可以是RPC，DB等没有特定的限制）创建一个span，通过一个64位ID标识它，span通过还有其他的数据，例如描述信息，时间戳，key-value对的（Annotation）tag信息，">
+<meta name="twitter:description" content="参考文档https://blog.csdn.net/apei830/article/details/78722168 概念与协议协议概念英文版(spring官网)                                                                                                           概念中文版 Span基本">
 <meta name="twitter:image" content="https://youxia999.github.io/img//_terminology_english.png">
     
         <link rel="alternate" type="application/atom+xml" title="思路比试错更重要" href="/atom.xml">
@@ -79,9 +79,9 @@
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/tags/%E4%BA%91%E5%8E%9F%E7%94%9F%E6%96%B9%E6%B3%95%E8%AE%BA/">
-                <i class="icon icon-lg icon-cloud"></i>
-                云原生方法论
+              <a href="/tags/%E4%B8%9A%E5%8A%A1%E5%B9%B3%E5%8F%B0%E5%BB%BA%E8%AE%BE/">
+                <i class="icon icon-lg icon-random"></i>
+                技术平台建设
               </a>
             </li>
         
@@ -93,16 +93,58 @@
             </li>
         
             <li class="waves-block waves-effect">
+              <a href="/tags/%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/">
+                <i class="icon icon-lg icon-cloud"></i>
+                云原生-容器技术
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%8A%80%E6%9C%AF/">
+                <i class="icon icon-lg icon-cogs"></i>
+                云原生-持续集成技术
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/%E9%93%BE%E8%B7%AF%E8%B7%9F%E8%B8%AA%E6%8A%80%E6%9C%AF/">
+                <i class="icon icon-lg icon-camera"></i>
+                云原生-链路跟踪技术
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/">
+                <i class="icon icon-lg icon-asterisk"></i>
+                云原生-微服务架构
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
               <a href="/tags/%E9%98%9F%E5%88%97%E5%AD%98%E5%82%A8%E7%BC%93%E5%AD%98%E6%8A%80%E6%9C%AF/">
-                <i class="icon icon-lg icon-random"></i>
+                <i class="icon icon-lg icon-envelope"></i>
                 队列存储缓存技术
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E5%BC%80%E5%8F%91%E8%84%9A%E6%89%8B%E6%9E%B6/">
+              <a href="/tags/es6%E5%BC%80%E5%8F%91%E8%84%9A%E6%89%8B%E6%9E%B6/">
                 <i class="icon icon-lg icon-coffee"></i>
-                应用开发脚手架
+                es6开发脚手架
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/java%E5%BC%80%E5%8F%91%E8%84%9A%E6%89%8B%E6%9E%B6/">
+                <i class="icon icon-lg icon-leaf"></i>
+                java开发脚手架
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/go%E5%BC%80%E5%8F%91%E8%84%9A%E6%89%8B%E6%9E%B6/">
+                <i class="icon icon-lg icon-retweet"></i>
+                go开发脚手架
               </a>
             </li>
         
@@ -193,7 +235,13 @@
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
             <h1 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">https://blog.csdn.net/apei830/article/details/78722168</span><br></pre></td></tr></table></figure>
-<h1 id="概念与协议协议"><a href="#概念与协议协议" class="headerlink" title="概念与协议协议"></a>概念与协议协议</h1><h2 id="概念英文版-spring官网"><a href="#概念英文版-spring官网" class="headerlink" title="概念英文版(spring官网)"></a>概念英文版(spring官网)</h2><p><img src="https://youxia999.github.io/img//_terminology_english.png" alt></p>
+<h1 id="概念与协议协议"><a href="#概念与协议协议" class="headerlink" title="概念与协议协议"></a>概念与协议协议</h1><h2 id="概念英文版-spring官网"><a href="#概念英文版-spring官网" class="headerlink" title="概念英文版(spring官网)"></a>概念英文版(spring官网)</h2><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://youxia999.github.io/img//_terminology_english.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <h2 id="概念中文版"><a href="#概念中文版" class="headerlink" title="概念中文版"></a>概念中文版</h2><ul>
 <li><p>Span<br>基本工作单元，一次链路调用（可以是RPC，DB等没有特定的限制）创建一个span，通过一个64位ID标识它，span通过还有其他的数据，例如描述信息，时间戳，key-value对的（Annotation）tag信息，parent-id等，其中parent-id可以表示span调用链路来源，通俗的理解span就是一次请求信息。</p>
 </li>
@@ -203,9 +251,21 @@
 </li>
 </ul>
 <p>BinaryAnnotation：提供一些额外信息，一般以key-value对出现</p>
-<h2 id="传输协议"><a href="#传输协议" class="headerlink" title="传输协议"></a>传输协议</h2><h3 id="http传输"><a href="#http传输" class="headerlink" title="http传输"></a>http传输</h3><p><img src="https://youxia999.github.io/img//_protocol.png" alt></p>
+<h2 id="传输协议"><a href="#传输协议" class="headerlink" title="传输协议"></a>传输协议</h2><h3 id="http传输"><a href="#http传输" class="headerlink" title="http传输"></a>http传输</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://youxia999.github.io/img//_protocol.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <h3 id="传输的数据（V2版本）"><a href="#传输的数据（V2版本）" class="headerlink" title="传输的数据（V2版本）"></a>传输的数据（V2版本）</h3><p>存储到es的document的_source字段<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&quot;_source&quot;: &#123;</span><br><span class="line">	&quot;traceId&quot;: &quot;388c003cbf4d978e&quot;,</span><br><span class="line">	&quot;duration&quot;: 50735,</span><br><span class="line">	&quot;remoteEndpoint&quot;: &#123;</span><br><span class="line">		&quot;ipv4&quot;: &quot;192.168.128.57&quot;,</span><br><span class="line">		&quot;port&quot;: 12497</span><br><span class="line">	&#125;,</span><br><span class="line">	&quot;shared&quot;: true,</span><br><span class="line">	&quot;localEndpoint&quot;: &#123;</span><br><span class="line">		&quot;serviceName&quot;: &quot;serviceb&quot;,</span><br><span class="line">		&quot;ipv4&quot;: &quot;192.168.128.57&quot;</span><br><span class="line">	&#125;,</span><br><span class="line">	&quot;timestamp_millis&quot;: 1527308495000,</span><br><span class="line">	&quot;kind&quot;: &quot;SERVER&quot;,</span><br><span class="line">	&quot;name&quot;: &quot;get /call/&#123;id&#125;&quot;,</span><br><span class="line">	&quot;id&quot;: &quot;c7e7ea03cfaf7108&quot;,</span><br><span class="line">	&quot;parentId&quot;: &quot;388c003cbf4d978e&quot;,</span><br><span class="line">	&quot;timestamp&quot;: 1527308495000715,</span><br><span class="line">	&quot;tags&quot;: &#123;</span><br><span class="line">		&quot;http.method&quot;: &quot;GET&quot;,</span><br><span class="line">		&quot;http.path&quot;: &quot;/call/abcd&quot;,</span><br><span class="line">		&quot;mvc.controller.class&quot;: &quot;UserController&quot;,</span><br><span class="line">		&quot;mvc.controller.method&quot;: &quot;callHome&quot;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h1 id="架构图"><a href="#架构图" class="headerlink" title="架构图"></a>架构图</h1><p><img src="https://youxia999.github.io/img//_architecture.png" alt></p>
+<h1 id="架构图"><a href="#架构图" class="headerlink" title="架构图"></a>架构图</h1><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://youxia999.github.io/img//_architecture.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <p>主要包括四个模块 </p>
 <ul>
 <li>Collector<br>接收或收集各应用传输的数据 </li>
@@ -228,7 +288,7 @@
     <div class="content" style="display:none">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2019-12-14T12:53:48.876Z" itemprop="dateUpdated">2019-12-14 20:53:48 20:53:48</time>
+    最后更新时间：<time datetime="2019-12-15T06:19:51.569Z" itemprop="dateUpdated">2019-12-15 14:19:51 14:19:51</time>
 </span><br>
 
 
@@ -250,7 +310,7 @@
 
         <div class="post-footer">
             
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/zipkin/">zipkin</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/云原生方法论/">云原生方法论</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/服务链路跟踪技术/">服务链路跟踪技术</a></li></ul>
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/zipkin/">zipkin</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/云原生方法论/">云原生方法论</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/链路跟踪技术/">链路跟踪技术</a></li></ul>
 
 
             

@@ -20,22 +20,22 @@
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="CentOS操作">
-    <meta name="description" content="安装下载iso文件，然后在vmware里面进行安装。安装完centos7之后，目录结构如下： 目录介绍下面解释下各个目录的作用。 根目录/每一个文件和目录从根目录开始。只有root用户具有该目录下的写权限。请注意，/root是root用户的主目录，这与/.不一样 /boot目录引导加载程序文件目录，包含引导加载程序相关的文件、内核的initrd、vmlinux、grub文件。例如：initramf">
-<meta name="keywords" content="CentOS操作">
+    <meta name="keywords" content="CentOS操作,云原生方法论基础">
+    <meta name="description" content="安装下载iso文件，然后在vmware里面进行安装。安装完centos7之后，目录结构如下：                                                                                                           目录介绍下面解释下各个目录的作用。 根目录/每一个文件和目录从根目录开始。只有root用户具有">
+<meta name="keywords" content="CentOS操作,云原生方法论基础">
 <meta property="og:type" content="article">
 <meta property="og:title" content="玩转centos7之目录解读">
 <meta property="og:url" content="https://youxia999.github.io/2016/02/14/centos7-directory-introduce/index.html">
 <meta property="og:site_name" content="思路比试错更重要">
-<meta property="og:description" content="安装下载iso文件，然后在vmware里面进行安装。安装完centos7之后，目录结构如下： 目录介绍下面解释下各个目录的作用。 根目录/每一个文件和目录从根目录开始。只有root用户具有该目录下的写权限。请注意，/root是root用户的主目录，这与/.不一样 /boot目录引导加载程序文件目录，包含引导加载程序相关的文件、内核的initrd、vmlinux、grub文件。例如：initramf">
+<meta property="og:description" content="安装下载iso文件，然后在vmware里面进行安装。安装完centos7之后，目录结构如下：                                                                                                           目录介绍下面解释下各个目录的作用。 根目录/每一个文件和目录从根目录开始。只有root用户具有">
 <meta property="og:locale" content="ZH_CN">
 <meta property="og:image" content="https://youxia999.github.io/img/centos7/20150410195047311.png">
 <meta property="og:image" content="https://youxia999.github.io/img/centos7/proc_sys.png">
 <meta property="og:image" content="https://youxia999.github.io/img/centos7/ip_local_range.png">
-<meta property="og:updated_time" content="2019-11-14T02:38:22.628Z">
+<meta property="og:updated_time" content="2019-12-27T11:50:33.038Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="玩转centos7之目录解读">
-<meta name="twitter:description" content="安装下载iso文件，然后在vmware里面进行安装。安装完centos7之后，目录结构如下： 目录介绍下面解释下各个目录的作用。 根目录/每一个文件和目录从根目录开始。只有root用户具有该目录下的写权限。请注意，/root是root用户的主目录，这与/.不一样 /boot目录引导加载程序文件目录，包含引导加载程序相关的文件、内核的initrd、vmlinux、grub文件。例如：initramf">
+<meta name="twitter:description" content="安装下载iso文件，然后在vmware里面进行安装。安装完centos7之后，目录结构如下：                                                                                                           目录介绍下面解释下各个目录的作用。 根目录/每一个文件和目录从根目录开始。只有root用户具有">
 <meta name="twitter:image" content="https://youxia999.github.io/img/centos7/20150410195047311.png">
     
         <link rel="alternate" type="application/atom+xml" title="思路比试错更重要" href="/atom.xml">
@@ -80,7 +80,7 @@
         
             <li class="waves-block waves-effect">
               <a href="/tags/%E4%B8%9A%E5%8A%A1%E5%B9%B3%E5%8F%B0%E5%BB%BA%E8%AE%BE/"  >
-                <i class="icon icon-lg icon-random"></i>
+                <i class="icon icon-lg icon-cogs"></i>
                 技术平台建设
               </a>
             </li>
@@ -93,30 +93,9 @@
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/tags/%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/"  >
+              <a href="/tags/%E4%BA%91%E5%8E%9F%E7%94%9F%E6%96%B9%E6%B3%95%E8%AE%BA%E5%9F%BA%E7%A1%80/"  >
                 <i class="icon icon-lg icon-cloud"></i>
-                云原生-容器技术
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="/tags/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%8A%80%E6%9C%AF/"  >
-                <i class="icon icon-lg icon-cogs"></i>
-                云原生-持续集成技术
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="/tags/%E9%93%BE%E8%B7%AF%E8%B7%9F%E8%B8%AA%E6%8A%80%E6%9C%AF/"  >
-                <i class="icon icon-lg icon-camera"></i>
-                云原生-链路跟踪技术
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/"  >
-                <i class="icon icon-lg icon-asterisk"></i>
-                云原生-微服务架构
+                云原生方法论基础
               </a>
             </li>
         
@@ -128,9 +107,9 @@
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/"  >
+              <a href="/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E6%8A%80%E6%9C%AF/"  >
                 <i class="icon icon-lg icon-coffee"></i>
-                编程语言
+                编程语言技术
               </a>
             </li>
         
@@ -221,7 +200,13 @@
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>下载iso文件，然后在vmware里面进行安装。<br>安装完centos7之后，目录结构如下：<br><img src="https://youxia999.github.io/img/centos7/20150410195047311.png" alt></p>
+            <h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>下载iso文件，然后在vmware里面进行安装。<br>安装完centos7之后，目录结构如下：<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://youxia999.github.io/img/centos7/20150410195047311.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
 <h1 id="目录介绍"><a href="#目录介绍" class="headerlink" title="目录介绍"></a>目录介绍</h1><p>下面解释下各个目录的作用。</p>
 <h2 id="根目录"><a href="#根目录" class="headerlink" title="根目录/"></a>根目录/</h2><p>每一个文件和目录从根目录开始。只有root用户具有该目录下的写权限。请注意，/root是root用户的主目录，这与/.不一样</p>
 <h2 id="boot目录"><a href="#boot目录" class="headerlink" title="/boot目录"></a>/boot目录</h2><p>引导加载程序文件目录，包含引导加载程序相关的文件、内核的initrd、vmlinux、grub文件。<br>例如：initramfs-3.10.0-514.el7.x86_64.img。</p>
@@ -230,8 +215,21 @@
 <h2 id="etc目录"><a href="#etc目录" class="headerlink" title="/etc目录"></a>/etc目录</h2><p>主要存放：程序的配置文件(很重要的一个目录)<br>包含所有程序所需的配置文件。也包含了用于启动/停止单个程序的启动和关闭shell脚本。<br>例如：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">/etc/resolv.conf # dns服务器配置文件</span><br><span class="line">/etc/logrotate.conf # 日志管理工具的配置文件</span><br><span class="line">/etc/sshd/sshd_config #sshd服务的配置文件</span><br><span class="line">/etc/my.cnf # mysql服务器的配置文件</span><br></pre></td></tr></table></figure></p>
 <h2 id="dev目录"><a href="#dev目录" class="headerlink" title="/dev目录"></a>/dev目录</h2><p>主要存放:设备文件。包含设备文件。这些包括终端设备、USB或连接到系统的任何设备。例如：/dev/tty1、/dev/usbmon0</p>
 <h2 id="proc"><a href="#proc" class="headerlink" title="/proc"></a>/proc</h2><p>主要存放:进程信息。包含系统进程的相关信息。<br>这是一个虚拟的文件系统，例如：<br>这是一个虚拟的文件系统，系统资源以文本信息形式存在。包含有关正在运行的进程的信息。例如：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">/proc/uptime # 系统的运行时间</span><br><span class="line">/proc/&#123;pid&#125; # 目录中存放包含的与特定pid相关的信息。</span><br><span class="line">/proc/sys # 很重要的一个目录。目录中存放与系统相关的一些信息:内核、网络、设备、调试信息等等</span><br></pre></td></tr></table></figure></p>
-<p><img src="https://youxia999.github.io/img/centos7/proc_sys.png" alt></p>
-<p><img src="https://youxia999.github.io/img/centos7/ip_local_range.png" alt><br>表示与给定IP地址所能建立的TCP连接的端口数限制。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://youxia999.github.io/img/centos7/proc_sys.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://youxia999.github.io/img/centos7/ip_local_range.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>表示与给定IP地址所能建立的TCP连接的端口数限制。</p>
 <h2 id="var目录"><a href="#var目录" class="headerlink" title="/var目录"></a>/var目录</h2><p>var代表变量文件(很重要的一个目录)。这个目录下可以找到内容可能增长的文件。这包括:<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">系统日志文件（/var/log）;</span><br><span class="line">包和数据库文件（/var/lib）;</span><br><span class="line">电子邮件（/var/mail）;</span><br><span class="line">打印队列（/var/spool）;</span><br><span class="line">锁文件（/var/lock）;</span><br><span class="line">多次重新启动需要的临时文件（/var/tmp）;</span><br></pre></td></tr></table></figure></p>
 <font color="red">系统盘空间不够用，一般是因为程序的一些日志文件配置到这个目录下。</font>
 
@@ -251,7 +249,7 @@
     <div class="content" style="display:none">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2019-11-14T02:38:22.628Z" itemprop="dateUpdated">2019-11-14 10:38:22 10:38:22</time>
+    最后更新时间：<time datetime="2019-12-27T11:50:33.038Z" itemprop="dateUpdated">2019-12-27 19:50:33 19:50:33</time>
 </span><br>
 
 
@@ -273,7 +271,7 @@
 
         <div class="post-footer">
             
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CentOS操作/">CentOS操作</a></li></ul>
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CentOS操作/">CentOS操作</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/云原生方法论基础/">云原生方法论基础</a></li></ul>
 
 
             

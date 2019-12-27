@@ -20,9 +20,9 @@
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="容器技术,云原生方法论">
+    <meta name="keywords" content="容器技术,云原生方法论基础">
     <meta name="description" content="背景资料本文主要参考资料(建议收藏)https://jimmysong.io/kubernetes-handbook/https://anjia0532.github.io/2017/11/15/gcr-io-image-mirror/ 本文的收获实践“纸上读来终觉浅，绝知此事要躬行”，上手操作第5章 安装之前三件事熟悉kubernetes基本架构和工作原理建议好好看《Kubernetes Han">
-<meta name="keywords" content="容器技术,云原生方法论">
+<meta name="keywords" content="容器技术,云原生方法论基础">
 <meta property="og:type" content="article">
 <meta property="og:title" content="玩转kubernetes之kubernetes1.8安装">
 <meta property="og:url" content="https://youxia999.github.io/2018/12/28/container-kubernetes-1-8-install/index.html">
@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://youxia999.github.io/img/cloudnative/docker/falnneldconfig.png">
 <meta property="og:image" content="https://youxia999.github.io/img/cloudnative/docker/kubernetets1.8.5.png">
 <meta property="og:image" content="https://youxia999.github.io/img/cloudnative/docker/k8s_etcd.png">
-<meta property="og:updated_time" content="2019-12-14T12:53:48.637Z">
+<meta property="og:updated_time" content="2019-12-27T11:48:56.174Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="玩转kubernetes之kubernetes1.8安装">
 <meta name="twitter:description" content="背景资料本文主要参考资料(建议收藏)https://jimmysong.io/kubernetes-handbook/https://anjia0532.github.io/2017/11/15/gcr-io-image-mirror/ 本文的收获实践“纸上读来终觉浅，绝知此事要躬行”，上手操作第5章 安装之前三件事熟悉kubernetes基本架构和工作原理建议好好看《Kubernetes Han">
@@ -80,7 +80,7 @@
         
             <li class="waves-block waves-effect">
               <a href="/tags/%E4%B8%9A%E5%8A%A1%E5%B9%B3%E5%8F%B0%E5%BB%BA%E8%AE%BE/"  >
-                <i class="icon icon-lg icon-random"></i>
+                <i class="icon icon-lg icon-cogs"></i>
                 技术平台建设
               </a>
             </li>
@@ -93,30 +93,9 @@
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/tags/%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/"  >
+              <a href="/tags/%E4%BA%91%E5%8E%9F%E7%94%9F%E6%96%B9%E6%B3%95%E8%AE%BA%E5%9F%BA%E7%A1%80/"  >
                 <i class="icon icon-lg icon-cloud"></i>
-                云原生-容器技术
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="/tags/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%8A%80%E6%9C%AF/"  >
-                <i class="icon icon-lg icon-cogs"></i>
-                云原生-持续集成技术
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="/tags/%E9%93%BE%E8%B7%AF%E8%B7%9F%E8%B8%AA%E6%8A%80%E6%9C%AF/"  >
-                <i class="icon icon-lg icon-camera"></i>
-                云原生-链路跟踪技术
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/"  >
-                <i class="icon icon-lg icon-asterisk"></i>
-                云原生-微服务架构
+                云原生方法论基础
               </a>
             </li>
         
@@ -128,9 +107,9 @@
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/"  >
+              <a href="/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E6%8A%80%E6%9C%AF/"  >
                 <i class="icon icon-lg icon-coffee"></i>
-                编程语言
+                编程语言技术
               </a>
             </li>
         
@@ -239,15 +218,32 @@
 <h2 id="安装docker1-12-6"><a href="#安装docker1-12-6" class="headerlink" title="安装docker1.12.6"></a>安装docker1.12.6</h2><p>可以参考之前的文章，不再赘述，记得要配置私有仓库，否则，很多功能不好实现。</p>
 <h2 id="安装flanneld0-7-1"><a href="#安装flanneld0-7-1" class="headerlink" title="安装flanneld0.7.1"></a>安装flanneld0.7.1</h2><p>参考 <a href="https://jimmysong.io/kubernetes-handbook/practice/flannel-installation.html" target="_blank" rel="noopener">https://jimmysong.io/kubernetes-handbook/practice/flannel-installation.html</a> 安装flanneld。</p>
 <p><font color="red">注意：/etc/sysconfig/flanneld配置文件</font><br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># Flanneld configuration options  </span><br><span class="line"></span><br><span class="line"># etcd url location.  Point this to the server where etcd runs</span><br><span class="line">FLANNEL_ETCD_ENDPOINTS=&quot;http://10.2.1.30:2379,http://10.2.1.31:2379,http://10.2.1.33:2379&quot;</span><br><span class="line"></span><br><span class="line"># etcd config key.  This is the configuration key that flannel queries</span><br><span class="line"># For address range assignment</span><br><span class="line">FLANNEL_ETCD_PREFIX=&quot;/kube-centos/network&quot;</span><br><span class="line"></span><br><span class="line"># Any additional options that you want to pass</span><br><span class="line">FLANNEL_OPTIONS=&quot;--iface=ens192&quot;</span><br></pre></td></tr></table></figure></p>
-<p>并在etcd创建kubernetes集群的flanneld网络config<br><img src="https://youxia999.github.io/img/cloudnative/docker/falnneldconfig.png" alt></p>
+<p>并在etcd创建kubernetes集群的flanneld网络config<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://youxia999.github.io/img/cloudnative/docker/falnneldconfig.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
 <h2 id="准备证书"><a href="#准备证书" class="headerlink" title="准备证书"></a>准备证书</h2><h3 id="安装CSL文件"><a href="#安装CSL文件" class="headerlink" title="安装CSL文件"></a>安装CSL文件</h3><h3 id="创建CA证书"><a href="#创建CA证书" class="headerlink" title="创建CA证书"></a>创建CA证书</h3><p>参考 <a href="https://jimmysong.io/kubernetes-handbook/practice/create-tls-and-secret-key.html" target="_blank" rel="noopener">https://jimmysong.io/kubernetes-handbook/practice/create-tls-and-secret-key.html</a> 创建证书，并分发到所有kubernetes node。</p>
 <h2 id="安装kubernetes-master"><a href="#安装kubernetes-master" class="headerlink" title="安装kubernetes master"></a>安装kubernetes master</h2><h3 id="准备-etc-kubernetes-config配置文件"><a href="#准备-etc-kubernetes-config配置文件" class="headerlink" title="准备/etc/kubernetes/config配置文件"></a>准备/etc/kubernetes/config配置文件</h3><p><font color="red">该配置文件同时被kube-apiserver、kube-controller-manager、kube-scheduler、kubelet、kube-proxy使用。</font><br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">###</span><br><span class="line"># kubernetes system config</span><br><span class="line">#</span><br><span class="line"># The following values are used to configure various aspects of all</span><br><span class="line"># kubernetes services, including</span><br><span class="line">#</span><br><span class="line">#   kube-apiserver.service</span><br><span class="line">#   kube-controller-manager.service</span><br><span class="line">#   kube-scheduler.service</span><br><span class="line">#   kubelet.service</span><br><span class="line">#   kube-proxy.service</span><br><span class="line"># logging to stderr means we get it in the systemd journal</span><br><span class="line">KUBE_LOGTOSTDERR=&quot;--logtostderr=true&quot;</span><br><span class="line"></span><br><span class="line"># journal message level, 0 is debug</span><br><span class="line">KUBE_LOG_LEVEL=&quot;--v=0&quot;</span><br><span class="line"></span><br><span class="line"># Should this cluster be allowed to run privileged docker containers</span><br><span class="line">KUBE_ALLOW_PRIV=&quot;--allow-privileged=false&quot;</span><br><span class="line"></span><br><span class="line"># How the controller-manager, scheduler, and proxy find the apiserver</span><br><span class="line">KUBE_MASTER=&quot;--master=http://10.2.1.37:8080&quot;</span><br></pre></td></tr></table></figure></p>
 <h3 id="准备-etc-kubernetes-apiserver文件"><a href="#准备-etc-kubernetes-apiserver文件" class="headerlink" title="准备/etc/kubernetes/apiserver文件"></a>准备/etc/kubernetes/apiserver文件</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">###</span><br><span class="line">## kubernetes system config</span><br><span class="line">##</span><br><span class="line"></span><br><span class="line">## The following values are used to configure the kube-apiserver</span><br><span class="line">## The address on the local server to listen to.</span><br><span class="line">#KUBE_API_ADDRESS=&quot;--address=bc.authorization.k8s.io/v10.2.1.30&quot;</span><br><span class="line">KUBE_API_ADDRESS=&quot;--advertise-address=10.2.1.37 --bind-address=10.2.1.37 --insecure-bind-address=10.2.1.37&quot;</span><br><span class="line"></span><br><span class="line">## The port on the local server to listen on.</span><br><span class="line">KUBE_API_PORT=&quot;--port=8080&quot;</span><br><span class="line"></span><br><span class="line">## Port minions listen on</span><br><span class="line">KUBELET_PORT=&quot;--kubelet-port=10250&quot;</span><br><span class="line"></span><br><span class="line">## Comma separated list of nodes in the etcd cluster</span><br><span class="line">KUBE_ETCD_SERVERS=&quot;--etcd-servers=http://10.2.1.30:2379,http://10.2.1.31:2379,http://10.2.1.33:2379&quot;</span><br><span class="line"></span><br><span class="line">## Address range to use for services</span><br><span class="line">#KUBE_SERVICE_ADDREKUBELET_POD_INFRA_CONTAINERSSES=&quot;--service-cluster-ip-range=172.17.0.0/16&quot;</span><br><span class="line"></span><br><span class="line">#KUBE_ANONYMOUS_AUTH=&quot;--anonymous-auth=false&quot;</span><br><span class="line">KUBE_SERVICE_ADDRESSES=&quot;--service-cluster-ip-range=172.19.0.0/16&quot;</span><br><span class="line"></span><br><span class="line">## default admission control policies</span><br><span class="line">#KUBE_ADMISSION_CONTROL=&quot;--admission-control=NamespaceLifecycle,NamespaceExists,LimitRanger,SecurityContextDeny,ServiceAccount,ResourceQuota&quot;</span><br><span class="line">KUBE_ADMISSION_CONTROL=&quot;--admission-control=ServiceAccount,NamespaceLifecycle,NamespaceExists,LimitRanger,ResourceQuota&quot;</span><br><span class="line">KUBE_API_ARGS=&quot;--authorization-mode=RBAC --runtime-config=rbac.authorization.k8s.io/v1beta1 --kubelet-https=true --experimental-bootstrap-token-auth --token-auth-file=/etc/kubernetes/token.csv --service-node-port-range=30000-32767 --tls-cert-file=/etc/kubernetes/ssl/kubernetes.pem --tls-private-key-file=/etc/kubernetes/ssl/kubernetes-key.pem --client-ca-file=/etc/kubernetes/ssl/ca.pem --service-account-key-file=/etc/kubernetes/ssl/ca-key.pem  --enable-swagger-ui=true --apiserver-count=3 --audit-log-maxage=30 --audit-log-maxbackup=3 --audit-log-maxsize=100 --audit-log-path=/var/lib/audit.log --event-ttl=1h&quot;</span><br></pre></td></tr></table></figure>
 <h3 id="配置kube-apiserver的systemd"><a href="#配置kube-apiserver的systemd" class="headerlink" title="配置kube-apiserver的systemd"></a>配置kube-apiserver的systemd</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=Kubernetes API Service</span><br><span class="line">Documentation=https://github.com/GoogleCloudPlatform/kubernetes</span><br><span class="line">After=network.target</span><br><span class="line">#After=etcd.service</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">EnvironmentFile=-/etc/kubernetes/config</span><br><span class="line">EnvironmentFile=-/etc/kubernetes/apiserver</span><br><span class="line">ExecStart=/usr/bin/kube-apiserver \</span><br><span class="line">	    $KUBE_LOGTOSTDERR \</span><br><span class="line">	    $KUBE_LOG_LEVEL \</span><br><span class="line">	    $KUBE_ETCD_SERVERS \</span><br><span class="line">	    $KUBE_API_ADDRESS \</span><br><span class="line">	    $KUBE_API_PORT \</span><br><span class="line">            $KUBELET_PORT \</span><br><span class="line">	    $KUBE_ALLOW_PRIV \</span><br><span class="line">	    $KUBE_SERVICE_ADDRESSES \</span><br><span class="line">	    $KUBE_ADMISSION_CONTROL \</span><br><span class="line">            $KUBE_ANONYMOUS_AUTH \</span><br><span class="line">	    $KUBE_API_ARGS</span><br><span class="line">Restart=on-failure</span><br><span class="line">Type=notify</span><br><span class="line">LimitNOFILE=65536</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
 <h3 id="启动kube-apiserver"><a href="#启动kube-apiserver" class="headerlink" title="启动kube-apiserver"></a>启动kube-apiserver</h3><p>systemctl daemon-reload<br>systemctl enable kube-apiserver<br>systemctl start kube-apiserver</p>
-<h3 id="启动kube-controller-manager"><a href="#启动kube-controller-manager" class="headerlink" title="启动kube-controller-manager"></a>启动kube-controller-manager</h3><h3 id="启动kube-scheduler"><a href="#启动kube-scheduler" class="headerlink" title="启动kube-scheduler"></a>启动kube-scheduler</h3><h2 id="安装kubernetes-node"><a href="#安装kubernetes-node" class="headerlink" title="安装kubernetes node"></a>安装kubernetes node</h2><h3 id="启动kube-proxy"><a href="#启动kube-proxy" class="headerlink" title="启动kube-proxy"></a>启动kube-proxy</h3><h3 id="启动kubelet"><a href="#启动kubelet" class="headerlink" title="启动kubelet"></a>启动kubelet</h3><h2 id="安装K8S插件"><a href="#安装K8S插件" class="headerlink" title="安装K8S插件"></a>安装K8S插件</h2><h1 id="最终的效果"><a href="#最终的效果" class="headerlink" title="最终的效果"></a>最终的效果</h1><h2 id="dashboard效果"><a href="#dashboard效果" class="headerlink" title="dashboard效果"></a>dashboard效果</h2><p><img src="https://youxia999.github.io/img/cloudnative/docker/kubernetets1.8.5.png" alt></p>
-<h2 id="etcd数据库中的数据"><a href="#etcd数据库中的数据" class="headerlink" title="etcd数据库中的数据"></a>etcd数据库中的数据</h2><p><img src="https://youxia999.github.io/img/cloudnative/docker/k8s_etcd.png" alt></p>
-
+<h3 id="启动kube-controller-manager"><a href="#启动kube-controller-manager" class="headerlink" title="启动kube-controller-manager"></a>启动kube-controller-manager</h3><h3 id="启动kube-scheduler"><a href="#启动kube-scheduler" class="headerlink" title="启动kube-scheduler"></a>启动kube-scheduler</h3><h2 id="安装kubernetes-node"><a href="#安装kubernetes-node" class="headerlink" title="安装kubernetes node"></a>安装kubernetes node</h2><h3 id="启动kube-proxy"><a href="#启动kube-proxy" class="headerlink" title="启动kube-proxy"></a>启动kube-proxy</h3><h3 id="启动kubelet"><a href="#启动kubelet" class="headerlink" title="启动kubelet"></a>启动kubelet</h3><h2 id="安装K8S插件"><a href="#安装K8S插件" class="headerlink" title="安装K8S插件"></a>安装K8S插件</h2><h1 id="最终的效果"><a href="#最终的效果" class="headerlink" title="最终的效果"></a>最终的效果</h1><h2 id="dashboard效果"><a href="#dashboard效果" class="headerlink" title="dashboard效果"></a>dashboard效果</h2><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://youxia999.github.io/img/cloudnative/docker/kubernetets1.8.5.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h2 id="etcd数据库中的数据"><a href="#etcd数据库中的数据" class="headerlink" title="etcd数据库中的数据"></a>etcd数据库中的数据</h2><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://youxia999.github.io/img/cloudnative/docker/k8s_etcd.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
         </div>
 
         <blockquote class="post-copyright">
@@ -255,7 +251,7 @@
     <div class="content" style="display:none">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2019-12-14T12:53:48.637Z" itemprop="dateUpdated">2019-12-14 20:53:48 20:53:48</time>
+    最后更新时间：<time datetime="2019-12-27T11:48:56.174Z" itemprop="dateUpdated">2019-12-27 19:48:56 19:48:56</time>
 </span><br>
 
 
@@ -277,7 +273,7 @@
 
         <div class="post-footer">
             
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/云原生方法论/">云原生方法论</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/容器技术/">容器技术</a></li></ul>
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/云原生方法论基础/">云原生方法论基础</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/容器技术/">容器技术</a></li></ul>
 
 
             

@@ -20,9 +20,9 @@
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="监控技术,云原生方法论">
+    <meta name="keywords" content="监控技术,云原生方法论基础">
     <meta name="description" content="背景官方介绍链接: https://www.rabbitmq.com/prometheus.html#overview-prometheusAs of 3.8.0, RabbitMQ ships with built-in Prometheus &amp;amp; Grafana support.Support for Prometheus metric collector ships in the ra">
-<meta name="keywords" content="监控技术,云原生方法论">
+<meta name="keywords" content="监控技术,云原生方法论基础">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Prometheus监控rabbitmq3.8.0">
 <meta property="og:url" content="https://youxia999.github.io/2019/10/07/prometheus_monitor_rabbitmq/index.html">
@@ -35,7 +35,7 @@
 <meta property="og:image" content="https://youxia999.github.io/img/metrics/prometheus_monitor_rabbitmq_1.png">
 <meta property="og:image" content="https://youxia999.github.io/img/metrics/prometheus_monitor_rabbitmq_2.png">
 <meta property="og:image" content="https://youxia999.github.io/img/metrics/prometheus_monitor_rabbitmq_3.png">
-<meta property="og:updated_time" content="2019-12-14T12:53:48.828Z">
+<meta property="og:updated_time" content="2019-12-27T11:48:56.372Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Prometheus监控rabbitmq3.8.0">
 <meta name="twitter:description" content="背景官方介绍链接: https://www.rabbitmq.com/prometheus.html#overview-prometheusAs of 3.8.0, RabbitMQ ships with built-in Prometheus &amp;amp; Grafana support.Support for Prometheus metric collector ships in the ra">
@@ -83,7 +83,7 @@
         
             <li class="waves-block waves-effect">
               <a href="/tags/%E4%B8%9A%E5%8A%A1%E5%B9%B3%E5%8F%B0%E5%BB%BA%E8%AE%BE/"  >
-                <i class="icon icon-lg icon-random"></i>
+                <i class="icon icon-lg icon-cogs"></i>
                 技术平台建设
               </a>
             </li>
@@ -96,30 +96,9 @@
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/tags/%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/"  >
+              <a href="/tags/%E4%BA%91%E5%8E%9F%E7%94%9F%E6%96%B9%E6%B3%95%E8%AE%BA%E5%9F%BA%E7%A1%80/"  >
                 <i class="icon icon-lg icon-cloud"></i>
-                云原生-容器技术
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="/tags/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%8A%80%E6%9C%AF/"  >
-                <i class="icon icon-lg icon-cogs"></i>
-                云原生-持续集成技术
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="/tags/%E9%93%BE%E8%B7%AF%E8%B7%9F%E8%B8%AA%E6%8A%80%E6%9C%AF/"  >
-                <i class="icon icon-lg icon-camera"></i>
-                云原生-链路跟踪技术
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/"  >
-                <i class="icon icon-lg icon-asterisk"></i>
-                云原生-微服务架构
+                云原生方法论基础
               </a>
             </li>
         
@@ -131,9 +110,9 @@
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/"  >
+              <a href="/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E6%8A%80%E6%9C%AF/"  >
                 <i class="icon icon-lg icon-coffee"></i>
-                编程语言
+                编程语言技术
               </a>
             </li>
         
@@ -225,8 +204,20 @@
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
             <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><h2 id="官方介绍"><a href="#官方介绍" class="headerlink" title="官方介绍"></a>官方介绍</h2><p>链接: <a href="https://www.rabbitmq.com/prometheus.html#overview-prometheus" target="_blank" rel="noopener">https://www.rabbitmq.com/prometheus.html#overview-prometheus</a><br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">As of 3.8.0, RabbitMQ ships with built-in Prometheus &amp; Grafana support.</span><br><span class="line">Support for Prometheus metric collector ships in the rabbitmq_prometheus plugin. The plugin exposes all RabbitMQ metrics on a dedicated TCP port, in Prometheus text format.</span><br><span class="line">These metrics provide a deep insights into the state of RabbitMQ nodes and the runtime. They make reasoning about the behaviour of RabbitMQ, applications that use it and various infrastructure elements a lot more informed.</span><br></pre></td></tr></table></figure></p>
-<h2 id="版本依赖"><a href="#版本依赖" class="headerlink" title="版本依赖"></a>版本依赖</h2><p><img src="https://youxia999.github.io/img/rabbitmq/rabbitmq_3.8.0_changelog.png" alt></p>
-<p><img src="https://youxia999.github.io/img/rabbitmq/rabbitmq_3.8.0_required_erlang_version.png" alt></p>
+<h2 id="版本依赖"><a href="#版本依赖" class="headerlink" title="版本依赖"></a>版本依赖</h2><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://youxia999.github.io/img/rabbitmq/rabbitmq_3.8.0_changelog.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://youxia999.github.io/img/rabbitmq/rabbitmq_3.8.0_required_erlang_version.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <h1 id="安装过程"><a href="#安装过程" class="headerlink" title="安装过程"></a>安装过程</h1><h2 id="安装erlang"><a href="#安装erlang" class="headerlink" title="安装erlang"></a>安装erlang</h2><p>vim /etc/yum.repos.d/rabbitmq-erlang.repo<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[rabbitmq-erlang]</span><br><span class="line">name=rabbitmq-erlang</span><br><span class="line">baseurl=https://dl.bintray.com/rabbitmq-erlang/rpm/erlang/22/el/7</span><br><span class="line">gpgcheck=1</span><br><span class="line">gpgkey=https://dl.bintray.com/rabbitmq/Keys/rabbitmq-release-signing-key.asc</span><br><span class="line">repo_gpgcheck=0</span><br><span class="line">enabled=1</span><br></pre></td></tr></table></figure></p>
 <p>输入 命令，安装erlang。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">rpm -import https://dl.bintray.com/rabbitmq/Keys/rabbitmq-release-signing-key.asc</span><br><span class="line">yum install  erlang</span><br><span class="line">yum install rabbitmq-server</span><br></pre></td></tr></table></figure></p>
 <h2 id="安装rabbitmq-server"><a href="#安装rabbitmq-server" class="headerlink" title="安装rabbitmq-server"></a>安装rabbitmq-server</h2><p>vim /etc/yum.repos.d/rabbitmq.repo<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[bintray-rabbitmq-server]</span><br><span class="line">name=bintray-rabbitmq-rpm</span><br><span class="line">baseurl=https://dl.bintray.com/rabbitmq/rpm/rabbitmq-server/v3.8.x/el/7/</span><br><span class="line">gpgcheck=0</span><br><span class="line">repo_gpgcheck=0</span><br><span class="line">enabled=1</span><br></pre></td></tr></table></figure></p>
@@ -237,11 +228,35 @@
 <p>2.启动management插件。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">rabbitmq-plugins enable rabbitmq_management</span><br></pre></td></tr></table></figure></p>
 <p>3.admin用户授权<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">rabbitmqctl add_user admin admin</span><br><span class="line">rabbitmqctl set_user_tags admin administrator</span><br><span class="line">rabbitmqctl set_permissions -p / admin &quot;.*&quot; &quot;.*&quot; &quot;.*&quot;</span><br><span class="line">rabbitmqctl status</span><br></pre></td></tr></table></figure></p>
 <p>4.查看插件<br>输入命令:<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">rabbitmq-plugins list</span><br></pre></td></tr></table></figure></p>
-<p><img src="https://youxia999.github.io/img/rabbitmq/rabbitmq_3.8.0_plugin_list.png" alt></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://youxia999.github.io/img/rabbitmq/rabbitmq_3.8.0_plugin_list.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <p>5.启动rabbitmq_prometheus插件<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">rabbitmq-plugins enable rabbitmq_prometheus</span><br></pre></td></tr></table></figure></p>
-<h1 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h1><h2 id="命令行输入rabbitmqctl-status"><a href="#命令行输入rabbitmqctl-status" class="headerlink" title="命令行输入rabbitmqctl status"></a>命令行输入rabbitmqctl status</h2><p><img src="https://youxia999.github.io/img/metrics/prometheus_monitor_rabbitmq_1.png" alt></p>
-<p><img src="https://youxia999.github.io/img/metrics/prometheus_monitor_rabbitmq_2.png" alt></p>
-<h2 id="浏览器访问"><a href="#浏览器访问" class="headerlink" title="浏览器访问"></a>浏览器访问</h2><p><img src="https://youxia999.github.io/img/metrics/prometheus_monitor_rabbitmq_3.png" alt></p>
+<h1 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h1><h2 id="命令行输入rabbitmqctl-status"><a href="#命令行输入rabbitmqctl-status" class="headerlink" title="命令行输入rabbitmqctl status"></a>命令行输入rabbitmqctl status</h2><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://youxia999.github.io/img/metrics/prometheus_monitor_rabbitmq_1.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://youxia999.github.io/img/metrics/prometheus_monitor_rabbitmq_2.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h2 id="浏览器访问"><a href="#浏览器访问" class="headerlink" title="浏览器访问"></a>浏览器访问</h2><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://youxia999.github.io/img/metrics/prometheus_monitor_rabbitmq_3.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 
         </div>
 
@@ -250,7 +265,7 @@
     <div class="content" style="display:none">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2019-12-14T12:53:48.828Z" itemprop="dateUpdated">2019-12-14 20:53:48 20:53:48</time>
+    最后更新时间：<time datetime="2019-12-27T11:48:56.372Z" itemprop="dateUpdated">2019-12-27 19:48:56 19:48:56</time>
 </span><br>
 
 
@@ -272,7 +287,7 @@
 
         <div class="post-footer">
             
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/云原生方法论/">云原生方法论</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/监控技术/">监控技术</a></li></ul>
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/云原生方法论基础/">云原生方法论基础</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/监控技术/">监控技术</a></li></ul>
 
 
             

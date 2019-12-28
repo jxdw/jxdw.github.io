@@ -14,24 +14,24 @@
     
     
     
-    <title>【微服务架构java解决方案】spring-cloud之netfix-ribbon | 思路比试错更重要 | 记录技术的学习和实践过程</title>
+    <title>【微服务架构spring cloud解决方案】spring-cloud之netfix-ribbon | 思路比试错更重要 | 记录技术的学习和实践过程</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="微服务架构,java解决方案,云原生方法论基础">
+    <meta name="keywords" content="云原生技术栈,spring cloud解决方案">
     <meta name="description" content="关于spring boot/cloud 1.X系列spring.io在spring boot和springcloud推出之前，开源了很多的框架（见下文附录），但是除了spring framework自身，影响力都不够。直到spring boot、spring cloud系列框架推出，才成了spring框架的扩展中最有影响力的两个(或者说集大成者)。Spring Boot的设计目的是用来简化新Spr">
-<meta name="keywords" content="微服务架构,java解决方案,云原生方法论基础">
+<meta name="keywords" content="云原生技术栈,spring cloud解决方案">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【微服务架构java解决方案】spring-cloud之netfix-ribbon">
+<meta property="og:title" content="【微服务架构spring cloud解决方案】spring-cloud之netfix-ribbon">
 <meta property="og:url" content="https://youxia999.github.io/2018/06/03/spring-cloud-1x-cloud-netfix-ribbon/index.html">
 <meta property="og:site_name" content="思路比试错更重要">
 <meta property="og:description" content="关于spring boot/cloud 1.X系列spring.io在spring boot和springcloud推出之前，开源了很多的框架（见下文附录），但是除了spring framework自身，影响力都不够。直到spring boot、spring cloud系列框架推出，才成了spring框架的扩展中最有影响力的两个(或者说集大成者)。Spring Boot的设计目的是用来简化新Spr">
 <meta property="og:locale" content="ZH_CN">
-<meta property="og:updated_time" content="2019-12-27T11:48:56.457Z">
+<meta property="og:updated_time" content="2019-12-28T10:36:17.363Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="【微服务架构java解决方案】spring-cloud之netfix-ribbon">
+<meta name="twitter:title" content="【微服务架构spring cloud解决方案】spring-cloud之netfix-ribbon">
 <meta name="twitter:description" content="关于spring boot/cloud 1.X系列spring.io在spring boot和springcloud推出之前，开源了很多的框架（见下文附录），但是除了spring framework自身，影响力都不够。直到spring boot、spring cloud系列框架推出，才成了spring框架的扩展中最有影响力的两个(或者说集大成者)。Spring Boot的设计目的是用来简化新Spr">
     
         <link rel="alternate" type="application/atom+xml" title="思路比试错更重要" href="/atom.xml">
@@ -89,16 +89,16 @@
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/tags/%E4%BA%91%E5%8E%9F%E7%94%9F%E6%96%B9%E6%B3%95%E8%AE%BA%E5%9F%BA%E7%A1%80/"  >
+              <a href="/tags/%E4%BA%91%E5%8E%9F%E7%94%9F%E6%8A%80%E6%9C%AF%E6%A0%88/"  >
                 <i class="icon icon-lg icon-cloud"></i>
-                云原生方法论基础
+                云原生技术栈
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/tags/%E9%98%9F%E5%88%97%E5%AD%98%E5%82%A8%E7%BC%93%E5%AD%98%E6%8A%80%E6%9C%AF/"  >
+              <a href="/tags/%E9%98%9F%E5%88%97%E5%AD%98%E5%82%A8%E7%BC%93%E5%AD%98/"  >
                 <i class="icon icon-lg icon-envelope"></i>
-                队列存储缓存技术
+                队列存储缓存
               </a>
             </li>
         
@@ -127,7 +127,7 @@
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">【微服务架构java解决方案】spring-cloud之netfix-ribbon</div>
+        <div class="flex-col header-title ellipsis">【微服务架构spring cloud解决方案】spring-cloud之netfix-ribbon</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
@@ -149,7 +149,7 @@
 <header class="content-header post-header">
 
     <div class="container fade-scale">
-        <h1 class="title">【微服务架构java解决方案】spring-cloud之netfix-ribbon</h1>
+        <h1 class="title">【微服务架构spring cloud解决方案】spring-cloud之netfix-ribbon</h1>
         <h5 class="subtitle">
             
                 <time datetime="2018-06-03T09:14:29.000Z" itemprop="datePublished" class="page-time">
@@ -181,7 +181,7 @@
   class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
-        <h1 class="post-card-title">【微服务架构java解决方案】spring-cloud之netfix-ribbon</h1>
+        <h1 class="post-card-title">【微服务架构spring cloud解决方案】spring-cloud之netfix-ribbon</h1>
         <div class="post-meta">
             <time class="post-time" title="2018-06-03 17:14:29 17:14:29" datetime="2018-06-03T09:14:29.000Z"  itemprop="datePublished">2018-06-03 17:14:29</time>
 
@@ -205,7 +205,7 @@
     <div class="content" style="display:none">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2019-12-27T11:48:56.457Z" itemprop="dateUpdated">2019-12-27 19:48:56 19:48:56</time>
+    最后更新时间：<time datetime="2019-12-28T10:36:17.363Z" itemprop="dateUpdated">2019-12-28 18:36:17 18:36:17</time>
 </span><br>
 
 
@@ -227,7 +227,7 @@
 
         <div class="post-footer">
             
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java解决方案/">java解决方案</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/云原生方法论基础/">云原生方法论基础</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/微服务架构/">微服务架构</a></li></ul>
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spring-cloud解决方案/">spring cloud解决方案</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/云原生技术栈/">云原生技术栈</a></li></ul>
 
 
             
@@ -237,7 +237,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://youxia999.github.io/2018/06/03/spring-cloud-1x-cloud-netfix-ribbon/&title=《【微服务架构java解决方案】spring-cloud之netfix-ribbon》 — 思路比试错更重要&pic=https://youxia999.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://youxia999.github.io/2018/06/03/spring-cloud-1x-cloud-netfix-ribbon/&title=《【微服务架构spring cloud解决方案】spring-cloud之netfix-ribbon》 — 思路比试错更重要&pic=https://youxia999.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -247,7 +247,7 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://youxia999.github.io/2018/06/03/spring-cloud-1x-cloud-netfix-ribbon/&title=《【微服务架构java解决方案】spring-cloud之netfix-ribbon》 — 思路比试错更重要&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://youxia999.github.io/2018/06/03/spring-cloud-1x-cloud-netfix-ribbon/&title=《【微服务架构spring cloud解决方案】spring-cloud之netfix-ribbon》 — 思路比试错更重要&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -257,7 +257,7 @@
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《【微服务架构java解决方案】spring-cloud之netfix-ribbon》 — 思路比试错更重要&url=https://youxia999.github.io/2018/06/03/spring-cloud-1x-cloud-netfix-ribbon/&via=https://youxia999.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《【微服务架构spring cloud解决方案】spring-cloud之netfix-ribbon》 — 思路比试错更重要&url=https://youxia999.github.io/2018/06/03/spring-cloud-1x-cloud-netfix-ribbon/&via=https://youxia999.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
@@ -388,7 +388,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://youxia999.github.io/2018/06/03/spring-cloud-1x-cloud-netfix-ribbon/&title=《【微服务架构java解决方案】spring-cloud之netfix-ribbon》 — 思路比试错更重要&pic=https://youxia999.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://youxia999.github.io/2018/06/03/spring-cloud-1x-cloud-netfix-ribbon/&title=《【微服务架构spring cloud解决方案】spring-cloud之netfix-ribbon》 — 思路比试错更重要&pic=https://youxia999.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -398,7 +398,7 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://youxia999.github.io/2018/06/03/spring-cloud-1x-cloud-netfix-ribbon/&title=《【微服务架构java解决方案】spring-cloud之netfix-ribbon》 — 思路比试错更重要&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://youxia999.github.io/2018/06/03/spring-cloud-1x-cloud-netfix-ribbon/&title=《【微服务架构spring cloud解决方案】spring-cloud之netfix-ribbon》 — 思路比试错更重要&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -408,7 +408,7 @@
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《【微服务架构java解决方案】spring-cloud之netfix-ribbon》 — 思路比试错更重要&url=https://youxia999.github.io/2018/06/03/spring-cloud-1x-cloud-netfix-ribbon/&via=https://youxia999.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《【微服务架构spring cloud解决方案】spring-cloud之netfix-ribbon》 — 思路比试错更重要&url=https://youxia999.github.io/2018/06/03/spring-cloud-1x-cloud-netfix-ribbon/&via=https://youxia999.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>

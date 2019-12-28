@@ -20,22 +20,22 @@
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="容器技术,云原生方法论基础">
+    <meta name="keywords" content="云原生技术栈,容器技术">
     <meta name="description" content="下载安装下载和安装下载tar.gz文件，解压并cp到/usr/bin/目录 创建用户和目录useradd etcdmkdir -p /data/etcd/etcd02mkdir -p /etc/etcd/chown etcd:etcd /data/etcd/etcd02chown etcd:etcd /etc/etcd/ 配置systemd新建文件/usr/lib/systemd/system/e">
-<meta name="keywords" content="容器技术,云原生方法论基础">
+<meta name="keywords" content="云原生技术栈,容器技术">
 <meta property="og:type" content="article">
 <meta property="og:title" content="etcd3安装和初步操作">
 <meta property="og:url" content="https://youxia999.github.io/2018/12/05/container-etcd-install/index.html">
 <meta property="og:site_name" content="思路比试错更重要">
 <meta property="og:description" content="下载安装下载和安装下载tar.gz文件，解压并cp到/usr/bin/目录 创建用户和目录useradd etcdmkdir -p /data/etcd/etcd02mkdir -p /etc/etcd/chown etcd:etcd /data/etcd/etcd02chown etcd:etcd /etc/etcd/ 配置systemd新建文件/usr/lib/systemd/system/e">
 <meta property="og:locale" content="ZH_CN">
-<meta property="og:image" content="https://youxia999.github.io/img/etcd/etcd_help.png">
-<meta property="og:image" content="https://youxia999.github.io/img/etcd/etcd_jiankangjiancha.png">
-<meta property="og:updated_time" content="2019-12-27T11:48:56.166Z">
+<meta property="og:image" content="https://youxia999.github.io/img/cloudnative/devops/etcd_help.png">
+<meta property="og:image" content="https://youxia999.github.io/img/cloudnative/devops/etcd_jiankangjiancha.png">
+<meta property="og:updated_time" content="2019-12-28T12:59:10.930Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="etcd3安装和初步操作">
 <meta name="twitter:description" content="下载安装下载和安装下载tar.gz文件，解压并cp到/usr/bin/目录 创建用户和目录useradd etcdmkdir -p /data/etcd/etcd02mkdir -p /etc/etcd/chown etcd:etcd /data/etcd/etcd02chown etcd:etcd /etc/etcd/ 配置systemd新建文件/usr/lib/systemd/system/e">
-<meta name="twitter:image" content="https://youxia999.github.io/img/etcd/etcd_help.png">
+<meta name="twitter:image" content="https://youxia999.github.io/img/cloudnative/devops/etcd_help.png">
     
         <link rel="alternate" type="application/atom+xml" title="思路比试错更重要" href="/atom.xml">
     
@@ -92,16 +92,16 @@
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/tags/%E4%BA%91%E5%8E%9F%E7%94%9F%E6%96%B9%E6%B3%95%E8%AE%BA%E5%9F%BA%E7%A1%80/"  >
+              <a href="/tags/%E4%BA%91%E5%8E%9F%E7%94%9F%E6%8A%80%E6%9C%AF%E6%A0%88/"  >
                 <i class="icon icon-lg icon-cloud"></i>
-                云原生方法论基础
+                云原生技术栈
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/tags/%E9%98%9F%E5%88%97%E5%AD%98%E5%82%A8%E7%BC%93%E5%AD%98%E6%8A%80%E6%9C%AF/"  >
+              <a href="/tags/%E9%98%9F%E5%88%97%E5%AD%98%E5%82%A8%E7%BC%93%E5%AD%98/"  >
                 <i class="icon icon-lg icon-envelope"></i>
-                队列存储缓存技术
+                队列存储缓存
               </a>
             </li>
         
@@ -207,14 +207,14 @@
 <h1 id="etcd操作"><a href="#etcd操作" class="headerlink" title="etcd操作"></a>etcd操作</h1><h2 id="etcdctl-api2操作指南"><a href="#etcdctl-api2操作指南" class="headerlink" title="etcdctl api2操作指南"></a>etcdctl api2操作指南</h2><figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://youxia999.github.io/img/etcd/etcd_help.png" alt title>
+                    <img src="https://youxia999.github.io/img/cloudnative/devops/etcd_help.png" alt title>
                 </div>
                 <div class="image-caption"></div>
             </figure>
 <h2 id="etcdctl-api2健康检查"><a href="#etcdctl-api2健康检查" class="headerlink" title="etcdctl api2健康检查"></a>etcdctl api2健康检查</h2><figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://youxia999.github.io/img/etcd/etcd_jiankangjiancha.png" alt title>
+                    <img src="https://youxia999.github.io/img/cloudnative/devops/etcd_jiankangjiancha.png" alt title>
                 </div>
                 <div class="image-caption"></div>
             </figure>
@@ -226,7 +226,7 @@
     <div class="content" style="display:none">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2019-12-27T11:48:56.166Z" itemprop="dateUpdated">2019-12-27 19:48:56 19:48:56</time>
+    最后更新时间：<time datetime="2019-12-28T12:59:10.930Z" itemprop="dateUpdated">2019-12-28 20:59:10 20:59:10</time>
 </span><br>
 
 
@@ -248,7 +248,7 @@
 
         <div class="post-footer">
             
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/云原生方法论基础/">云原生方法论基础</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/容器技术/">容器技术</a></li></ul>
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/云原生技术栈/">云原生技术栈</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/容器技术/">容器技术</a></li></ul>
 
 
             

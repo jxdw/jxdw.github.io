@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>prometheus实现动态监控 | 思路比试错更重要 | 记录技术的学习和实践过程</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="技术平台实现">
+    <meta name="description" content="参考资料http://www.net-add.com/a/dockerzhuanti/fuwuzhucefaxian/2017/0421/42.html 下载、安装etcd及其可视化工具下载安装etcdetcd的下载安装参考：https://youxia999.github.io/2018/12/05/container-etcd-install/ 下载安装etcdkeeperetcdkeeper">
+<meta name="keywords" content="技术平台实现">
+<meta property="og:type" content="article">
+<meta property="og:title" content="prometheus实现动态监控">
+<meta property="og:url" content="https://youxia999.github.io/2019/01/30/prometheus-confd-etcd/index.html">
+<meta property="og:site_name" content="思路比试错更重要">
+<meta property="og:description" content="参考资料http://www.net-add.com/a/dockerzhuanti/fuwuzhucefaxian/2017/0421/42.html 下载、安装etcd及其可视化工具下载安装etcdetcd的下载安装参考：https://youxia999.github.io/2018/12/05/container-etcd-install/ 下载安装etcdkeeperetcdkeeper">
+<meta property="og:locale" content="ZH_CN">
+<meta property="og:updated_time" content="2019-12-28T13:06:03.622Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="prometheus实现动态监控">
+<meta name="twitter:description" content="参考资料http://www.net-add.com/a/dockerzhuanti/fuwuzhucefaxian/2017/0421/42.html 下载、安装etcd及其可视化工具下载安装etcdetcd的下载安装参考：https://youxia999.github.io/2018/12/05/container-etcd-install/ 下载安装etcdkeeperetcdkeeper">
+    
+        <link rel="alternate" type="application/atom+xml" title="思路比试错更重要" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">游侠</h5>
+          <a href="mailto:jingzhouyouxia@gmail.com" title="jingzhouyouxia@gmail.com" class="mail">jingzhouyouxia@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/%E4%B8%9A%E5%8A%A1%E5%B9%B3%E5%8F%B0%E5%BB%BA%E8%AE%BE/"  >
+                <i class="icon icon-lg icon-cogs"></i>
+                技术平台建设
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/%E4%B8%9A%E5%8A%A1%E5%B9%B3%E5%8F%B0%E5%BB%BA%E8%AE%BE/"  >
+                <i class="icon icon-lg icon-desktop"></i>
+                业务平台建设
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/%E4%BA%91%E5%8E%9F%E7%94%9F%E6%8A%80%E6%9C%AF%E6%A0%88/"  >
+                <i class="icon icon-lg icon-cloud"></i>
+                云原生技术栈
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/%E9%98%9F%E5%88%97%E5%AD%98%E5%82%A8%E7%BC%93%E5%AD%98/"  >
+                <i class="icon icon-lg icon-envelope"></i>
+                队列存储缓存
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E6%8A%80%E6%9C%AF/"  >
+                <i class="icon icon-lg icon-coffee"></i>
+                编程语言技术
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                关于
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">prometheus实现动态监控</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">prometheus实现动态监控</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-01-30T11:45:49.000Z" itemprop="datePublished" class="page-time">
+  2019-01-30 19:45:49
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>目录</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#参考资料"><span class="post-toc-number">1.</span> <span class="post-toc-text">参考资料</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#下载、安装etcd及其可视化工具"><span class="post-toc-number">2.</span> <span class="post-toc-text">下载、安装etcd及其可视化工具</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#下载安装etcd"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">下载安装etcd</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#下载安装etcdkeeper"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">下载安装etcdkeeper</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#下载、启动2-x版本的Prometheus"><span class="post-toc-number">3.</span> <span class="post-toc-text">下载、启动2.x版本的Prometheus</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#下载、配置confd"><span class="post-toc-number">4.</span> <span class="post-toc-text">下载、配置confd</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#从github下载confd0-16-0"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">从github下载confd0.16.0</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#confd的配置文件-etc-confd-confd-toml"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">confd的配置文件/etc/confd/confd.toml</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#配置prometheus-conf-toml"><span class="post-toc-number">4.3.</span> <span class="post-toc-text">配置prometheus.conf.toml</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#配置-etc-confd-template-prometheus-conf-tmpl"><span class="post-toc-number">4.4.</span> <span class="post-toc-text">配置/etc/confd/template/prometheus.conf.tmpl</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#启动confd"><span class="post-toc-number">4.5.</span> <span class="post-toc-text">启动confd</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#具体效果"><span class="post-toc-number">5.</span> <span class="post-toc-text">具体效果</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#用etcdkeeper模拟服务注册和服务推出"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">用etcdkeeper模拟服务注册和服务推出</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#在prometheus中查看效果"><span class="post-toc-number">5.2.</span> <span class="post-toc-text">在prometheus中查看效果</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-prometheus-confd-etcd"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">prometheus实现动态监控</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-01-30 19:45:49 19:45:49" datetime="2019-01-30T11:45:49.000Z"  itemprop="datePublished">2019-01-30 19:45:49</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p><a href="http://www.net-add.com/a/dockerzhuanti/fuwuzhucefaxian/2017/0421/42.html" target="_blank" rel="noopener">http://www.net-add.com/a/dockerzhuanti/fuwuzhucefaxian/2017/0421/42.html</a></p>
+<h1 id="下载、安装etcd及其可视化工具"><a href="#下载、安装etcd及其可视化工具" class="headerlink" title="下载、安装etcd及其可视化工具"></a>下载、安装etcd及其可视化工具</h1><h2 id="下载安装etcd"><a href="#下载安装etcd" class="headerlink" title="下载安装etcd"></a>下载安装etcd</h2><p>etcd的下载安装参考：<a href="https://youxia999.github.io/2018/12/05/container-etcd-install/">https://youxia999.github.io/2018/12/05/container-etcd-install/</a></p>
+<h2 id="下载安装etcdkeeper"><a href="#下载安装etcdkeeper" class="headerlink" title="下载安装etcdkeeper"></a>下载安装etcdkeeper</h2><p>etcdkeeper的安装参考：<a href="https://github.com/evildecay/etcdkeeper" target="_blank" rel="noopener">https://github.com/evildecay/etcdkeeper</a></p>
+<h1 id="下载、启动2-x版本的Prometheus"><a href="#下载、启动2-x版本的Prometheus" class="headerlink" title="下载、启动2.x版本的Prometheus"></a>下载、启动2.x版本的Prometheus</h1><p>docker run –name prometheus  -p 9090:9090 -e TZ=”Asia/Shanghai” –link alertmanager  -v /etc/prometheus/:/etc/prometheus/  -d prom/prometheus  –web.enable-lifecycle –config.file=/etc/prometheus/prometheus.yml</p>
+<h1 id="下载、配置confd"><a href="#下载、配置confd" class="headerlink" title="下载、配置confd"></a>下载、配置confd</h1><h2 id="从github下载confd0-16-0"><a href="#从github下载confd0-16-0" class="headerlink" title="从github下载confd0.16.0"></a>从github下载confd0.16.0</h2><p><a href="https://github-production-release-asset-2e65be.s3.amazonaws.com/13234395/625c633c-4fef-11e8-88cf-9ef24f2771cc?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20191226%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20191226T020617Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=031584e37ca8ed73a665e94df2e7ebfc8ff13292c71915176e3e06d8f7366a74&amp;X-Amz-SignedHeaders=host&amp;actor_id=17592332&amp;response-content-disposition=attachment%3B%20filename%3Dconfd-0.16.0-linux-amd64&amp;response-content-type=application%2Foctet-stream" target="_blank" rel="noopener">https://github-production-release-asset-2e65be.s3.amazonaws.com/13234395/625c633c-4fef-11e8-88cf-9ef24f2771cc?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20191226%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20191226T020617Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=031584e37ca8ed73a665e94df2e7ebfc8ff13292c71915176e3e06d8f7366a74&amp;X-Amz-SignedHeaders=host&amp;actor_id=17592332&amp;response-content-disposition=attachment%3B%20filename%3Dconfd-0.16.0-linux-amd64&amp;response-content-type=application%2Foctet-stream</a></p>
+<h2 id="confd的配置文件-etc-confd-confd-toml"><a href="#confd的配置文件-etc-confd-confd-toml" class="headerlink" title="confd的配置文件/etc/confd/confd.toml"></a>confd的配置文件/etc/confd/confd.toml</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">backend = &quot;etcdv3&quot;</span><br><span class="line">confdir = &quot;/etc/confd&quot;</span><br><span class="line">log-level = &quot;debug&quot;</span><br><span class="line">interval = 5</span><br><span class="line">nodes = [</span><br><span class="line">&quot;http://192.168.1.5:2379&quot;,&quot;http://192.168.1.6:2379&quot;,&quot;http://192.168.1.7:2379&quot;</span><br><span class="line">]</span><br><span class="line">scheme = &quot;http&quot;</span><br><span class="line">watch = true</span><br></pre></td></tr></table></figure>
+<h2 id="配置prometheus-conf-toml"><a href="#配置prometheus-conf-toml" class="headerlink" title="配置prometheus.conf.toml"></a>配置prometheus.conf.toml</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[template]</span><br><span class="line">prefix = &quot;/prometheus&quot;</span><br><span class="line">src = &quot;prometheus.conf.tmpl&quot;</span><br><span class="line">dest = &quot;/etc/prometheus/prometheus.yml&quot;</span><br><span class="line">keys = [</span><br><span class="line">         &quot;/job&quot;,</span><br><span class="line">]</span><br><span class="line">#check_cmd = &quot;/usr/sbin/nginx -t -c &#123;&#123;.src&#125;&#125;&quot;</span><br><span class="line">reload_cmd = &quot; curl -XPOST &apos;http://192.168.172.7:9090/-/reload&apos;&quot;</span><br></pre></td></tr></table></figure>
+<h2 id="配置-etc-confd-template-prometheus-conf-tmpl"><a href="#配置-etc-confd-template-prometheus-conf-tmpl" class="headerlink" title="配置/etc/confd/template/prometheus.conf.tmpl"></a>配置/etc/confd/template/prometheus.conf.tmpl</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">global:</span><br><span class="line">  scrape_interval: 300s # By default, scrape targets every 15 seconds.</span><br><span class="line">  evaluation_interval: 300s # By default, scrape targets every 15 seconds.</span><br><span class="line"></span><br><span class="line"># scrape_timeout is set to the global default (10s).</span><br><span class="line">  # # Load and evaluate rules in this file every &apos;evaluation_interval&apos; seconds.</span><br><span class="line">rule_files:</span><br><span class="line">   - &quot;/etc/prometheus/alert.rules&quot;</span><br><span class="line"></span><br><span class="line">scrape_configs:</span><br><span class="line">  - job_name: &apos;prometheus&apos;</span><br><span class="line">    scrape_interval: 5s</span><br><span class="line">    static_configs:</span><br><span class="line">      - targets: [&apos;localhost:9090&apos;]</span><br><span class="line">  - job_name: &apos;alertmanager&apos;</span><br><span class="line">    scrape_interval: 5s</span><br><span class="line">    static_configs:</span><br><span class="line">      - targets: [&apos;192.168.172.7:9093&apos;]</span><br><span class="line">        labels:</span><br><span class="line">             instance: container</span><br><span class="line">&#123;&#123;range $label := ls &quot;/job&quot; &#125;&#125;</span><br><span class="line">  - job_name: &apos;&#123;&#123;base $label&#125;&#125;&apos;</span><br><span class="line">    scrape_interval: 5s</span><br><span class="line">    static_configs:</span><br><span class="line">&#123;&#123;$job_name := printf &quot;/job/%s/*&quot; $label&#125;&#125;&#123;&#123;range gets $job_name&#125;&#125;</span><br><span class="line">      - targets: [&apos;&#123;&#123;.Value&#125;&#125;&apos;]</span><br><span class="line">        labels:</span><br><span class="line">             instance: &apos;&#123;&#123;base .Key&#125;&#125;&apos;</span><br><span class="line">&#123;&#123;end&#125;&#125;</span><br><span class="line">&#123;&#123;end&#125;&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="启动confd"><a href="#启动confd" class="headerlink" title="启动confd"></a>启动confd</h2><p>./confd –config-file /etc/confd/confd.toml  &amp;</p>
+<h1 id="具体效果"><a href="#具体效果" class="headerlink" title="具体效果"></a>具体效果</h1><h2 id="用etcdkeeper模拟服务注册和服务推出"><a href="#用etcdkeeper模拟服务注册和服务推出" class="headerlink" title="用etcdkeeper模拟服务注册和服务推出"></a>用etcdkeeper模拟服务注册和服务推出</h2><h2 id="在prometheus中查看效果"><a href="#在prometheus中查看效果" class="headerlink" title="在prometheus中查看效果"></a>在prometheus中查看效果</h2>
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content" style="display:none">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2019-12-28T13:06:03.622Z" itemprop="dateUpdated">2019-12-28 21:06:03 21:06:03</time>
+</span><br>
+
+
+        
+        <a href="/2019/01/30/prometheus-confd-etcd/" target="_blank" rel="external">https://youxia999.github.io/2019/01/30/prometheus-confd-etcd/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://youxia999.github.io">
+            <img src="/img/avatar.jpg" alt="游侠">
+            游侠
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/技术平台实现/">技术平台实现</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://youxia999.github.io/2019/01/30/prometheus-confd-etcd/&title=《prometheus实现动态监控》 — 思路比试错更重要&pic=https://youxia999.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://youxia999.github.io/2019/01/30/prometheus-confd-etcd/&title=《prometheus实现动态监控》 — 思路比试错更重要&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://youxia999.github.io/2019/01/30/prometheus-confd-etcd/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《prometheus实现动态监控》 — 思路比试错更重要&url=https://youxia999.github.io/2019/01/30/prometheus-confd-etcd/&via=https://youxia999.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://youxia999.github.io/2019/01/30/prometheus-confd-etcd/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2019/02/02/spring-cloud-2x-cloud-stream/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">spring cloud解决方案之spring-cloud-stream</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2019/01/01/jishuzongjie-2018/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">2018年度的技术总结</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitment_thread"></div>
+	<link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+	<script src="https://jjeejj.github.io/js/gitment.js"></script>
+    <script>
+        var gitment = new Gitment({
+		    id: 'Wed Jan 30 2019 19:45:49 GMT+0800',
+            owner: 'youxia999',
+            repo: 'gitment_comments',
+            oauth: {
+                client_id: '46d6bcb60b3252945f23',
+                client_secret: '954a7427590c10667e9497f77996a1d2e88620e8',
+            },
+        })
+        gitment.render('comments')
+    </script>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>游侠 &copy; 2015 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://youxia999.github.io/2019/01/30/prometheus-confd-etcd/&title=《prometheus实现动态监控》 — 思路比试错更重要&pic=https://youxia999.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://youxia999.github.io/2019/01/30/prometheus-confd-etcd/&title=《prometheus实现动态监控》 — 思路比试错更重要&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://youxia999.github.io/2019/01/30/prometheus-confd-etcd/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《prometheus实现动态监控》 — 思路比试错更重要&url=https://youxia999.github.io/2019/01/30/prometheus-confd-etcd/&via=https://youxia999.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://youxia999.github.io/2019/01/30/prometheus-confd-etcd/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://youxia999.github.io/2019/01/30/prometheus-confd-etcd/" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

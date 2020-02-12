@@ -29,13 +29,13 @@
 <meta property="og:site_name" content="思路比试错更重要">
 <meta property="og:description" content="本文背景因为:1.dubbo已经从apache毕业，而zipkin官方的brave-instrumentation-dubbo-rpc的5.6版本支持的dubbo版本是2.6.6版本、且对2.7.3版本支持不太友好(2.6.6这个版本是未毕业前的版本，不太喜欢），只能把brave-instrumentation-dubbo-rpc抠出来，用以支撑2.7.3版本。2.dubbo官方提供的例子还是xm">
 <meta property="og:locale" content="ZH_CN">
-<meta property="og:image" content="https://youxia999.github.io/img/cloudnative/devops/zipkin_pom.png">
-<meta property="og:image" content="https://youxia999.github.io/img/cloudnative/devops/dubbo_user_info_zipkin.png">
-<meta property="og:updated_time" content="2020-02-06T04:11:33.323Z">
+<meta property="og:image" content="https://youxia999.github.io/img/devops/docker/zipkin_pom.png">
+<meta property="og:image" content="https://youxia999.github.io/img/devops/docker/dubbo_user_info_zipkin.png">
+<meta property="og:updated_time" content="2020-02-12T06:40:18.798Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="apache dubbo 2.7.3版本与zipkin结合进行接口监控">
 <meta name="twitter:description" content="本文背景因为:1.dubbo已经从apache毕业，而zipkin官方的brave-instrumentation-dubbo-rpc的5.6版本支持的dubbo版本是2.6.6版本、且对2.7.3版本支持不太友好(2.6.6这个版本是未毕业前的版本，不太喜欢），只能把brave-instrumentation-dubbo-rpc抠出来，用以支撑2.7.3版本。2.dubbo官方提供的例子还是xm">
-<meta name="twitter:image" content="https://youxia999.github.io/img/cloudnative/devops/zipkin_pom.png">
+<meta name="twitter:image" content="https://youxia999.github.io/img/devops/docker/zipkin_pom.png">
     
         <link rel="alternate" type="application/atom+xml" title="思路比试错更重要" href="/atom.xml">
     
@@ -203,7 +203,7 @@
 <h1 id="provider方工程代码"><a href="#provider方工程代码" class="headerlink" title="provider方工程代码"></a>provider方工程代码</h1><h2 id="添加pom依赖"><a href="#添加pom依赖" class="headerlink" title="添加pom依赖"></a>添加pom依赖</h2><p>1.brave对dubbo的集成:brave-instrumentation-dubbo-rpc<br>2.brave的spring bean支持:brave-spring-beans<br>3.在SLF4J的MDC(Mapped Diagnostic Context) 中支持 traceId 和 spanId<br>4.使用okhttp3作为 reporter:zipkin-sender-okhttp3<br>当然，最好是同时添加bom，做好版本控制。<br><figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://youxia999.github.io/img/cloudnative/devops/zipkin_pom.png" alt title>
+                    <img src="https://youxia999.github.io/img/devops/docker/zipkin_pom.png" alt title>
                 </div>
                 <div class="image-caption"></div>
             </figure></p>
@@ -217,7 +217,7 @@
 <h1 id="最终效果"><a href="#最终效果" class="headerlink" title="最终效果"></a>最终效果</h1><figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://youxia999.github.io/img/cloudnative/devops/dubbo_user_info_zipkin.png" alt title>
+                    <img src="https://youxia999.github.io/img/devops/docker/dubbo_user_info_zipkin.png" alt title>
                 </div>
                 <div class="image-caption"></div>
             </figure>
@@ -230,7 +230,7 @@
     <div class="content" style="display:none">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-02-06T04:11:33.323Z" itemprop="dateUpdated">2020-02-06 12:11:33 12:11:33</time>
+    最后更新时间：<time datetime="2020-02-12T06:40:18.798Z" itemprop="dateUpdated">2020-02-12 14:40:18 14:40:18</time>
 </span><br>
 
 

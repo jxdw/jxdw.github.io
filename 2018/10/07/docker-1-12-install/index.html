@@ -20,9 +20,9 @@
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="容器技术,DevOps工具">
+    <meta name="keywords" content="容器技术,容器与k8s">
     <meta name="description" content="本文背景背景最近闲着无事，准备玩一把k8s，作为核心，要升级一波docker。这次直接安装docker1.12。查了资料，docker1.12的最显著特性就是内置了docker自身的swarm调度。 安装过程参考去年的docker 1.10安装心得,整一次1.12。 下载rpm包并安装yum install -y --nogpgcheck http://mirrors.aliyun.com/doc">
-<meta name="keywords" content="容器技术,DevOps工具">
+<meta name="keywords" content="容器技术,容器与k8s">
 <meta property="og:type" content="article">
 <meta property="og:title" content="docker1.12安装和初步使用">
 <meta property="og:url" content="https://youxia999.github.io/2018/10/07/docker-1-12-install/index.html">
@@ -31,7 +31,7 @@
 <meta property="og:locale" content="ZH_CN">
 <meta property="og:image" content="https://youxia999.github.io/img/devops/docker/docker_112_110.png">
 <meta property="og:image" content="https://youxia999.github.io/img/devops/docker/docker_swarm_help.png">
-<meta property="og:updated_time" content="2020-02-12T06:13:43.061Z">
+<meta property="og:updated_time" content="2020-02-12T06:47:31.057Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="docker1.12安装和初步使用">
 <meta name="twitter:description" content="本文背景背景最近闲着无事，准备玩一把k8s，作为核心，要升级一波docker。这次直接安装docker1.12。查了资料，docker1.12的最显著特性就是内置了docker自身的swarm调度。 安装过程参考去年的docker 1.10安装心得,整一次1.12。 下载rpm包并安装yum install -y --nogpgcheck http://mirrors.aliyun.com/doc">
@@ -85,16 +85,16 @@
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/tags/k8s%E4%B8%8E%E7%9B%91%E6%8E%A7/"  >
-                <i class="icon icon-lg icon-cogs"></i>
-                k8s与监控
+              <a href="/tags/DevOps%E5%B7%A5%E5%85%B7/"  >
+                <i class="icon icon-lg icon-cloud"></i>
+                DevOps工具
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/tags/DevOps%E5%B7%A5%E5%85%B7/"  >
-                <i class="icon icon-lg icon-cloud"></i>
-                DevOps工具
+              <a href="/tags/k8s%E4%B8%8E%E7%9B%91%E6%8E%A7/"  >
+                <i class="icon icon-lg icon-cogs"></i>
+                k8s与监控
               </a>
             </li>
         
@@ -206,19 +206,7 @@
 <p>这里暴露2375是为了其他的docker client调用。</p>
 <h2 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h2><p>发现/etc/sysconfig/docker不顶用了。谷歌了一番，发现配置文件目录变了/data/docker/daemon.json<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;insecure-registries&quot;: [</span><br><span class="line">        &quot;10.2.1.30:5000&quot;</span><br><span class="line">    ],</span><br><span class="line">    &quot;registry-mirror&quot;: [</span><br><span class="line">        &quot;https://csokz3oi.mirror.aliyuncs.com&quot;</span><br><span class="line">    ],</span><br><span class="line">   &quot;graph&quot;:&quot;/data/docker&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h2 id="启动docker"><a href="#启动docker" class="headerlink" title="启动docker"></a>启动docker</h2><p>systemctl restart docker.service</p>
-<h1 id="docker操作"><a href="#docker操作" class="headerlink" title="docker操作"></a>docker操作</h1><h2 id="docker1-12与1-10的区别"><a href="#docker1-12与1-10的区别" class="headerlink" title="docker1.12与1.10的区别"></a>docker1.12与1.10的区别</h2><p>先看docker –help对比<br><figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="https://youxia999.github.io/img/devops/docker/docker_112_110.png" alt title>
-                </div>
-                <div class="image-caption"></div>
-            </figure><br>果然是多了三个关键字:<br>docker node<br>docker swarm<br>docker service<br><figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="https://youxia999.github.io/img/devops/docker/docker_swarm_help.png" alt title>
-                </div>
-                <div class="image-caption"></div>
-            </figure></p>
+<h1 id="docker操作"><a href="#docker操作" class="headerlink" title="docker操作"></a>docker操作</h1><h2 id="docker1-12与1-10的区别"><a href="#docker1-12与1-10的区别" class="headerlink" title="docker1.12与1.10的区别"></a>docker1.12与1.10的区别</h2><p>先看docker –help对比<br><img src="https://youxia999.github.io/img/devops/docker/docker_112_110.png" alt><br>果然是多了三个关键字:<br>docker node<br>docker swarm<br>docker service<br><img src="https://youxia999.github.io/img/devops/docker/docker_swarm_help.png" alt></p>
 <h2 id="docker1-12-实操"><a href="#docker1-12-实操" class="headerlink" title="docker1.12 实操"></a>docker1.12 实操</h2><p>先看docker help和docker.hub.com。</p>
 <h3 id="docker-login"><a href="#docker-login" class="headerlink" title="docker login"></a>docker login</h3><p>命令作用:登录私有镜像仓库<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker login 10.2.1.30:5000</span><br></pre></td></tr></table></figure></p>
 <p>输入账号和密码，即可提示登录成功。</p>
@@ -234,7 +222,7 @@
     <div class="content" style="display:none">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-02-12T06:13:43.061Z" itemprop="dateUpdated">2020-02-12 14:13:43 14:13:43</time>
+    最后更新时间：<time datetime="2020-02-12T06:47:31.057Z" itemprop="dateUpdated">2020-02-12 14:47:31 14:47:31</time>
 </span><br>
 
 
@@ -256,7 +244,7 @@
 
         <div class="post-footer">
             
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DevOps工具/">DevOps工具</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/容器技术/">容器技术</a></li></ul>
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/容器与k8s/">容器与k8s</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/容器技术/">容器技术</a></li></ul>
 
 
             

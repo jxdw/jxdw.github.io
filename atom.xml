@@ -443,7 +443,7 @@
     <link href="https://youxia999.github.io/2019/02/09/spring-cloud-2x-cloud-sleuth/"/>
     <id>https://youxia999.github.io/2019/02/09/spring-cloud-2x-cloud-sleuth/</id>
     <published>2019-02-09T09:15:36.000Z</published>
-    <updated>2020-02-06T04:14:27.035Z</updated>
+    <updated>2020-02-12T06:25:55.606Z</updated>
     
     <content type="html"><![CDATA[<h1 id="关于spring-cloud-2-X系列"><a href="#关于spring-cloud-2-X系列" class="headerlink" title="关于spring cloud 2.X系列"></a>关于spring cloud 2.X系列</h1><p>spring.io在spring boot和springcloud推出之前，开源了很多的框架（见下文附录），但是除了spring framework自身，影响力都不够。直到spring boot、spring cloud系列框架推出，才成了spring框架的扩展中最有影响力的两个(或者说集大成者)。<br>Spring Boot的设计目的是用来简化新Spring应用的初始搭建以及开发过程。该框架使用了特定的方式来进行配置，从而使开发人员不再需要定义样板化的配置。<br>通俗点理解，就是spring boot其实不是什么新的框架，它默认配置了很多框架的使用方式，就像maven整合了很多的jar包，比如散落在各处的spring框架：spring amqp、spring data redis client、spring web service、prometheus client，进而集大成。<br>Spring Cloud为开发人员提供了快速构建分布式系统中一些常见模式的工具，例如配置管理，服务发现，断路器，智能路由，微代理，控制总线，一次性令牌，全局锁定，领导选举，分布式会话，集群状态。<br>从技术实现上来说，也是集成开源届的各种方案比如 client、rabbitmq client。</p>]]></content>
     
@@ -457,9 +457,9 @@
     </summary>
     
     
-      <category term="spring cloud解决方案" scheme="https://youxia999.github.io/tags/spring-cloud%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/"/>
-    
       <category term="中间件技术" scheme="https://youxia999.github.io/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6%E6%8A%80%E6%9C%AF/"/>
+    
+      <category term="微服务spring cloud解决方案" scheme="https://youxia999.github.io/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1spring-cloud%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/"/>
     
   </entry>
   
@@ -495,7 +495,7 @@
     <link href="https://youxia999.github.io/2019/02/02/spring-cloud-2x-cloud-stream/"/>
     <id>https://youxia999.github.io/2019/02/02/spring-cloud-2x-cloud-stream/</id>
     <published>2019-02-02T09:44:15.000Z</published>
-    <updated>2020-02-06T04:14:33.514Z</updated>
+    <updated>2020-02-12T06:26:44.994Z</updated>
     
     <content type="html"><![CDATA[<h1 id="关于spring-cloud-2-X系列"><a href="#关于spring-cloud-2-X系列" class="headerlink" title="关于spring cloud 2.X系列"></a>关于spring cloud 2.X系列</h1><p>spring.io在spring boot和springcloud推出之前，开源了很多的框架（见下文附录），但是除了spring framework自身，影响力都不够。直到spring boot、spring cloud系列框架推出，才成了spring框架的扩展中最有影响力的两个(或者说集大成者)。<br>Spring Boot的设计目的是用来简化新Spring应用的初始搭建以及开发过程。该框架使用了特定的方式来进行配置，从而使开发人员不再需要定义样板化的配置。<br>通俗点理解，就是spring boot其实不是什么新的框架，它默认配置了很多框架的使用方式，就像maven整合了很多的jar包，比如散落在各处的spring框架：spring amqp、spring dat redis client、spring web service、prometheus client，进而集大成。<br>Spring Cloud为开发人员提供了快速构建分布式系统中一些常见模式的工具，例如配置管理，服务发现，断路器，智能路由，微代理，控制总线，一次性令牌，全局锁定，领导选举，分布式会话，集群状态。<br>从技术实现上来说，也是集成开源届的各种方案比如 client、rabbitmq client。</p><h1 id="个人研判"><a href="#个人研判" class="headerlink" title="个人研判"></a>个人研判</h1><p>此module不具备商用要求。</p>]]></content>
     
@@ -509,9 +509,9 @@
     </summary>
     
     
-      <category term="spring cloud解决方案" scheme="https://youxia999.github.io/tags/spring-cloud%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/"/>
-    
       <category term="中间件技术" scheme="https://youxia999.github.io/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6%E6%8A%80%E6%9C%AF/"/>
+    
+      <category term="微服务spring cloud解决方案" scheme="https://youxia999.github.io/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1spring-cloud%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/"/>
     
   </entry>
   

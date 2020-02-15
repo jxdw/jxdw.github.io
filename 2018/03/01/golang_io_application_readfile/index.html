@@ -14,22 +14,25 @@
     
     
     
-    <title>ES2015核心内容 | 思路比试错更重要 | 记录技术的学习和实践过程</title>
+    <title>go语言io编程-读取文件或写入文件 | 思路比试错更重要 | 记录技术的学习和实践过程</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="编程语言技术,ES2015">
-    <meta name="keywords" content="编程语言技术,ES2015">
+    <meta name="keywords" content="编程语言技术,golang">
+    <meta name="description" content="读取指定目录下的文件func main() &amp;#123;	buf:=make([]byte,512);	var err error	buf,err=ioutil.ReadFile(os.Args[1]+&amp;quot;/test.txt&amp;quot;)	if err!=nil &amp;#123;		panic(err)	&amp;#125;	fmt.Println(string(buf))&amp;#125; 读取指定目录下">
+<meta name="keywords" content="编程语言技术,golang">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ES2015核心内容">
-<meta property="og:url" content="https://youxia999.github.io/2019/12/23/e6_introduce/index.html">
+<meta property="og:title" content="go语言io编程-读取文件或写入文件">
+<meta property="og:url" content="https://youxia999.github.io/2018/03/01/golang_io_application_readfile/index.html">
 <meta property="og:site_name" content="思路比试错更重要">
+<meta property="og:description" content="读取指定目录下的文件func main() &amp;#123;	buf:=make([]byte,512);	var err error	buf,err=ioutil.ReadFile(os.Args[1]+&amp;quot;/test.txt&amp;quot;)	if err!=nil &amp;#123;		panic(err)	&amp;#125;	fmt.Println(string(buf))&amp;#125; 读取指定目录下">
 <meta property="og:locale" content="ZH_CN">
-<meta property="og:updated_time" content="2020-02-12T05:34:14.534Z">
+<meta property="og:updated_time" content="2020-02-15T07:15:56.080Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ES2015核心内容">
+<meta name="twitter:title" content="go语言io编程-读取文件或写入文件">
+<meta name="twitter:description" content="读取指定目录下的文件func main() &amp;#123;	buf:=make([]byte,512);	var err error	buf,err=ioutil.ReadFile(os.Args[1]+&amp;quot;/test.txt&amp;quot;)	if err!=nil &amp;#123;		panic(err)	&amp;#125;	fmt.Println(string(buf))&amp;#125; 读取指定目录下">
     
         <link rel="alternate" type="application/atom+xml" title="思路比试错更重要" href="/atom.xml">
     
@@ -124,7 +127,7 @@
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">ES2015核心内容</div>
+        <div class="flex-col header-title ellipsis">go语言io编程-读取文件或写入文件</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
@@ -146,11 +149,11 @@
 <header class="content-header post-header">
 
     <div class="container fade-scale">
-        <h1 class="title">ES2015核心内容</h1>
+        <h1 class="title">go语言io编程-读取文件或写入文件</h1>
         <h5 class="subtitle">
             
-                <time datetime="2019-12-23T14:22:20.000Z" itemprop="datePublished" class="page-time">
-  2019-12-23 22:22:20
+                <time datetime="2018-03-01T11:23:20.000Z" itemprop="datePublished" class="page-time">
+  2018-03-01 19:23:20
 </time>
 
 
@@ -166,14 +169,21 @@
 
 <div class="container body-wrap">
     
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>目录</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#读取指定目录下的文件"><span class="post-toc-number">1.</span> <span class="post-toc-text">读取指定目录下的文件</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#读取指定目录下的文件，写入另一个文件"><span class="post-toc-number">2.</span> <span class="post-toc-text">读取指定目录下的文件，写入另一个文件</span></a></li></ol>
+        </nav>
+    </aside>
 
-<article id="post-e6_introduce"
+
+<article id="post-golang_io_application_readfile"
   class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
-        <h1 class="post-card-title">ES2015核心内容</h1>
+        <h1 class="post-card-title">go语言io编程-读取文件或写入文件</h1>
         <div class="post-meta">
-            <time class="post-time" title="2019-12-23 22:22:20 22:22:20" datetime="2019-12-23T14:22:20.000Z"  itemprop="datePublished">2019-12-23 22:22:20</time>
+            <time class="post-time" title="2018-03-01 19:23:20 19:23:20" datetime="2018-03-01T11:23:20.000Z"  itemprop="datePublished">2018-03-01 19:23:20</time>
 
             
 
@@ -186,7 +196,20 @@
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            
+            <h1 id="读取指定目录下的文件"><a href="#读取指定目录下的文件" class="headerlink" title="读取指定目录下的文件"></a>读取指定目录下的文件</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">func main() &#123;</span><br><span class="line"></span><br><span class="line">	buf:=make([]byte,512);</span><br><span class="line">	var err error</span><br><span class="line">	buf,err=ioutil.ReadFile(os.Args[1]+&quot;/test.txt&quot;)</span><br><span class="line">	if err!=nil &#123;</span><br><span class="line">		panic(err)</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(string(buf))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="读取指定目录下的文件，写入另一个文件"><a href="#读取指定目录下的文件，写入另一个文件" class="headerlink" title="读取指定目录下的文件，写入另一个文件"></a>读取指定目录下的文件，写入另一个文件</h1><p>import (</p>
+<pre><code>&quot;os&quot;
+&quot;log&quot;
+&quot;io/ioutil&quot;
+&quot;encoding/json&quot;
+//&quot;encoding/csv&quot;
+&quot;fmt&quot;
+&quot;encoding/csv&quot;
+//&quot;strconv&quot;
+&quot;strconv&quot;
+</code></pre><p>)</p>
+<p>type Mydata struct {<br>    Data []FundData <code>json:&quot;data&quot;</code><br>}<br>type FundData struct {<br>    FeeType string <code>json:&quot;feeType&quot;</code><br>    TotalFee float64 <code>json:&quot;totalFee&quot;</code><br>    Tano string <code>json:&quot;tano&quot;</code><br>    ManagerCode string <code>json:&quot;managerCode&quot;</code><br>    FundCode string <code>json:&quot;fundCode&quot;</code><br>    AccuVol float64 <code>json:&quot;accuVol&quot;</code><br>    AccuAmount float64 <code>json:&quot;accuAmount&quot;</code><br>}<br>func main(){<br>    f, err := os.Open(“data.json”)<br>    if err != nil {<br>        log.Fatal(err)<br>    }<br>    ret, err := ioutil.ReadAll(f)<br>    if err != nil {<br>        log.Fatal(err)<br>    }<br>    var mydata=Mydata{}<br>    err=json.Unmarshal(ret,&amp;mydata)<br>    if err!=nil {<br>        fmt.Println(err)<br>    }<br>    var datavalue []FundData  =mydata.Data<br>    fmt.Println(len(datavalue))<br>    file, err := os.Create(“test.xls”)<br>    if err != nil {<br>        panic(err)<br>    }<br>    defer func(file *os.File) { file.Close() }(file)<br>    file.WriteString(“\xEF\xBB\xBF”) // 写入UTF-8 BOM<br>    w := csv.NewWriter(file)<br>    w.Write([]string{“栏目1”, “栏目2”, “栏目3”,”栏目4”,”栏目5”,”栏目6”,”栏目7”})<br>    for _,value:=range datavalue{<br>        fee:=strconv.FormatFloat(value.TotalFee, ‘f’, -1, 64)<br>        vol:=strconv.FormatFloat(value.AccuVol, ‘f’, -1, 64)<br>        amount:=strconv.FormatFloat(value.AccuAmount, ‘f’, -1, 64)<br>        w.Write([]string{value.FeeType,fee,value.ManagerCode,value.Tano,value.FundCode,vol,amount})<br>    }<br>    w.Flush()<br>}</p>
+
         </div>
 
         <blockquote class="post-copyright">
@@ -194,12 +217,12 @@
     <div class="content" style="display:none">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-02-12T05:34:14.534Z" itemprop="dateUpdated">2020-02-12 13:34:14 13:34:14</time>
+    最后更新时间：<time datetime="2020-02-15T07:15:56.080Z" itemprop="dateUpdated">2020-02-15 15:15:56 15:15:56</time>
 </span><br>
 
 
         
-        <a href="/2019/12/23/e6_introduce/" target="_blank" rel="external">https://youxia999.github.io/2019/12/23/e6_introduce/</a>
+        <a href="/2018/03/01/golang_io_application_readfile/" target="_blank" rel="external">https://youxia999.github.io/2018/03/01/golang_io_application_readfile/</a>
         
     </div>
     
@@ -216,7 +239,7 @@
 
         <div class="post-footer">
             
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES2015/">ES2015</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编程语言技术/">编程语言技术</a></li></ul>
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/golang/">golang</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编程语言技术/">编程语言技术</a></li></ul>
 
 
             
@@ -226,7 +249,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://youxia999.github.io/2019/12/23/e6_introduce/&title=《ES2015核心内容》 — 思路比试错更重要&pic=https://youxia999.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://youxia999.github.io/2018/03/01/golang_io_application_readfile/&title=《go语言io编程-读取文件或写入文件》 — 思路比试错更重要&pic=https://youxia999.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -236,22 +259,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://youxia999.github.io/2019/12/23/e6_introduce/&title=《ES2015核心内容》 — 思路比试错更重要&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://youxia999.github.io/2018/03/01/golang_io_application_readfile/&title=《go语言io编程-读取文件或写入文件》 — 思路比试错更重要&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://youxia999.github.io/2019/12/23/e6_introduce/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://youxia999.github.io/2018/03/01/golang_io_application_readfile/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《ES2015核心内容》 — 思路比试错更重要&url=https://youxia999.github.io/2019/12/23/e6_introduce/&via=https://youxia999.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《go语言io编程-读取文件或写入文件》 — 思路比试错更重要&url=https://youxia999.github.io/2018/03/01/golang_io_application_readfile/&via=https://youxia999.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://youxia999.github.io/2019/12/23/e6_introduce/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://youxia999.github.io/2018/03/01/golang_io_application_readfile/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -274,18 +297,18 @@
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="/2099/12/31/zhiding/" id="post-prev" class="post-nav-link">
+      <a href="/2018/03/10/golang-build-web-application-server/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">【置顶】博客写作思路/涉及内容</h4>
+        <h4 class="title">go语言http编程(server端)</h4>
       </a>
     </div>
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2019/10/07/prometheus_monitor_rabbitmq/" id="post-next" class="post-nav-link">
+      <a href="/2018/02/05/apollo-config-wrapper-install/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">Prometheus监控rabbitmq3.8.0</h4>
+        <h4 class="title">apollo配置中心wrapper启动</h4>
       </a>
     </div>
   
@@ -308,7 +331,7 @@
 	<script src="https://jjeejj.github.io/js/gitment.js"></script>
     <script>
         var gitment = new Gitment({
-		    id: 'Mon Dec 23 2019 22:22:20 GMT+0800',
+		    id: 'Thu Mar 01 2018 19:23:20 GMT+0800',
             owner: 'youxia999',
             repo: 'gitment_comments',
             oauth: {
@@ -377,7 +400,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://youxia999.github.io/2019/12/23/e6_introduce/&title=《ES2015核心内容》 — 思路比试错更重要&pic=https://youxia999.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://youxia999.github.io/2018/03/01/golang_io_application_readfile/&title=《go语言io编程-读取文件或写入文件》 — 思路比试错更重要&pic=https://youxia999.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -387,22 +410,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://youxia999.github.io/2019/12/23/e6_introduce/&title=《ES2015核心内容》 — 思路比试错更重要&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://youxia999.github.io/2018/03/01/golang_io_application_readfile/&title=《go语言io编程-读取文件或写入文件》 — 思路比试错更重要&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://youxia999.github.io/2019/12/23/e6_introduce/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://youxia999.github.io/2018/03/01/golang_io_application_readfile/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《ES2015核心内容》 — 思路比试错更重要&url=https://youxia999.github.io/2019/12/23/e6_introduce/&via=https://youxia999.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《go语言io编程-读取文件或写入文件》 — 思路比试错更重要&url=https://youxia999.github.io/2018/03/01/golang_io_application_readfile/&via=https://youxia999.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://youxia999.github.io/2019/12/23/e6_introduce/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://youxia999.github.io/2018/03/01/golang_io_application_readfile/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -413,7 +436,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://youxia999.github.io/2019/12/23/e6_introduce/" alt="微信分享二维码">
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://youxia999.github.io/2018/03/01/golang_io_application_readfile/" alt="微信分享二维码">
 </div>
 
 

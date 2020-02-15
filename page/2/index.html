@@ -416,6 +416,62 @@ http编程基础类http包下的ListenAndServe、Server、conn、serverHandler�
         </li>
     
         <li class="post-list-item fade">
+            <article id="post-golang_io_application_readfile"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2018/03/01/golang_io_application_readfile/">go语言io编程-读取文件或写入文件</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-meta">
+        <time class="post-time" title="2018-03-01 19:23:20 19:23:20" datetime="2018-03-01T11:23:20.000Z"  itemprop="datePublished">2018-03-01 19:23:20</time>
+
+        
+
+
+    </div>
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        读取指定目录下的文件func main() &#123;	buf:=make([]byte,512);	var err error	buf,err=ioutil.ReadFile(os.Args[1]+&quot;/test.txt&quot;)	if err!=nil &#123;		panic(err)	&#125;	fmt.Println(string(buf))&#125;
+读取指定目录下的文件，写入另一个文件import (
+&quot;os&quot;
+&quot;log&quot;
+&quot;io/ioutil&quot;
+&quot;encoding/json&quot;
+//&quot;encoding/csv&quot;
+&quot;fmt&quot;
+&quot;encoding/csv&quot;
+//&quot;strconv&quot;
+&quot;strconv&quot;
+)
+type Mydata struct {    Data []FundData json:&quot;data&quot;}type FundData struct {  ...
+    
+
+        <a href="/2018/03/01/golang_io_application_readfile/" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/golang/">golang</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编程语言技术/">编程语言技术</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
             <article id="post-apollo-config-wrapper-install"
   class="article-card article-type-post" itemprop="blogPost">
 
@@ -2613,50 +2669,6 @@ nc用法目标机器:nc -l 端口 &gt; 文件名
     
 
         <a href="/2015/08/04/java-relearn-designpattern/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编程语言技术/">编程语言技术</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-java-reflect-dynamic-proxy"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2015/08/02/java-reflect-dynamic-proxy/">java反射与动态代理</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-meta">
-        <time class="post-time" title="2015-08-02 22:09:24 22:09:24" datetime="2015-08-02T14:09:24.000Z"  itemprop="datePublished">2015-08-02 22:09:24</time>
-
-        
-
-
-    </div>
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        动态代理package com.xiaogang.reflect;import java.lang.reflect.InvocationHandler;import java.lang.reflect.Method;import java.lang.reflect.Proxy;interface Subject&#123;    public String say(String name,int age);&#125;class RealSubject implements Subject&#123;    @Override    public String say(String name, int age) &#123;        return name + &quot; &quot; + age;    &#125;&#125;class MyInvocationHandler implements InvocationHandler&#123;    private Object object=null;    public Object bind(Object ob...
-    
-
-        <a href="/2015/08/02/java-reflect-dynamic-proxy/" class="post-more waves-effect waves-button">
             阅读全文…
         </a>
     </div>

@@ -14,27 +14,27 @@
     
     
     
-    <title>go语言http编程 | 思路比试错更重要 | 记录技术的学习和实践过程</title>
+    <title>go语言http编程(client端) | 思路比试错更重要 | 记录技术的学习和实践过程</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
     
     
     <meta name="keywords" content="编程语言技术,golang">
-    <meta name="description" content="参考资料https://time-track.cn/go-http-server-learning.html http编程基础类http包下的ListenAndServe、Server、conn、serverHandler、Handler接口 工作时序图">
+    <meta name="description" content="参考资料https://learnku.com/articles/23431/golang-learning-notes-two-http-client-using-client-type http编程概念模型">
 <meta name="keywords" content="编程语言技术,golang">
 <meta property="og:type" content="article">
-<meta property="og:title" content="go语言http编程">
-<meta property="og:url" content="https://youxia999.github.io/2018/03/10/golang-build-web-application/index.html">
+<meta property="og:title" content="go语言http编程(client端)">
+<meta property="og:url" content="https://youxia999.github.io/2018/07/10/golang-build-web-application-client/index.html">
 <meta property="og:site_name" content="思路比试错更重要">
-<meta property="og:description" content="参考资料https://time-track.cn/go-http-server-learning.html http编程基础类http包下的ListenAndServe、Server、conn、serverHandler、Handler接口 工作时序图">
+<meta property="og:description" content="参考资料https://learnku.com/articles/23431/golang-learning-notes-two-http-client-using-client-type http编程概念模型">
 <meta property="og:locale" content="ZH_CN">
-<meta property="og:image" content="https://youxia999.github.io/img/program/go/ServerCoding.png">
-<meta property="og:updated_time" content="2020-02-12T06:35:35.199Z">
+<meta property="og:image" content="https://youxia999.github.io/img/program/go/net_http_client_go_file.png">
+<meta property="og:updated_time" content="2020-02-15T06:55:29.323Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="go语言http编程">
-<meta name="twitter:description" content="参考资料https://time-track.cn/go-http-server-learning.html http编程基础类http包下的ListenAndServe、Server、conn、serverHandler、Handler接口 工作时序图">
-<meta name="twitter:image" content="https://youxia999.github.io/img/program/go/ServerCoding.png">
+<meta name="twitter:title" content="go语言http编程(client端)">
+<meta name="twitter:description" content="参考资料https://learnku.com/articles/23431/golang-learning-notes-two-http-client-using-client-type http编程概念模型">
+<meta name="twitter:image" content="https://youxia999.github.io/img/program/go/net_http_client_go_file.png">
     
         <link rel="alternate" type="application/atom+xml" title="思路比试错更重要" href="/atom.xml">
     
@@ -129,7 +129,7 @@
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">go语言http编程</div>
+        <div class="flex-col header-title ellipsis">go语言http编程(client端)</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
@@ -151,11 +151,11 @@
 <header class="content-header post-header">
 
     <div class="container fade-scale">
-        <h1 class="title">go语言http编程</h1>
+        <h1 class="title">go语言http编程(client端)</h1>
         <h5 class="subtitle">
             
-                <time datetime="2018-03-10T11:23:20.000Z" itemprop="datePublished" class="page-time">
-  2018-03-10 19:23:20
+                <time datetime="2018-07-10T11:23:20.000Z" itemprop="datePublished" class="page-time">
+  2018-07-10 19:23:20
 </time>
 
 
@@ -174,18 +174,18 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>目录</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#参考资料"><span class="post-toc-number">1.</span> <span class="post-toc-text">参考资料</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#http编程"><span class="post-toc-number">2.</span> <span class="post-toc-text">http编程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#基础类"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">基础类</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#工作时序图"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">工作时序图</span></a></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#参考资料"><span class="post-toc-number">1.</span> <span class="post-toc-text">参考资料</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#http编程"><span class="post-toc-number">2.</span> <span class="post-toc-text">http编程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#概念模型"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">概念模型</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#具体例子"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">具体例子</span></a></li></ol></li></ol>
         </nav>
     </aside>
 
 
-<article id="post-golang-build-web-application"
+<article id="post-golang-build-web-application-client"
   class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
-        <h1 class="post-card-title">go语言http编程</h1>
+        <h1 class="post-card-title">go语言http编程(client端)</h1>
         <div class="post-meta">
-            <time class="post-time" title="2018-03-10 19:23:20 19:23:20" datetime="2018-03-10T11:23:20.000Z"  itemprop="datePublished">2018-03-10 19:23:20</time>
+            <time class="post-time" title="2018-07-10 19:23:20 19:23:20" datetime="2018-07-10T11:23:20.000Z"  itemprop="datePublished">2018-07-10 19:23:20</time>
 
             
 
@@ -198,15 +198,22 @@
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">https://time-track.cn/go-http-server-learning.html</span><br></pre></td></tr></table></figure>
-<h1 id="http编程"><a href="#http编程" class="headerlink" title="http编程"></a>http编程</h1><h2 id="基础类"><a href="#基础类" class="headerlink" title="基础类"></a>基础类</h2><p>http包下的ListenAndServe、Server、conn、serverHandler、Handler接口</p>
-<h2 id="工作时序图"><a href="#工作时序图" class="headerlink" title="工作时序图"></a>工作时序图</h2><figure class="image-bubble">
+            <h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">https://learnku.com/articles/23431/golang-learning-notes-two-http-client-using-client-type</span><br></pre></td></tr></table></figure>
+<h1 id="http编程"><a href="#http编程" class="headerlink" title="http编程"></a>http编程</h1><h2 id="概念模型"><a href="#概念模型" class="headerlink" title="概念模型"></a>概念模型</h2><figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://youxia999.github.io/img/program/go/ServerCoding.png" alt title>
+                    <img src="https://youxia999.github.io/img/program/go/net_http_client_go_file.png" alt title>
                 </div>
                 <div class="image-caption"></div>
             </figure>
+<p>简单来说，就是:http包下client.go文件的</p>
+<ul>
+<li>Client结构体、</li>
+<li>DefaultClient常量</li>
+<li>Do、Get、Head、Post、PostForm方法</li>
+</ul>
+<h2 id="具体例子"><a href="#具体例子" class="headerlink" title="具体例子"></a>具体例子</h2><p>访问rabbitmq的restful接口<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">func main() &#123;</span><br><span class="line">	result, err := do(&quot;GET&quot;, &quot;http://192.168.172.3:15672/api/connections&quot;, nil)</span><br><span class="line">	if err != nil &#123;</span><br><span class="line">		panic(err)</span><br><span class="line">	&#125;</span><br><span class="line">	buf := new(bytes.Buffer)</span><br><span class="line">	buf.ReadFrom(result.Body)</span><br><span class="line">	fmt.Println(buf.String())</span><br><span class="line">&#125;</span><br><span class="line">func do(method string, url string, playload io.Reader) (*http.Response, error) &#123;</span><br><span class="line">	req, err := http.NewRequest(method, url, playload)</span><br><span class="line">	if err != nil &#123;</span><br><span class="line">		return nil, err</span><br><span class="line">	&#125;</span><br><span class="line">	req.SetBasicAuth(&quot;admin&quot;, &quot;admin&quot;)</span><br><span class="line">	return http.DefaultClient.Do(req)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
         </div>
 
         <blockquote class="post-copyright">
@@ -214,12 +221,12 @@
     <div class="content" style="display:none">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-02-12T06:35:35.199Z" itemprop="dateUpdated">2020-02-12 14:35:35 14:35:35</time>
+    最后更新时间：<time datetime="2020-02-15T06:55:29.323Z" itemprop="dateUpdated">2020-02-15 14:55:29 14:55:29</time>
 </span><br>
 
 
         
-        <a href="/2018/03/10/golang-build-web-application/" target="_blank" rel="external">https://youxia999.github.io/2018/03/10/golang-build-web-application/</a>
+        <a href="/2018/07/10/golang-build-web-application-client/" target="_blank" rel="external">https://youxia999.github.io/2018/07/10/golang-build-web-application-client/</a>
         
     </div>
     
@@ -246,7 +253,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://youxia999.github.io/2018/03/10/golang-build-web-application/&title=《go语言http编程》 — 思路比试错更重要&pic=https://youxia999.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://youxia999.github.io/2018/07/10/golang-build-web-application-client/&title=《go语言http编程(client端)》 — 思路比试错更重要&pic=https://youxia999.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -256,22 +263,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://youxia999.github.io/2018/03/10/golang-build-web-application/&title=《go语言http编程》 — 思路比试错更重要&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://youxia999.github.io/2018/07/10/golang-build-web-application-client/&title=《go语言http编程(client端)》 — 思路比试错更重要&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://youxia999.github.io/2018/03/10/golang-build-web-application/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://youxia999.github.io/2018/07/10/golang-build-web-application-client/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《go语言http编程》 — 思路比试错更重要&url=https://youxia999.github.io/2018/03/10/golang-build-web-application/&via=https://youxia999.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《go语言http编程(client端)》 — 思路比试错更重要&url=https://youxia999.github.io/2018/07/10/golang-build-web-application-client/&via=https://youxia999.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://youxia999.github.io/2018/03/10/golang-build-web-application/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://youxia999.github.io/2018/07/10/golang-build-web-application-client/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -294,18 +301,18 @@
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="/2018/04/14/prometheus-monitor-mysql/" id="post-prev" class="post-nav-link">
+      <a href="/2018/07/29/elastic-job-basic-use/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">【转载】利用Prometheus和Grafana可视化mysql性能</h4>
+        <h4 class="title">elastic-job-lite使用和源码初步分析</h4>
       </a>
     </div>
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2018/02/05/apollo-config-wrapper-install/" id="post-next" class="post-nav-link">
+      <a href="/2018/07/01/jishuzongjie-2018_beta/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">apollo配置中心wrapper启动</h4>
+        <h4 class="title">2016-2018年技术感悟总结(草稿)</h4>
       </a>
     </div>
   
@@ -328,7 +335,7 @@
 	<script src="https://jjeejj.github.io/js/gitment.js"></script>
     <script>
         var gitment = new Gitment({
-		    id: 'Sat Mar 10 2018 19:23:20 GMT+0800',
+		    id: 'Tue Jul 10 2018 19:23:20 GMT+0800',
             owner: 'youxia999',
             repo: 'gitment_comments',
             oauth: {
@@ -397,7 +404,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://youxia999.github.io/2018/03/10/golang-build-web-application/&title=《go语言http编程》 — 思路比试错更重要&pic=https://youxia999.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://youxia999.github.io/2018/07/10/golang-build-web-application-client/&title=《go语言http编程(client端)》 — 思路比试错更重要&pic=https://youxia999.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -407,22 +414,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://youxia999.github.io/2018/03/10/golang-build-web-application/&title=《go语言http编程》 — 思路比试错更重要&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://youxia999.github.io/2018/07/10/golang-build-web-application-client/&title=《go语言http编程(client端)》 — 思路比试错更重要&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://youxia999.github.io/2018/03/10/golang-build-web-application/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://youxia999.github.io/2018/07/10/golang-build-web-application-client/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《go语言http编程》 — 思路比试错更重要&url=https://youxia999.github.io/2018/03/10/golang-build-web-application/&via=https://youxia999.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《go语言http编程(client端)》 — 思路比试错更重要&url=https://youxia999.github.io/2018/07/10/golang-build-web-application-client/&via=https://youxia999.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://youxia999.github.io/2018/03/10/golang-build-web-application/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://youxia999.github.io/2018/07/10/golang-build-web-application-client/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -433,7 +440,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://youxia999.github.io/2018/03/10/golang-build-web-application/" alt="微信分享二维码">
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://youxia999.github.io/2018/07/10/golang-build-web-application-client/" alt="微信分享二维码">
 </div>
 
 

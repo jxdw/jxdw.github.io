@@ -29,17 +29,17 @@
 <meta property="og:site_name" content="思路比试错更重要">
 <meta property="og:description" content="提示进行下面的操作前，最好修改下dns(查找速度)：vim /etc/resolv.conf升级curl、nss：yum update nss curl  程序安装包技术rpmrpm包与源码包的对比">
 <meta property="og:locale" content="ZH_CN">
-<meta property="og:image" content="https://jingzhouyouxia.github.io/img/cloudnative/centos7/rpm_vs_sourcecode.png">
-<meta property="og:image" content="https://jingzhouyouxia.github.io/img/cloudnative/centos7/rpm_man.png">
-<meta property="og:image" content="https://jingzhouyouxia.github.io/img/cloudnative/centos7/rpm_qa.png">
-<meta property="og:image" content="https://jingzhouyouxia.github.io/img/cloudnative/centos7/yum_introduce.png">
-<meta property="og:image" content="https://jingzhouyouxia.github.io/img/cloudnative/centos7/yum_introduce.png">
-<meta property="og:image" content="https://jingzhouyouxia.github.io/img/cloudnative/centos7/2016062508410641.png">
+<meta property="og:image" content="https://jingzhouyouxia.github.io/img/devops/centos7/rpm_vs_sourcecode.png">
+<meta property="og:image" content="https://jingzhouyouxia.github.io/img/devops/centos7/rpm_man.png">
+<meta property="og:image" content="https://jingzhouyouxia.github.io/img/devops/centos7/rpm_qa.png">
+<meta property="og:image" content="https://jingzhouyouxia.github.io/img/devops/centos7/yum_introduce.png">
+<meta property="og:image" content="https://jingzhouyouxia.github.io/img/devops/centos7/yum_introduce.png">
+<meta property="og:image" content="https://jingzhouyouxia.github.io/img/devops/centos7/2016062508410641.png">
 <meta property="og:updated_time" content="2020-02-06T04:15:12.752Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="玩转centos7之程序安装与启动(rpm、yum、systemd)">
 <meta name="twitter:description" content="提示进行下面的操作前，最好修改下dns(查找速度)：vim /etc/resolv.conf升级curl、nss：yum update nss curl  程序安装包技术rpmrpm包与源码包的对比">
-<meta name="twitter:image" content="https://jingzhouyouxia.github.io/img/cloudnative/centos7/rpm_vs_sourcecode.png">
+<meta name="twitter:image" content="https://jingzhouyouxia.github.io/img/devops/centos7/rpm_vs_sourcecode.png">
     
         <link rel="alternate" type="application/atom+xml" title="思路比试错更重要" href="/atom.xml">
     
@@ -201,21 +201,21 @@
 <h1 id="程序安装包技术rpm"><a href="#程序安装包技术rpm" class="headerlink" title="程序安装包技术rpm"></a>程序安装包技术rpm</h1><h2 id="rpm包与源码包的对比"><a href="#rpm包与源码包的对比" class="headerlink" title="rpm包与源码包的对比"></a>rpm包与源码包的对比</h2><figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://jingzhouyouxia.github.io/img/cloudnative/centos7/rpm_vs_sourcecode.png" alt title>
+                    <img src="https://jingzhouyouxia.github.io/img/devops/centos7/rpm_vs_sourcecode.png" alt title>
                 </div>
                 <div class="image-caption"></div>
             </figure>
 <h2 id="rpm-help命令"><a href="#rpm-help命令" class="headerlink" title="rpm help命令"></a>rpm help命令</h2><figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://jingzhouyouxia.github.io/img/cloudnative/centos7/rpm_man.png" alt title>
+                    <img src="https://jingzhouyouxia.github.io/img/devops/centos7/rpm_man.png" alt title>
                 </div>
                 <div class="image-caption"></div>
             </figure>
 <h2 id="本机已安装的包"><a href="#本机已安装的包" class="headerlink" title="本机已安装的包"></a>本机已安装的包</h2><figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://jingzhouyouxia.github.io/img/cloudnative/centos7/rpm_qa.png" alt title>
+                    <img src="https://jingzhouyouxia.github.io/img/devops/centos7/rpm_qa.png" alt title>
                 </div>
                 <div class="image-caption"></div>
             </figure>
@@ -223,7 +223,7 @@
 <h2 id="yum介绍"><a href="#yum介绍" class="headerlink" title="yum介绍"></a>yum介绍</h2><p>yum(Yellow dog Updater, Modified)是一个在Fedora和RedHat以及SUSE中的Shell前端软件包管理器。<br>基于RPM包管理，能够从指定的服务器自动下载RPM包并且安装，可以自动处理依赖性关系，并且一次安装所有依赖的软体包，无须繁琐地一次次下载、安装。<br>yum提供了查找、安装、删除某一个、一组甚至全部软件包的命令，而且命令简洁而又好记。<br>YUM的工作原理并不复杂，每一个 RPM软件的头（header）里面都会纪录该软件的依赖关系，那么如果可以将该头的内容纪录下来并且进行分析，可以知道每个软件在安装之前需要额外安装 哪些基础软件。<br>也就是说，在服务器上面先以分析工具将所有的RPM档案进行分析，然后将该分析纪录下来，只要在进行安装或升级时先查询该纪录的文件，就可以知道所有相关联的软件。<br><figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://jingzhouyouxia.github.io/img/cloudnative/centos7/yum_introduce.png" alt title>
+                    <img src="https://jingzhouyouxia.github.io/img/devops/centos7/yum_introduce.png" alt title>
                 </div>
                 <div class="image-caption"></div>
             </figure></p>
@@ -238,7 +238,7 @@
 <h2 id="yum其他命令"><a href="#yum其他命令" class="headerlink" title="yum其他命令"></a>yum其他命令</h2><p>输入man yum可以看到参考手册：<br><figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://jingzhouyouxia.github.io/img/cloudnative/centos7/yum_introduce.png" alt title>
+                    <img src="https://jingzhouyouxia.github.io/img/devops/centos7/yum_introduce.png" alt title>
                 </div>
                 <div class="image-caption"></div>
             </figure></p>
@@ -254,7 +254,7 @@
 <h2 id="systemd的架构和优缺点"><a href="#systemd的架构和优缺点" class="headerlink" title="systemd的架构和优缺点"></a>systemd的架构和优缺点</h2><p>Systemd 的优点是功能强大，使用方便，缺点是体系庞大，非常复杂。<br>事实上，现在还有很多人反对使用 Systemd，理由就是它过于复杂，与操作系统的其他部分强耦合，违反”keep simple, keep stupid”的Unix 哲学。<br>下图是systemd的架构图（图片来自网络）：<br><figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://jingzhouyouxia.github.io/img/cloudnative/centos7/2016062508410641.png" alt title>
+                    <img src="https://jingzhouyouxia.github.io/img/devops/centos7/2016062508410641.png" alt title>
                 </div>
                 <div class="image-caption"></div>
             </figure></p>

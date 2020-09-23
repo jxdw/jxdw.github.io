@@ -25,21 +25,21 @@
 <meta name="keywords" content="容器技术,容器与k8s">
 <meta property="og:type" content="article">
 <meta property="og:title" content="docker扩展iptables实现网络隔离与通信">
-<meta property="og:url" content="https://youxia999.github.io/2018/10/09/docker-network-basic/index.html">
+<meta property="og:url" content="https://jingzhouyouxia.github.io/2018/10/09/docker-network-basic/index.html">
 <meta property="og:site_name" content="思路比试错更重要">
 <meta property="og:description" content="本文参考https://www.cnblogs.com/foxgab/p/6896957.html iptables的概念iptables基础概念 iptables表的分类 iptable链的走向 docker对于iptables的应用docker对iptables filter表的扩展 docker对iptables nat表的扩展 docker之后的iptables链的走向">
 <meta property="og:locale" content="ZH_CN">
-<meta property="og:image" content="https://youxia999.github.io/img/devops/docker/iptables_concept.png">
-<meta property="og:image" content="https://youxia999.github.io/img/devops/docker/iptables_tables.png">
-<meta property="og:image" content="https://youxia999.github.io/img/devops/docker/iptables_route.png">
-<meta property="og:image" content="https://youxia999.github.io/img/devops/docker/iptables_filter.png">
-<meta property="og:image" content="https://youxia999.github.io/img/devops/docker/iptables_nat.png">
-<meta property="og:image" content="https://youxia999.github.io/img/devops/docker/docker_iptables.png">
+<meta property="og:image" content="https://jingzhouyouxia.github.io/img/devops/docker/iptables_concept.png">
+<meta property="og:image" content="https://jingzhouyouxia.github.io/img/devops/docker/iptables_tables.png">
+<meta property="og:image" content="https://jingzhouyouxia.github.io/img/devops/docker/iptables_route.png">
+<meta property="og:image" content="https://jingzhouyouxia.github.io/img/devops/docker/iptables_filter.png">
+<meta property="og:image" content="https://jingzhouyouxia.github.io/img/devops/docker/iptables_nat.png">
+<meta property="og:image" content="https://jingzhouyouxia.github.io/img/devops/docker/docker_iptables.png">
 <meta property="og:updated_time" content="2020-02-12T06:47:31.104Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="docker扩展iptables实现网络隔离与通信">
 <meta name="twitter:description" content="本文参考https://www.cnblogs.com/foxgab/p/6896957.html iptables的概念iptables基础概念 iptables表的分类 iptable链的走向 docker对于iptables的应用docker对iptables filter表的扩展 docker对iptables nat表的扩展 docker之后的iptables链的走向">
-<meta name="twitter:image" content="https://youxia999.github.io/img/devops/docker/iptables_concept.png">
+<meta name="twitter:image" content="https://jingzhouyouxia.github.io/img/devops/docker/iptables_concept.png">
     
         <link rel="alternate" type="application/atom+xml" title="思路比试错更重要" href="/atom.xml">
     
@@ -197,12 +197,12 @@
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
             <h1 id="本文参考"><a href="#本文参考" class="headerlink" title="本文参考"></a>本文参考</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">https://www.cnblogs.com/foxgab/p/6896957.html</span><br></pre></td></tr></table></figure>
-<h1 id="iptables的概念"><a href="#iptables的概念" class="headerlink" title="iptables的概念"></a>iptables的概念</h1><h2 id="iptables基础概念"><a href="#iptables基础概念" class="headerlink" title="iptables基础概念"></a>iptables基础概念</h2><p><img src="https://youxia999.github.io/img/devops/docker/iptables_concept.png" alt></p>
-<h2 id="iptables表的分类"><a href="#iptables表的分类" class="headerlink" title="iptables表的分类"></a>iptables表的分类</h2><p><img src="https://youxia999.github.io/img/devops/docker/iptables_tables.png" alt></p>
-<h2 id="iptable链的走向"><a href="#iptable链的走向" class="headerlink" title="iptable链的走向"></a>iptable链的走向</h2><p><img src="https://youxia999.github.io/img/devops/docker/iptables_route.png" alt></p>
-<h1 id="docker对于iptables的应用"><a href="#docker对于iptables的应用" class="headerlink" title="docker对于iptables的应用"></a>docker对于iptables的应用</h1><h2 id="docker对iptables-filter表的扩展"><a href="#docker对iptables-filter表的扩展" class="headerlink" title="docker对iptables filter表的扩展"></a>docker对iptables filter表的扩展</h2><p><img src="https://youxia999.github.io/img/devops/docker/iptables_filter.png" alt></p>
-<h2 id="docker对iptables-nat表的扩展"><a href="#docker对iptables-nat表的扩展" class="headerlink" title="docker对iptables nat表的扩展"></a>docker对iptables nat表的扩展</h2><p><img src="https://youxia999.github.io/img/devops/docker/iptables_nat.png" alt></p>
-<h2 id="docker之后的iptables链的走向"><a href="#docker之后的iptables链的走向" class="headerlink" title="docker之后的iptables链的走向"></a>docker之后的iptables链的走向</h2><p><img src="https://youxia999.github.io/img/devops/docker/docker_iptables.png" alt></p>
+<h1 id="iptables的概念"><a href="#iptables的概念" class="headerlink" title="iptables的概念"></a>iptables的概念</h1><h2 id="iptables基础概念"><a href="#iptables基础概念" class="headerlink" title="iptables基础概念"></a>iptables基础概念</h2><p><img src="https://jingzhouyouxia.github.io/img/devops/docker/iptables_concept.png" alt></p>
+<h2 id="iptables表的分类"><a href="#iptables表的分类" class="headerlink" title="iptables表的分类"></a>iptables表的分类</h2><p><img src="https://jingzhouyouxia.github.io/img/devops/docker/iptables_tables.png" alt></p>
+<h2 id="iptable链的走向"><a href="#iptable链的走向" class="headerlink" title="iptable链的走向"></a>iptable链的走向</h2><p><img src="https://jingzhouyouxia.github.io/img/devops/docker/iptables_route.png" alt></p>
+<h1 id="docker对于iptables的应用"><a href="#docker对于iptables的应用" class="headerlink" title="docker对于iptables的应用"></a>docker对于iptables的应用</h1><h2 id="docker对iptables-filter表的扩展"><a href="#docker对iptables-filter表的扩展" class="headerlink" title="docker对iptables filter表的扩展"></a>docker对iptables filter表的扩展</h2><p><img src="https://jingzhouyouxia.github.io/img/devops/docker/iptables_filter.png" alt></p>
+<h2 id="docker对iptables-nat表的扩展"><a href="#docker对iptables-nat表的扩展" class="headerlink" title="docker对iptables nat表的扩展"></a>docker对iptables nat表的扩展</h2><p><img src="https://jingzhouyouxia.github.io/img/devops/docker/iptables_nat.png" alt></p>
+<h2 id="docker之后的iptables链的走向"><a href="#docker之后的iptables链的走向" class="headerlink" title="docker之后的iptables链的走向"></a>docker之后的iptables链的走向</h2><p><img src="https://jingzhouyouxia.github.io/img/devops/docker/docker_iptables.png" alt></p>
 
         </div>
 
@@ -216,12 +216,12 @@
 
 
         
-        <a href="/2018/10/09/docker-network-basic/" target="_blank" rel="external">https://youxia999.github.io/2018/10/09/docker-network-basic/</a>
+        <a href="/2018/10/09/docker-network-basic/" target="_blank" rel="external">https://jingzhouyouxia.github.io/2018/10/09/docker-network-basic/</a>
         
     </div>
     
     <footer>
-        <a href="https://youxia999.github.io">
+        <a href="https://jingzhouyouxia.github.io">
             <img src="/img/avatar.jpg" alt="游侠">
             游侠
         </a>
@@ -243,7 +243,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://youxia999.github.io/2018/10/09/docker-network-basic/&title=《docker扩展iptables实现网络隔离与通信》 — 思路比试错更重要&pic=https://youxia999.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://jingzhouyouxia.github.io/2018/10/09/docker-network-basic/&title=《docker扩展iptables实现网络隔离与通信》 — 思路比试错更重要&pic=https://jingzhouyouxia.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -253,22 +253,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://youxia999.github.io/2018/10/09/docker-network-basic/&title=《docker扩展iptables实现网络隔离与通信》 — 思路比试错更重要&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://jingzhouyouxia.github.io/2018/10/09/docker-network-basic/&title=《docker扩展iptables实现网络隔离与通信》 — 思路比试错更重要&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://youxia999.github.io/2018/10/09/docker-network-basic/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://jingzhouyouxia.github.io/2018/10/09/docker-network-basic/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《docker扩展iptables实现网络隔离与通信》 — 思路比试错更重要&url=https://youxia999.github.io/2018/10/09/docker-network-basic/&via=https://youxia999.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《docker扩展iptables实现网络隔离与通信》 — 思路比试错更重要&url=https://jingzhouyouxia.github.io/2018/10/09/docker-network-basic/&via=https://jingzhouyouxia.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://youxia999.github.io/2018/10/09/docker-network-basic/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://jingzhouyouxia.github.io/2018/10/09/docker-network-basic/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -394,7 +394,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://youxia999.github.io/2018/10/09/docker-network-basic/&title=《docker扩展iptables实现网络隔离与通信》 — 思路比试错更重要&pic=https://youxia999.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://jingzhouyouxia.github.io/2018/10/09/docker-network-basic/&title=《docker扩展iptables实现网络隔离与通信》 — 思路比试错更重要&pic=https://jingzhouyouxia.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -404,22 +404,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://youxia999.github.io/2018/10/09/docker-network-basic/&title=《docker扩展iptables实现网络隔离与通信》 — 思路比试错更重要&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://jingzhouyouxia.github.io/2018/10/09/docker-network-basic/&title=《docker扩展iptables实现网络隔离与通信》 — 思路比试错更重要&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://youxia999.github.io/2018/10/09/docker-network-basic/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://jingzhouyouxia.github.io/2018/10/09/docker-network-basic/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《docker扩展iptables实现网络隔离与通信》 — 思路比试错更重要&url=https://youxia999.github.io/2018/10/09/docker-network-basic/&via=https://youxia999.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《docker扩展iptables实现网络隔离与通信》 — 思路比试错更重要&url=https://jingzhouyouxia.github.io/2018/10/09/docker-network-basic/&via=https://jingzhouyouxia.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://youxia999.github.io/2018/10/09/docker-network-basic/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://jingzhouyouxia.github.io/2018/10/09/docker-network-basic/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -430,7 +430,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://youxia999.github.io/2018/10/09/docker-network-basic/" alt="微信分享二维码">
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://jingzhouyouxia.github.io/2018/10/09/docker-network-basic/" alt="微信分享二维码">
 </div>
 
 

@@ -21,18 +21,18 @@
     
     
     <meta name="keywords" content="容器与k8s">
-    <meta name="description" content="参考资料http://www.net-add.com/a/dockerzhuanti/fuwuzhucefaxian/2017/0421/42.html 下载、安装etcd及其可视化工具下载安装etcdetcd的下载安装参考：https://youxia999.github.io/2018/12/05/container-etcd-install/ 下载安装etcdkeeperetcdkeeper">
+    <meta name="description" content="参考资料http://www.net-add.com/a/dockerzhuanti/fuwuzhucefaxian/2017/0421/42.html 下载、安装etcd及其可视化工具下载安装etcdetcd的下载安装参考：https://jingzhouyouxia.github.io/2018/12/05/container-etcd-install/ 下载安装etcdkeeperetcdkeeper">
 <meta name="keywords" content="容器与k8s">
 <meta property="og:type" content="article">
 <meta property="og:title" content="prometheus实现动态监控">
-<meta property="og:url" content="https://youxia999.github.io/2019/01/30/prometheus-confd-etcd/index.html">
+<meta property="og:url" content="https://jingzhouyouxia.github.io/2019/01/30/prometheus-confd-etcd/index.html">
 <meta property="og:site_name" content="思路比试错更重要">
-<meta property="og:description" content="参考资料http://www.net-add.com/a/dockerzhuanti/fuwuzhucefaxian/2017/0421/42.html 下载、安装etcd及其可视化工具下载安装etcdetcd的下载安装参考：https://youxia999.github.io/2018/12/05/container-etcd-install/ 下载安装etcdkeeperetcdkeeper">
+<meta property="og:description" content="参考资料http://www.net-add.com/a/dockerzhuanti/fuwuzhucefaxian/2017/0421/42.html 下载、安装etcd及其可视化工具下载安装etcdetcd的下载安装参考：https://jingzhouyouxia.github.io/2018/12/05/container-etcd-install/ 下载安装etcdkeeperetcdkeeper">
 <meta property="og:locale" content="ZH_CN">
 <meta property="og:updated_time" content="2020-02-12T06:46:24.504Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="prometheus实现动态监控">
-<meta name="twitter:description" content="参考资料http://www.net-add.com/a/dockerzhuanti/fuwuzhucefaxian/2017/0421/42.html 下载、安装etcd及其可视化工具下载安装etcdetcd的下载安装参考：https://youxia999.github.io/2018/12/05/container-etcd-install/ 下载安装etcdkeeperetcdkeeper">
+<meta name="twitter:description" content="参考资料http://www.net-add.com/a/dockerzhuanti/fuwuzhucefaxian/2017/0421/42.html 下载、安装etcd及其可视化工具下载安装etcdetcd的下载安装参考：https://jingzhouyouxia.github.io/2018/12/05/container-etcd-install/ 下载安装etcdkeeperetcdkeeper">
     
         <link rel="alternate" type="application/atom+xml" title="思路比试错更重要" href="/atom.xml">
     
@@ -190,7 +190,7 @@
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
             <h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p><a href="http://www.net-add.com/a/dockerzhuanti/fuwuzhucefaxian/2017/0421/42.html" target="_blank" rel="noopener">http://www.net-add.com/a/dockerzhuanti/fuwuzhucefaxian/2017/0421/42.html</a></p>
-<h1 id="下载、安装etcd及其可视化工具"><a href="#下载、安装etcd及其可视化工具" class="headerlink" title="下载、安装etcd及其可视化工具"></a>下载、安装etcd及其可视化工具</h1><h2 id="下载安装etcd"><a href="#下载安装etcd" class="headerlink" title="下载安装etcd"></a>下载安装etcd</h2><p>etcd的下载安装参考：<a href="https://youxia999.github.io/2018/12/05/container-etcd-install/">https://youxia999.github.io/2018/12/05/container-etcd-install/</a></p>
+<h1 id="下载、安装etcd及其可视化工具"><a href="#下载、安装etcd及其可视化工具" class="headerlink" title="下载、安装etcd及其可视化工具"></a>下载、安装etcd及其可视化工具</h1><h2 id="下载安装etcd"><a href="#下载安装etcd" class="headerlink" title="下载安装etcd"></a>下载安装etcd</h2><p>etcd的下载安装参考：<a href="https://jingzhouyouxia.github.io/2018/12/05/container-etcd-install/">https://jingzhouyouxia.github.io/2018/12/05/container-etcd-install/</a></p>
 <h2 id="下载安装etcdkeeper"><a href="#下载安装etcdkeeper" class="headerlink" title="下载安装etcdkeeper"></a>下载安装etcdkeeper</h2><p>etcdkeeper的安装参考：<a href="https://github.com/evildecay/etcdkeeper" target="_blank" rel="noopener">https://github.com/evildecay/etcdkeeper</a></p>
 <h1 id="下载、启动2-x版本的Prometheus"><a href="#下载、启动2-x版本的Prometheus" class="headerlink" title="下载、启动2.x版本的Prometheus"></a>下载、启动2.x版本的Prometheus</h1><p>docker run –name prometheus  -p 9090:9090 -e TZ=”Asia/Shanghai” –link alertmanager  -v /etc/prometheus/:/etc/prometheus/  -d prom/prometheus  –web.enable-lifecycle –config.file=/etc/prometheus/prometheus.yml</p>
 <h1 id="下载、配置confd"><a href="#下载、配置confd" class="headerlink" title="下载、配置confd"></a>下载、配置confd</h1><h2 id="从github下载confd0-16-0"><a href="#从github下载confd0-16-0" class="headerlink" title="从github下载confd0.16.0"></a>从github下载confd0.16.0</h2><p><a href="https://github-production-release-asset-2e65be.s3.amazonaws.com/13234395/625c633c-4fef-11e8-88cf-9ef24f2771cc?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20191226%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20191226T020617Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=031584e37ca8ed73a665e94df2e7ebfc8ff13292c71915176e3e06d8f7366a74&amp;X-Amz-SignedHeaders=host&amp;actor_id=17592332&amp;response-content-disposition=attachment%3B%20filename%3Dconfd-0.16.0-linux-amd64&amp;response-content-type=application%2Foctet-stream" target="_blank" rel="noopener">https://github-production-release-asset-2e65be.s3.amazonaws.com/13234395/625c633c-4fef-11e8-88cf-9ef24f2771cc?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20191226%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20191226T020617Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=031584e37ca8ed73a665e94df2e7ebfc8ff13292c71915176e3e06d8f7366a74&amp;X-Amz-SignedHeaders=host&amp;actor_id=17592332&amp;response-content-disposition=attachment%3B%20filename%3Dconfd-0.16.0-linux-amd64&amp;response-content-type=application%2Foctet-stream</a></p>
@@ -211,12 +211,12 @@
 
 
         
-        <a href="/2019/01/30/prometheus-confd-etcd/" target="_blank" rel="external">https://youxia999.github.io/2019/01/30/prometheus-confd-etcd/</a>
+        <a href="/2019/01/30/prometheus-confd-etcd/" target="_blank" rel="external">https://jingzhouyouxia.github.io/2019/01/30/prometheus-confd-etcd/</a>
         
     </div>
     
     <footer>
-        <a href="https://youxia999.github.io">
+        <a href="https://jingzhouyouxia.github.io">
             <img src="/img/avatar.jpg" alt="游侠">
             游侠
         </a>
@@ -238,7 +238,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://youxia999.github.io/2019/01/30/prometheus-confd-etcd/&title=《prometheus实现动态监控》 — 思路比试错更重要&pic=https://youxia999.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://jingzhouyouxia.github.io/2019/01/30/prometheus-confd-etcd/&title=《prometheus实现动态监控》 — 思路比试错更重要&pic=https://jingzhouyouxia.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -248,22 +248,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://youxia999.github.io/2019/01/30/prometheus-confd-etcd/&title=《prometheus实现动态监控》 — 思路比试错更重要&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://jingzhouyouxia.github.io/2019/01/30/prometheus-confd-etcd/&title=《prometheus实现动态监控》 — 思路比试错更重要&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://youxia999.github.io/2019/01/30/prometheus-confd-etcd/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://jingzhouyouxia.github.io/2019/01/30/prometheus-confd-etcd/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《prometheus实现动态监控》 — 思路比试错更重要&url=https://youxia999.github.io/2019/01/30/prometheus-confd-etcd/&via=https://youxia999.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《prometheus实现动态监控》 — 思路比试错更重要&url=https://jingzhouyouxia.github.io/2019/01/30/prometheus-confd-etcd/&via=https://jingzhouyouxia.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://youxia999.github.io/2019/01/30/prometheus-confd-etcd/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://jingzhouyouxia.github.io/2019/01/30/prometheus-confd-etcd/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -389,7 +389,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://youxia999.github.io/2019/01/30/prometheus-confd-etcd/&title=《prometheus实现动态监控》 — 思路比试错更重要&pic=https://youxia999.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://jingzhouyouxia.github.io/2019/01/30/prometheus-confd-etcd/&title=《prometheus实现动态监控》 — 思路比试错更重要&pic=https://jingzhouyouxia.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -399,22 +399,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://youxia999.github.io/2019/01/30/prometheus-confd-etcd/&title=《prometheus实现动态监控》 — 思路比试错更重要&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://jingzhouyouxia.github.io/2019/01/30/prometheus-confd-etcd/&title=《prometheus实现动态监控》 — 思路比试错更重要&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://youxia999.github.io/2019/01/30/prometheus-confd-etcd/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://jingzhouyouxia.github.io/2019/01/30/prometheus-confd-etcd/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《prometheus实现动态监控》 — 思路比试错更重要&url=https://youxia999.github.io/2019/01/30/prometheus-confd-etcd/&via=https://youxia999.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《prometheus实现动态监控》 — 思路比试错更重要&url=https://jingzhouyouxia.github.io/2019/01/30/prometheus-confd-etcd/&via=https://jingzhouyouxia.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://youxia999.github.io/2019/01/30/prometheus-confd-etcd/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://jingzhouyouxia.github.io/2019/01/30/prometheus-confd-etcd/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -425,7 +425,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://youxia999.github.io/2019/01/30/prometheus-confd-etcd/" alt="微信分享二维码">
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://jingzhouyouxia.github.io/2019/01/30/prometheus-confd-etcd/" alt="微信分享二维码">
 </div>
 
 

@@ -25,16 +25,16 @@
 <meta name="keywords" content="容器技术,容器与k8s">
 <meta property="og:type" content="article">
 <meta property="og:title" content="docker1.10安装和初步使用">
-<meta property="og:url" content="https://youxia999.github.io/2017/02/05/docker-1-10-install/index.html">
+<meta property="og:url" content="https://jingzhouyouxia.github.io/2017/02/05/docker-1-10-install/index.html">
 <meta property="og:site_name" content="思路比试错更重要">
 <meta property="og:description" content="本文背景背景经同事推荐，觉得docker对于我们这些centos菜鸟很不错（把安装步骤在dokcerfile写好了），建议学习一下。 参考资料https://hub.docker.com (很重要，类似于官方文档)https://cr.console.aliyun.com/cn-hangzhou/mirrors (镜像加速器，在国内绕不过去的点)http://mirrors.aliyun.com/">
 <meta property="og:locale" content="ZH_CN">
-<meta property="og:image" content="https://youxia999.github.io/img/devops/docker/docker_help.png">
+<meta property="og:image" content="https://jingzhouyouxia.github.io/img/devops/docker/docker_help.png">
 <meta property="og:updated_time" content="2020-02-12T06:47:31.031Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="docker1.10安装和初步使用">
 <meta name="twitter:description" content="本文背景背景经同事推荐，觉得docker对于我们这些centos菜鸟很不错（把安装步骤在dokcerfile写好了），建议学习一下。 参考资料https://hub.docker.com (很重要，类似于官方文档)https://cr.console.aliyun.com/cn-hangzhou/mirrors (镜像加速器，在国内绕不过去的点)http://mirrors.aliyun.com/">
-<meta name="twitter:image" content="https://youxia999.github.io/img/devops/docker/docker_help.png">
+<meta name="twitter:image" content="https://jingzhouyouxia.github.io/img/devops/docker/docker_help.png">
     
         <link rel="alternate" type="application/atom+xml" title="思路比试错更重要" href="/atom.xml">
     
@@ -198,7 +198,7 @@
 <p>这里没有配置私有的镜像仓库地址（线上环境还是要配置仓库，比如打标签、push镜像用）</p>
 <h2 id="其他可能会出问题的地方"><a href="#其他可能会出问题的地方" class="headerlink" title="其他可能会出问题的地方"></a>其他可能会出问题的地方</h2><p>其他可能会出现问题的地方，基本上都是在启动命令这一行。有问题，修改就好<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ExecStart=/usr/bin/docker-current daemon \</span><br><span class="line">          --exec-opt native.cgroupdriver=systemd \</span><br><span class="line">          $OPTIONS \</span><br><span class="line">          $DOCKER_STORAGE_OPTIONS \</span><br><span class="line">          $DOCKER_NETWORK_OPTIONS \</span><br><span class="line">          $ADD_REGISTRY \</span><br><span class="line">          $BLOCK_REGISTRY \</span><br><span class="line">          $INSECURE_REGISTRY</span><br></pre></td></tr></table></figure></p>
 <h1 id="启动命令"><a href="#启动命令" class="headerlink" title="启动命令"></a>启动命令</h1><p>systemctl daemon-reload<br>systemctl restart docker.service</p>
-<h1 id="docker实操"><a href="#docker实操" class="headerlink" title="docker实操"></a>docker实操</h1><p>可以见docker help命令和官网指南<br><img src="https://youxia999.github.io/img/devops/docker/docker_help.png" alt></p>
+<h1 id="docker实操"><a href="#docker实操" class="headerlink" title="docker实操"></a>docker实操</h1><p>可以见docker help命令和官网指南<br><img src="https://jingzhouyouxia.github.io/img/devops/docker/docker_help.png" alt></p>
 
         </div>
 
@@ -212,12 +212,12 @@
 
 
         
-        <a href="/2017/02/05/docker-1-10-install/" target="_blank" rel="external">https://youxia999.github.io/2017/02/05/docker-1-10-install/</a>
+        <a href="/2017/02/05/docker-1-10-install/" target="_blank" rel="external">https://jingzhouyouxia.github.io/2017/02/05/docker-1-10-install/</a>
         
     </div>
     
     <footer>
-        <a href="https://youxia999.github.io">
+        <a href="https://jingzhouyouxia.github.io">
             <img src="/img/avatar.jpg" alt="游侠">
             游侠
         </a>
@@ -239,7 +239,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://youxia999.github.io/2017/02/05/docker-1-10-install/&title=《docker1.10安装和初步使用》 — 思路比试错更重要&pic=https://youxia999.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://jingzhouyouxia.github.io/2017/02/05/docker-1-10-install/&title=《docker1.10安装和初步使用》 — 思路比试错更重要&pic=https://jingzhouyouxia.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -249,22 +249,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://youxia999.github.io/2017/02/05/docker-1-10-install/&title=《docker1.10安装和初步使用》 — 思路比试错更重要&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://jingzhouyouxia.github.io/2017/02/05/docker-1-10-install/&title=《docker1.10安装和初步使用》 — 思路比试错更重要&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://youxia999.github.io/2017/02/05/docker-1-10-install/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://jingzhouyouxia.github.io/2017/02/05/docker-1-10-install/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《docker1.10安装和初步使用》 — 思路比试错更重要&url=https://youxia999.github.io/2017/02/05/docker-1-10-install/&via=https://youxia999.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《docker1.10安装和初步使用》 — 思路比试错更重要&url=https://jingzhouyouxia.github.io/2017/02/05/docker-1-10-install/&via=https://jingzhouyouxia.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://youxia999.github.io/2017/02/05/docker-1-10-install/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://jingzhouyouxia.github.io/2017/02/05/docker-1-10-install/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -390,7 +390,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://youxia999.github.io/2017/02/05/docker-1-10-install/&title=《docker1.10安装和初步使用》 — 思路比试错更重要&pic=https://youxia999.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://jingzhouyouxia.github.io/2017/02/05/docker-1-10-install/&title=《docker1.10安装和初步使用》 — 思路比试错更重要&pic=https://jingzhouyouxia.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -400,22 +400,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://youxia999.github.io/2017/02/05/docker-1-10-install/&title=《docker1.10安装和初步使用》 — 思路比试错更重要&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://jingzhouyouxia.github.io/2017/02/05/docker-1-10-install/&title=《docker1.10安装和初步使用》 — 思路比试错更重要&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://youxia999.github.io/2017/02/05/docker-1-10-install/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://jingzhouyouxia.github.io/2017/02/05/docker-1-10-install/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《docker1.10安装和初步使用》 — 思路比试错更重要&url=https://youxia999.github.io/2017/02/05/docker-1-10-install/&via=https://youxia999.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《docker1.10安装和初步使用》 — 思路比试错更重要&url=https://jingzhouyouxia.github.io/2017/02/05/docker-1-10-install/&via=https://jingzhouyouxia.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://youxia999.github.io/2017/02/05/docker-1-10-install/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://jingzhouyouxia.github.io/2017/02/05/docker-1-10-install/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -426,7 +426,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://youxia999.github.io/2017/02/05/docker-1-10-install/" alt="微信分享二维码">
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://jingzhouyouxia.github.io/2017/02/05/docker-1-10-install/" alt="微信分享二维码">
 </div>
 
 

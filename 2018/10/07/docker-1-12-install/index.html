@@ -25,17 +25,17 @@
 <meta name="keywords" content="容器技术,容器与k8s">
 <meta property="og:type" content="article">
 <meta property="og:title" content="docker1.12安装和初步使用">
-<meta property="og:url" content="https://youxia999.github.io/2018/10/07/docker-1-12-install/index.html">
+<meta property="og:url" content="https://jingzhouyouxia.github.io/2018/10/07/docker-1-12-install/index.html">
 <meta property="og:site_name" content="思路比试错更重要">
 <meta property="og:description" content="本文背景背景最近闲着无事，准备玩一把k8s，作为核心，要升级一波docker。这次直接安装docker1.12。查了资料，docker1.12的最显著特性就是内置了docker自身的swarm调度。 安装过程参考去年的docker 1.10安装心得,整一次1.12。 下载rpm包并安装yum install -y --nogpgcheck http://mirrors.aliyun.com/doc">
 <meta property="og:locale" content="ZH_CN">
-<meta property="og:image" content="https://youxia999.github.io/img/devops/docker/docker_112_110.png">
-<meta property="og:image" content="https://youxia999.github.io/img/devops/docker/docker_swarm_help.png">
+<meta property="og:image" content="https://jingzhouyouxia.github.io/img/devops/docker/docker_112_110.png">
+<meta property="og:image" content="https://jingzhouyouxia.github.io/img/devops/docker/docker_swarm_help.png">
 <meta property="og:updated_time" content="2020-02-12T06:47:31.057Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="docker1.12安装和初步使用">
 <meta name="twitter:description" content="本文背景背景最近闲着无事，准备玩一把k8s，作为核心，要升级一波docker。这次直接安装docker1.12。查了资料，docker1.12的最显著特性就是内置了docker自身的swarm调度。 安装过程参考去年的docker 1.10安装心得,整一次1.12。 下载rpm包并安装yum install -y --nogpgcheck http://mirrors.aliyun.com/doc">
-<meta name="twitter:image" content="https://youxia999.github.io/img/devops/docker/docker_112_110.png">
+<meta name="twitter:image" content="https://jingzhouyouxia.github.io/img/devops/docker/docker_112_110.png">
     
         <link rel="alternate" type="application/atom+xml" title="思路比试错更重要" href="/atom.xml">
     
@@ -199,7 +199,7 @@
 <p>这里暴露2375是为了其他的docker client调用。</p>
 <h2 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h2><p>发现/etc/sysconfig/docker不顶用了。谷歌了一番，发现配置文件目录变了/data/docker/daemon.json<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;insecure-registries&quot;: [</span><br><span class="line">        &quot;10.2.1.30:5000&quot;</span><br><span class="line">    ],</span><br><span class="line">    &quot;registry-mirror&quot;: [</span><br><span class="line">        &quot;https://csokz3oi.mirror.aliyuncs.com&quot;</span><br><span class="line">    ],</span><br><span class="line">   &quot;graph&quot;:&quot;/data/docker&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h2 id="启动docker"><a href="#启动docker" class="headerlink" title="启动docker"></a>启动docker</h2><p>systemctl restart docker.service</p>
-<h1 id="docker操作"><a href="#docker操作" class="headerlink" title="docker操作"></a>docker操作</h1><h2 id="docker1-12与1-10的区别"><a href="#docker1-12与1-10的区别" class="headerlink" title="docker1.12与1.10的区别"></a>docker1.12与1.10的区别</h2><p>先看docker –help对比<br><img src="https://youxia999.github.io/img/devops/docker/docker_112_110.png" alt><br>果然是多了三个关键字:<br>docker node<br>docker swarm<br>docker service<br><img src="https://youxia999.github.io/img/devops/docker/docker_swarm_help.png" alt></p>
+<h1 id="docker操作"><a href="#docker操作" class="headerlink" title="docker操作"></a>docker操作</h1><h2 id="docker1-12与1-10的区别"><a href="#docker1-12与1-10的区别" class="headerlink" title="docker1.12与1.10的区别"></a>docker1.12与1.10的区别</h2><p>先看docker –help对比<br><img src="https://jingzhouyouxia.github.io/img/devops/docker/docker_112_110.png" alt><br>果然是多了三个关键字:<br>docker node<br>docker swarm<br>docker service<br><img src="https://jingzhouyouxia.github.io/img/devops/docker/docker_swarm_help.png" alt></p>
 <h2 id="docker1-12-实操"><a href="#docker1-12-实操" class="headerlink" title="docker1.12 实操"></a>docker1.12 实操</h2><p>先看docker help和docker.hub.com。</p>
 <h3 id="docker-login"><a href="#docker-login" class="headerlink" title="docker login"></a>docker login</h3><p>命令作用:登录私有镜像仓库<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker login 10.2.1.30:5000</span><br></pre></td></tr></table></figure></p>
 <p>输入账号和密码，即可提示登录成功。</p>
@@ -220,12 +220,12 @@
 
 
         
-        <a href="/2018/10/07/docker-1-12-install/" target="_blank" rel="external">https://youxia999.github.io/2018/10/07/docker-1-12-install/</a>
+        <a href="/2018/10/07/docker-1-12-install/" target="_blank" rel="external">https://jingzhouyouxia.github.io/2018/10/07/docker-1-12-install/</a>
         
     </div>
     
     <footer>
-        <a href="https://youxia999.github.io">
+        <a href="https://jingzhouyouxia.github.io">
             <img src="/img/avatar.jpg" alt="游侠">
             游侠
         </a>
@@ -247,7 +247,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://youxia999.github.io/2018/10/07/docker-1-12-install/&title=《docker1.12安装和初步使用》 — 思路比试错更重要&pic=https://youxia999.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://jingzhouyouxia.github.io/2018/10/07/docker-1-12-install/&title=《docker1.12安装和初步使用》 — 思路比试错更重要&pic=https://jingzhouyouxia.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -257,22 +257,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://youxia999.github.io/2018/10/07/docker-1-12-install/&title=《docker1.12安装和初步使用》 — 思路比试错更重要&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://jingzhouyouxia.github.io/2018/10/07/docker-1-12-install/&title=《docker1.12安装和初步使用》 — 思路比试错更重要&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://youxia999.github.io/2018/10/07/docker-1-12-install/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://jingzhouyouxia.github.io/2018/10/07/docker-1-12-install/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《docker1.12安装和初步使用》 — 思路比试错更重要&url=https://youxia999.github.io/2018/10/07/docker-1-12-install/&via=https://youxia999.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《docker1.12安装和初步使用》 — 思路比试错更重要&url=https://jingzhouyouxia.github.io/2018/10/07/docker-1-12-install/&via=https://jingzhouyouxia.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://youxia999.github.io/2018/10/07/docker-1-12-install/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://jingzhouyouxia.github.io/2018/10/07/docker-1-12-install/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -398,7 +398,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://youxia999.github.io/2018/10/07/docker-1-12-install/&title=《docker1.12安装和初步使用》 — 思路比试错更重要&pic=https://youxia999.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://jingzhouyouxia.github.io/2018/10/07/docker-1-12-install/&title=《docker1.12安装和初步使用》 — 思路比试错更重要&pic=https://jingzhouyouxia.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -408,22 +408,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://youxia999.github.io/2018/10/07/docker-1-12-install/&title=《docker1.12安装和初步使用》 — 思路比试错更重要&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://jingzhouyouxia.github.io/2018/10/07/docker-1-12-install/&title=《docker1.12安装和初步使用》 — 思路比试错更重要&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://youxia999.github.io/2018/10/07/docker-1-12-install/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://jingzhouyouxia.github.io/2018/10/07/docker-1-12-install/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《docker1.12安装和初步使用》 — 思路比试错更重要&url=https://youxia999.github.io/2018/10/07/docker-1-12-install/&via=https://youxia999.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《docker1.12安装和初步使用》 — 思路比试错更重要&url=https://jingzhouyouxia.github.io/2018/10/07/docker-1-12-install/&via=https://jingzhouyouxia.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://youxia999.github.io/2018/10/07/docker-1-12-install/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://jingzhouyouxia.github.io/2018/10/07/docker-1-12-install/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -434,7 +434,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://youxia999.github.io/2018/10/07/docker-1-12-install/" alt="微信分享二维码">
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://jingzhouyouxia.github.io/2018/10/07/docker-1-12-install/" alt="微信分享二维码">
 </div>
 
 

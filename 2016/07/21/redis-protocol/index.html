@@ -29,12 +29,12 @@
 <meta property="og:site_name" content="思路比试错更重要">
 <meta property="og:description" content="本文参考资料https://redis.io/topics/protocol redis-cli命令与redis通信协议redis-cli命令redis命令在从提交到返回处理结果的过程中，消耗的时间我们称之为RTT（往返时间）。在需要批量执行redis 命令的场景下，如果命令单条逐个执行，那么总共花费的时间是命令条数 N * RTT。redis 提供了管道技术来提高批量执行效率，即将多个命令打包发">
 <meta property="og:locale" content="ZH_CN">
-<meta property="og:image" content="https://jingzhouyouxia.github.io/img/redis/redis3.2_clihelpcmand.png">
+<meta property="og:image" content="https://jingzhouyouxia.github.io/img/middleware/redis/redis3.2_clihelpcmand.png">
 <meta property="og:updated_time" content="2020-02-06T04:16:21.873Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="redis通信协议及与mysql互通">
 <meta name="twitter:description" content="本文参考资料https://redis.io/topics/protocol redis-cli命令与redis通信协议redis-cli命令redis命令在从提交到返回处理结果的过程中，消耗的时间我们称之为RTT（往返时间）。在需要批量执行redis 命令的场景下，如果命令单条逐个执行，那么总共花费的时间是命令条数 N * RTT。redis 提供了管道技术来提高批量执行效率，即将多个命令打包发">
-<meta name="twitter:image" content="https://jingzhouyouxia.github.io/img/redis/redis3.2_clihelpcmand.png">
+<meta name="twitter:image" content="https://jingzhouyouxia.github.io/img/middleware/redis/redis3.2_clihelpcmand.png">
     
         <link rel="alternate" type="application/atom+xml" title="思路比试错更重要" href="/atom.xml">
     
@@ -196,7 +196,7 @@
 <p>去读取文本里的命令，然后打包已pipe管道的方式发送给redis服务端。<br>其他命令见<figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://jingzhouyouxia.github.io/img/redis/redis3.2_clihelpcmand.png" alt title>
+                    <img src="https://jingzhouyouxia.github.io/img/middleware/redis/redis3.2_clihelpcmand.png" alt title>
                 </div>
                 <div class="image-caption"></div>
             </figure></p>

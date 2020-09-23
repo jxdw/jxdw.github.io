@@ -29,16 +29,16 @@
 <meta property="og:site_name" content="思路比试错更重要">
 <meta property="og:description" content="参考资料https://www.cnblogs.com/ibethfy/p/9965902.htmlhttp://redisdoc.com/topic/sentinel.html sentinel架构和整体规划sentinel模式的整体架构">
 <meta property="og:locale" content="ZH_CN">
-<meta property="og:image" content="https://jingzhouyouxia.github.io/img/redis/redis_sentinel_architectrue.png">
-<meta property="og:image" content="https://jingzhouyouxia.github.io/img/redis/redis_sentinel_hello.png">
-<meta property="og:image" content="https://jingzhouyouxia.github.io/img/redis/redis5.0_master_slave_info.png">
-<meta property="og:image" content="https://jingzhouyouxia.github.io/img/redis/redis5.0_sentinel_master_master7001.png">
-<meta property="og:image" content="https://jingzhouyouxia.github.io/img/redis/redis5.0_subcribe_hello.png">
+<meta property="og:image" content="https://jingzhouyouxia.github.io/img/middleware/redis/redis_sentinel_architectrue.png">
+<meta property="og:image" content="https://jingzhouyouxia.github.io/img/middleware/redis/redis_sentinel_hello.png">
+<meta property="og:image" content="https://jingzhouyouxia.github.io/img/middleware/redis/redis5.0_master_slave_info.png">
+<meta property="og:image" content="https://jingzhouyouxia.github.io/img/middleware/redis/redis5.0_sentinel_master_master7001.png">
+<meta property="og:image" content="https://jingzhouyouxia.github.io/img/middleware/redis/redis5.0_subcribe_hello.png">
 <meta property="og:updated_time" content="2020-02-06T04:16:21.884Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="redis5.0的sentinel模式体验">
 <meta name="twitter:description" content="参考资料https://www.cnblogs.com/ibethfy/p/9965902.htmlhttp://redisdoc.com/topic/sentinel.html sentinel架构和整体规划sentinel模式的整体架构">
-<meta name="twitter:image" content="https://jingzhouyouxia.github.io/img/redis/redis_sentinel_architectrue.png">
+<meta name="twitter:image" content="https://jingzhouyouxia.github.io/img/middleware/redis/redis_sentinel_architectrue.png">
     
         <link rel="alternate" type="application/atom+xml" title="思路比试错更重要" href="/atom.xml">
     
@@ -199,7 +199,7 @@
 <h1 id="sentinel架构和整体规划"><a href="#sentinel架构和整体规划" class="headerlink" title="sentinel架构和整体规划"></a>sentinel架构和整体规划</h1><h2 id="sentinel模式的整体架构"><a href="#sentinel模式的整体架构" class="headerlink" title="sentinel模式的整体架构"></a>sentinel模式的整体架构</h2><figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://jingzhouyouxia.github.io/img/redis/redis_sentinel_architectrue.png" alt title>
+                    <img src="https://jingzhouyouxia.github.io/img/middleware/redis/redis_sentinel_architectrue.png" alt title>
                 </div>
                 <div class="image-caption"></div>
             </figure>
@@ -215,7 +215,7 @@
 <h3 id="疑惑"><a href="#疑惑" class="headerlink" title="疑惑"></a>疑惑</h3><p>在没有相互配置地址的时候，三个sentinel节点之间怎么相互发现呢。从官网看下说明：<br><figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://jingzhouyouxia.github.io/img/redis/redis_sentinel_hello.png" alt title>
+                    <img src="https://jingzhouyouxia.github.io/img/middleware/redis/redis_sentinel_hello.png" alt title>
                 </div>
                 <div class="image-caption"></div>
             </figure></p>
@@ -228,21 +228,21 @@
 <h1 id="体验"><a href="#体验" class="headerlink" title="体验"></a>体验</h1><h2 id="redis主从情况"><a href="#redis主从情况" class="headerlink" title="redis主从情况"></a>redis主从情况</h2><figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://jingzhouyouxia.github.io/img/redis/redis5.0_master_slave_info.png" alt title>
+                    <img src="https://jingzhouyouxia.github.io/img/middleware/redis/redis5.0_master_slave_info.png" alt title>
                 </div>
                 <div class="image-caption"></div>
             </figure>
 <h2 id="sentinel服务情况"><a href="#sentinel服务情况" class="headerlink" title="sentinel服务情况"></a>sentinel服务情况</h2><figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://jingzhouyouxia.github.io/img/redis/redis5.0_sentinel_master_master7001.png" alt title>
+                    <img src="https://jingzhouyouxia.github.io/img/middleware/redis/redis5.0_sentinel_master_master7001.png" alt title>
                 </div>
                 <div class="image-caption"></div>
             </figure>
 <h2 id="sentinel之间怎么相互发现的"><a href="#sentinel之间怎么相互发现的" class="headerlink" title="sentinel之间怎么相互发现的"></a>sentinel之间怎么相互发现的</h2><figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://jingzhouyouxia.github.io/img/redis/redis5.0_subcribe_hello.png" alt title>
+                    <img src="https://jingzhouyouxia.github.io/img/middleware/redis/redis5.0_subcribe_hello.png" alt title>
                 </div>
                 <div class="image-caption"></div>
             </figure>

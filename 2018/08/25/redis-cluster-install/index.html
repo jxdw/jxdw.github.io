@@ -1,502 +1,576 @@
 <!DOCTYPE html>
-<html>
-<head><meta name="generator" content="Hexo 3.9.0">
-    
-
-    
-
-    
-
-
-
-    <meta charset="utf-8">
-    
-    
-    
-    
-    <title>单节点安装redis 3.2版本集群 | 思路比试错更重要 | 记录技术的学习和实践过程</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    
-    <meta name="theme-color" content="#3F51B5">
-    
-    
-    <meta name="keywords" content="redis,中间件技术">
-    <meta name="description" content="本文参考资料https://blog.csdn.net/qq_37595946/article/details/77800147https://blog.csdn.net/ahzxj2012/article/details/73468119https://www.jianshu.com/p/854d702e6153 背景交代公司有些没权限的机器又抽风，于是想把部分服务放到有权限的机器上。比如red">
-<meta name="keywords" content="redis,中间件技术">
+<html lang=ZH>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>单节点安装redis 3.2版本集群 | 技术学习过程</title>
+  <meta name="description" content="本文参考资料https:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_37595946&#x2F;article&#x2F;details&#x2F;77800147https:&#x2F;&#x2F;blog.csdn.net&#x2F;ahzxj2012&#x2F;article&#x2F;details&#x2F;73468119https:&#x2F;&#x2F;ww">
 <meta property="og:type" content="article">
 <meta property="og:title" content="单节点安装redis 3.2版本集群">
 <meta property="og:url" content="https://jingzhouyouxia.github.io/2018/08/25/redis-cluster-install/index.html">
-<meta property="og:site_name" content="思路比试错更重要">
-<meta property="og:description" content="本文参考资料https://blog.csdn.net/qq_37595946/article/details/77800147https://blog.csdn.net/ahzxj2012/article/details/73468119https://www.jianshu.com/p/854d702e6153 背景交代公司有些没权限的机器又抽风，于是想把部分服务放到有权限的机器上。比如red">
-<meta property="og:locale" content="ZH_CN">
-<meta property="og:image" content="https://jingzhouyouxia.github.io/img/middleware/redis/redis3.2_clusterinfo.png">
-<meta property="og:updated_time" content="2020-02-06T04:16:21.849Z">
+<meta property="og:site_name" content="永远在路上">
+<meta property="og:description" content="本文参考资料https:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_37595946&#x2F;article&#x2F;details&#x2F;77800147https:&#x2F;&#x2F;blog.csdn.net&#x2F;ahzxj2012&#x2F;article&#x2F;details&#x2F;73468119https:&#x2F;&#x2F;ww">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://youxia999.github.io/img/redis/redis3.2_clusterinfo.png">
+<meta property="article:published_time" content="2018-08-25T06:09:47.000Z">
+<meta property="article:modified_time" content="2020-10-02T08:14:04.887Z">
+<meta property="article:author" content="游侠">
+<meta property="article:tag" content="业务开发中间件">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="单节点安装redis 3.2版本集群">
-<meta name="twitter:description" content="本文参考资料https://blog.csdn.net/qq_37595946/article/details/77800147https://blog.csdn.net/ahzxj2012/article/details/73468119https://www.jianshu.com/p/854d702e6153 背景交代公司有些没权限的机器又抽风，于是想把部分服务放到有权限的机器上。比如red">
-<meta name="twitter:image" content="https://jingzhouyouxia.github.io/img/middleware/redis/redis3.2_clusterinfo.png">
-    
-        <link rel="alternate" type="application/atom+xml" title="思路比试错更重要" href="/atom.xml">
-    
-    <link rel="shortcut icon" href="/favicon.ico">
-    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
-    <script>window.lazyScripts=[]</script>
+<meta name="twitter:image" content="https://youxia999.github.io/img/redis/redis3.2_clusterinfo.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://jingzhouyouxia.github.io/2018/08/25/redis-cluster-install/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="永远在路上" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
 
-    <!-- custom head -->
-    
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.2.0"></head>
 
-</head>
 
-<body>
-    <div id="loading" class="active"></div>
-
-    <aside id="menu" class="" >
-  <div class="inner flex-row-vertical">
-    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
-        <i class="icon icon-lg icon-close"></i>
-    </a>
-    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
-      <div class="brand">
-        <a href="/" class="avatar waves-effect waves-circle waves-light">
-          <img src="/img/avatar.jpg">
+<body class="main-center theme-purple" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/jingzhouyouxia" target="_blank">
+          <img class="img-circle img-rotate" src="https://www.gravatar.com/avatar/80df4bfee856f0107ea8d54da41c3f31?s=128" width="200" height="200">
         </a>
-        <hgroup class="introduce">
-          <h5 class="nickname">游侠</h5>
-          <a href="mailto:jingzhouyouxia@gmail.com" title="jingzhouyouxia@gmail.com" class="mail">jingzhouyouxia@gmail.com</a>
-        </hgroup>
+        <h2 id="name" class="hidden-xs hidden-sm">游侠</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">程序员(后端)</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Shenzhen, China</small>
       </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
     </div>
-    <div class="scroll-wrap flex-col">
-      <ul class="nav">
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
         
-            <li class="waves-block waves-effect">
-              <a href="/"  >
-                <i class="icon icon-lg icon-home"></i>
-                主页
-              </a>
-            </li>
         
-            <li class="waves-block waves-effect">
-              <a href="/tags/DevOps%E5%B7%A5%E5%85%B7/"  >
-                <i class="icon icon-lg icon-cogs"></i>
-                DevOps工具
-              </a>
-            </li>
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
         
-            <li class="waves-block waves-effect">
-              <a href="/tags/%E5%AE%B9%E5%99%A8%E4%B8%8Ek8s/"  >
-                <i class="icon icon-lg icon-cloud"></i>
-                容器与k8s
-              </a>
-            </li>
         
-            <li class="waves-block waves-effect">
-              <a href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6%E6%8A%80%E6%9C%AF/"  >
-                <i class="icon icon-lg icon-desktop"></i>
-                中间件技术
-              </a>
-            </li>
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
         
-            <li class="waves-block waves-effect">
-              <a href="/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E6%8A%80%E6%9C%AF/"  >
-                <i class="icon icon-lg icon-coffee"></i>
-                编程语言技术
-              </a>
-            </li>
         
-            <li class="waves-block waves-effect">
-              <a href="/about"  >
-                <i class="icon icon-lg icon-th-list"></i>
-                关于
-              </a>
-            </li>
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
         
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/jingzhouyouxia" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>2020年，重新开始。<br>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%9A%E5%8A%A1%E5%BC%80%E5%8F%91%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="tag">业务开发中间件</a><span class="tag-list-count">32</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9E%B6%E6%9E%84-%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" rel="tag">架构/知识体系</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9B%91%E6%8E%A7%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="tag">监控中间件</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A0%94%E5%8F%91%E6%95%88%E7%8E%87%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="tag">研发效率中间件</a><span class="tag-list-count">34</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" rel="tag">编程语言</a><span class="tag-list-count">20</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2019/10/07/prometheus_monitor_rabbitmq/" class="title">Prometheus监控rabbitmq3.8.0</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-10-07T04:46:48.000Z" itemprop="datePublished">2019-10-07 12:46:48</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2019/10/01/jaeger-install-config/" class="title">跟踪平台jaeger安装、配置</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-10-01T11:00:00.000Z" itemprop="datePublished">2019-10-01 19:00:00</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2019/08/11/apache_dubbo_zipkin_merge/" class="title">apache dubbo 2.7.3版本与zipkin结合进行接口监控</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-08-11T03:02:34.000Z" itemprop="datePublished">2019-08-11 11:02:34</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2019/06/30/cicd-jira-crack-restfulapi/" class="title">【转载】jira7.13版本破解与restful api</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-06-30T11:00:00.000Z" itemprop="datePublished">2019-06-30 19:00:00</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2019/06/01/centos7-share-a-photo/" class="title">【转载】TCP通信转UDP通信并加速</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-06-01T13:46:40.000Z" itemprop="datePublished">2019-06-01 21:46:40</time>
+              </p>
+            </div>
+          </li>
+          
       </ul>
     </div>
   </div>
+  
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">二月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">一月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">十二月 2017</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">十一月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">十月 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">八月 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">一月 2015</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+  </div>
 </aside>
 
-    <main id="main">
-        <header class="top-header" id="header">
-    <div class="flex-row">
-        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
-          <i class="icon icon-lg icon-navicon"></i>
-        </a>
-        <div class="flex-col header-title ellipsis">单节点安装redis 3.2版本集群</div>
-        
-        <div class="search-wrap" id="search-wrap">
-            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
-                <i class="icon icon-lg icon-chevron-left"></i>
-            </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
-            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
-                <i class="icon icon-lg icon-search"></i>
-            </a>
-        </div>
-        
-        
-        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
-            <i class="icon icon-lg icon-share-alt"></i>
-        </a>
-        
-    </div>
-</header>
-<header class="content-header post-header">
-
-    <div class="container fade-scale">
-        <h1 class="title">单节点安装redis 3.2版本集群</h1>
-        <h5 class="subtitle">
-            
-                <time datetime="2018-08-25T06:09:47.000Z" itemprop="datePublished" class="page-time">
-  2018-08-25 14:09:47
-</time>
-
-
-            
-        </h5>
-    </div>
-
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-redis-cluster-install" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      单节点安装redis 3.2版本集群
+    </h1>
+  
 
-
-</header>
-
-
-<div class="container body-wrap">
-    
-    <aside class="post-widget">
-        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
-            <h4>目录</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#本文参考资料"><span class="post-toc-number">1.</span> <span class="post-toc-text">本文参考资料</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#背景交代"><span class="post-toc-number">2.</span> <span class="post-toc-text">背景交代</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#安装规划"><span class="post-toc-number">3.</span> <span class="post-toc-text">安装规划</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#安装过程"><span class="post-toc-number">4.</span> <span class="post-toc-text">安装过程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#docker安装redisnode"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">docker安装redisnode</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#准备配置文件"><span class="post-toc-number">4.1.1.</span> <span class="post-toc-text">准备配置文件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#拉取镜像并启动"><span class="post-toc-number">4.1.2.</span> <span class="post-toc-text">拉取镜像并启动</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#下载redis源码并解压"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">下载redis源码并解压</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#常见错误以及处理"><span class="post-toc-number">4.3.</span> <span class="post-toc-text">常见错误以及处理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#出现”kernel-require-rb-55-in-require’-cannot-load-suc”"><span class="post-toc-number">4.3.1.</span> <span class="post-toc-text">出现”kernel_require.rb:55:in `require’: cannot load suc”</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#出现”报错redis-requires-Ruby-version-2-2-2”"><span class="post-toc-number">4.3.2.</span> <span class="post-toc-text">出现”报错redis requires Ruby version -= 2.2.2”</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#ruby版本失效"><span class="post-toc-number">4.3.3.</span> <span class="post-toc-text">ruby版本失效</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#体验"><span class="post-toc-number">5.</span> <span class="post-toc-text">体验</span></a></li></ol>
-        </nav>
-    </aside>
-
-
-<article id="post-redis-cluster-install"
-  class="post-article article-type-post fade" itemprop="blogPost">
-
-    <div class="post-card">
-        <h1 class="post-card-title">单节点安装redis 3.2版本集群</h1>
-        <div class="post-meta">
-            <time class="post-time" title="2018-08-25 14:09:47 14:09:47" datetime="2018-08-25T06:09:47.000Z"  itemprop="datePublished">2018-08-25 14:09:47</time>
-
-            
-
-
-            
-<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
-    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2018/08/25/redis-cluster-install/" class="article-date">
+	  <time datetime="2018-08-25T06:09:47.000Z" itemprop="datePublished">2018-08-25 14:09:47</time>
+	</a>
 </span>
+        
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E4%B8%9A%E5%8A%A1%E5%BC%80%E5%8F%91%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="tag">业务开发中间件</a>
+  </span>
 
 
-        </div>
-        <div class="post-content" id="post-content" itemprop="postContent">
-            <h1 id="本文参考资料"><a href="#本文参考资料" class="headerlink" title="本文参考资料"></a>本文参考资料</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">https://blog.csdn.net/qq_37595946/article/details/77800147</span><br><span class="line">https://blog.csdn.net/ahzxj2012/article/details/73468119</span><br><span class="line">https://www.jianshu.com/p/854d702e6153</span><br></pre></td></tr></table></figure>
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2018/08/25/redis-cluster-install/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h1 id="本文参考资料"><a href="#本文参考资料" class="headerlink" title="本文参考资料"></a>本文参考资料</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">https:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_37595946&#x2F;article&#x2F;details&#x2F;77800147</span><br><span class="line">https:&#x2F;&#x2F;blog.csdn.net&#x2F;ahzxj2012&#x2F;article&#x2F;details&#x2F;73468119</span><br><span class="line">https:&#x2F;&#x2F;www.jianshu.com&#x2F;p&#x2F;854d702e6153</span><br></pre></td></tr></table></figure>
+
 <h1 id="背景交代"><a href="#背景交代" class="headerlink" title="背景交代"></a>背景交代</h1><p>公司有些没权限的机器又抽风，于是想把部分服务放到有权限的机器上。比如redis cluster。</p>
 <h1 id="安装规划"><a href="#安装规划" class="headerlink" title="安装规划"></a>安装规划</h1><p>采用docker安装redis node。<br>由redis-trib.rb构建集群。</p>
-<h1 id="安装过程"><a href="#安装过程" class="headerlink" title="安装过程"></a>安装过程</h1><h2 id="docker安装redisnode"><a href="#docker安装redisnode" class="headerlink" title="docker安装redisnode"></a>docker安装redisnode</h2><h3 id="准备配置文件"><a href="#准备配置文件" class="headerlink" title="准备配置文件"></a>准备配置文件</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">port 6381</span><br><span class="line">bind 10.2.1.31</span><br><span class="line">cluster-enabled yes</span><br><span class="line">cluster-config-file nodes.conf</span><br><span class="line">cluster-node-timeout 5000</span><br><span class="line">appendonly yes</span><br></pre></td></tr></table></figure>
-<h3 id="拉取镜像并启动"><a href="#拉取镜像并启动" class="headerlink" title="拉取镜像并启动"></a>拉取镜像并启动</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker pull redis:3.2.0</span><br><span class="line">docker run --net=host -m 100m --name=redis1  -v `pwd`/redis1.conf:/usr/local/etc/redis/redis.conf -d redis:3.2.0 redis-server /usr/local/etc/redis/redis.conf</span><br><span class="line">docker run --net=host -m 100m --name=redis2  -v `pwd`/redis2.conf:/usr/local/etc/redis/redis.conf -d redis:3.2.0 redis-server /usr/local/etc/redis/redis.conf</span><br><span class="line">docker run --net=host -m 100m --name=redis3  -v `pwd`/redis3.conf:/usr/local/etc/redis/redis.conf -d redis:3.2.0 redis-server /usr/local/etc/redis/redis.conf</span><br><span class="line">docker run --net=host -m 100m --name=redis4  -v `pwd`/redis4.conf:/usr/local/etc/redis/redis.conf -d redis:3.2.0 redis-server /usr/local/etc/redis/redis.conf</span><br><span class="line">docker run --net=host -m 100m --name=redis5  -v `pwd`/redis5.conf:/usr/local/etc/redis/redis.conf -d redis:3.2.0 redis-server /usr/local/etc/redis/redis.conf</span><br><span class="line">docker run --net=host -m 100m --name=redis6  -v `pwd`/redis6.conf:/usr/local/etc/redis/redis.conf -d redis:3.2.0 redis-server /usr/local/etc/redis/redis.conf</span><br></pre></td></tr></table></figure>
+<h1 id="安装过程"><a href="#安装过程" class="headerlink" title="安装过程"></a>安装过程</h1><h2 id="docker安装redisnode"><a href="#docker安装redisnode" class="headerlink" title="docker安装redisnode"></a>docker安装redisnode</h2><h3 id="准备配置文件"><a href="#准备配置文件" class="headerlink" title="准备配置文件"></a>准备配置文件</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">port 6381</span><br><span class="line">bind 10.2.1.31</span><br><span class="line">cluster-enabled yes</span><br><span class="line">cluster-config-file nodes.conf</span><br><span class="line">cluster-node-timeout 5000</span><br><span class="line">appendonly yes</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="拉取镜像并启动"><a href="#拉取镜像并启动" class="headerlink" title="拉取镜像并启动"></a>拉取镜像并启动</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker pull redis:3.2.0</span><br><span class="line">docker run --net&#x3D;host -m 100m --name&#x3D;redis1  -v &#96;pwd&#96;&#x2F;redis1.conf:&#x2F;usr&#x2F;local&#x2F;etc&#x2F;redis&#x2F;redis.conf -d redis:3.2.0 redis-server &#x2F;usr&#x2F;local&#x2F;etc&#x2F;redis&#x2F;redis.conf</span><br><span class="line">docker run --net&#x3D;host -m 100m --name&#x3D;redis2  -v &#96;pwd&#96;&#x2F;redis2.conf:&#x2F;usr&#x2F;local&#x2F;etc&#x2F;redis&#x2F;redis.conf -d redis:3.2.0 redis-server &#x2F;usr&#x2F;local&#x2F;etc&#x2F;redis&#x2F;redis.conf</span><br><span class="line">docker run --net&#x3D;host -m 100m --name&#x3D;redis3  -v &#96;pwd&#96;&#x2F;redis3.conf:&#x2F;usr&#x2F;local&#x2F;etc&#x2F;redis&#x2F;redis.conf -d redis:3.2.0 redis-server &#x2F;usr&#x2F;local&#x2F;etc&#x2F;redis&#x2F;redis.conf</span><br><span class="line">docker run --net&#x3D;host -m 100m --name&#x3D;redis4  -v &#96;pwd&#96;&#x2F;redis4.conf:&#x2F;usr&#x2F;local&#x2F;etc&#x2F;redis&#x2F;redis.conf -d redis:3.2.0 redis-server &#x2F;usr&#x2F;local&#x2F;etc&#x2F;redis&#x2F;redis.conf</span><br><span class="line">docker run --net&#x3D;host -m 100m --name&#x3D;redis5  -v &#96;pwd&#96;&#x2F;redis5.conf:&#x2F;usr&#x2F;local&#x2F;etc&#x2F;redis&#x2F;redis.conf -d redis:3.2.0 redis-server &#x2F;usr&#x2F;local&#x2F;etc&#x2F;redis&#x2F;redis.conf</span><br><span class="line">docker run --net&#x3D;host -m 100m --name&#x3D;redis6  -v &#96;pwd&#96;&#x2F;redis6.conf:&#x2F;usr&#x2F;local&#x2F;etc&#x2F;redis&#x2F;redis.conf -d redis:3.2.0 redis-server &#x2F;usr&#x2F;local&#x2F;etc&#x2F;redis&#x2F;redis.conf</span><br></pre></td></tr></table></figure>
+
 <h2 id="下载redis源码并解压"><a href="#下载redis源码并解压" class="headerlink" title="下载redis源码并解压"></a>下载redis源码并解压</h2><p>执行下面的命令前，请确保ruby版本已经升级到2.2.0。<br>ps:yum install ruby时，centos只会安装ruby2.0版本。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget http://download.redis.io/releases/redis-3.2.1.tar.gz</span><br><span class="line">tar xvf redis-3.2.1.tar.gz</span><br><span class="line">mv redis-3.2.1 redis</span><br><span class="line">ruby redis/src/redis-trib.rb create --replicas 1 10.2.1.31:6381 10.2.1.31:6382 10.2.1.31:6383 10.2.1.31:6384 10.2.1.31:6385 10.2.1.31:6386</span><br></pre></td></tr></table></figure>
-<p>顺利的话，能看到如下信息：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt; Creating cluster</span><br><span class="line">&gt;&gt;&gt; Performing hash slots allocation on 6 nodes...</span><br><span class="line">Using 3 masters:</span><br><span class="line">10.2.1.31:6381</span><br><span class="line">10.2.1.31:6382</span><br><span class="line">10.2.1.31:6383</span><br><span class="line">Adding replica 10.2.1.31:6384 to 10.2.1.31:6381</span><br><span class="line">Adding replica 10.2.1.31:6385 to 10.2.1.31:6382</span><br><span class="line">Adding replica 10.2.1.31:6386 to 10.2.1.31:6383</span><br><span class="line">M: cb4258f0a219065492d519ebf4417833c397718a 10.2.1.31:6381</span><br><span class="line">   slots:0-5460 (5461 slots) master</span><br><span class="line">M: 5e1c70538ec4ddd28b0dbc79bce491ac1d25e452 10.2.1.31:6382</span><br><span class="line">   slots:5461-10922 (5462 slots) master</span><br><span class="line">M: 31c913e81bbb994e843d8874d8063debd2e82363 10.2.1.31:6383</span><br><span class="line">   slots:10923-16383 (5461 slots) master</span><br><span class="line">S: 34750039ae8d7010a06a7691b95ae81f48e44cb9 10.2.1.31:6384</span><br><span class="line">   replicates cb4258f0a219065492d519ebf4417833c397718a</span><br><span class="line">S: 48f5de18c92ebdc277c4eaee9d73ea6f1cc91c8e 10.2.1.31:6385</span><br><span class="line">   replicates 5e1c70538ec4ddd28b0dbc79bce491ac1d25e452</span><br><span class="line">S: 1a349016ed6f326bb4118ec94951301eb3ca7815 10.2.1.31:6386</span><br><span class="line">   replicates 31c913e81bbb994e843d8874d8063debd2e82363</span><br><span class="line">Can I set the above configuration? (type &apos;yes&apos; to accept): yes</span><br><span class="line">&gt;&gt;&gt; Nodes configuration updated</span><br><span class="line">&gt;&gt;&gt; Assign a different config epoch to each node</span><br><span class="line">&gt;&gt;&gt; Sending CLUSTER MEET messages to join the cluster</span><br><span class="line">Waiting for the cluster to join...</span><br><span class="line">&gt;&gt;&gt; Performing Cluster Check (using node 10.2.1.31:6381)</span><br><span class="line">M: cb4258f0a219065492d519ebf4417833c397718a 10.2.1.31:6381</span><br><span class="line">   slots:0-5460 (5461 slots) master</span><br><span class="line">M: 5e1c70538ec4ddd28b0dbc79bce491ac1d25e452 10.2.1.31:6382</span><br><span class="line">   slots:5461-10922 (5462 slots) master</span><br><span class="line">M: 31c913e81bbb994e843d8874d8063debd2e82363 10.2.1.31:6383</span><br><span class="line">   slots:10923-16383 (5461 slots) master</span><br><span class="line">M: 34750039ae8d7010a06a7691b95ae81f48e44cb9 10.2.1.31:6384</span><br><span class="line">   slots: (0 slots) master</span><br><span class="line">   replicates cb4258f0a219065492d519ebf4417833c397718a</span><br><span class="line">M: 48f5de18c92ebdc277c4eaee9d73ea6f1cc91c8e 10.2.1.31:6385</span><br><span class="line">   slots: (0 slots) master</span><br><span class="line">   replicates 5e1c70538ec4ddd28b0dbc79bce491ac1d25e452</span><br><span class="line">M: 1a349016ed6f326bb4118ec94951301eb3ca7815 10.2.1.31:6386</span><br><span class="line">   slots: (0 slots) master</span><br><span class="line">   replicates 31c913e81bbb994e843d8874d8063debd2e82363</span><br><span class="line">[OK] All nodes agree about slots configuration.</span><br><span class="line">&gt;&gt;&gt; Check for open slots...</span><br><span class="line">&gt;&gt;&gt; Check slots coverage...</span><br><span class="line">[OK] All 16384 slots covered.</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget http:&#x2F;&#x2F;download.redis.io&#x2F;releases&#x2F;redis-3.2.1.tar.gz</span><br><span class="line">tar xvf redis-3.2.1.tar.gz</span><br><span class="line">mv redis-3.2.1 redis</span><br><span class="line">ruby redis&#x2F;src&#x2F;redis-trib.rb create --replicas 1 10.2.1.31:6381 10.2.1.31:6382 10.2.1.31:6383 10.2.1.31:6384 10.2.1.31:6385 10.2.1.31:6386</span><br></pre></td></tr></table></figure>
+
+<p>顺利的话，能看到如下信息：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt; Creating cluster</span><br><span class="line">&gt;&gt;&gt; Performing hash slots allocation on 6 nodes...</span><br><span class="line">Using 3 masters:</span><br><span class="line">10.2.1.31:6381</span><br><span class="line">10.2.1.31:6382</span><br><span class="line">10.2.1.31:6383</span><br><span class="line">Adding replica 10.2.1.31:6384 to 10.2.1.31:6381</span><br><span class="line">Adding replica 10.2.1.31:6385 to 10.2.1.31:6382</span><br><span class="line">Adding replica 10.2.1.31:6386 to 10.2.1.31:6383</span><br><span class="line">M: cb4258f0a219065492d519ebf4417833c397718a 10.2.1.31:6381</span><br><span class="line">   slots:0-5460 (5461 slots) master</span><br><span class="line">M: 5e1c70538ec4ddd28b0dbc79bce491ac1d25e452 10.2.1.31:6382</span><br><span class="line">   slots:5461-10922 (5462 slots) master</span><br><span class="line">M: 31c913e81bbb994e843d8874d8063debd2e82363 10.2.1.31:6383</span><br><span class="line">   slots:10923-16383 (5461 slots) master</span><br><span class="line">S: 34750039ae8d7010a06a7691b95ae81f48e44cb9 10.2.1.31:6384</span><br><span class="line">   replicates cb4258f0a219065492d519ebf4417833c397718a</span><br><span class="line">S: 48f5de18c92ebdc277c4eaee9d73ea6f1cc91c8e 10.2.1.31:6385</span><br><span class="line">   replicates 5e1c70538ec4ddd28b0dbc79bce491ac1d25e452</span><br><span class="line">S: 1a349016ed6f326bb4118ec94951301eb3ca7815 10.2.1.31:6386</span><br><span class="line">   replicates 31c913e81bbb994e843d8874d8063debd2e82363</span><br><span class="line">Can I set the above configuration? (type &#39;yes&#39; to accept): yes</span><br><span class="line">&gt;&gt;&gt; Nodes configuration updated</span><br><span class="line">&gt;&gt;&gt; Assign a different config epoch to each node</span><br><span class="line">&gt;&gt;&gt; Sending CLUSTER MEET messages to join the cluster</span><br><span class="line">Waiting for the cluster to join...</span><br><span class="line">&gt;&gt;&gt; Performing Cluster Check (using node 10.2.1.31:6381)</span><br><span class="line">M: cb4258f0a219065492d519ebf4417833c397718a 10.2.1.31:6381</span><br><span class="line">   slots:0-5460 (5461 slots) master</span><br><span class="line">M: 5e1c70538ec4ddd28b0dbc79bce491ac1d25e452 10.2.1.31:6382</span><br><span class="line">   slots:5461-10922 (5462 slots) master</span><br><span class="line">M: 31c913e81bbb994e843d8874d8063debd2e82363 10.2.1.31:6383</span><br><span class="line">   slots:10923-16383 (5461 slots) master</span><br><span class="line">M: 34750039ae8d7010a06a7691b95ae81f48e44cb9 10.2.1.31:6384</span><br><span class="line">   slots: (0 slots) master</span><br><span class="line">   replicates cb4258f0a219065492d519ebf4417833c397718a</span><br><span class="line">M: 48f5de18c92ebdc277c4eaee9d73ea6f1cc91c8e 10.2.1.31:6385</span><br><span class="line">   slots: (0 slots) master</span><br><span class="line">   replicates 5e1c70538ec4ddd28b0dbc79bce491ac1d25e452</span><br><span class="line">M: 1a349016ed6f326bb4118ec94951301eb3ca7815 10.2.1.31:6386</span><br><span class="line">   slots: (0 slots) master</span><br><span class="line">   replicates 31c913e81bbb994e843d8874d8063debd2e82363</span><br><span class="line">[OK] All nodes agree about slots configuration.</span><br><span class="line">&gt;&gt;&gt; Check for open slots...</span><br><span class="line">&gt;&gt;&gt; Check slots coverage...</span><br><span class="line">[OK] All 16384 slots covered.</span><br></pre></td></tr></table></figure>
 <p>但是一般没有那么顺利。</p>
 <h2 id="常见错误以及处理"><a href="#常见错误以及处理" class="headerlink" title="常见错误以及处理"></a>常见错误以及处理</h2><h3 id="出现”kernel-require-rb-55-in-require’-cannot-load-suc”"><a href="#出现”kernel-require-rb-55-in-require’-cannot-load-suc”" class="headerlink" title="出现”kernel_require.rb:55:in `require’: cannot load suc”"></a>出现”kernel_require.rb:55:in `require’: cannot load suc”</h3><p>解决办法：gem install redis</p>
-<h3 id="出现”报错redis-requires-Ruby-version-2-2-2”"><a href="#出现”报错redis-requires-Ruby-version-2-2-2”" class="headerlink" title="出现”报错redis requires Ruby version -= 2.2.2”"></a>出现”报错redis requires Ruby version -= 2.2.2”</h3><p>解决办法：升级ruby版本。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">curl -L get.rvm.io | bash -s stable</span><br><span class="line">source /usr/local/rvm/scripts/rvm</span><br><span class="line">rvm list known</span><br><span class="line">rvm install  2.4.0</span><br><span class="line">rvm remove 2.0.0</span><br><span class="line">ruby  --version</span><br><span class="line">gem install redis</span><br></pre></td></tr></table></figure></p>
+<h3 id="出现”报错redis-requires-Ruby-version-2-2-2”"><a href="#出现”报错redis-requires-Ruby-version-2-2-2”" class="headerlink" title="出现”报错redis requires Ruby version -= 2.2.2”"></a>出现”报错redis requires Ruby version -= 2.2.2”</h3><p>解决办法：升级ruby版本。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">curl -L get.rvm.io | bash -s stable</span><br><span class="line">source &#x2F;usr&#x2F;local&#x2F;rvm&#x2F;scripts&#x2F;rvm</span><br><span class="line">rvm list known</span><br><span class="line">rvm install  2.4.0</span><br><span class="line">rvm remove 2.0.0</span><br><span class="line">ruby  --version</span><br><span class="line">gem install redis</span><br></pre></td></tr></table></figure>
+
 <p>然后执行:ruby redis/src/redis-trib.rb create –replicas 1 10.2.1.31:6381 10.2.1.31:6382 10.2.1.31:6383 10.2.1.31:6384 10.2.1.31:6385 10.2.1.31:6386<br>就可以看到上面的提示信息了。</p>
 <h3 id="ruby版本失效"><a href="#ruby版本失效" class="headerlink" title="ruby版本失效"></a>ruby版本失效</h3><p>解决办法：<br>rvm use ruby-2.4.0</p>
-<h1 id="体验"><a href="#体验" class="headerlink" title="体验"></a>体验</h1><figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="https://jingzhouyouxia.github.io/img/middleware/redis/redis3.2_clusterinfo.png" alt title>
-                </div>
-                <div class="image-caption"></div>
-            </figure>
-        </div>
+<h1 id="体验"><a href="#体验" class="headerlink" title="体验"></a>体验</h1><p><img src="https://youxia999.github.io/img/redis/redis3.2_clusterinfo.png"></p>
 
-        <blockquote class="post-copyright">
-    
-    <div class="content" style="display:none">
-        
-<span class="post-time">
-    最后更新时间：<time datetime="2020-02-06T04:16:21.849Z" itemprop="dateUpdated">2020-02-06 12:16:21 12:16:21</time>
-</span><br>
-
-
-        
-        <a href="/2018/08/25/redis-cluster-install/" target="_blank" rel="external">https://jingzhouyouxia.github.io/2018/08/25/redis-cluster-install/</a>
-        
+      
     </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
     
-    <footer>
-        <a href="https://jingzhouyouxia.github.io">
-            <img src="/img/avatar.jpg" alt="游侠">
-            游侠
-        </a>
-    </footer>
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://jingzhouyouxia.github.io/2018/08/25/redis-cluster-install/" title="单节点安装redis 3.2版本集群" target="_blank" rel="external">https://jingzhouyouxia.github.io/2018/08/25/redis-cluster-install/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
 </blockquote>
 
-        
 
-
-        <div class="post-footer">
-            
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redis/">redis</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/中间件技术/">中间件技术</a></li></ul>
-
-
-            
-<div class="page-share-wrap">
-    
-
-<div class="page-share" id="pageShare">
-    <ul class="reset share-icons">
-      <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://jingzhouyouxia.github.io/2018/08/25/redis-cluster-install/&title=《单节点安装redis 3.2版本集群》 — 思路比试错更重要&pic=https://jingzhouyouxia.github.io/img/avatar.jpg" data-title="微博">
-          <i class="icon icon-weibo"></i>
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/jingzhouyouxia" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://www.gravatar.com/avatar/80df4bfee856f0107ea8d54da41c3f31?s=128" class="img-rounded w-full" alt="">
         </a>
-      </li>
-      <li>
-        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
-          <i class="icon icon-weixin"></i>
-        </a>
-      </li>
-      <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://jingzhouyouxia.github.io/2018/08/25/redis-cluster-install/&title=《单节点安装redis 3.2版本集群》 — 思路比试错更重要&source=" data-title=" QQ">
-          <i class="icon icon-qq"></i>
-        </a>
-      </li>
-      <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://jingzhouyouxia.github.io/2018/08/25/redis-cluster-install/" data-title=" Facebook">
-          <i class="icon icon-facebook"></i>
-        </a>
-      </li>
-      <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《单节点安装redis 3.2版本集群》 — 思路比试错更重要&url=https://jingzhouyouxia.github.io/2018/08/25/redis-cluster-install/&via=https://jingzhouyouxia.github.io" data-title=" Twitter">
-          <i class="icon icon-twitter"></i>
-        </a>
-      </li>
-      <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://jingzhouyouxia.github.io/2018/08/25/redis-cluster-install/" data-title=" Google+">
-          <i class="icon icon-google-plus"></i>
-        </a>
-      </li>
-    </ul>
- </div>
-
-
-
-    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
-        <i class="icon icon-share-alt icon-lg"></i>
-    </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/jingzhouyouxia" target="_blank"><span class="text-dark">游侠</span><small class="ml-1x">程序员(后端)</small></a></h3>
+        <div>出生在荆州、现居住深圳的后端开发者。</div>
+      </div>
+    </figure>
+  </div>
 </div>
 
 
-
-        </div>
     </div>
-
+  </article>
+  
     
-<nav class="post-nav flex-row flex-justify-between">
-  
-    <div class="waves-block waves-effect prev">
-      <a href="/2018/09/11/golang-reflect-learn/" id="post-prev" class="post-nav-link">
-        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">go语言反射学习</h4>
-      </a>
-    </div>
-  
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
 
   
-    <div class="waves-block waves-effect next">
-      <a href="/2018/08/14/docker-monitor-tech/" id="post-next" class="post-nav-link">
-        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">【转载】打造高逼格、可视化的Docker容器监控系统平台</h4>
-      </a>
-    </div>
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
   
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2018/09/11/golang-reflect-learn/" title="go语言反射学习"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2018/08/14/docker-monitor-tech/" title="【转载】打造高逼格、可视化的Docker容器监控系统平台"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
 </nav>
-
-
-
-    
-
-
-
-
-
-
-
-
-<section class="comments" id="comments">
-    <div id="gitment_thread"></div>
-	<link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
-	<script src="https://jjeejj.github.io/js/gitment.js"></script>
-    <script>
-        var gitment = new Gitment({
-		    id: 'Sat Aug 25 2018 14:09:47 GMT+0800',
-            owner: 'youxia999',
-            repo: 'gitment_comments',
-            oauth: {
-                client_id: '46d6bcb60b3252945f23',
-                client_secret: '954a7427590c10667e9497f77996a1d2e88620e8',
-            },
-        })
-        gitment.render('comments')
-    </script>
-</section>
-
-
-
-
-
-
-
-
-
-
-
-
-
-</article>
-
-
-
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
-        <footer class="footer">
-    <div class="top">
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/jingzhouyouxia" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
         
-<p>
-    <span id="busuanzi_container_site_uv" style='display:none'>
-        站点总访客数：<span id="busuanzi_value_site_uv"></span>
-    </span>
-    <span id="busuanzi_container_site_pv" style='display:none'>
-        站点总访问量：<span id="busuanzi_value_site_pv"></span>
-    </span>
-</p>
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
 
-
-        <p>
-            
-                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
-            
-            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
-        </p>
-    </div>
-    <div class="bottom">
-        <p><span>游侠 &copy; 2015 - 2020</span>
-            <span>
-                
-                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
-            </span>
-        </p>
+    <div class="copyright">
+    	
+        &copy; 2020 游侠
+        
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
     </div>
 </footer>
-
-    </main>
-    <div class="mask" id="mask"></div>
-<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
-
-
-
-<div class="global-share" id="globalShare">
-    <ul class="reset share-icons">
-      <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://jingzhouyouxia.github.io/2018/08/25/redis-cluster-install/&title=《单节点安装redis 3.2版本集群》 — 思路比试错更重要&pic=https://jingzhouyouxia.github.io/img/avatar.jpg" data-title="微博">
-          <i class="icon icon-weibo"></i>
-        </a>
-      </li>
-      <li>
-        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
-          <i class="icon icon-weixin"></i>
-        </a>
-      </li>
-      <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://jingzhouyouxia.github.io/2018/08/25/redis-cluster-install/&title=《单节点安装redis 3.2版本集群》 — 思路比试错更重要&source=" data-title=" QQ">
-          <i class="icon icon-qq"></i>
-        </a>
-      </li>
-      <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://jingzhouyouxia.github.io/2018/08/25/redis-cluster-install/" data-title=" Facebook">
-          <i class="icon icon-facebook"></i>
-        </a>
-      </li>
-      <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《单节点安装redis 3.2版本集群》 — 思路比试错更重要&url=https://jingzhouyouxia.github.io/2018/08/25/redis-cluster-install/&via=https://jingzhouyouxia.github.io" data-title=" Twitter">
-          <i class="icon icon-twitter"></i>
-        </a>
-      </li>
-      <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://jingzhouyouxia.github.io/2018/08/25/redis-cluster-install/" data-title=" Google+">
-          <i class="icon icon-google-plus"></i>
-        </a>
-      </li>
-    </ul>
- </div>
-
-
-<div class="page-modal wx-share" id="wxShare">
-    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://jingzhouyouxia.github.io/2018/08/25/redis-cluster-install/" alt="微信分享二维码">
-</div>
-
-
-
-
-    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
 <script>
-var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
-
-
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 </script>
 
-<script src="/js/main.min.js?v=1.7.2"></script>
+<script src="/js/plugin.min.js"></script>
 
 
-<div class="search-panel" id="search-panel">
-    <ul class="search-result" id="search-result"></ul>
-</div>
-<template id="search-tpl">
-<li class="item">
-    <a href="{path}" class="waves-block waves-effect">
-        <div class="title ellipsis" title="{title}">{title}</div>
-        <div class="flex-row flex-middle">
-            <div class="tags ellipsis">
-                {tags}
-            </div>
-            <time class="flex-col time">{date}</time>
-        </div>
-    </a>
-</li>
-</template>
-
-<script src="/js/search.min.js?v=1.7.2" async></script>
+<script src="/js/application.js"></script>
 
 
-
-
-
-
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-
-
-<script>
-(function() {
-    var OriginTitile = document.title, titleTime;
-    document.addEventListener('visibilitychange', function() {
-        if (document.hidden) {
-            document.title = '';
-            clearTimeout(titleTime);
-        } else {
-            document.title = '';
-            titleTime = setTimeout(function() {
-                document.title = OriginTitile;
-            },2000);
-        }
-    });
-})();
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
 </script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: '',
+    appKey: '',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
 
 
 

@@ -1,485 +1,560 @@
 <!DOCTYPE html>
-<html>
-<head><meta name="generator" content="Hexo 3.9.0">
-    
-
-    
-
-    
-
-
-
-    <meta charset="utf-8">
-    
-    
-    
-    
-    <title>高可用软件之keepalived+Haproxy | 思路比试错更重要 | 记录技术的学习和实践过程</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    
-    <meta name="theme-color" content="#3F51B5">
-    
-    
-    <meta name="keywords" content="haporxy,中间件技术">
-    <meta name="description" content="资料https://blog.51cto.com/kernal/1433907 背景交代本文使用软件版本keepalived: v1.2.13haproxy: v1.5.18centos: centos6.3、centos7.3lightttpd: 1.4.52 ip和部署规划192.168.128.50(主K)：centos6、keepalived、haproxy192.168.128.51(次">
-<meta name="keywords" content="haporxy,中间件技术">
+<html lang=ZH>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>高可用软件之keepalived+Haproxy | 技术学习过程</title>
+  <meta name="description" content="资料https:&#x2F;&#x2F;blog.51cto.com&#x2F;kernal&#x2F;1433907  背景交代本文使用软件版本keepalived: v1.2.13haproxy: v1.5.18centos: centos6.3、centos7.3lightttpd: 1.4.52  ip和部署规划192.168.128.50(主K)：centos6、keepalived、h">
 <meta property="og:type" content="article">
 <meta property="og:title" content="高可用软件之keepalived+Haproxy">
 <meta property="og:url" content="https://jingzhouyouxia.github.io/2017/03/10/common-ha-software-haproxy/index.html">
-<meta property="og:site_name" content="思路比试错更重要">
-<meta property="og:description" content="资料https://blog.51cto.com/kernal/1433907 背景交代本文使用软件版本keepalived: v1.2.13haproxy: v1.5.18centos: centos6.3、centos7.3lightttpd: 1.4.52 ip和部署规划192.168.128.50(主K)：centos6、keepalived、haproxy192.168.128.51(次">
-<meta property="og:locale" content="ZH_CN">
-<meta property="og:updated_time" content="2020-02-06T04:16:21.529Z">
+<meta property="og:site_name" content="永远在路上">
+<meta property="og:description" content="资料https:&#x2F;&#x2F;blog.51cto.com&#x2F;kernal&#x2F;1433907  背景交代本文使用软件版本keepalived: v1.2.13haproxy: v1.5.18centos: centos6.3、centos7.3lightttpd: 1.4.52  ip和部署规划192.168.128.50(主K)：centos6、keepalived、h">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-03-10T03:27:58.000Z">
+<meta property="article:modified_time" content="2020-10-02T08:12:04.402Z">
+<meta property="article:author" content="游侠">
+<meta property="article:tag" content="业务开发中间件">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="高可用软件之keepalived+Haproxy">
-<meta name="twitter:description" content="资料https://blog.51cto.com/kernal/1433907 背景交代本文使用软件版本keepalived: v1.2.13haproxy: v1.5.18centos: centos6.3、centos7.3lightttpd: 1.4.52 ip和部署规划192.168.128.50(主K)：centos6、keepalived、haproxy192.168.128.51(次">
-    
-        <link rel="alternate" type="application/atom+xml" title="思路比试错更重要" href="/atom.xml">
-    
-    <link rel="shortcut icon" href="/favicon.ico">
-    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
-    <script>window.lazyScripts=[]</script>
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://jingzhouyouxia.github.io/2017/03/10/common-ha-software-haproxy/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="永远在路上" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
 
-    <!-- custom head -->
-    
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.2.0"></head>
 
-</head>
 
-<body>
-    <div id="loading" class="active"></div>
-
-    <aside id="menu" class="" >
-  <div class="inner flex-row-vertical">
-    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
-        <i class="icon icon-lg icon-close"></i>
-    </a>
-    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
-      <div class="brand">
-        <a href="/" class="avatar waves-effect waves-circle waves-light">
-          <img src="/img/avatar.jpg">
+<body class="main-center theme-purple" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/jingzhouyouxia" target="_blank">
+          <img class="img-circle img-rotate" src="https://www.gravatar.com/avatar/80df4bfee856f0107ea8d54da41c3f31?s=128" width="200" height="200">
         </a>
-        <hgroup class="introduce">
-          <h5 class="nickname">游侠</h5>
-          <a href="mailto:jingzhouyouxia@gmail.com" title="jingzhouyouxia@gmail.com" class="mail">jingzhouyouxia@gmail.com</a>
-        </hgroup>
+        <h2 id="name" class="hidden-xs hidden-sm">游侠</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">程序员(后端)</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Shenzhen, China</small>
       </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
     </div>
-    <div class="scroll-wrap flex-col">
-      <ul class="nav">
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
         
-            <li class="waves-block waves-effect">
-              <a href="/"  >
-                <i class="icon icon-lg icon-home"></i>
-                主页
-              </a>
-            </li>
         
-            <li class="waves-block waves-effect">
-              <a href="/tags/DevOps%E5%B7%A5%E5%85%B7/"  >
-                <i class="icon icon-lg icon-cogs"></i>
-                DevOps工具
-              </a>
-            </li>
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
         
-            <li class="waves-block waves-effect">
-              <a href="/tags/%E5%AE%B9%E5%99%A8%E4%B8%8Ek8s/"  >
-                <i class="icon icon-lg icon-cloud"></i>
-                容器与k8s
-              </a>
-            </li>
         
-            <li class="waves-block waves-effect">
-              <a href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6%E6%8A%80%E6%9C%AF/"  >
-                <i class="icon icon-lg icon-desktop"></i>
-                中间件技术
-              </a>
-            </li>
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
         
-            <li class="waves-block waves-effect">
-              <a href="/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E6%8A%80%E6%9C%AF/"  >
-                <i class="icon icon-lg icon-coffee"></i>
-                编程语言技术
-              </a>
-            </li>
         
-            <li class="waves-block waves-effect">
-              <a href="/about"  >
-                <i class="icon icon-lg icon-th-list"></i>
-                关于
-              </a>
-            </li>
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
         
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/jingzhouyouxia" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>2020年，重新开始。<br>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%9A%E5%8A%A1%E5%BC%80%E5%8F%91%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="tag">业务开发中间件</a><span class="tag-list-count">32</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9E%B6%E6%9E%84-%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" rel="tag">架构/知识体系</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9B%91%E6%8E%A7%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="tag">监控中间件</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A0%94%E5%8F%91%E6%95%88%E7%8E%87%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="tag">研发效率中间件</a><span class="tag-list-count">34</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" rel="tag">编程语言</a><span class="tag-list-count">20</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2019/10/07/prometheus_monitor_rabbitmq/" class="title">Prometheus监控rabbitmq3.8.0</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-10-07T04:46:48.000Z" itemprop="datePublished">2019-10-07 12:46:48</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2019/10/01/jaeger-install-config/" class="title">跟踪平台jaeger安装、配置</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-10-01T11:00:00.000Z" itemprop="datePublished">2019-10-01 19:00:00</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2019/08/11/apache_dubbo_zipkin_merge/" class="title">apache dubbo 2.7.3版本与zipkin结合进行接口监控</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-08-11T03:02:34.000Z" itemprop="datePublished">2019-08-11 11:02:34</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2019/06/30/cicd-jira-crack-restfulapi/" class="title">【转载】jira7.13版本破解与restful api</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-06-30T11:00:00.000Z" itemprop="datePublished">2019-06-30 19:00:00</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2019/06/01/centos7-share-a-photo/" class="title">【转载】TCP通信转UDP通信并加速</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-06-01T13:46:40.000Z" itemprop="datePublished">2019-06-01 21:46:40</time>
+              </p>
+            </div>
+          </li>
+          
       </ul>
     </div>
   </div>
+  
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">二月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">一月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">十二月 2017</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">十一月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">十月 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">八月 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">一月 2015</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+  </div>
 </aside>
 
-    <main id="main">
-        <header class="top-header" id="header">
-    <div class="flex-row">
-        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
-          <i class="icon icon-lg icon-navicon"></i>
-        </a>
-        <div class="flex-col header-title ellipsis">高可用软件之keepalived+Haproxy</div>
-        
-        <div class="search-wrap" id="search-wrap">
-            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
-                <i class="icon icon-lg icon-chevron-left"></i>
-            </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
-            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
-                <i class="icon icon-lg icon-search"></i>
-            </a>
-        </div>
-        
-        
-        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
-            <i class="icon icon-lg icon-share-alt"></i>
-        </a>
-        
-    </div>
-</header>
-<header class="content-header post-header">
-
-    <div class="container fade-scale">
-        <h1 class="title">高可用软件之keepalived+Haproxy</h1>
-        <h5 class="subtitle">
-            
-                <time datetime="2017-03-10T03:27:58.000Z" itemprop="datePublished" class="page-time">
-  2017-03-10 11:27:58
-</time>
-
-
-            
-        </h5>
-    </div>
-
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-common-ha-software-haproxy" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      高可用软件之keepalived+Haproxy
+    </h1>
+  
 
-
-</header>
-
-
-<div class="container body-wrap">
-    
-    <aside class="post-widget">
-        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
-            <h4>目录</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#资料"><span class="post-toc-number">1.</span> <span class="post-toc-text">资料</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#背景交代"><span class="post-toc-number">2.</span> <span class="post-toc-text">背景交代</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#本文使用软件版本"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">本文使用软件版本</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ip和部署规划"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">ip和部署规划</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#需要确保的事情"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">需要确保的事情</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#安装软件并配置"><span class="post-toc-number">3.</span> <span class="post-toc-text">安装软件并配置</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装lighttpd"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">安装lighttpd</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#配置lighttpd"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">配置lighttpd</span></a></li></ol></li></ol>
-        </nav>
-    </aside>
-
-
-<article id="post-common-ha-software-haproxy"
-  class="post-article article-type-post fade" itemprop="blogPost">
-
-    <div class="post-card">
-        <h1 class="post-card-title">高可用软件之keepalived+Haproxy</h1>
-        <div class="post-meta">
-            <time class="post-time" title="2017-03-10 11:27:58 11:27:58" datetime="2017-03-10T03:27:58.000Z"  itemprop="datePublished">2017-03-10 11:27:58</time>
-
-            
-
-
-            
-<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
-    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2017/03/10/common-ha-software-haproxy/" class="article-date">
+	  <time datetime="2017-03-10T03:27:58.000Z" itemprop="datePublished">2017-03-10 11:27:58</time>
+	</a>
 </span>
+        
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E4%B8%9A%E5%8A%A1%E5%BC%80%E5%8F%91%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="tag">业务开发中间件</a>
+  </span>
 
 
-        </div>
-        <div class="post-content" id="post-content" itemprop="postContent">
-            <h1 id="资料"><a href="#资料" class="headerlink" title="资料"></a>资料</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">https://blog.51cto.com/kernal/1433907</span><br></pre></td></tr></table></figure>
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2017/03/10/common-ha-software-haproxy/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h1 id="资料"><a href="#资料" class="headerlink" title="资料"></a>资料</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">https:&#x2F;&#x2F;blog.51cto.com&#x2F;kernal&#x2F;1433907</span><br></pre></td></tr></table></figure>
+
 <h1 id="背景交代"><a href="#背景交代" class="headerlink" title="背景交代"></a>背景交代</h1><h2 id="本文使用软件版本"><a href="#本文使用软件版本" class="headerlink" title="本文使用软件版本"></a>本文使用软件版本</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">keepalived: v1.2.13</span><br><span class="line">haproxy: v1.5.18</span><br><span class="line">centos: centos6.3、centos7.3</span><br><span class="line">lightttpd: 1.4.52</span><br></pre></td></tr></table></figure>
+
 <h2 id="ip和部署规划"><a href="#ip和部署规划" class="headerlink" title="ip和部署规划"></a>ip和部署规划</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">192.168.128.50(主K)：centos6、keepalived、haproxy</span><br><span class="line">192.168.128.51(次K)：centos6、keepalived、haproxy</span><br><span class="line">192.168.128.85(real server1)：centos7、lighttpd</span><br><span class="line">192.168.128.97(real server2)：centos7、lighttpd</span><br></pre></td></tr></table></figure>
 <h2 id="需要确保的事情"><a href="#需要确保的事情" class="headerlink" title="需要确保的事情"></a>需要确保的事情</h2><h1 id="安装软件并配置"><a href="#安装软件并配置" class="headerlink" title="安装软件并配置"></a>安装软件并配置</h1><h2 id="安装lighttpd"><a href="#安装lighttpd" class="headerlink" title="安装lighttpd"></a>安装lighttpd</h2><p>yum install -y epel-release gcc gcc-c++ autoconf automake   pcre-devel zip unzip libtool  &amp;&amp; yum install -y lighttpd</p>
-<h2 id="配置lighttpd"><a href="#配置lighttpd" class="headerlink" title="配置lighttpd"></a>配置lighttpd</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#######################################################################</span><br><span class="line">##</span><br><span class="line">## /etc/lighttpd/lighttpd.conf</span><br><span class="line">##</span><br><span class="line">## check /etc/lighttpd/conf.d/*.conf for the configuration of modules.</span><br><span class="line">##</span><br><span class="line">#######################################################################</span><br><span class="line"></span><br><span class="line">#######################################################################</span><br><span class="line">##</span><br><span class="line">## Some Variable definition which will make chrooting easier.</span><br><span class="line">##</span><br><span class="line">## if you add a variable here. Add the corresponding variable in the</span><br><span class="line">## chroot example aswell.</span><br><span class="line">##</span><br><span class="line">var.log_root    = &quot;/data/lighttpd/log&quot;</span><br><span class="line">var.server_root = &quot;/data/lighttpd/www&quot;</span><br><span class="line">var.state_dir   = &quot;/var/run&quot;</span><br><span class="line">var.home_dir    = &quot;/data/lighttpd&quot;</span><br><span class="line">var.conf_dir    = &quot;/etc/lighttpd&quot;</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## run the server chrooted.</span><br><span class="line">##</span><br><span class="line">## This requires root permissions during startup.</span><br><span class="line">##</span><br><span class="line">## If you run Chrooted set the the variables to directories relative to</span><br><span class="line">## the chroot dir.</span><br><span class="line">##</span><br><span class="line">## example chroot configuration:</span><br><span class="line">##</span><br><span class="line">#var.log_root    = &quot;/logs&quot;</span><br><span class="line">#var.server_root = &quot;/&quot;</span><br><span class="line">#var.state_dir   = &quot;/run&quot;</span><br><span class="line">#var.home_dir    = &quot;/lib/lighttpd&quot;</span><br><span class="line">#var.vhosts_dir  = &quot;/vhosts&quot;</span><br><span class="line">#var.conf_dir    = &quot;/etc&quot;</span><br><span class="line">#</span><br><span class="line">#server.chroot   = &quot;/srv/www&quot;</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## Some additional variables to make the configuration easier</span><br><span class="line">##</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## Base directory for all virtual hosts</span><br><span class="line">##</span><br><span class="line">## used in:</span><br><span class="line">## conf.d/evhost.conf</span><br><span class="line">## conf.d/simple_vhost.conf</span><br><span class="line">## vhosts.d/vhosts.template</span><br><span class="line">##</span><br><span class="line">var.vhosts_dir  = server_root + &quot;/vhosts&quot;</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## Cache for mod_compress</span><br><span class="line">##</span><br><span class="line">## used in:</span><br><span class="line">## conf.d/compress.conf</span><br><span class="line">##</span><br><span class="line">var.cache_dir   = &quot;/data/lighttpd/cache&quot;</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## Base directory for sockets.</span><br><span class="line">##</span><br><span class="line">## used in:</span><br><span class="line">## conf.d/fastcgi.conf</span><br><span class="line">## conf.d/scgi.conf</span><br><span class="line">##</span><br><span class="line">var.socket_dir  = state_dir + &quot;/sockets&quot;</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">#######################################################################</span><br><span class="line"></span><br><span class="line">#######################################################################</span><br><span class="line">##</span><br><span class="line">## Load the modules.</span><br><span class="line">include &quot;modules.conf&quot;</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">#######################################################################</span><br><span class="line"></span><br><span class="line">#######################################################################</span><br><span class="line">##</span><br><span class="line">##  Basic Configuration</span><br><span class="line">## ---------------------</span><br><span class="line">##</span><br><span class="line">server.port = 28080</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## Use IPv6?</span><br><span class="line">##</span><br><span class="line">#server.use-ipv6 = &quot;enable&quot;</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## bind to a specific IP</span><br><span class="line">##</span><br><span class="line">server.bind = &quot;192.168.128.97&quot;</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## Run as a different username/groupname.</span><br><span class="line">## This requires root permissions during startup.</span><br><span class="line">##</span><br><span class="line">server.username  = &quot;lighttpd&quot;</span><br><span class="line">server.groupname = &quot;lighttpd&quot;</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## enable core files.</span><br><span class="line">##</span><br><span class="line">#server.core-files = &quot;disable&quot;</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## Document root</span><br><span class="line">##</span><br><span class="line">server.document-root = server_root + &quot;/lighttpd&quot;</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## The value for the &quot;Server:&quot; response field.</span><br><span class="line">##</span><br><span class="line">## It would be nice to keep it at &quot;lighttpd&quot;.</span><br><span class="line">##</span><br><span class="line">#server.tag = &quot;lighttpd&quot;</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## store a pid file</span><br><span class="line">##</span><br><span class="line">server.pid-file = state_dir + &quot;/lighttpd.pid&quot;</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">#######################################################################</span><br><span class="line"></span><br><span class="line">#######################################################################</span><br><span class="line">##</span><br><span class="line">##  Logging Options</span><br><span class="line">## ------------------</span><br><span class="line">##</span><br><span class="line">## all logging options can be overwritten per vhost.</span><br><span class="line">##</span><br><span class="line">## Path to the error log file</span><br><span class="line">##</span><br><span class="line">server.errorlog             = log_root + &quot;/error.log&quot;</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## If you want to log to syslog you have to unset the</span><br><span class="line">## server.errorlog setting and uncomment the next line.</span><br><span class="line">##</span><br><span class="line">#server.errorlog-use-syslog = &quot;enable&quot;</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## Access log config</span><br><span class="line">##</span><br><span class="line">include &quot;conf.d/access_log.conf&quot;</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## The debug options are moved into their own file.</span><br><span class="line">## see conf.d/debug.conf for various options for request debugging.</span><br><span class="line">##</span><br><span class="line">include &quot;conf.d/debug.conf&quot;</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">#######################################################################</span><br><span class="line"></span><br><span class="line">#######################################################################</span><br><span class="line">##</span><br><span class="line">##  Tuning/Performance</span><br><span class="line">## --------------------</span><br><span class="line">##</span><br><span class="line">## corresponding documentation:</span><br><span class="line">## https://redmine.lighttpd.net/projects/lighttpd/wiki/Docs_Performance</span><br><span class="line">##</span><br><span class="line">## set the event-handler (read the performance section in the manual)</span><br><span class="line">##</span><br><span class="line">## possible options on linux are:</span><br><span class="line">##</span><br><span class="line">## select</span><br><span class="line">## poll</span><br><span class="line">## linux-sysepoll</span><br><span class="line">##</span><br><span class="line">## linux-sysepoll is recommended on kernel 2.6.</span><br><span class="line">##</span><br><span class="line">server.event-handler = &quot;linux-sysepoll&quot;</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## The basic network interface for all platforms at the syscalls read()</span><br><span class="line">## and write(). Every modern OS provides its own syscall to help network</span><br><span class="line">## servers transfer files as fast as possible</span><br><span class="line">##</span><br><span class="line">## sendfile       - is recommended for small files.</span><br><span class="line">## writev         - is recommended for sending many large files</span><br><span class="line">##</span><br><span class="line">server.network-backend = &quot;sendfile&quot;</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## As lighttpd is a single-threaded server, its main resource limit is</span><br><span class="line">## the number of file descriptors, which is set to 1024 by default (on</span><br><span class="line">## most systems).</span><br><span class="line">##</span><br><span class="line">## If you are running a high-traffic site you might want to increase this</span><br><span class="line">## limit by setting server.max-fds.</span><br><span class="line">##</span><br><span class="line">## Changing this setting requires root permissions on startup. see</span><br><span class="line">## server.username/server.groupname.</span><br><span class="line">##</span><br><span class="line">## By default lighttpd would not change the operation system default.</span><br><span class="line">## But setting it to 2048 is a better default for busy servers.</span><br><span class="line">##</span><br><span class="line">## With SELinux enabled, this is denied by default and needs to be allowed</span><br><span class="line">## by running the following once : setsebool -P httpd_setrlimit on</span><br><span class="line">#server.max-fds = 2048</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## listen-backlog is the size of the listen() backlog queue requested when</span><br><span class="line">## the lighttpd server ask the kernel to listen() on the provided network</span><br><span class="line">## address.  Clients attempting to connect() to the server enter the listen()</span><br><span class="line">## backlog queue and wait for the lighttpd server to accept() the connection.</span><br><span class="line">##</span><br><span class="line">## The out-of-box default on many operating systems is 128 and is identified</span><br><span class="line">## as SOMAXCONN.  This can be tuned on many operating systems.  (On Linux,</span><br><span class="line">## cat /proc/sys/net/core/somaxconn)  Requesting a size larger than operating</span><br><span class="line">## system limit will be silently reduced to the limit by the operating system.</span><br><span class="line">##</span><br><span class="line">## When there are too many connection attempts waiting for the server to</span><br><span class="line">## accept() new connections, the listen backlog queue fills and the kernel</span><br><span class="line">## rejects additional connection attempts.  This can be useful as an</span><br><span class="line">## indication to an upstream load balancer that the server is busy, and</span><br><span class="line">## possibly overloaded.  In that case, configure a smaller limit for</span><br><span class="line">## server.listen-backlog.  On the other hand, configure a larger limit to be</span><br><span class="line">## able to handle bursts of new connections, but only do so up to an amount</span><br><span class="line">## that the server can keep up with responding in a reasonable amount of</span><br><span class="line">## time.  Otherwise, clients may abandon the connection attempts and the</span><br><span class="line">## server will waste resources servicing abandoned connections.</span><br><span class="line">##</span><br><span class="line">## It is best to leave this setting at its default unless you have modelled</span><br><span class="line">## your traffic and tested that changing this benefits your traffic patterns.</span><br><span class="line">##</span><br><span class="line">## Default: 1024</span><br><span class="line">##</span><br><span class="line">#server.listen-backlog = 128</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## Stat() call caching.</span><br><span class="line">##</span><br><span class="line">## lighttpd can utilize FAM/Gamin to cache stat call.</span><br><span class="line">##</span><br><span class="line">## possible values are:</span><br><span class="line">## disable, simple or fam.</span><br><span class="line">##</span><br><span class="line">server.stat-cache-engine = &quot;simple&quot;</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## Fine tuning for the request handling</span><br><span class="line">##</span><br><span class="line">## max-connections == max-fds/2 (maybe /3)</span><br><span class="line">## means the other file handles are used for fastcgi/files</span><br><span class="line">##</span><br><span class="line">server.max-connections = 1024</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## How many seconds to keep a keep-alive connection open,</span><br><span class="line">## until we consider it idle.</span><br><span class="line">##</span><br><span class="line">## Default: 5</span><br><span class="line">##</span><br><span class="line">#server.max-keep-alive-idle = 5</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## How many keep-alive requests until closing the connection.</span><br><span class="line">##</span><br><span class="line">## Default: 16</span><br><span class="line">##</span><br><span class="line">#server.max-keep-alive-requests = 16</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## Maximum size of a request in kilobytes.</span><br><span class="line">## By default it is unlimited (0).</span><br><span class="line">##</span><br><span class="line">## Uploads to your server cant be larger than this value.</span><br><span class="line">##</span><br><span class="line">#server.max-request-size = 0</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## Time to read from a socket before we consider it idle.</span><br><span class="line">##</span><br><span class="line">## Default: 60</span><br><span class="line">##</span><br><span class="line">#server.max-read-idle = 60</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## Time to write to a socket before we consider it idle.</span><br><span class="line">##</span><br><span class="line">## Default: 360</span><br><span class="line">##</span><br><span class="line">#server.max-write-idle = 360</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">##  Traffic Shaping</span><br><span class="line">## -----------------</span><br><span class="line">##</span><br><span class="line">## see /usr/share/doc/lighttpd/traffic-shaping.txt</span><br><span class="line">##</span><br><span class="line">## Values are in kilobyte per second.</span><br><span class="line">##</span><br><span class="line">## Keep in mind that a limit below 32kB/s might actually limit the</span><br><span class="line">## traffic to 32kB/s. This is caused by the size of the TCP send</span><br><span class="line">## buffer.</span><br><span class="line">##</span><br><span class="line">## per server:</span><br><span class="line">##</span><br><span class="line">#server.kbytes-per-second = 128</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## per connection:</span><br><span class="line">##</span><br><span class="line">#connection.kbytes-per-second = 32</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">#######################################################################</span><br><span class="line"></span><br><span class="line">#######################################################################</span><br><span class="line">##</span><br><span class="line">##  Filename/File handling</span><br><span class="line">## ------------------------</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## files to check for if .../ is requested</span><br><span class="line">## index-file.names            = ( &quot;index.php&quot;, &quot;index.rb&quot;, &quot;index.html&quot;,</span><br><span class="line">##                                 &quot;index.htm&quot;, &quot;default.htm&quot; )</span><br><span class="line">##</span><br><span class="line">index-file.names += (</span><br><span class="line">  &quot;index.xhtml&quot;, &quot;index.html&quot;, &quot;index.htm&quot;, &quot;default.htm&quot;, &quot;index.php&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## deny access the file-extensions</span><br><span class="line">##</span><br><span class="line">## ~    is for backupfiles from vi, emacs, joe, ...</span><br><span class="line">## .inc is often used for code includes which should in general not be part</span><br><span class="line">##      of the document-root</span><br><span class="line">url.access-deny             = ( &quot;~&quot;, &quot;.inc&quot; )</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## disable range requests for pdf files</span><br><span class="line">## workaround for a bug in the Acrobat Reader plugin.</span><br><span class="line">##</span><br><span class="line">$HTTP[&quot;url&quot;] =~ &quot;\.pdf$&quot; &#123;</span><br><span class="line">  server.range-requests = &quot;disable&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## url handling modules (rewrite, redirect)</span><br><span class="line">##</span><br><span class="line">#url.rewrite                = ( &quot;^/$&quot;             =&gt; &quot;/server-status&quot; )</span><br><span class="line">#url.redirect               = ( &quot;^/wishlist/(.+)&quot; =&gt; &quot;http://www.example.com/$1&quot; )</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## both rewrite/redirect support back reference to regex conditional using %n</span><br><span class="line">##</span><br><span class="line">#$HTTP[&quot;host&quot;] =~ &quot;^www\.(.*)&quot; &#123;</span><br><span class="line">#  url.redirect            = ( &quot;^/(.*)&quot; =&gt; &quot;http://%1/$1&quot; )</span><br><span class="line">#&#125;</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## which extensions should not be handle via static-file transfer</span><br><span class="line">##</span><br><span class="line">## .php, .pl, .fcgi are most often handled by mod_fastcgi or mod_cgi</span><br><span class="line">##</span><br><span class="line">static-file.exclude-extensions = ( &quot;.php&quot;, &quot;.pl&quot;, &quot;.fcgi&quot;, &quot;.scgi&quot; )</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## error-handler for all status 400-599</span><br><span class="line">##</span><br><span class="line">#server.error-handler       = &quot;/error-handler.html&quot;</span><br><span class="line">#server.error-handler       = &quot;/error-handler.php&quot;</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## error-handler for status 404</span><br><span class="line">##</span><br><span class="line">#server.error-handler-404   = &quot;/error-handler.html&quot;</span><br><span class="line">#server.error-handler-404   = &quot;/error-handler.php&quot;</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## Format: &lt;errorfile-prefix&gt;&lt;status-code&gt;.html</span><br><span class="line">## -&gt; ..../status-404.html for &apos;File not found&apos;</span><br><span class="line">##</span><br><span class="line">#server.errorfile-prefix    = &quot;/srv/www/htdocs/errors/status-&quot;</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## mimetype mapping</span><br><span class="line">##</span><br><span class="line">include &quot;conf.d/mime.conf&quot;</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## directory listing configuration</span><br><span class="line">##</span><br><span class="line">include &quot;conf.d/dirlisting.conf&quot;</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## Should lighttpd follow symlinks?</span><br><span class="line">##</span><br><span class="line">server.follow-symlink = &quot;enable&quot;</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## force all filenames to be lowercase?</span><br><span class="line">##</span><br><span class="line">#server.force-lowercase-filenames = &quot;disable&quot;</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## defaults to /var/tmp as we assume it is a local harddisk</span><br><span class="line">##</span><br><span class="line">server.upload-dirs = ( &quot;/var/tmp&quot; )</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">#######################################################################</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#######################################################################</span><br><span class="line">##</span><br><span class="line">##  SSL Support</span><br><span class="line">## -------------</span><br><span class="line">##</span><br><span class="line">## To enable SSL for the whole server you have to provide a valid</span><br><span class="line">## certificate and have to enable the SSL engine.::</span><br><span class="line">##</span><br><span class="line">##   ssl.engine = &quot;enable&quot;</span><br><span class="line">##   ssl.pemfile = &quot;/path/to/server.pem&quot;</span><br><span class="line">##</span><br><span class="line">## The HTTPS protocol does not allow you to use name-based virtual</span><br><span class="line">## hosting with SSL. If you want to run multiple SSL servers with</span><br><span class="line">## one lighttpd instance you must use IP-based virtual hosting: ::</span><br><span class="line">##</span><br><span class="line">## Mitigate CVE-2009-3555 by disabling client triggered renegotation</span><br><span class="line">## This is enabled by default.</span><br><span class="line">##</span><br><span class="line">## IMPORTANT: this setting can only be used in the global scope.</span><br><span class="line">## It does *not* work inside conditionals</span><br><span class="line">##</span><br><span class="line">#   ssl.disable-client-renegotiation = &quot;enable&quot;</span><br><span class="line">##</span><br><span class="line">##   $SERVER[&quot;socket&quot;] == &quot;10.0.0.1:443&quot; &#123;</span><br><span class="line">##     ssl.engine                  = &quot;enable&quot;</span><br><span class="line">##     ssl.pemfile                 = &quot;/etc/ssl/private/www.example.com.pem&quot;</span><br><span class="line">##     #</span><br><span class="line">##     # (Following SSL/TLS Deployment Best Practices 1.3 / 17 September 2013 from:</span><br><span class="line">##     # https://www.ssllabs.com/projects/best-practices/index.html)</span><br><span class="line">##     # - BEAST is considered mitigaed on client side now, and new weaknesses have been found in RC4,</span><br><span class="line">##     #   so it is strongly advised to disable RC4 ciphers (HIGH doesn&apos;t include RC4)</span><br><span class="line">##     # - It is recommended to disable 3DES too (although disabling RC4 and 3DES breaks IE6+8 on Windows XP,</span><br><span class="line">##     #   so you might want to support 3DES for now - just remove the &apos;!3DES&apos; parts below).</span><br><span class="line">##     # - The examples below prefer ciphersuites with &quot;Forward Secrecy&quot; (and ECDHE over DHE (alias EDH)), remove &apos;+kEDH +kRSA&apos;</span><br><span class="line">##     #   if you don&apos;t want that.</span><br><span class="line">##     # - SRP and PSK are not supported anyway, excluding those (&apos;!kSRP !kPSK&apos;) just keeps the list smaller (easier to review)</span><br><span class="line">##     # Check your cipher list with: openssl ciphers -v &apos;...&apos; (use single quotes as your shell won&apos;t like ! in double quotes)</span><br><span class="line">##     #</span><br><span class="line">##     # If you know you have RSA keys (standard), you can use:</span><br><span class="line">##     ssl.cipher-list             = &quot;PROFILE=SYSTEM&quot;</span><br><span class="line">##     # The more generic version (without the restriction to RSA keys) is</span><br><span class="line">##     # ssl.cipher-list           = &quot;HIGH !aNULL !3DES +kEDH +kRSA !kSRP !kPSK&quot;</span><br><span class="line">##     #</span><br><span class="line">##     # Make the server prefer the order of the server side cipher suite instead of the client suite.</span><br><span class="line">##     # This option is enabled by default, but only used if ssl.cipher-list is set.</span><br><span class="line">##     #</span><br><span class="line">##     # ssl.honor-cipher-order = &quot;enable&quot;</span><br><span class="line">##     #</span><br><span class="line">##     server.name                 = &quot;www.example.com&quot;</span><br><span class="line">##</span><br><span class="line">##     server.document-root        = &quot;/srv/www/vhosts/example.com/www/&quot;</span><br><span class="line">##   &#125;</span><br><span class="line">##</span><br><span class="line"></span><br><span class="line">## If you have a .crt and a .key file, cat them together into a</span><br><span class="line">## single PEM file:</span><br><span class="line">## $ cat /etc/ssl/private/lighttpd.key /etc/ssl/certs/lighttpd.crt \</span><br><span class="line">##   &gt; /etc/ssl/private/lighttpd.pem</span><br><span class="line">##</span><br><span class="line">#ssl.pemfile = &quot;/etc/ssl/private/lighttpd.pem&quot;</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## optionally pass the CA certificate here.</span><br><span class="line">##</span><br><span class="line">##</span><br><span class="line">#ssl.ca-file = &quot;&quot;</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## and the CRL revocation list here.</span><br><span class="line">##</span><br><span class="line">##</span><br><span class="line">#ssl.ca-crl-file = &quot;&quot;</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">#######################################################################</span><br><span class="line"></span><br><span class="line">#######################################################################</span><br><span class="line">##</span><br><span class="line">## custom includes like vhosts.</span><br><span class="line">##</span><br><span class="line">#include &quot;conf.d/config.conf&quot;</span><br><span class="line">#include &quot;/etc/lighttpd/vhosts.d/*.conf&quot;</span><br><span class="line">##</span><br><span class="line">#######################################################################</span><br></pre></td></tr></table></figure>
-        </div>
-
-        <blockquote class="post-copyright">
-    
-    <div class="content" style="display:none">
-        
-<span class="post-time">
-    最后更新时间：<time datetime="2020-02-06T04:16:21.529Z" itemprop="dateUpdated">2020-02-06 12:16:21 12:16:21</time>
-</span><br>
-
-
-        
-        <a href="/2017/03/10/common-ha-software-haproxy/" target="_blank" rel="external">https://jingzhouyouxia.github.io/2017/03/10/common-ha-software-haproxy/</a>
-        
+<h2 id="配置lighttpd"><a href="#配置lighttpd" class="headerlink" title="配置lighttpd"></a>配置lighttpd</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#######################################################################</span><br><span class="line">##</span><br><span class="line">## &#x2F;etc&#x2F;lighttpd&#x2F;lighttpd.conf</span><br><span class="line">##</span><br><span class="line">## check &#x2F;etc&#x2F;lighttpd&#x2F;conf.d&#x2F;*.conf for the configuration of modules.</span><br><span class="line">##</span><br><span class="line">#######################################################################</span><br><span class="line"></span><br><span class="line">#######################################################################</span><br><span class="line">##</span><br><span class="line">## Some Variable definition which will make chrooting easier.</span><br><span class="line">##</span><br><span class="line">## if you add a variable here. Add the corresponding variable in the</span><br><span class="line">## chroot example aswell.</span><br><span class="line">##</span><br><span class="line">var.log_root    &#x3D; &quot;&#x2F;data&#x2F;lighttpd&#x2F;log&quot;</span><br><span class="line">var.server_root &#x3D; &quot;&#x2F;data&#x2F;lighttpd&#x2F;www&quot;</span><br><span class="line">var.state_dir   &#x3D; &quot;&#x2F;var&#x2F;run&quot;</span><br><span class="line">var.home_dir    &#x3D; &quot;&#x2F;data&#x2F;lighttpd&quot;</span><br><span class="line">var.conf_dir    &#x3D; &quot;&#x2F;etc&#x2F;lighttpd&quot;</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## run the server chrooted.</span><br><span class="line">##</span><br><span class="line">## This requires root permissions during startup.</span><br><span class="line">##</span><br><span class="line">## If you run Chrooted set the the variables to directories relative to</span><br><span class="line">## the chroot dir.</span><br><span class="line">##</span><br><span class="line">## example chroot configuration:</span><br><span class="line">##</span><br><span class="line">#var.log_root    &#x3D; &quot;&#x2F;logs&quot;</span><br><span class="line">#var.server_root &#x3D; &quot;&#x2F;&quot;</span><br><span class="line">#var.state_dir   &#x3D; &quot;&#x2F;run&quot;</span><br><span class="line">#var.home_dir    &#x3D; &quot;&#x2F;lib&#x2F;lighttpd&quot;</span><br><span class="line">#var.vhosts_dir  &#x3D; &quot;&#x2F;vhosts&quot;</span><br><span class="line">#var.conf_dir    &#x3D; &quot;&#x2F;etc&quot;</span><br><span class="line">#</span><br><span class="line">#server.chroot   &#x3D; &quot;&#x2F;srv&#x2F;www&quot;</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## Some additional variables to make the configuration easier</span><br><span class="line">##</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## Base directory for all virtual hosts</span><br><span class="line">##</span><br><span class="line">## used in:</span><br><span class="line">## conf.d&#x2F;evhost.conf</span><br><span class="line">## conf.d&#x2F;simple_vhost.conf</span><br><span class="line">## vhosts.d&#x2F;vhosts.template</span><br><span class="line">##</span><br><span class="line">var.vhosts_dir  &#x3D; server_root + &quot;&#x2F;vhosts&quot;</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## Cache for mod_compress</span><br><span class="line">##</span><br><span class="line">## used in:</span><br><span class="line">## conf.d&#x2F;compress.conf</span><br><span class="line">##</span><br><span class="line">var.cache_dir   &#x3D; &quot;&#x2F;data&#x2F;lighttpd&#x2F;cache&quot;</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## Base directory for sockets.</span><br><span class="line">##</span><br><span class="line">## used in:</span><br><span class="line">## conf.d&#x2F;fastcgi.conf</span><br><span class="line">## conf.d&#x2F;scgi.conf</span><br><span class="line">##</span><br><span class="line">var.socket_dir  &#x3D; state_dir + &quot;&#x2F;sockets&quot;</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">#######################################################################</span><br><span class="line"></span><br><span class="line">#######################################################################</span><br><span class="line">##</span><br><span class="line">## Load the modules.</span><br><span class="line">include &quot;modules.conf&quot;</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">#######################################################################</span><br><span class="line"></span><br><span class="line">#######################################################################</span><br><span class="line">##</span><br><span class="line">##  Basic Configuration</span><br><span class="line">## ---------------------</span><br><span class="line">##</span><br><span class="line">server.port &#x3D; 28080</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## Use IPv6?</span><br><span class="line">##</span><br><span class="line">#server.use-ipv6 &#x3D; &quot;enable&quot;</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## bind to a specific IP</span><br><span class="line">##</span><br><span class="line">server.bind &#x3D; &quot;192.168.128.97&quot;</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## Run as a different username&#x2F;groupname.</span><br><span class="line">## This requires root permissions during startup.</span><br><span class="line">##</span><br><span class="line">server.username  &#x3D; &quot;lighttpd&quot;</span><br><span class="line">server.groupname &#x3D; &quot;lighttpd&quot;</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## enable core files.</span><br><span class="line">##</span><br><span class="line">#server.core-files &#x3D; &quot;disable&quot;</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## Document root</span><br><span class="line">##</span><br><span class="line">server.document-root &#x3D; server_root + &quot;&#x2F;lighttpd&quot;</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## The value for the &quot;Server:&quot; response field.</span><br><span class="line">##</span><br><span class="line">## It would be nice to keep it at &quot;lighttpd&quot;.</span><br><span class="line">##</span><br><span class="line">#server.tag &#x3D; &quot;lighttpd&quot;</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## store a pid file</span><br><span class="line">##</span><br><span class="line">server.pid-file &#x3D; state_dir + &quot;&#x2F;lighttpd.pid&quot;</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">#######################################################################</span><br><span class="line"></span><br><span class="line">#######################################################################</span><br><span class="line">##</span><br><span class="line">##  Logging Options</span><br><span class="line">## ------------------</span><br><span class="line">##</span><br><span class="line">## all logging options can be overwritten per vhost.</span><br><span class="line">##</span><br><span class="line">## Path to the error log file</span><br><span class="line">##</span><br><span class="line">server.errorlog             &#x3D; log_root + &quot;&#x2F;error.log&quot;</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## If you want to log to syslog you have to unset the</span><br><span class="line">## server.errorlog setting and uncomment the next line.</span><br><span class="line">##</span><br><span class="line">#server.errorlog-use-syslog &#x3D; &quot;enable&quot;</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## Access log config</span><br><span class="line">##</span><br><span class="line">include &quot;conf.d&#x2F;access_log.conf&quot;</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## The debug options are moved into their own file.</span><br><span class="line">## see conf.d&#x2F;debug.conf for various options for request debugging.</span><br><span class="line">##</span><br><span class="line">include &quot;conf.d&#x2F;debug.conf&quot;</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">#######################################################################</span><br><span class="line"></span><br><span class="line">#######################################################################</span><br><span class="line">##</span><br><span class="line">##  Tuning&#x2F;Performance</span><br><span class="line">## --------------------</span><br><span class="line">##</span><br><span class="line">## corresponding documentation:</span><br><span class="line">## https:&#x2F;&#x2F;redmine.lighttpd.net&#x2F;projects&#x2F;lighttpd&#x2F;wiki&#x2F;Docs_Performance</span><br><span class="line">##</span><br><span class="line">## set the event-handler (read the performance section in the manual)</span><br><span class="line">##</span><br><span class="line">## possible options on linux are:</span><br><span class="line">##</span><br><span class="line">## select</span><br><span class="line">## poll</span><br><span class="line">## linux-sysepoll</span><br><span class="line">##</span><br><span class="line">## linux-sysepoll is recommended on kernel 2.6.</span><br><span class="line">##</span><br><span class="line">server.event-handler &#x3D; &quot;linux-sysepoll&quot;</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## The basic network interface for all platforms at the syscalls read()</span><br><span class="line">## and write(). Every modern OS provides its own syscall to help network</span><br><span class="line">## servers transfer files as fast as possible</span><br><span class="line">##</span><br><span class="line">## sendfile       - is recommended for small files.</span><br><span class="line">## writev         - is recommended for sending many large files</span><br><span class="line">##</span><br><span class="line">server.network-backend &#x3D; &quot;sendfile&quot;</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## As lighttpd is a single-threaded server, its main resource limit is</span><br><span class="line">## the number of file descriptors, which is set to 1024 by default (on</span><br><span class="line">## most systems).</span><br><span class="line">##</span><br><span class="line">## If you are running a high-traffic site you might want to increase this</span><br><span class="line">## limit by setting server.max-fds.</span><br><span class="line">##</span><br><span class="line">## Changing this setting requires root permissions on startup. see</span><br><span class="line">## server.username&#x2F;server.groupname.</span><br><span class="line">##</span><br><span class="line">## By default lighttpd would not change the operation system default.</span><br><span class="line">## But setting it to 2048 is a better default for busy servers.</span><br><span class="line">##</span><br><span class="line">## With SELinux enabled, this is denied by default and needs to be allowed</span><br><span class="line">## by running the following once : setsebool -P httpd_setrlimit on</span><br><span class="line">#server.max-fds &#x3D; 2048</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## listen-backlog is the size of the listen() backlog queue requested when</span><br><span class="line">## the lighttpd server ask the kernel to listen() on the provided network</span><br><span class="line">## address.  Clients attempting to connect() to the server enter the listen()</span><br><span class="line">## backlog queue and wait for the lighttpd server to accept() the connection.</span><br><span class="line">##</span><br><span class="line">## The out-of-box default on many operating systems is 128 and is identified</span><br><span class="line">## as SOMAXCONN.  This can be tuned on many operating systems.  (On Linux,</span><br><span class="line">## cat &#x2F;proc&#x2F;sys&#x2F;net&#x2F;core&#x2F;somaxconn)  Requesting a size larger than operating</span><br><span class="line">## system limit will be silently reduced to the limit by the operating system.</span><br><span class="line">##</span><br><span class="line">## When there are too many connection attempts waiting for the server to</span><br><span class="line">## accept() new connections, the listen backlog queue fills and the kernel</span><br><span class="line">## rejects additional connection attempts.  This can be useful as an</span><br><span class="line">## indication to an upstream load balancer that the server is busy, and</span><br><span class="line">## possibly overloaded.  In that case, configure a smaller limit for</span><br><span class="line">## server.listen-backlog.  On the other hand, configure a larger limit to be</span><br><span class="line">## able to handle bursts of new connections, but only do so up to an amount</span><br><span class="line">## that the server can keep up with responding in a reasonable amount of</span><br><span class="line">## time.  Otherwise, clients may abandon the connection attempts and the</span><br><span class="line">## server will waste resources servicing abandoned connections.</span><br><span class="line">##</span><br><span class="line">## It is best to leave this setting at its default unless you have modelled</span><br><span class="line">## your traffic and tested that changing this benefits your traffic patterns.</span><br><span class="line">##</span><br><span class="line">## Default: 1024</span><br><span class="line">##</span><br><span class="line">#server.listen-backlog &#x3D; 128</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## Stat() call caching.</span><br><span class="line">##</span><br><span class="line">## lighttpd can utilize FAM&#x2F;Gamin to cache stat call.</span><br><span class="line">##</span><br><span class="line">## possible values are:</span><br><span class="line">## disable, simple or fam.</span><br><span class="line">##</span><br><span class="line">server.stat-cache-engine &#x3D; &quot;simple&quot;</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## Fine tuning for the request handling</span><br><span class="line">##</span><br><span class="line">## max-connections &#x3D;&#x3D; max-fds&#x2F;2 (maybe &#x2F;3)</span><br><span class="line">## means the other file handles are used for fastcgi&#x2F;files</span><br><span class="line">##</span><br><span class="line">server.max-connections &#x3D; 1024</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## How many seconds to keep a keep-alive connection open,</span><br><span class="line">## until we consider it idle.</span><br><span class="line">##</span><br><span class="line">## Default: 5</span><br><span class="line">##</span><br><span class="line">#server.max-keep-alive-idle &#x3D; 5</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## How many keep-alive requests until closing the connection.</span><br><span class="line">##</span><br><span class="line">## Default: 16</span><br><span class="line">##</span><br><span class="line">#server.max-keep-alive-requests &#x3D; 16</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## Maximum size of a request in kilobytes.</span><br><span class="line">## By default it is unlimited (0).</span><br><span class="line">##</span><br><span class="line">## Uploads to your server cant be larger than this value.</span><br><span class="line">##</span><br><span class="line">#server.max-request-size &#x3D; 0</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## Time to read from a socket before we consider it idle.</span><br><span class="line">##</span><br><span class="line">## Default: 60</span><br><span class="line">##</span><br><span class="line">#server.max-read-idle &#x3D; 60</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## Time to write to a socket before we consider it idle.</span><br><span class="line">##</span><br><span class="line">## Default: 360</span><br><span class="line">##</span><br><span class="line">#server.max-write-idle &#x3D; 360</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">##  Traffic Shaping</span><br><span class="line">## -----------------</span><br><span class="line">##</span><br><span class="line">## see &#x2F;usr&#x2F;share&#x2F;doc&#x2F;lighttpd&#x2F;traffic-shaping.txt</span><br><span class="line">##</span><br><span class="line">## Values are in kilobyte per second.</span><br><span class="line">##</span><br><span class="line">## Keep in mind that a limit below 32kB&#x2F;s might actually limit the</span><br><span class="line">## traffic to 32kB&#x2F;s. This is caused by the size of the TCP send</span><br><span class="line">## buffer.</span><br><span class="line">##</span><br><span class="line">## per server:</span><br><span class="line">##</span><br><span class="line">#server.kbytes-per-second &#x3D; 128</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## per connection:</span><br><span class="line">##</span><br><span class="line">#connection.kbytes-per-second &#x3D; 32</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">#######################################################################</span><br><span class="line"></span><br><span class="line">#######################################################################</span><br><span class="line">##</span><br><span class="line">##  Filename&#x2F;File handling</span><br><span class="line">## ------------------------</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## files to check for if ...&#x2F; is requested</span><br><span class="line">## index-file.names            &#x3D; ( &quot;index.php&quot;, &quot;index.rb&quot;, &quot;index.html&quot;,</span><br><span class="line">##                                 &quot;index.htm&quot;, &quot;default.htm&quot; )</span><br><span class="line">##</span><br><span class="line">index-file.names +&#x3D; (</span><br><span class="line">  &quot;index.xhtml&quot;, &quot;index.html&quot;, &quot;index.htm&quot;, &quot;default.htm&quot;, &quot;index.php&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## deny access the file-extensions</span><br><span class="line">##</span><br><span class="line">## ~    is for backupfiles from vi, emacs, joe, ...</span><br><span class="line">## .inc is often used for code includes which should in general not be part</span><br><span class="line">##      of the document-root</span><br><span class="line">url.access-deny             &#x3D; ( &quot;~&quot;, &quot;.inc&quot; )</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## disable range requests for pdf files</span><br><span class="line">## workaround for a bug in the Acrobat Reader plugin.</span><br><span class="line">##</span><br><span class="line">$HTTP[&quot;url&quot;] &#x3D;~ &quot;\.pdf$&quot; &#123;</span><br><span class="line">  server.range-requests &#x3D; &quot;disable&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## url handling modules (rewrite, redirect)</span><br><span class="line">##</span><br><span class="line">#url.rewrite                &#x3D; ( &quot;^&#x2F;$&quot;             &#x3D;&gt; &quot;&#x2F;server-status&quot; )</span><br><span class="line">#url.redirect               &#x3D; ( &quot;^&#x2F;wishlist&#x2F;(.+)&quot; &#x3D;&gt; &quot;http:&#x2F;&#x2F;www.example.com&#x2F;$1&quot; )</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## both rewrite&#x2F;redirect support back reference to regex conditional using %n</span><br><span class="line">##</span><br><span class="line">#$HTTP[&quot;host&quot;] &#x3D;~ &quot;^www\.(.*)&quot; &#123;</span><br><span class="line">#  url.redirect            &#x3D; ( &quot;^&#x2F;(.*)&quot; &#x3D;&gt; &quot;http:&#x2F;&#x2F;%1&#x2F;$1&quot; )</span><br><span class="line">#&#125;</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## which extensions should not be handle via static-file transfer</span><br><span class="line">##</span><br><span class="line">## .php, .pl, .fcgi are most often handled by mod_fastcgi or mod_cgi</span><br><span class="line">##</span><br><span class="line">static-file.exclude-extensions &#x3D; ( &quot;.php&quot;, &quot;.pl&quot;, &quot;.fcgi&quot;, &quot;.scgi&quot; )</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## error-handler for all status 400-599</span><br><span class="line">##</span><br><span class="line">#server.error-handler       &#x3D; &quot;&#x2F;error-handler.html&quot;</span><br><span class="line">#server.error-handler       &#x3D; &quot;&#x2F;error-handler.php&quot;</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## error-handler for status 404</span><br><span class="line">##</span><br><span class="line">#server.error-handler-404   &#x3D; &quot;&#x2F;error-handler.html&quot;</span><br><span class="line">#server.error-handler-404   &#x3D; &quot;&#x2F;error-handler.php&quot;</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## Format: &lt;errorfile-prefix&gt;&lt;status-code&gt;.html</span><br><span class="line">## -&gt; ....&#x2F;status-404.html for &#39;File not found&#39;</span><br><span class="line">##</span><br><span class="line">#server.errorfile-prefix    &#x3D; &quot;&#x2F;srv&#x2F;www&#x2F;htdocs&#x2F;errors&#x2F;status-&quot;</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## mimetype mapping</span><br><span class="line">##</span><br><span class="line">include &quot;conf.d&#x2F;mime.conf&quot;</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## directory listing configuration</span><br><span class="line">##</span><br><span class="line">include &quot;conf.d&#x2F;dirlisting.conf&quot;</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## Should lighttpd follow symlinks?</span><br><span class="line">##</span><br><span class="line">server.follow-symlink &#x3D; &quot;enable&quot;</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## force all filenames to be lowercase?</span><br><span class="line">##</span><br><span class="line">#server.force-lowercase-filenames &#x3D; &quot;disable&quot;</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## defaults to &#x2F;var&#x2F;tmp as we assume it is a local harddisk</span><br><span class="line">##</span><br><span class="line">server.upload-dirs &#x3D; ( &quot;&#x2F;var&#x2F;tmp&quot; )</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">#######################################################################</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#######################################################################</span><br><span class="line">##</span><br><span class="line">##  SSL Support</span><br><span class="line">## -------------</span><br><span class="line">##</span><br><span class="line">## To enable SSL for the whole server you have to provide a valid</span><br><span class="line">## certificate and have to enable the SSL engine.::</span><br><span class="line">##</span><br><span class="line">##   ssl.engine &#x3D; &quot;enable&quot;</span><br><span class="line">##   ssl.pemfile &#x3D; &quot;&#x2F;path&#x2F;to&#x2F;server.pem&quot;</span><br><span class="line">##</span><br><span class="line">## The HTTPS protocol does not allow you to use name-based virtual</span><br><span class="line">## hosting with SSL. If you want to run multiple SSL servers with</span><br><span class="line">## one lighttpd instance you must use IP-based virtual hosting: ::</span><br><span class="line">##</span><br><span class="line">## Mitigate CVE-2009-3555 by disabling client triggered renegotation</span><br><span class="line">## This is enabled by default.</span><br><span class="line">##</span><br><span class="line">## IMPORTANT: this setting can only be used in the global scope.</span><br><span class="line">## It does *not* work inside conditionals</span><br><span class="line">##</span><br><span class="line">#   ssl.disable-client-renegotiation &#x3D; &quot;enable&quot;</span><br><span class="line">##</span><br><span class="line">##   $SERVER[&quot;socket&quot;] &#x3D;&#x3D; &quot;10.0.0.1:443&quot; &#123;</span><br><span class="line">##     ssl.engine                  &#x3D; &quot;enable&quot;</span><br><span class="line">##     ssl.pemfile                 &#x3D; &quot;&#x2F;etc&#x2F;ssl&#x2F;private&#x2F;www.example.com.pem&quot;</span><br><span class="line">##     #</span><br><span class="line">##     # (Following SSL&#x2F;TLS Deployment Best Practices 1.3 &#x2F; 17 September 2013 from:</span><br><span class="line">##     # https:&#x2F;&#x2F;www.ssllabs.com&#x2F;projects&#x2F;best-practices&#x2F;index.html)</span><br><span class="line">##     # - BEAST is considered mitigaed on client side now, and new weaknesses have been found in RC4,</span><br><span class="line">##     #   so it is strongly advised to disable RC4 ciphers (HIGH doesn&#39;t include RC4)</span><br><span class="line">##     # - It is recommended to disable 3DES too (although disabling RC4 and 3DES breaks IE6+8 on Windows XP,</span><br><span class="line">##     #   so you might want to support 3DES for now - just remove the &#39;!3DES&#39; parts below).</span><br><span class="line">##     # - The examples below prefer ciphersuites with &quot;Forward Secrecy&quot; (and ECDHE over DHE (alias EDH)), remove &#39;+kEDH +kRSA&#39;</span><br><span class="line">##     #   if you don&#39;t want that.</span><br><span class="line">##     # - SRP and PSK are not supported anyway, excluding those (&#39;!kSRP !kPSK&#39;) just keeps the list smaller (easier to review)</span><br><span class="line">##     # Check your cipher list with: openssl ciphers -v &#39;...&#39; (use single quotes as your shell won&#39;t like ! in double quotes)</span><br><span class="line">##     #</span><br><span class="line">##     # If you know you have RSA keys (standard), you can use:</span><br><span class="line">##     ssl.cipher-list             &#x3D; &quot;PROFILE&#x3D;SYSTEM&quot;</span><br><span class="line">##     # The more generic version (without the restriction to RSA keys) is</span><br><span class="line">##     # ssl.cipher-list           &#x3D; &quot;HIGH !aNULL !3DES +kEDH +kRSA !kSRP !kPSK&quot;</span><br><span class="line">##     #</span><br><span class="line">##     # Make the server prefer the order of the server side cipher suite instead of the client suite.</span><br><span class="line">##     # This option is enabled by default, but only used if ssl.cipher-list is set.</span><br><span class="line">##     #</span><br><span class="line">##     # ssl.honor-cipher-order &#x3D; &quot;enable&quot;</span><br><span class="line">##     #</span><br><span class="line">##     server.name                 &#x3D; &quot;www.example.com&quot;</span><br><span class="line">##</span><br><span class="line">##     server.document-root        &#x3D; &quot;&#x2F;srv&#x2F;www&#x2F;vhosts&#x2F;example.com&#x2F;www&#x2F;&quot;</span><br><span class="line">##   &#125;</span><br><span class="line">##</span><br><span class="line"></span><br><span class="line">## If you have a .crt and a .key file, cat them together into a</span><br><span class="line">## single PEM file:</span><br><span class="line">## $ cat &#x2F;etc&#x2F;ssl&#x2F;private&#x2F;lighttpd.key &#x2F;etc&#x2F;ssl&#x2F;certs&#x2F;lighttpd.crt \</span><br><span class="line">##   &gt; &#x2F;etc&#x2F;ssl&#x2F;private&#x2F;lighttpd.pem</span><br><span class="line">##</span><br><span class="line">#ssl.pemfile &#x3D; &quot;&#x2F;etc&#x2F;ssl&#x2F;private&#x2F;lighttpd.pem&quot;</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## optionally pass the CA certificate here.</span><br><span class="line">##</span><br><span class="line">##</span><br><span class="line">#ssl.ca-file &#x3D; &quot;&quot;</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## and the CRL revocation list here.</span><br><span class="line">##</span><br><span class="line">##</span><br><span class="line">#ssl.ca-crl-file &#x3D; &quot;&quot;</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">#######################################################################</span><br><span class="line"></span><br><span class="line">#######################################################################</span><br><span class="line">##</span><br><span class="line">## custom includes like vhosts.</span><br><span class="line">##</span><br><span class="line">#include &quot;conf.d&#x2F;config.conf&quot;</span><br><span class="line">#include &quot;&#x2F;etc&#x2F;lighttpd&#x2F;vhosts.d&#x2F;*.conf&quot;</span><br><span class="line">##</span><br><span class="line">#######################################################################</span><br></pre></td></tr></table></figure>
+      
     </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
     
-    <footer>
-        <a href="https://jingzhouyouxia.github.io">
-            <img src="/img/avatar.jpg" alt="游侠">
-            游侠
-        </a>
-    </footer>
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://jingzhouyouxia.github.io/2017/03/10/common-ha-software-haproxy/" title="高可用软件之keepalived+Haproxy" target="_blank" rel="external">https://jingzhouyouxia.github.io/2017/03/10/common-ha-software-haproxy/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
 </blockquote>
 
-        
 
-
-        <div class="post-footer">
-            
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/haporxy/">haporxy</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/中间件技术/">中间件技术</a></li></ul>
-
-
-            
-<div class="page-share-wrap">
-    
-
-<div class="page-share" id="pageShare">
-    <ul class="reset share-icons">
-      <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://jingzhouyouxia.github.io/2017/03/10/common-ha-software-haproxy/&title=《高可用软件之keepalived+Haproxy》 — 思路比试错更重要&pic=https://jingzhouyouxia.github.io/img/avatar.jpg" data-title="微博">
-          <i class="icon icon-weibo"></i>
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/jingzhouyouxia" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://www.gravatar.com/avatar/80df4bfee856f0107ea8d54da41c3f31?s=128" class="img-rounded w-full" alt="">
         </a>
-      </li>
-      <li>
-        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
-          <i class="icon icon-weixin"></i>
-        </a>
-      </li>
-      <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://jingzhouyouxia.github.io/2017/03/10/common-ha-software-haproxy/&title=《高可用软件之keepalived+Haproxy》 — 思路比试错更重要&source=" data-title=" QQ">
-          <i class="icon icon-qq"></i>
-        </a>
-      </li>
-      <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://jingzhouyouxia.github.io/2017/03/10/common-ha-software-haproxy/" data-title=" Facebook">
-          <i class="icon icon-facebook"></i>
-        </a>
-      </li>
-      <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《高可用软件之keepalived+Haproxy》 — 思路比试错更重要&url=https://jingzhouyouxia.github.io/2017/03/10/common-ha-software-haproxy/&via=https://jingzhouyouxia.github.io" data-title=" Twitter">
-          <i class="icon icon-twitter"></i>
-        </a>
-      </li>
-      <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://jingzhouyouxia.github.io/2017/03/10/common-ha-software-haproxy/" data-title=" Google+">
-          <i class="icon icon-google-plus"></i>
-        </a>
-      </li>
-    </ul>
- </div>
-
-
-
-    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
-        <i class="icon icon-share-alt icon-lg"></i>
-    </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/jingzhouyouxia" target="_blank"><span class="text-dark">游侠</span><small class="ml-1x">程序员(后端)</small></a></h3>
+        <div>出生在荆州、现居住深圳的后端开发者。</div>
+      </div>
+    </figure>
+  </div>
 </div>
 
 
-
-        </div>
     </div>
-
+  </article>
+  
     
-<nav class="post-nav flex-row flex-justify-between">
-  
-    <div class="waves-block waves-effect prev">
-      <a href="/2017/03/13/docker-redis-master-slave/" id="post-prev" class="post-nav-link">
-        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">docker1.10安装redis主从</h4>
-      </a>
-    </div>
-  
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
 
   
-    <div class="waves-block waves-effect next">
-      <a href="/2017/02/14/docker-network-introduce/" id="post-next" class="post-nav-link">
-        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">【转载】docker容器的网络模式</h4>
-      </a>
-    </div>
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
   
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2017/03/13/docker-redis-master-slave/" title="docker1.10安装redis主从"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2017/02/14/docker-network-introduce/" title="【转载】docker容器的网络模式"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
 </nav>
-
-
-
-    
-
-
-
-
-
-
-
-
-<section class="comments" id="comments">
-    <div id="gitment_thread"></div>
-	<link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
-	<script src="https://jjeejj.github.io/js/gitment.js"></script>
-    <script>
-        var gitment = new Gitment({
-		    id: 'Fri Mar 10 2017 11:27:58 GMT+0800',
-            owner: 'youxia999',
-            repo: 'gitment_comments',
-            oauth: {
-                client_id: '46d6bcb60b3252945f23',
-                client_secret: '954a7427590c10667e9497f77996a1d2e88620e8',
-            },
-        })
-        gitment.render('comments')
-    </script>
-</section>
-
-
-
-
-
-
-
-
-
-
-
-
-
-</article>
-
-
-
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
-        <footer class="footer">
-    <div class="top">
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/jingzhouyouxia" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
         
-<p>
-    <span id="busuanzi_container_site_uv" style='display:none'>
-        站点总访客数：<span id="busuanzi_value_site_uv"></span>
-    </span>
-    <span id="busuanzi_container_site_pv" style='display:none'>
-        站点总访问量：<span id="busuanzi_value_site_pv"></span>
-    </span>
-</p>
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
 
-
-        <p>
-            
-                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
-            
-            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
-        </p>
-    </div>
-    <div class="bottom">
-        <p><span>游侠 &copy; 2015 - 2020</span>
-            <span>
-                
-                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
-            </span>
-        </p>
+    <div class="copyright">
+    	
+        &copy; 2020 游侠
+        
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
     </div>
 </footer>
-
-    </main>
-    <div class="mask" id="mask"></div>
-<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
-
-
-
-<div class="global-share" id="globalShare">
-    <ul class="reset share-icons">
-      <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://jingzhouyouxia.github.io/2017/03/10/common-ha-software-haproxy/&title=《高可用软件之keepalived+Haproxy》 — 思路比试错更重要&pic=https://jingzhouyouxia.github.io/img/avatar.jpg" data-title="微博">
-          <i class="icon icon-weibo"></i>
-        </a>
-      </li>
-      <li>
-        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
-          <i class="icon icon-weixin"></i>
-        </a>
-      </li>
-      <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://jingzhouyouxia.github.io/2017/03/10/common-ha-software-haproxy/&title=《高可用软件之keepalived+Haproxy》 — 思路比试错更重要&source=" data-title=" QQ">
-          <i class="icon icon-qq"></i>
-        </a>
-      </li>
-      <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://jingzhouyouxia.github.io/2017/03/10/common-ha-software-haproxy/" data-title=" Facebook">
-          <i class="icon icon-facebook"></i>
-        </a>
-      </li>
-      <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《高可用软件之keepalived+Haproxy》 — 思路比试错更重要&url=https://jingzhouyouxia.github.io/2017/03/10/common-ha-software-haproxy/&via=https://jingzhouyouxia.github.io" data-title=" Twitter">
-          <i class="icon icon-twitter"></i>
-        </a>
-      </li>
-      <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://jingzhouyouxia.github.io/2017/03/10/common-ha-software-haproxy/" data-title=" Google+">
-          <i class="icon icon-google-plus"></i>
-        </a>
-      </li>
-    </ul>
- </div>
-
-
-<div class="page-modal wx-share" id="wxShare">
-    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://jingzhouyouxia.github.io/2017/03/10/common-ha-software-haproxy/" alt="微信分享二维码">
-</div>
-
-
-
-
-    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
 <script>
-var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
-
-
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 </script>
 
-<script src="/js/main.min.js?v=1.7.2"></script>
+<script src="/js/plugin.min.js"></script>
 
 
-<div class="search-panel" id="search-panel">
-    <ul class="search-result" id="search-result"></ul>
-</div>
-<template id="search-tpl">
-<li class="item">
-    <a href="{path}" class="waves-block waves-effect">
-        <div class="title ellipsis" title="{title}">{title}</div>
-        <div class="flex-row flex-middle">
-            <div class="tags ellipsis">
-                {tags}
-            </div>
-            <time class="flex-col time">{date}</time>
-        </div>
-    </a>
-</li>
-</template>
-
-<script src="/js/search.min.js?v=1.7.2" async></script>
+<script src="/js/application.js"></script>
 
 
-
-
-
-
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-
-
-<script>
-(function() {
-    var OriginTitile = document.title, titleTime;
-    document.addEventListener('visibilitychange', function() {
-        if (document.hidden) {
-            document.title = '';
-            clearTimeout(titleTime);
-        } else {
-            document.title = '';
-            titleTime = setTimeout(function() {
-                document.title = OriginTitile;
-            },2000);
-        }
-    });
-})();
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
 </script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: '',
+    appKey: '',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
 
 
 

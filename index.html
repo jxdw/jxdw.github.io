@@ -1,2832 +1,1670 @@
 <!DOCTYPE html>
-<html>
-<head><meta name="generator" content="Hexo 3.9.0">
-    
-
-    
-
-    
-
-
-
-    <meta charset="utf-8">
-    
-    
-    
-    
-    <title>思路比试错更重要 | 记录技术的学习和实践过程</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    
-    <meta name="theme-color" content="#3F51B5">
-    
-    
-    <meta name="keywords" content>
-    <meta property="og:type" content="website">
-<meta property="og:title" content="思路比试错更重要">
+<html lang=ZH>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>技术学习过程</title>
+  <meta property="og:type" content="website">
+<meta property="og:title" content="永远在路上">
 <meta property="og:url" content="https://jingzhouyouxia.github.io/index.html">
-<meta property="og:site_name" content="思路比试错更重要">
-<meta property="og:locale" content="ZH_CN">
+<meta property="og:site_name" content="永远在路上">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="游侠">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="思路比试错更重要">
-    
-        <link rel="alternate" type="application/atom+xml" title="思路比试错更重要" href="/atom.xml">
-    
-    <link rel="shortcut icon" href="/favicon.ico">
-    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
-    <script>window.lazyScripts=[]</script>
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://jingzhouyouxia.github.io/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="永远在路上" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
 
-    <!-- custom head -->
-    
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.2.0"></head>
 
-</head>
 
-<body>
-    <div id="loading" class="active"></div>
-
-    <aside id="menu"  >
-  <div class="inner flex-row-vertical">
-    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
-        <i class="icon icon-lg icon-close"></i>
-    </a>
-    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
-      <div class="brand">
-        <a href="/" class="avatar waves-effect waves-circle waves-light">
-          <img src="/img/avatar.jpg">
+<body class="main-center theme-purple" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/jingzhouyouxia" target="_blank">
+          <img class="img-circle img-rotate" src="https://www.gravatar.com/avatar/80df4bfee856f0107ea8d54da41c3f31?s=128" width="200" height="200">
         </a>
-        <hgroup class="introduce">
-          <h5 class="nickname">游侠</h5>
-          <a href="mailto:jingzhouyouxia@gmail.com" title="jingzhouyouxia@gmail.com" class="mail">jingzhouyouxia@gmail.com</a>
-        </hgroup>
+        <h2 id="name" class="hidden-xs hidden-sm">游侠</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">程序员(后端)</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Shenzhen, China</small>
       </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
     </div>
-    <div class="scroll-wrap flex-col">
-      <ul class="nav">
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
         
-            <li class="waves-block waves-effect active">
-              <a href="/"  >
-                <i class="icon icon-lg icon-home"></i>
-                主页
-              </a>
-            </li>
         
-            <li class="waves-block waves-effect">
-              <a href="/tags/DevOps%E5%B7%A5%E5%85%B7/"  >
-                <i class="icon icon-lg icon-cogs"></i>
-                DevOps工具
-              </a>
-            </li>
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
         
-            <li class="waves-block waves-effect">
-              <a href="/tags/%E5%AE%B9%E5%99%A8%E4%B8%8Ek8s/"  >
-                <i class="icon icon-lg icon-cloud"></i>
-                容器与k8s
-              </a>
-            </li>
         
-            <li class="waves-block waves-effect">
-              <a href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6%E6%8A%80%E6%9C%AF/"  >
-                <i class="icon icon-lg icon-desktop"></i>
-                中间件技术
-              </a>
-            </li>
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
         
-            <li class="waves-block waves-effect">
-              <a href="/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E6%8A%80%E6%9C%AF/"  >
-                <i class="icon icon-lg icon-coffee"></i>
-                编程语言技术
-              </a>
-            </li>
         
-            <li class="waves-block waves-effect">
-              <a href="/about"  >
-                <i class="icon icon-lg icon-th-list"></i>
-                关于
-              </a>
-            </li>
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
         
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/jingzhouyouxia" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>2020年，重新开始。<br>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%9A%E5%8A%A1%E5%BC%80%E5%8F%91%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="tag">业务开发中间件</a><span class="tag-list-count">32</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9E%B6%E6%9E%84-%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" rel="tag">架构/知识体系</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9B%91%E6%8E%A7%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="tag">监控中间件</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A0%94%E5%8F%91%E6%95%88%E7%8E%87%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="tag">研发效率中间件</a><span class="tag-list-count">34</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" rel="tag">编程语言</a><span class="tag-list-count">20</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2019/10/07/prometheus_monitor_rabbitmq/" class="title">Prometheus监控rabbitmq3.8.0</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-10-07T04:46:48.000Z" itemprop="datePublished">2019-10-07 12:46:48</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2019/10/01/jaeger-install-config/" class="title">跟踪平台jaeger安装、配置</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-10-01T11:00:00.000Z" itemprop="datePublished">2019-10-01 19:00:00</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2019/08/11/apache_dubbo_zipkin_merge/" class="title">apache dubbo 2.7.3版本与zipkin结合进行接口监控</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-08-11T03:02:34.000Z" itemprop="datePublished">2019-08-11 11:02:34</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2019/06/30/cicd-jira-crack-restfulapi/" class="title">【转载】jira7.13版本破解与restful api</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-06-30T11:00:00.000Z" itemprop="datePublished">2019-06-30 19:00:00</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2019/06/01/centos7-share-a-photo/" class="title">【转载】TCP通信转UDP通信并加速</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-06-01T13:46:40.000Z" itemprop="datePublished">2019-06-01 21:46:40</time>
+              </p>
+            </div>
+          </li>
+          
       </ul>
     </div>
   </div>
+  
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">二月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">一月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">十二月 2017</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">十一月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">十月 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">八月 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">一月 2015</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+  </div>
 </aside>
 
-    <main id="main">
-        <header class="top-header" id="header">
-    <div class="flex-row">
-        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
-          <i class="icon icon-lg icon-navicon"></i>
-        </a>
-        <div class="flex-col header-title ellipsis">思路比试错更重要</div>
-        
-        <div class="search-wrap" id="search-wrap">
-            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
-                <i class="icon icon-lg icon-chevron-left"></i>
-            </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
-            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
-                <i class="icon icon-lg icon-search"></i>
-            </a>
+  
+  <main class="main" role="main">
+  
+  <div class="content article-list">
+    
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/07/prometheus_monitor_rabbitmq/">Prometheus监控rabbitmq3.8.0</a>
+    </h1>
+  
+
+  </div>
+  
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2019/10/07/prometheus_monitor_rabbitmq/" class="article-date">
+	  <time datetime="2019-10-07T04:46:48.000Z" itemprop="datePublished">10月 7</time>
+	</a>
+</span>
+    
+    
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E7%9B%91%E6%8E%A7%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="tag">监控中间件</a>
+  </span>
+
+
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/10/07/prometheus_monitor_rabbitmq/#comments" class="article-comment-link">评论</a></span>
+    
+  </p>
+</article>
+
+    
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/01/jaeger-install-config/">跟踪平台jaeger安装、配置</a>
+    </h1>
+  
+
+  </div>
+  
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2019/10/01/jaeger-install-config/" class="article-date">
+	  <time datetime="2019-10-01T11:00:00.000Z" itemprop="datePublished">10月 1</time>
+	</a>
+</span>
+    
+    
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E4%B8%9A%E5%8A%A1%E5%BC%80%E5%8F%91%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="tag">业务开发中间件</a>
+  </span>
+
+
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/10/01/jaeger-install-config/#comments" class="article-comment-link">评论</a></span>
+    
+  </p>
+</article>
+
+    
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/11/apache_dubbo_zipkin_merge/">apache dubbo 2.7.3版本与zipkin结合进行接口监控</a>
+    </h1>
+  
+
+  </div>
+  
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2019/08/11/apache_dubbo_zipkin_merge/" class="article-date">
+	  <time datetime="2019-08-11T03:02:34.000Z" itemprop="datePublished">8月 11</time>
+	</a>
+</span>
+    
+    
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E4%B8%9A%E5%8A%A1%E5%BC%80%E5%8F%91%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="tag">业务开发中间件</a>
+  </span>
+
+
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/08/11/apache_dubbo_zipkin_merge/#comments" class="article-comment-link">评论</a></span>
+    
+  </p>
+</article>
+
+    
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/06/30/cicd-jira-crack-restfulapi/">【转载】jira7.13版本破解与restful api</a>
+    </h1>
+  
+
+  </div>
+  
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2019/06/30/cicd-jira-crack-restfulapi/" class="article-date">
+	  <time datetime="2019-06-30T11:00:00.000Z" itemprop="datePublished">6月 30</time>
+	</a>
+</span>
+    
+    
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E7%A0%94%E5%8F%91%E6%95%88%E7%8E%87%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="tag">研发效率中间件</a>
+  </span>
+
+
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/06/30/cicd-jira-crack-restfulapi/#comments" class="article-comment-link">评论</a></span>
+    
+  </p>
+</article>
+
+    
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/06/01/centos7-share-a-photo/">【转载】TCP通信转UDP通信并加速</a>
+    </h1>
+  
+
+  </div>
+  
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2019/06/01/centos7-share-a-photo/" class="article-date">
+	  <time datetime="2019-06-01T13:46:40.000Z" itemprop="datePublished">6月 1</time>
+	</a>
+</span>
+    
+    
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E7%A0%94%E5%8F%91%E6%95%88%E7%8E%87%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="tag">研发效率中间件</a>
+  </span>
+
+
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/06/01/centos7-share-a-photo/#comments" class="article-comment-link">评论</a></span>
+    
+  </p>
+</article>
+
+    
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/19/redis-sentinel-install/">redis5.0的sentinel模式体验</a>
+    </h1>
+  
+
+  </div>
+  
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2019/05/19/redis-sentinel-install/" class="article-date">
+	  <time datetime="2019-05-19T02:43:17.000Z" itemprop="datePublished">5月 19</time>
+	</a>
+</span>
+    
+    
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E4%B8%9A%E5%8A%A1%E5%BC%80%E5%8F%91%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="tag">业务开发中间件</a>
+  </span>
+
+
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/05/19/redis-sentinel-install/#comments" class="article-comment-link">评论</a></span>
+    
+  </p>
+</article>
+
+    
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/12/spring-architecture/">关于java学习的阶段性思考</a>
+    </h1>
+  
+
+  </div>
+  
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2019/05/12/spring-architecture/" class="article-date">
+	  <time datetime="2019-05-12T13:46:07.000Z" itemprop="datePublished">5月 12</time>
+	</a>
+</span>
+    
+    
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" rel="tag">编程语言</a>
+  </span>
+
+
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/05/12/spring-architecture/#comments" class="article-comment-link">评论</a></span>
+    
+  </p>
+</article>
+
+    
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/12/centos8-base-rhel8-release/">RHEL8发布，坐等centos8</a>
+    </h1>
+  
+
+  </div>
+  
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2019/05/12/centos8-base-rhel8-release/" class="article-date">
+	  <time datetime="2019-05-12T05:24:41.000Z" itemprop="datePublished">5月 12</time>
+	</a>
+</span>
+    
+    
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E7%A0%94%E5%8F%91%E6%95%88%E7%8E%87%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="tag">研发效率中间件</a>
+  </span>
+
+
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/05/12/centos8-base-rhel8-release/#comments" class="article-comment-link">评论</a></span>
+    
+  </p>
+</article>
+
+    
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/19/redis-5-0-install/">单节点安装redis 5.0集群</a>
+    </h1>
+  
+
+  </div>
+  
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2019/04/19/redis-5-0-install/" class="article-date">
+	  <time datetime="2019-04-19T08:46:12.000Z" itemprop="datePublished">4月 19</time>
+	</a>
+</span>
+    
+    
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E4%B8%9A%E5%8A%A1%E5%BC%80%E5%8F%91%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="tag">业务开发中间件</a>
+  </span>
+
+
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/04/19/redis-5-0-install/#comments" class="article-comment-link">评论</a></span>
+    
+  </p>
+</article>
+
+    
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/13/percona-xtrabackup-for-mysql-8-0/">percona-xtrabackup 8.0安装和初步使用</a>
+    </h1>
+  
+
+  </div>
+  
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2019/04/13/percona-xtrabackup-for-mysql-8-0/" class="article-date">
+	  <time datetime="2019-04-13T04:58:32.000Z" itemprop="datePublished">4月 13</time>
+	</a>
+</span>
+    
+    
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E4%B8%9A%E5%8A%A1%E5%BC%80%E5%8F%91%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="tag">业务开发中间件</a>
+  </span>
+
+
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/04/13/percona-xtrabackup-for-mysql-8-0/#comments" class="article-comment-link">评论</a></span>
+    
+  </p>
+</article>
+
+    
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/01/centos7-kernel-upgrade/">centos7内核升级</a>
+    </h1>
+  
+
+  </div>
+  
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2019/04/01/centos7-kernel-upgrade/" class="article-date">
+	  <time datetime="2019-04-01T13:12:52.000Z" itemprop="datePublished">4月 1</time>
+	</a>
+</span>
+    
+    
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E7%A0%94%E5%8F%91%E6%95%88%E7%8E%87%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="tag">研发效率中间件</a>
+  </span>
+
+
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/04/01/centos7-kernel-upgrade/#comments" class="article-comment-link">评论</a></span>
+    
+  </p>
+</article>
+
+    
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/31/rhel8-beta-experience/">rhel8 beta尝鲜</a>
+    </h1>
+  
+
+  </div>
+  
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2019/03/31/rhel8-beta-experience/" class="article-date">
+	  <time datetime="2019-03-31T14:54:07.000Z" itemprop="datePublished">3月 31</time>
+	</a>
+</span>
+    
+    
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E7%A0%94%E5%8F%91%E6%95%88%E7%8E%87%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="tag">研发效率中间件</a>
+  </span>
+
+
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/03/31/rhel8-beta-experience/#comments" class="article-comment-link">评论</a></span>
+    
+  </p>
+</article>
+
+    
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/24/golang-gin-source-code-v1/">gin源码分析第一版</a>
+    </h1>
+  
+
+  </div>
+  
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2019/03/24/golang-gin-source-code-v1/" class="article-date">
+	  <time datetime="2019-03-24T04:48:30.000Z" itemprop="datePublished">3月 24</time>
+	</a>
+</span>
+    
+    
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" rel="tag">编程语言</a>
+  </span>
+
+
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/03/24/golang-gin-source-code-v1/#comments" class="article-comment-link">评论</a></span>
+    
+  </p>
+</article>
+
+    
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/04/percona-server-for-mysql-8-0-install/">Percona Server8.0安装和初步使用</a>
+    </h1>
+  
+
+  </div>
+  
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2019/03/04/percona-server-for-mysql-8-0-install/" class="article-date">
+	  <time datetime="2019-03-04T02:43:32.000Z" itemprop="datePublished">3月 4</time>
+	</a>
+</span>
+    
+    
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E4%B8%9A%E5%8A%A1%E5%BC%80%E5%8F%91%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="tag">业务开发中间件</a>
+  </span>
+
+
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/03/04/percona-server-for-mysql-8-0-install/#comments" class="article-comment-link">评论</a></span>
+    
+  </p>
+</article>
+
+    
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/02/26/golang-1-12-experience/">golang 1.12初步体验</a>
+    </h1>
+  
+
+  </div>
+  
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2019/02/26/golang-1-12-experience/" class="article-date">
+	  <time datetime="2019-02-26T11:10:08.000Z" itemprop="datePublished">2月 26</time>
+	</a>
+</span>
+    
+    
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" rel="tag">编程语言</a>
+  </span>
+
+
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/02/26/golang-1-12-experience/#comments" class="article-comment-link">评论</a></span>
+    
+  </p>
+</article>
+
+    
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/02/09/spring-cloud-2x-cloud-sleuth/">spring框架系列之spring cloud sleuth</a>
+    </h1>
+  
+
+  </div>
+  
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2019/02/09/spring-cloud-2x-cloud-sleuth/" class="article-date">
+	  <time datetime="2019-02-09T09:15:36.000Z" itemprop="datePublished">2月 9</time>
+	</a>
+</span>
+    
+    
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E4%B8%9A%E5%8A%A1%E5%BC%80%E5%8F%91%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="tag">业务开发中间件</a>
+  </span>
+
+
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/02/09/spring-cloud-2x-cloud-sleuth/#comments" class="article-comment-link">评论</a></span>
+    
+  </p>
+</article>
+
+    
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/02/07/docker-1-17-install/">docker 1.17安装和初步使用</a>
+    </h1>
+  
+
+  </div>
+  
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2019/02/07/docker-1-17-install/" class="article-date">
+	  <time datetime="2019-02-07T02:51:23.000Z" itemprop="datePublished">2月 7</time>
+	</a>
+</span>
+    
+    
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E7%A0%94%E5%8F%91%E6%95%88%E7%8E%87%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="tag">研发效率中间件</a>
+  </span>
+
+
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/02/07/docker-1-17-install/#comments" class="article-comment-link">评论</a></span>
+    
+  </p>
+</article>
+
+    
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/02/02/spring-cloud-2x-cloud-stream/">spring框架系列之spring-cloud-stream</a>
+    </h1>
+  
+
+  </div>
+  
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2019/02/02/spring-cloud-2x-cloud-stream/" class="article-date">
+	  <time datetime="2019-02-02T09:44:15.000Z" itemprop="datePublished">2月 2</time>
+	</a>
+</span>
+    
+    
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E4%B8%9A%E5%8A%A1%E5%BC%80%E5%8F%91%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="tag">业务开发中间件</a>
+  </span>
+
+
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/02/02/spring-cloud-2x-cloud-stream/#comments" class="article-comment-link">评论</a></span>
+    
+  </p>
+</article>
+
+    
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/01/01/jishuzongjie-2018/">2018年度的技术总结</a>
+    </h1>
+  
+
+  </div>
+  
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2019/01/01/jishuzongjie-2018/" class="article-date">
+	  <time datetime="2019-01-01T02:35:47.000Z" itemprop="datePublished">1月 1</time>
+	</a>
+</span>
+    
+    
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E6%9E%B6%E6%9E%84-%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" rel="tag">架构/知识体系</a>
+  </span>
+
+
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/01/01/jishuzongjie-2018/#comments" class="article-comment-link">评论</a></span>
+    
+  </p>
+</article>
+
+    
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/30/container-kubernetes-jieduanxing-zongjie/">玩转kubernetes之kubernetes阶段性成果</a>
+    </h1>
+  
+
+  </div>
+  
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2018/12/30/container-kubernetes-jieduanxing-zongjie/" class="article-date">
+	  <time datetime="2018-12-30T02:38:44.000Z" itemprop="datePublished">12月 30</time>
+	</a>
+</span>
+    
+    
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E7%A0%94%E5%8F%91%E6%95%88%E7%8E%87%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="tag">研发效率中间件</a>
+  </span>
+
+
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2018/12/30/container-kubernetes-jieduanxing-zongjie/#comments" class="article-comment-link">评论</a></span>
+    
+  </p>
+</article>
+
+    
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/28/container-kubernetes-1-8-install/">玩转kubernetes之kubernetes1.8安装</a>
+    </h1>
+  
+
+  </div>
+  
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2018/12/28/container-kubernetes-1-8-install/" class="article-date">
+	  <time datetime="2018-12-28T06:04:49.000Z" itemprop="datePublished">12月 28</time>
+	</a>
+</span>
+    
+    
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E7%A0%94%E5%8F%91%E6%95%88%E7%8E%87%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="tag">研发效率中间件</a>
+  </span>
+
+
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2018/12/28/container-kubernetes-1-8-install/#comments" class="article-comment-link">评论</a></span>
+    
+  </p>
+</article>
+
+    
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/27/docker-1-12-management/">docker1.12管理技术之portainer</a>
+    </h1>
+  
+
+  </div>
+  
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2018/12/27/docker-1-12-management/" class="article-date">
+	  <time datetime="2018-12-27T04:51:23.000Z" itemprop="datePublished">12月 27</time>
+	</a>
+</span>
+    
+    
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E7%A0%94%E5%8F%91%E6%95%88%E7%8E%87%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="tag">研发效率中间件</a>
+  </span>
+
+
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2018/12/27/docker-1-12-management/#comments" class="article-comment-link">评论</a></span>
+    
+  </p>
+</article>
+
+    
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/23/jenkins-restful-api/">【转载】jenkins restful api</a>
+    </h1>
+  
+
+  </div>
+  
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2018/12/23/jenkins-restful-api/" class="article-date">
+	  <time datetime="2018-12-23T11:00:00.000Z" itemprop="datePublished">12月 23</time>
+	</a>
+</span>
+    
+    
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E7%A0%94%E5%8F%91%E6%95%88%E7%8E%87%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="tag">研发效率中间件</a>
+  </span>
+
+
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2018/12/23/jenkins-restful-api/#comments" class="article-comment-link">评论</a></span>
+    
+  </p>
+</article>
+
+    
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/23/spring-cloud-2x-talk-about-greenwich/">spring框架系列之清谈spring-cloud 2.1版本的候选版本</a>
+    </h1>
+  
+
+  </div>
+  
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2018/12/23/spring-cloud-2x-talk-about-greenwich/" class="article-date">
+	  <time datetime="2018-12-23T05:35:44.000Z" itemprop="datePublished">12月 23</time>
+	</a>
+</span>
+    
+    
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E4%B8%9A%E5%8A%A1%E5%BC%80%E5%8F%91%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="tag">业务开发中间件</a>
+  </span>
+
+
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2018/12/23/spring-cloud-2x-talk-about-greenwich/#comments" class="article-comment-link">评论</a></span>
+    
+  </p>
+</article>
+
+    
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/22/yum-install-jenkins/">centos7下yum安装jenkins</a>
+    </h1>
+  
+
+  </div>
+  
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2018/12/22/yum-install-jenkins/" class="article-date">
+	  <time datetime="2018-12-22T02:41:23.000Z" itemprop="datePublished">12月 22</time>
+	</a>
+</span>
+    
+    
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E7%A0%94%E5%8F%91%E6%95%88%E7%8E%87%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="tag">研发效率中间件</a>
+  </span>
+
+
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2018/12/22/yum-install-jenkins/#comments" class="article-comment-link">评论</a></span>
+    
+  </p>
+</article>
+
+    
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/15/docker-1-12-swarm-ops/">docker1.12版本下swarm操作</a>
+    </h1>
+  
+
+  </div>
+  
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2018/12/15/docker-1-12-swarm-ops/" class="article-date">
+	  <time datetime="2018-12-15T04:51:23.000Z" itemprop="datePublished">12月 15</time>
+	</a>
+</span>
+    
+    
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E7%A0%94%E5%8F%91%E6%95%88%E7%8E%87%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="tag">研发效率中间件</a>
+  </span>
+
+
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2018/12/15/docker-1-12-swarm-ops/#comments" class="article-comment-link">评论</a></span>
+    
+  </p>
+</article>
+
+    
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/09/spring-boot-2x-boot-security/">【微服务架构java解决方案】spring security</a>
+    </h1>
+  
+
+  </div>
+  
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2018/12/09/spring-boot-2x-boot-security/" class="article-date">
+	  <time datetime="2018-12-09T11:55:51.000Z" itemprop="datePublished">12月 9</time>
+	</a>
+</span>
+    
+    
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E4%B8%9A%E5%8A%A1%E5%BC%80%E5%8F%91%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="tag">业务开发中间件</a>
+  </span>
+
+
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2018/12/09/spring-boot-2x-boot-security/#comments" class="article-comment-link">评论</a></span>
+    
+  </p>
+</article>
+
+    
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/05/container-etcd-install/">etcd3安装和初步操作</a>
+    </h1>
+  
+
+  </div>
+  
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2018/12/05/container-etcd-install/" class="article-date">
+	  <time datetime="2018-12-05T13:58:54.000Z" itemprop="datePublished">12月 5</time>
+	</a>
+</span>
+    
+    
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E7%A0%94%E5%8F%91%E6%95%88%E7%8E%87%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="tag">研发效率中间件</a>
+  </span>
+
+
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2018/12/05/container-etcd-install/#comments" class="article-comment-link">评论</a></span>
+    
+  </p>
+</article>
+
+    
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/02/spring-boot-2x-boot-admin-server/">spring boot的一种监控技术</a>
+    </h1>
+  
+
+  </div>
+  
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2018/12/02/spring-boot-2x-boot-admin-server/" class="article-date">
+	  <time datetime="2018-12-02T09:15:05.000Z" itemprop="datePublished">12月 2</time>
+	</a>
+</span>
+    
+    
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E7%9B%91%E6%8E%A7%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="tag">监控中间件</a>
+  </span>
+
+
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2018/12/02/spring-boot-2x-boot-admin-server/#comments" class="article-comment-link">评论</a></span>
+    
+  </p>
+</article>
+
+    
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/11/18/spring-boot-2x-boot-micrometer/">spring框架系列之spring boot micrometer监控</a>
+    </h1>
+  
+
+  </div>
+  
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2018/11/18/spring-boot-2x-boot-micrometer/" class="article-date">
+	  <time datetime="2018-11-18T09:15:59.000Z" itemprop="datePublished">11月 18</time>
+	</a>
+</span>
+    
+    
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E4%B8%9A%E5%8A%A1%E5%BC%80%E5%8F%91%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="tag">业务开发中间件</a>
+  </span>
+
+
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2018/11/18/spring-boot-2x-boot-micrometer/#comments" class="article-comment-link">评论</a></span>
+    
+  </p>
+</article>
+
+    
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/31/docker-registry-harbor-154-install/">镜像仓库harbor1.5.4版本安装和使用</a>
+    </h1>
+  
+
+  </div>
+  
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2018/10/31/docker-registry-harbor-154-install/" class="article-date">
+	  <time datetime="2018-10-31T14:49:09.000Z" itemprop="datePublished">10月 31</time>
+	</a>
+</span>
+    
+    
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E7%A0%94%E5%8F%91%E6%95%88%E7%8E%87%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="tag">研发效率中间件</a>
+  </span>
+
+
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2018/10/31/docker-registry-harbor-154-install/#comments" class="article-comment-link">评论</a></span>
+    
+  </p>
+</article>
+
+    
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/09/docker-network-basic/">docker扩展iptables实现网络隔离与通信</a>
+    </h1>
+  
+
+  </div>
+  
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2018/10/09/docker-network-basic/" class="article-date">
+	  <time datetime="2018-10-09T13:26:11.000Z" itemprop="datePublished">10月 9</time>
+	</a>
+</span>
+    
+    
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E7%A0%94%E5%8F%91%E6%95%88%E7%8E%87%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="tag">研发效率中间件</a>
+  </span>
+
+
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2018/10/09/docker-network-basic/#comments" class="article-comment-link">评论</a></span>
+    
+  </p>
+</article>
+
+    
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/07/docker-1-12-install/">docker1.12安装和初步使用</a>
+    </h1>
+  
+
+  </div>
+  
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2018/10/07/docker-1-12-install/" class="article-date">
+	  <time datetime="2018-10-07T02:51:23.000Z" itemprop="datePublished">10月 7</time>
+	</a>
+</span>
+    
+    
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E7%A0%94%E5%8F%91%E6%95%88%E7%8E%87%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="tag">研发效率中间件</a>
+  </span>
+
+
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2018/10/07/docker-1-12-install/#comments" class="article-comment-link">评论</a></span>
+    
+  </p>
+</article>
+
+    
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/01/elasticsearch-log-metrics/">基于elasticsearch的日志监控方案(改进版)</a>
+    </h1>
+  
+
+  </div>
+  
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2018/10/01/elasticsearch-log-metrics/" class="article-date">
+	  <time datetime="2018-10-01T06:29:46.000Z" itemprop="datePublished">10月 1</time>
+	</a>
+</span>
+    
+    
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E7%9B%91%E6%8E%A7%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="tag">监控中间件</a>
+  </span>
+
+
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2018/10/01/elasticsearch-log-metrics/#comments" class="article-comment-link">评论</a></span>
+    
+  </p>
+</article>
+
+    
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/09/11/golang-reflect-learn/">go语言反射学习</a>
+    </h1>
+  
+
+  </div>
+  
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2018/09/11/golang-reflect-learn/" class="article-date">
+	  <time datetime="2018-09-11T10:06:47.000Z" itemprop="datePublished">9月 11</time>
+	</a>
+</span>
+    
+    
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" rel="tag">编程语言</a>
+  </span>
+
+
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2018/09/11/golang-reflect-learn/#comments" class="article-comment-link">评论</a></span>
+    
+  </p>
+</article>
+
+    
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/08/25/redis-cluster-install/">单节点安装redis 3.2版本集群</a>
+    </h1>
+  
+
+  </div>
+  
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2018/08/25/redis-cluster-install/" class="article-date">
+	  <time datetime="2018-08-25T06:09:47.000Z" itemprop="datePublished">8月 25</time>
+	</a>
+</span>
+    
+    
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E4%B8%9A%E5%8A%A1%E5%BC%80%E5%8F%91%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="tag">业务开发中间件</a>
+  </span>
+
+
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2018/08/25/redis-cluster-install/#comments" class="article-comment-link">评论</a></span>
+    
+  </p>
+</article>
+
+    
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/08/14/docker-monitor-tech/">【转载】打造高逼格、可视化的Docker容器监控系统平台</a>
+    </h1>
+  
+
+  </div>
+  
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2018/08/14/docker-monitor-tech/" class="article-date">
+	  <time datetime="2018-08-14T12:03:07.000Z" itemprop="datePublished">8月 14</time>
+	</a>
+</span>
+    
+    
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E7%9B%91%E6%8E%A7%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="tag">监控中间件</a>
+  </span>
+
+
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2018/08/14/docker-monitor-tech/#comments" class="article-comment-link">评论</a></span>
+    
+  </p>
+</article>
+
+    
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/08/12/centos7-install-nodejs/">安装nodejs并初步使用</a>
+    </h1>
+  
+
+  </div>
+  
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2018/08/12/centos7-install-nodejs/" class="article-date">
+	  <time datetime="2018-08-12T08:37:48.000Z" itemprop="datePublished">8月 12</time>
+	</a>
+</span>
+    
+    
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E7%A0%94%E5%8F%91%E6%95%88%E7%8E%87%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="tag">研发效率中间件</a>
+  </span>
+
+
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2018/08/12/centos7-install-nodejs/#comments" class="article-comment-link">评论</a></span>
+    
+  </p>
+</article>
+
+    
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/08/06/2019_learn_plan/">2018年下半年学习落地计划</a>
+    </h1>
+  
+
+  </div>
+  
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2018/08/06/2019_learn_plan/" class="article-date">
+	  <time datetime="2018-08-06T02:35:47.000Z" itemprop="datePublished">8月 6</time>
+	</a>
+</span>
+    
+    
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E6%9E%B6%E6%9E%84-%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" rel="tag">架构/知识体系</a>
+  </span>
+
+
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2018/08/06/2019_learn_plan/#comments" class="article-comment-link">评论</a></span>
+    
+  </p>
+</article>
+
+    
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/07/29/elastic-job-basic-use/">elastic-job-lite使用和源码初步分析</a>
+    </h1>
+  
+
+  </div>
+  
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2018/07/29/elastic-job-basic-use/" class="article-date">
+	  <time datetime="2018-07-29T14:20:03.000Z" itemprop="datePublished">7月 29</time>
+	</a>
+</span>
+    
+    
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E4%B8%9A%E5%8A%A1%E5%BC%80%E5%8F%91%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="tag">业务开发中间件</a>
+  </span>
+
+
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2018/07/29/elastic-job-basic-use/#comments" class="article-comment-link">评论</a></span>
+    
+  </p>
+</article>
+
+    
+  </div>
+
+  
+    
+    <nav class="bar bar-footer clearfix" data-stick-bottom>
+        <div class="bar-inner">
+        <ul class="pager pull-left">
+            
+            <li class="prev disabled">
+                <a href="javascript:;">
+                    <i class="icon icon-angle-left"></i>
+                    上一页
+                </a>
+            </li>
+            
+            
+            <li class="next">
+                <a href="/page/2/">
+                    下一页
+                    <i class="icon icon-angle-right"></i>
+                </a>
+            </li>
+            
+        </ul>
+        <div class="total-article bar-right">Page 1 of 3</div>
         </div>
-        
-        
-        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
-            <i class="icon icon-lg icon-share-alt"></i>
-        </a>
-        
-    </div>
-</header>
-<header class="content-header index-header">
-
-    <div class="container fade-scale">
-        <h1 class="title">思路比试错更重要</h1>
-        <h5 class="subtitle">
-            
-                记录技术的学习和实践过程
-            
-        </h5>
-    </div>
-
-    
-
-
-</header>
-
-<div class="container body-wrap">
-
-    <ul class="post-list">
-    
-        <li class="post-list-item fade">
-            <article id="post-zhiding"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2030/12/31/zhiding/">【置顶】博客主要内容</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-meta">
-        <time class="post-time" title="2030-12-31 22:22:20 22:22:20" datetime="2030-12-31T14:22:20.000Z"  itemprop="datePublished">2030-12-31 22:22:20</time>
-
-        
-
-
-    </div>
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        
-                
-                    
-                    
-                
-                
-            
-    
-
-        <a href="/2030/12/31/zhiding/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/杂项/">杂项</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-prometheus_monitor_rabbitmq"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2019/10/07/prometheus_monitor_rabbitmq/">Prometheus监控rabbitmq3.8.0</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-meta">
-        <time class="post-time" title="2019-10-07 12:46:48 12:46:48" datetime="2019-10-07T04:46:48.000Z"  itemprop="datePublished">2019-10-07 12:46:48</time>
-
-        
-
-
-    </div>
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        背景官方介绍链接: https://www.rabbitmq.com/prometheus.html#overview-prometheusAs of 3.8.0, RabbitMQ ships with built-in Prometheus &amp; Grafana support.Support for Prometheus metric collector ships in the rabbitmq_prometheus plugin. The plugin exposes all RabbitMQ metrics on a dedicated TCP port, in Prometheus text format.These metrics provide a deep insights into the state of RabbitMQ nodes and the runtime. They make reasoning about the behaviour of RabbitMQ, applications that use it and various in...
-    
-
-        <a href="/2019/10/07/prometheus_monitor_rabbitmq/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/中间件技术/">中间件技术</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/监控技术/">监控技术</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-jaeger-install-config"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2019/10/01/jaeger-install-config/">跟踪平台jaeger安装、配置</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-meta">
-        <time class="post-time" title="2019-10-01 19:00:00 19:00:00" datetime="2019-10-01T11:00:00.000Z"  itemprop="datePublished">2019-10-01 19:00:00</time>
-
-        
-
-
-    </div>
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        Jaeger项目背景和整体架构项目背景Jaeger项目是一套受到Dapper与OpenZipkin启发构建而成的分布式跟踪平台，由Uber公司最初以开源方式公布，随后加入了云原生计算基金会。该项目主要用于:监控并诊断基于微服务架构的分布式系统，具体涵盖：
-
-分布式上下文传播
-分布式事务监控
-根本原因分析
-服务依赖关系分析
-性能/延迟优化
-
-整体架构
-                
-                    
-                    
-                
-                
-            
-下载安装和配置安装前置条件
-已经安装elasticsearch集群
-安装好prometheus监控
-
-从github下载二进制包下载地址：https://github.com/jaegertracing/jaeger/releases/download/v1.14.0/jaeger-1.14.0-linux-amd64.tar.gz
-解压和配置编写collector启动脚本start-colloector.shexport S...
-    
-
-        <a href="/2019/10/01/jaeger-install-config/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/中间件技术/">中间件技术</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/链路跟踪技术/">链路跟踪技术</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-apache_dubbo_zipkin_merge"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2019/08/11/apache_dubbo_zipkin_merge/">apache dubbo 2.7.3版本与zipkin结合进行接口监控</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-meta">
-        <time class="post-time" title="2019-08-11 11:02:34 11:02:34" datetime="2019-08-11T03:02:34.000Z"  itemprop="datePublished">2019-08-11 11:02:34</time>
-
-        
-
-
-    </div>
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        本文背景因为:1.dubbo已经从apache毕业，而zipkin官方的brave-instrumentation-dubbo-rpc的5.6版本支持的dubbo版本是2.6.6版本、且对2.7.3版本支持不太友好(2.6.6这个版本是未毕业前的版本，不太喜欢），只能把brave-instrumentation-dubbo-rpc抠出来，用以支撑2.7.3版本。2.dubbo官方提供的例子还是xml配置版本，现在都9102年了，谁还用XML配置版本。因为以上两点，有了此文。
-provider方工程代码添加pom依赖1.brave对dubbo的集成:brave-instrumentation-dubbo-rpc2.brave的spring bean支持:brave-spring-beans3.在SLF4J的MDC(Mapped Diagnostic Context) 中支持 traceId 和 spanId4.使用okhttp3作为 reporter:zipkin-sender-okhttp3当然，最好是同时添加bom，做好版本控制。
-                
-      ...
-    
-
-        <a href="/2019/08/11/apache_dubbo_zipkin_merge/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/中间件技术/">中间件技术</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/链路跟踪技术/">链路跟踪技术</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-e6_introduce"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2019/07/23/e6_introduce/">es6核心内容</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-meta">
-        <time class="post-time" title="2019-07-23 22:22:20 22:22:20" datetime="2019-07-23T14:22:20.000Z"  itemprop="datePublished">2019-07-23 22:22:20</time>
-
-        
-
-
-    </div>
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        
-                
-                    
-                    
-                
-                
-            
-    
-
-        <a href="/2019/07/23/e6_introduce/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es6/">es6</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编程语言技术/">编程语言技术</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-cicd-jira-crack-restfulapi"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2019/06/30/cicd-jira-crack-restfulapi/">【转载】jira7.13版本破解与restful api</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-meta">
-        <time class="post-time" title="2019-06-30 19:00:00 19:00:00" datetime="2019-06-30T11:00:00.000Z"  itemprop="datePublished">2019-06-30 19:00:00</time>
-
-        
-
-
-    </div>
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        jira的restful api官方参考文档https://docs.atlassian.com/software/jira/docs/api/REST/7.13.0/
-jira的其他参考资料https://blog.csdn.net/five3/article/details/7181655https://blog.csdn.net/liumiaocn/article/details/81301550
-jira7.13破解
-                
-                    
-                    
-                
-                
-            
-    
-
-        <a href="/2019/06/30/cicd-jira-crack-restfulapi/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DevOps工具/">DevOps工具</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/持续集成技术/">持续集成技术</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-centos7-share-a-photo"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2019/06/01/centos7-share-a-photo/">【转载】TCP通信转UDP通信并加速</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-meta">
-        <time class="post-time" title="2019-06-01 21:46:40 21:46:40" datetime="2019-06-01T13:46:40.000Z"  itemprop="datePublished">2019-06-01 21:46:40</time>
-
-        
-
-
-    </div>
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        
-                
-                    
-                    
-                
-                
-            
-附原文
-
-                
-                    
-                    
-                
-                
-            
-
-    
-
-        <a href="/2019/06/01/centos7-share-a-photo/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CentOS操作/">CentOS操作</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DevOps工具/">DevOps工具</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-redis-sentinel-install"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2019/05/19/redis-sentinel-install/">redis5.0的sentinel模式体验</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-meta">
-        <time class="post-time" title="2019-05-19 10:43:17 10:43:17" datetime="2019-05-19T02:43:17.000Z"  itemprop="datePublished">2019-05-19 10:43:17</time>
-
-        
-
-
-    </div>
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        参考资料https://www.cnblogs.com/ibethfy/p/9965902.htmlhttp://redisdoc.com/topic/sentinel.html
-sentinel架构和整体规划sentinel模式的整体架构
-                
-                    
-                    
-                
-                
-            
-部署整体规划redis-server节点一主两从(生产环境不要部署在一台机器上，从概率学的角度，风险很大):master: 192.168.172.4:7001slave1: 192.168.172.4:7002slave2: 192.168.172.4:7003
-redis-sentinel节点三个节点(生产环境不要部署在一台机器上，从概率学的角度，风险很大):node1: 192.168.172.7:27001node2: 192.168.172.7:27002mode3: 192.168.172.7:27003
-编译、安装、配置...
-    
-
-        <a href="/2019/05/19/redis-sentinel-install/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redis/">redis</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/中间件技术/">中间件技术</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-spring-architecture"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2019/05/12/spring-architecture/">关于java学习的阶段性思考</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-meta">
-        <time class="post-time" title="2019-05-12 21:46:07 21:46:07" datetime="2019-05-12T13:46:07.000Z"  itemprop="datePublished">2019-05-12 21:46:07</time>
-
-        
-
-
-    </div>
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        最近有学PHP的朋友想转到java（说公司要求用spring boot做项目），问我有没有什么捷径或者经验，给他一个换语言的学习指引。看得出来，他还没有搭建自己的知识体系，我就趁机给他灌输一个观念：先要有完整的知识体系结构（或者通用技术架构），然后编程语言只是工具，是可以被替换的。当然，这不是我的原创，是一些前辈告诉我的（我相信很多高手都会觉得:语言都是工具,架构模式才是关键。用java写的，用go语言、Python也可以，只是效果、代码管理、维护性的差异）。当然，计算机是讲究动手的学科，不能空谈理论，得输出点东西才可信，然后基于本人最近的一些思考（看了几张别人spring全家桶教程的ppt），画了一张整体架构图给朋友。并且告知：java是可以被换成go、python语言实现的，就看技术决策者熟悉哪门语言、以及要实现什么样的系统（其实是废话：单讲语言生态，目前java确实是生态最好的语言，尤其是在spring的助攻下。呵呵）
-                
-                    
-                    
-                
-  ...
-    
-
-        <a href="/2019/05/12/spring-architecture/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编程语言技术/">编程语言技术</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-centos8-base-rhel8-release"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2019/05/12/centos8-base-rhel8-release/">RHEL8发布，坐等centos8</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-meta">
-        <time class="post-time" title="2019-05-12 13:24:41 13:24:41" datetime="2019-05-12T05:24:41.000Z"  itemprop="datePublished">2019-05-12 13:24:41</time>
-
-        
-
-
-    </div>
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        背景和参考资料参考资料https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html-single/8.0_release_notes/indexhttps://access.redhat.com/documentation/zh-cn/red_hat_enterprise_linux/8/html-single/8.0_release_notes/index(机器翻译版)https://blog.51cto.com/vanehsuan/2392207https://www.itzgeek.com/how-tos/linux/centos-how-tos/how-to-install-mysql-8-0-on-rhel-8.html
-背景正文上面的参考资料所说，5月7号，红帽子公司发布了REDHAT ENTERPRISE LINUX 8(简称RHEL8)。于是乎，想先体验一把新特性和原有功能，为后面的centos8做技术储备。
-rhel8的release note
-            ...
-    
-
-        <a href="/2019/05/12/centos8-base-rhel8-release/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CentOS操作/">CentOS操作</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DevOps工具/">DevOps工具</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-redis-5-0-install"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2019/04/19/redis-5-0-install/">单节点安装redis 5.0集群</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-meta">
-        <time class="post-time" title="2019-04-19 16:46:12 16:46:12" datetime="2019-04-19T08:46:12.000Z"  itemprop="datePublished">2019-04-19 16:46:12</time>
-
-        
-
-
-    </div>
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        参考资料主要参考资料https://blog.51cto.com/andyxu/2319767https://www.oschina.net/news/100931/redis-5-0-released
-redis 5.0主要的特性最吸引我的可能就是第二点。要知道基于ruby的集群方案，真的比较让人酸爽。
-                
-                    
-                    
-                
-                
-            
-安装过程下载、解压、编译yum -y install make gcc gcc-c++ wgetwget http://download.redis.io/releases/redis-5.0.0.tar.gztar zxvf redis-5.0.0.tar.gzcd redis-5.0.0/make &amp;&amp; make install PREFIX=/data/redisecho &quot;export PATH=$PATH:/data/redis/bi...
-    
-
-        <a href="/2019/04/19/redis-5-0-install/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redis/">redis</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/中间件技术/">中间件技术</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-percona-xtrabackup-for-mysql-8-0"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2019/04/13/percona-xtrabackup-for-mysql-8-0/">percona-xtrabackup 8.0安装和初步使用</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-meta">
-        <time class="post-time" title="2019-04-13 12:58:32 12:58:32" datetime="2019-04-13T04:58:32.000Z"  itemprop="datePublished">2019-04-13 12:58:32</time>
-
-        
-
-
-    </div>
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        参考参考资料https://blog.csdn.net/wfs1994/article/details/80396604
-官方文档https://www.percona.com/doc/percona-xtrabackup/8.0/index.htmlhttps://www.percona.com/doc/percona-xtrabackup/8.0/installation.html#installing-percona-xtrabackup-from-repositorieshttps://www.percona.com/doc/percona-xtrabackup/8.0/installation/yum_repo.htmlhttps://www.percona.com/doc/percona-xtrabackup/8.0/using_xtrabackup/privileges.htmlhttps://www.percona.com/doc/percona-xtrabackup/8.0/backup_scenarios/full_backup.html
-xtrabackup...
-    
-
-        <a href="/2019/04/13/percona-xtrabackup-for-mysql-8-0/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/中间件技术/">中间件技术</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-centos7-kernel-upgrade"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2019/04/01/centos7-kernel-upgrade/">centos7内核升级</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-meta">
-        <time class="post-time" title="2019-04-01 21:12:52 21:12:52" datetime="2019-04-01T13:12:52.000Z"  itemprop="datePublished">2019-04-01 21:12:52</time>
-
-        
-
-
-    </div>
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        参考资料https://linux.cn/article-8310-1.html
-背景基于以下三点，让我有种升级内核的冲动：1.docker容器近期暴露的漏洞，问了”专家”说是都是内核的问题。2.centos7还是用的3.10，centos8（RHEL用的是4.18版本）发布时间表还不知道。3.linux的内核稳定版本已经到5.0.X。
-升级步骤检查已安装版本
-                
-                    
-                    
-                
-                
-            
-修改下hostname先。
-升级内核
-                
-                    
-                    
-                
-                
-            
-
-                
-                    
-                    
-                
-       ...
-    
-
-        <a href="/2019/04/01/centos7-kernel-upgrade/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CentOS操作/">CentOS操作</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DevOps工具/">DevOps工具</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-rhel8-beta-experience"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2019/03/31/rhel8-beta-experience/">rhel8 beta尝鲜</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-meta">
-        <time class="post-time" title="2019-03-31 22:54:07 22:54:07" datetime="2019-03-31T14:54:07.000Z"  itemprop="datePublished">2019-03-31 22:54:07</time>
-
-        
-
-
-    </div>
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        参考资料https://zocodev.com/red-hat-enterprise-linux-8-beta.htmlhttps://zhuanlan.zhihu.com/p/56892392http://www.sohu.com/a/294442178_194621https://ywnz.com/linuxjc/3705.htmlhttps://www.kclouder.cn/rhel8-beta-experience/
-安装过程安装过程概述
-下载iso文件，准备安装
-安装VMware 15.0 pro，并修改配置文件
-初步安装完成后体验，发现网络没有配置，要配置网络
-初步安装完成后体验，发现没有界面，要安装Workstation，而要安装Workstation，就需要先有注册帐号
-
-下载iso文件，准备安装本人从 https://access.cdn.redhat.com/content/origin/files/sha256/06/06bec9e7de3ebfcdb879804be8c452b69ba3e046daedac3731e1ccd169cfd316/rhel-...
-    
-
-        <a href="/2019/03/31/rhel8-beta-experience/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CentOS操作/">CentOS操作</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DevOps工具/">DevOps工具</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-golang-gin-source-code-v1"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2019/03/24/golang-gin-source-code-v1/">gin源码分析第一版</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-meta">
-        <time class="post-time" title="2019-03-24 12:48:30 12:48:30" datetime="2019-03-24T04:48:30.000Z"  itemprop="datePublished">2019-03-24 12:48:30</time>
-
-        
-
-
-    </div>
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        demo源码package mainimport (	&quot;encoding/json&quot;	&quot;fmt&quot;	&quot;github.com/gin-gonic/gin&quot;)type User struct &#123;	Id int	Name string	Age int&#125;func main()  &#123;	defaultServer:=gin.New();	defaultServer.RouterGroup.GET(&quot;/&quot;,defaultHandeler)	v1 := defaultServer.Group(&quot;/v1&quot;)	v1.GET(&quot;/ping&quot;,v1pingHandeler)	defaultServer.Run(&quot;:8083&quot;)&#125;func defaultHandeler(ctx *gin.Context)  &#123;	ctx.JSON(200,gin.H&#123;		&quot;status&quot;:200,		&quo...
-    
-
-        <a href="/2019/03/24/golang-gin-source-code-v1/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/golang/">golang</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编程语言技术/">编程语言技术</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-percona-server-for-mysql-8-0-install"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2019/03/04/percona-server-for-mysql-8-0-install/">Percona Server8.0安装和初步使用</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-meta">
-        <time class="post-time" title="2019-03-04 10:43:32 10:43:32" datetime="2019-03-04T02:43:32.000Z"  itemprop="datePublished">2019-03-04 10:43:32</time>
-
-        
-
-
-    </div>
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        本文参考资料https://blog.csdn.net/vkingnew/article/details/85220187https://www.mayi888.com/archives/59253https://www.percona.com/doc/percona-server/LATEST/installation/yum_repo.htmlhttps://blog.csdn.net/myNameIssls/article/details/84031426
-安装过程参考 https://jingzhouyouxia.github.io/2016/12/21/mysql5-7-install/ ，安装软件。
-安装需要的软件wget https://repo.percona.com/release/7Server/RPMS/x86_64/jemalloc-3.6.0-1.el7.x86_64.rpmrpm -ivh jemalloc-3.6.0-1.el7.x86_64.rpm
-删除废弃的软件包rpm -e --nodeps  mariadb-libs
-按照需要的软件：yum -y in...
-    
-
-        <a href="/2019/03/04/percona-server-for-mysql-8-0-install/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/中间件技术/">中间件技术</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-golang-1-12-experience"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2019/02/26/golang-1-12-experience/">golang 1.12初步体验</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-meta">
-        <time class="post-time" title="2019-02-26 19:10:08 19:10:08" datetime="2019-02-26T11:10:08.000Z"  itemprop="datePublished">2019-02-26 19:10:08</time>
-
-        
-
-
-    </div>
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        背景golang 1.12于2月25号发布了，迫不及待的体验了一把。除了下载golang1.12，goland也更下2018.3.4。
-体验把之前的项目（1.11版本开发）的mod更新了，设置了把代理（不设置代理，就要用replace）。
-                
-                    
-                    
-                
-                
-            然后体验了一把go list -m -json all。贼快了。有点激动哈。重温下go mod相关的命令。
-                
-                    
-                    
-                
-                
-            
-
-    
-
-        <a href="/2019/02/26/golang-1-12-experience/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/golang/">golang</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编程语言技术/">编程语言技术</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-spring-cloud-2x-cloud-sleuth"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2019/02/09/spring-cloud-2x-cloud-sleuth/">spring框架系列之spring cloud sleuth</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-meta">
-        <time class="post-time" title="2019-02-09 17:15:36 17:15:36" datetime="2019-02-09T09:15:36.000Z"  itemprop="datePublished">2019-02-09 17:15:36</time>
-
-        
-
-
-    </div>
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        关于spring cloud 2.X系列spring.io在spring boot和springcloud推出之前，开源了很多的框架（见下文附录），但是除了spring framework自身，影响力都不够。直到spring boot、spring cloud系列框架推出，才成了spring框架的扩展中最有影响力的两个(或者说集大成者)。Spring Boot的设计目的是用来简化新Spring应用的初始搭建以及开发过程。该框架使用了特定的方式来进行配置，从而使开发人员不再需要定义样板化的配置。通俗点理解，就是spring boot其实不是什么新的框架，它默认配置了很多框架的使用方式，就像maven整合了很多的jar包，比如散落在各处的spring框架：spring amqp、spring data redis client、spring web service、prometheus client，进而集大成。Spring Cloud为开发人员提供了快速构建分布式系统中一些常见模式的工具，例如配置管理，服务发现，断路器，智能路由，微代理，控制总线，一次性令牌，全局锁定，领导选举，分...
-    
-
-        <a href="/2019/02/09/spring-cloud-2x-cloud-sleuth/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/中间件技术/">中间件技术</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/微服务spring-cloud解决方案/">微服务spring cloud解决方案</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-docker-1-17-install"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2019/02/07/docker-1-17-install/">docker 1.17安装和初步使用</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-meta">
-        <time class="post-time" title="2019-02-07 10:51:23 10:51:23" datetime="2019-02-07T02:51:23.000Z"  itemprop="datePublished">2019-02-07 10:51:23</time>
-
-        
-
-
-    </div>
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        参考资料1.docker-ce 1.17的relase noteshttps://docs.docker.com/v17.12/release-notes/docker-ce/2.docker engine apihttps://docs.docker.com/engine/api/v1.19/#21-containers
-安装过程yum install -y yum-utils device-mapper-persistent-data lvm2yum install -y http://mirror.centos.org/centos/7/os/x86_64/Packages/libseccomp-2.3.1-3.el7.x86_64.rpmyum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repoyum-config-manager --enable docker-ce-edgeyum-config-manager --enable docker-ce-testy...
-    
-
-        <a href="/2019/02/07/docker-1-17-install/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/restful-api/">restful api</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/容器与k8s/">容器与k8s</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/容器技术/">容器技术</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-spring-cloud-2x-cloud-stream"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2019/02/02/spring-cloud-2x-cloud-stream/">spring cloud解决方案之spring-cloud-stream</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-meta">
-        <time class="post-time" title="2019-02-02 17:44:15 17:44:15" datetime="2019-02-02T09:44:15.000Z"  itemprop="datePublished">2019-02-02 17:44:15</time>
-
-        
-
-
-    </div>
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        关于spring cloud 2.X系列spring.io在spring boot和springcloud推出之前，开源了很多的框架（见下文附录），但是除了spring framework自身，影响力都不够。直到spring boot、spring cloud系列框架推出，才成了spring框架的扩展中最有影响力的两个(或者说集大成者)。Spring Boot的设计目的是用来简化新Spring应用的初始搭建以及开发过程。该框架使用了特定的方式来进行配置，从而使开发人员不再需要定义样板化的配置。通俗点理解，就是spring boot其实不是什么新的框架，它默认配置了很多框架的使用方式，就像maven整合了很多的jar包，比如散落在各处的spring框架：spring amqp、spring dat redis client、spring web service、prometheus client，进而集大成。Spring Cloud为开发人员提供了快速构建分布式系统中一些常见模式的工具，例如配置管理，服务发现，断路器，智能路由，微代理，控制总线，一次性令牌，全局锁定，领导选举，分布...
-    
-
-        <a href="/2019/02/02/spring-cloud-2x-cloud-stream/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/中间件技术/">中间件技术</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/微服务spring-cloud解决方案/">微服务spring cloud解决方案</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-prometheus-confd-etcd"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2019/01/30/prometheus-confd-etcd/">prometheus实现动态监控</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-meta">
-        <time class="post-time" title="2019-01-30 19:45:49 19:45:49" datetime="2019-01-30T11:45:49.000Z"  itemprop="datePublished">2019-01-30 19:45:49</time>
-
-        
-
-
-    </div>
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        参考资料http://www.net-add.com/a/dockerzhuanti/fuwuzhucefaxian/2017/0421/42.html
-下载、安装etcd及其可视化工具下载安装etcdetcd的下载安装参考：https://jingzhouyouxia.github.io/2018/12/05/container-etcd-install/
-下载安装etcdkeeperetcdkeeper的安装参考：https://github.com/evildecay/etcdkeeper
-下载、启动2.x版本的Prometheusdocker run –name prometheus  -p 9090:9090 -e TZ=”Asia/Shanghai” –link alertmanager  -v /etc/prometheus/:/etc/prometheus/  -d prom/prometheus  –web.enable-lifecycle –config.file=/etc/prometheus/prometheus.yml
-下载、配置confd从github下载con...
-    
-
-        <a href="/2019/01/30/prometheus-confd-etcd/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/容器与k8s/">容器与k8s</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-jishuzongjie-2018"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2019/01/01/jishuzongjie-2018/">2018年度的技术总结</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-meta">
-        <time class="post-time" title="2019-01-01 10:35:47 10:35:47" datetime="2019-01-01T02:35:47.000Z"  itemprop="datePublished">2019-01-01 10:35:47</time>
-
-        
-
-
-    </div>
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        背景新年了，按惯例，要盘盘肚子里面的“存货”了.
-2018年度已掌握的技术学习已初步掌握的技术的进展，即具体技术流水账：
-java代码写的有点少，spring boot2.0、spring cloud2.X没有过多的深入和落地。
-go语言没有很深入的学，就学了gin、go-kit的皮毛、了解协程的调度。
-中间件技术mysql还是有点云里雾里，还是没有彻底搞清楚线程模型，线程调度
-rabbitmq还是有点云里雾里，还是没有彻底掌握
-redis新学了一个codis的方案，这个方案有点重，有些命令用不了，比如keys *（没有从group做聚合）
-zookeeper还是保留在会用的阶段。
-elasticsearch还是保留在会用的阶段。
-elastic-job-liteelastic-job-lite整个流程，看了一遍源码。
-keepalived高可用技术这一年没有什么进展。
-系统工具-centos技术这一年没有什么进展。
-中间件技术注册中心和配置中心还是eureka，配置中心还是用的携程的apollo，至于阿里云的nacos，继续跟进吧。
-docker和kubernetes这一年，开...
-    
-
-        <a href="/2019/01/01/jishuzongjie-2018/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/杂项/">杂项</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-container-kubernetes-jieduanxing-zongjie"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2018/12/30/container-kubernetes-jieduanxing-zongjie/">玩转kubernetes之kubernetes阶段性成果</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-meta">
-        <time class="post-time" title="2018-12-30 10:38:44 10:38:44" datetime="2018-12-30T02:38:44.000Z"  itemprop="datePublished">2018-12-30 10:38:44</time>
-
-        
-
-
-    </div>
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        这两天到搭建好的kubernetes集群上，把公司的一个项目放到了集群上。最终的架构如下。
-未在线上环境校验的方案
-
-    
-
-        <a href="/2018/12/30/container-kubernetes-jieduanxing-zongjie/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/容器与k8s/">容器与k8s</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/容器技术/">容器技术</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-container-kubernetes-1-8-install"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2018/12/28/container-kubernetes-1-8-install/">玩转kubernetes之kubernetes1.8安装</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-meta">
-        <time class="post-time" title="2018-12-28 14:04:49 14:04:49" datetime="2018-12-28T06:04:49.000Z"  itemprop="datePublished">2018-12-28 14:04:49</time>
-
-        
-
-
-    </div>
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        背景资料本文主要参考资料(建议收藏)https://jimmysong.io/kubernetes-handbook/https://anjia0532.github.io/2017/11/15/gcr-io-image-mirror/
-本文的收获实践“纸上读来终觉浅，绝知此事要躬行”，上手操作第5章
-安装之前三件事熟悉kubernetes基本架构和工作原理建议好好看《Kubernetes Handbook》1-4章或者《kubernetes in action》(中文版已经出版).了解整体架构、以及基本概念模型：
-
-cluster与node
-rabc：
-pod：简单的理解就是一组容器，基础容器是
-deployment(pod升级版)：
-service：
-configmap：
-
-本文使用版本centos:CentOS Linux release 7.3.1611 (Core) kubernetes:1.8.5flannel:0.7.1docker:1.12.6harbor:1.5.4(依赖的docker为1.12.6、docker-compose为1.12.0)etcd:3.3....
-    
-
-        <a href="/2018/12/28/container-kubernetes-1-8-install/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/容器与k8s/">容器与k8s</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/容器技术/">容器技术</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-agiletodevops"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2018/12/27/agiletodevops/">devops概念</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-meta">
-        <time class="post-time" title="2018-12-27 23:04:49 23:04:49" datetime="2018-12-27T15:04:49.000Z"  itemprop="datePublished">2018-12-27 23:04:49</time>
-
-        
-
-
-    </div>
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        
-                
-                    
-                    
-                
-                
-            
-    
-
-        <a href="/2018/12/27/agiletodevops/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DevOps工具/">DevOps工具</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-docker-1-12-management"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2018/12/27/docker-1-12-management/">docker1.12管理技术之portainer</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-meta">
-        <time class="post-time" title="2018-12-27 12:51:23 12:51:23" datetime="2018-12-27T04:51:23.000Z"  itemprop="datePublished">2018-12-27 12:51:23</time>
-
-        
-
-
-    </div>
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        本文背景参考资料http://www.manongjc.com/article/11900.html
-背景现在docker部署的越来越多，但是还没有上百台，所以kubernete技术用不到(投入和产出不匹配，有时间写写kubernetes）。于是乎，portainer进入我们的视野。
-文章更新历史2019-03-06 portainer更新至1.20.2版本
-实操过程docker Daemon配置&#123;    &quot;insecure-registries&quot;: [        &quot;10.2.1.30:5000&quot;    ],    &quot;registry-mirror&quot;: [        &quot;https://csokz3oi.mirror.aliyuncs.com&quot;    ],   &quot;graph&quot;:&quot;/data/docker&quot;,   &quot;hosts&quot;: [&quot;unix:///var/run/docker.sock&quot;,&quot;tc...
-    
-
-        <a href="/2018/12/27/docker-1-12-management/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/容器与k8s/">容器与k8s</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/容器技术/">容器技术</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-jenkins-restful-api"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2018/12/23/jenkins-restful-api/">【转载】jenkins restful api</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-meta">
-        <time class="post-time" title="2018-12-23 19:00:00 19:00:00" datetime="2018-12-23T11:00:00.000Z"  itemprop="datePublished">2018-12-23 19:00:00</time>
-
-        
-
-
-    </div>
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        原文地址https://www.cnblogs.com/zjsupermanblog/p/7238422.html
-备注有api就可以进行二次开发和集成了。
-截图
-                
-                    
-                    
-                
-                
-            
-    
-
-        <a href="/2018/12/23/jenkins-restful-api/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DevOps工具/">DevOps工具</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/restful-api/">restful api</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/持续集成技术/">持续集成技术</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-spring-cloud-2x-talk-about-greenwich"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2018/12/23/spring-cloud-2x-talk-about-greenwich/">spring框架系列之清谈spring-cloud 2.1版本的候选版本</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-meta">
-        <time class="post-time" title="2018-12-23 13:35:44 13:35:44" datetime="2018-12-23T05:35:44.000Z"  itemprop="datePublished">2018-12-23 13:35:44</time>
-
-        
-
-
-    </div>
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        概述背景最近出来的spring cloud Greenwich版本(2.1版本)候选版本出了一个Spring Cloud Kubernetes 1.0.0。这也说明:spring cloud也全面拥抱kubernetes(私有云选择kubernetes作为容器云平台是个不错的选择)。
-关于spring cloud 2.X系列spring.io在spring boot和springcloud推出之前，开源了很多的框架（见下文附录），但是除了spring framework自身，影响力都不够。直到spring boot、spring cloud系列框架推出，才成了spring框架的扩展中最有影响力的两个(或者说集大成者)。Spring Boot的设计目的是用来简化新Spring应用的初始搭建以及开发过程。该框架使用了特定的方式来进行配置，从而使开发人员不再需要定义样板化的配置。通俗点理解，就是spring boot其实不是什么新的框架，它默认配置了很多框架的使用方式，就像maven整合了很多的jar包，比如散落在各处的spring框架：spring amqp、spring dat r...
-    
-
-        <a href="/2018/12/23/spring-cloud-2x-talk-about-greenwich/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/中间件技术/">中间件技术</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/微服务spring-cloud解决方案/">微服务spring cloud解决方案</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-yum-install-jenkins"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2018/12/22/yum-install-jenkins/">centos7下yum安装jenkins</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-meta">
-        <time class="post-time" title="2018-12-22 10:41:23 10:41:23" datetime="2018-12-22T02:41:23.000Z"  itemprop="datePublished">2018-12-22 10:41:23</time>
-
-        
-
-
-    </div>
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        安装规划目录jdk版本:oracle jdk8jenkins目录: /home/jenkins
-前置条件已经安装好jdk版本。
-安装jenkinswget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.reporpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.keyyum install jenkins
-编辑配置文件vim /etc/sysconfig/jenkins## Path:        Development/Jenkins## Description: Jenkins Automation Server## Type:        string## Default:     &quot;/var/lib/jenkins&quot;## ServiceRestart: jenkins## Directory where Jenkins store its configuration an...
-    
-
-        <a href="/2018/12/22/yum-install-jenkins/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/持续集成技术/">持续集成技术</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-docker-1-12-swarm-ops"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2018/12/15/docker-1-12-swarm-ops/">docker1.12版本下swarm操作</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-meta">
-        <time class="post-time" title="2018-12-15 12:51:23 12:51:23" datetime="2018-12-15T04:51:23.000Z"  itemprop="datePublished">2018-12-15 12:51:23</time>
-
-        
-
-
-    </div>
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        本文参考资料https://www.cnblogs.com/bigberg/p/8779302.html
-docker swarm操作docker swarm集群初始化如果docker1.12的swarm机制是inactive。想启动docker swarm功能，则需要初始化swarmdocker swarm init --advertise-addr 10.2.1.37
-其他的节点，加入集群，则需要输入：docker swarm join --token SWMTKN-1-1o6pbdwzd4fj2ewym1npno6qub1imgg85gp5x311cc5d8gsi74-3lq395n1h8hrdwrgta17iil9c  10.2.1.37:2377
-
-    
-
-        <a href="/2018/12/15/docker-1-12-swarm-ops/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/容器与k8s/">容器与k8s</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/容器技术/">容器技术</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-spring-boot-2x-boot-security"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2018/12/09/spring-boot-2x-boot-security/">【微服务架构java解决方案】spring security</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-meta">
-        <time class="post-time" title="2018-12-09 19:55:51 19:55:51" datetime="2018-12-09T11:55:51.000Z"  itemprop="datePublished">2018-12-09 19:55:51</time>
-
-        
-
-
-    </div>
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        参考资料https://blog.csdn.net/yuanlaijike/article/details/80249235https://blog.csdn.net/yuanlaijike/article/details/80249869https://blog.csdn.net/yuanlaijike/article/details/80250389https://blog.csdn.net/yuanlaijike/article/details/80253922https://blog.csdn.net/yuanlaijike/article/details/80327880https://blog.csdn.net/yuanlaijike/article/details/84638745https://blog.csdn.net/yuanlaijike/article/details/84703690https://segmentfault.com/a/1190000012465134https://www.cnkirito.moe/spring-security-7/
-...
-    
-
-        <a href="/2018/12/09/spring-boot-2x-boot-security/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/中间件技术/">中间件技术</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/微服务架构java解决方案/">微服务架构java解决方案</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-etcd-install"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2018/12/05/etcd-install/">etcd3安装和初步操作</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-meta">
-        <time class="post-time" title="2018-12-05 21:58:54 21:58:54" datetime="2018-12-05T13:58:54.000Z"  itemprop="datePublished">2018-12-05 21:58:54</time>
-
-        
-
-
-    </div>
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        下载安装下载和安装下载tar.gz文件，解压并cp到/usr/bin/目录
-创建用户和目录useradd etcdmkdir -p /data/etcd/etcd02mkdir -p /etc/etcd/chown etcd:etcd /data/etcd/etcd02chown etcd:etcd /etc/etcd/
-配置systemd新建文件/usr/lib/systemd/system/etcd.service[Unit]Description=Etcd ServerAfter=network.targetAfter=network-online.targetWants=network-online.target[Service]Type=notifyWorkingDirectory=/data/etcd/etcd02EnvironmentFile=-/etc/etcd/etcd.confUser=etcd# set GOMAXPROCS to number of processorsExecStart=/bin/bash -c &quot;GOMAXPROCS=$(np...
-    
-
-        <a href="/2018/12/05/etcd-install/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/etcd/">etcd</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/中间件技术/">中间件技术</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-spring-boot-2x-boot-admin-server"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2018/12/02/spring-boot-2x-boot-admin-server/">spring boot的一种监控技术</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-meta">
-        <time class="post-time" title="2018-12-02 17:15:05 17:15:05" datetime="2018-12-02T09:15:05.000Z"  itemprop="datePublished">2018-12-02 17:15:05</time>
-
-        
-
-
-    </div>
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        概述本文参考资料http://codecentric.github.io/spring-boot-admin/2.1.0/ (官方文档)https://my.oschina.net/u/3877886/blog/1825253
-温馨提示如果能看到英文版的官方文档，就不建议继续往下阅读浪费时间，谢谢。
-关于spring boot admin 2.0spring boot admin 为Spring Boot应用提供了可视化的监控视图。它基于spring boot actuator模块，因为spring  boot actuator 模块为监控Spring Boot 应用程序暴露的大量的管理端点(Endpoints)。可结合eureka、consul、zookeeper等服务注册及发现组件来监控并展示微服务集群中服务的状态及各项指标信息。下面进入正题。
-
-    
-
-        <a href="/2018/12/02/spring-boot-2x-boot-admin-server/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DevOps工具/">DevOps工具</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/应用监控技术/">应用监控技术</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-spring-boot-2x-boot-micrometer"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2018/11/18/spring-boot-2x-boot-micrometer/">spring框架系列之spring boot micrometer监控</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-meta">
-        <time class="post-time" title="2018-11-18 17:15:59 17:15:59" datetime="2018-11-18T09:15:59.000Z"  itemprop="datePublished">2018-11-18 17:15:59</time>
-
-        
-
-
-    </div>
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        关于spring boot 2.X系列spring.io在spring boot和springcloud推出之前，开源了很多的框架（见下文附录），但是除了spring framework自身，影响力都不够。直到spring boot、spring cloud系列框架推出，才成了spring框架的扩展中最有影响力的两个(或者说集大成者)。Spring Boot的设计目的是用来简化新Spring应用的初始搭建以及开发过程。该框架使用了特定的方式来进行配置，从而使开发人员不再需要定义样板化的配置。通俗点理解，就是spring boot其实不是什么新的框架，它默认配置了很多框架的使用方式，就像maven整合了很多的jar包，比如散落在各处的spring框架：spring amqp、spring data redis client、spring web service、prometheus client，进而集大成。Spring Cloud为开发人员提供了快速构建分布式系统中一些常见模式的工具，例如配置管理，服务发现，断路器，智能路由，微代理，控制总线，一次性令牌，全局锁定，领导选举，分布...
-    
-
-        <a href="/2018/11/18/spring-boot-2x-boot-micrometer/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/中间件技术/">中间件技术</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/微服务架构java解决方案/">微服务架构java解决方案</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-docker-registry-harbor-154-install"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2018/10/31/docker-registry-harbor-154-install/">镜像仓库harbor1.5.4版本安装和使用</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-meta">
-        <time class="post-time" title="2018-10-31 22:49:09 22:49:09" datetime="2018-10-31T14:49:09.000Z"  itemprop="datePublished">2018-10-31 22:49:09</time>
-
-        
-
-
-    </div>
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        本文背景本文参考资料https://www.cnblogs.com/huangjc/p/6266564.html
-下载、配置和安装下载harbor1.5.4版本离线版https://storage.googleapis.com/harbor-releases/harbor-offline-installer-v1.5.4.tgz
-下载docker-copose 1.12.0版本下载docker-copose 1.12.0版本的二进制文件curl -L https://github.com/docker/compose/releases/download/1.12.0/docker-compose-`uname -s`-`uname -m` &gt; /usr/local/bin/docker-composechmod +x /usr/local/bin/docker-compose
-修改harbor配置harbor.cfg## Configuration file of Harbor#This attribute is for migrator to detect the ver...
-    
-
-        <a href="/2018/10/31/docker-registry-harbor-154-install/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DevOps工具/">DevOps工具</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/restful-api/">restful api</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/持续集成技术/">持续集成技术</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-docker-network-basic"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2018/10/09/docker-network-basic/">docker扩展iptables实现网络隔离与通信</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-meta">
-        <time class="post-time" title="2018-10-09 21:26:11 21:26:11" datetime="2018-10-09T13:26:11.000Z"  itemprop="datePublished">2018-10-09 21:26:11</time>
-
-        
-
-
-    </div>
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        本文参考https://www.cnblogs.com/foxgab/p/6896957.html
-iptables的概念iptables基础概念
-iptables表的分类
-iptable链的走向
-docker对于iptables的应用docker对iptables filter表的扩展
-docker对iptables nat表的扩展
-docker之后的iptables链的走向
-
-    
-
-        <a href="/2018/10/09/docker-network-basic/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/容器与k8s/">容器与k8s</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/容器技术/">容器技术</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-docker-1-12-install"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2018/10/07/docker-1-12-install/">docker1.12安装和初步使用</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-meta">
-        <time class="post-time" title="2018-10-07 10:51:23 10:51:23" datetime="2018-10-07T02:51:23.000Z"  itemprop="datePublished">2018-10-07 10:51:23</time>
-
-        
-
-
-    </div>
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        本文背景背景最近闲着无事，准备玩一把k8s，作为核心，要升级一波docker。这次直接安装docker1.12。查了资料，docker1.12的最显著特性就是内置了docker自身的swarm调度。
-安装过程参考去年的docker 1.10安装心得,整一次1.12。
-下载rpm包并安装yum install -y --nogpgcheck http://mirrors.aliyun.com/docker-engine/yum/repo/main/centos/7/Packages/docker-engine-selinux-1.12.6-1.el7.centos.noarch.rpmyum install -y --nogpgcheck http://mirrors.aliyun.com/docker-engine/yum/repo/main/centos/7/Packages/docker-engine-1.12.6-1.el7.centos.x86_64.rpm
-修改docker的systemd文件[Unit]Description=Docker Application Co...
-    
-
-        <a href="/2018/10/07/docker-1-12-install/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/容器与k8s/">容器与k8s</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/容器技术/">容器技术</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-elasticsearch-log-metrics"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2018/10/01/elasticsearch-log-metrics/">基于elasticsearch的日志监控方案(改进版)</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-meta">
-        <time class="post-time" title="2018-10-01 14:29:46 14:29:46" datetime="2018-10-01T06:29:46.000Z"  itemprop="datePublished">2018-10-01 14:29:46</time>
-
-        
-
-
-    </div>
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        
-                
-                    
-                    
-                
-                
-            
-    
-
-        <a href="/2018/10/01/elasticsearch-log-metrics/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DevOps工具/">DevOps工具</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/elasticsearch/">elasticsearch</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/日志监控技术/">日志监控技术</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-golang-reflect-learn"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2018/09/11/golang-reflect-learn/">go语言反射学习</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-meta">
-        <time class="post-time" title="2018-09-11 18:06:47 18:06:47" datetime="2018-09-11T10:06:47.000Z"  itemprop="datePublished">2018-09-11 18:06:47</time>
-
-        
-
-
-    </div>
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        源码package mainimport (	&quot;flag&quot;	&quot;fmt&quot;	&quot;net/http&quot;	&quot;reflect&quot;)type GoService struct &#123;&#125;func (G *GoService) HttpServer(port string)&#123;	http.HandleFunc(&quot;/&quot;, func(responseWriter http.ResponseWriter, request *http.Request) &#123;    	responseWriter.Write([]byte(&quot;hello word&quot;))	&#125;)	http.ListenAndServe(&quot;:&quot;+port,nil)&#125;func main()&#123;	cmd:=flag.String(&quot;cmd&quot;,&quot;&quot;,&quot;cmd is a string indecated what...
-    
-
-        <a href="/2018/09/11/golang-reflect-learn/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/golang/">golang</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编程语言技术/">编程语言技术</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
+    </nav>
     
-        <li class="post-list-item fade">
-            <article id="post-redis-cluster-install"
-  class="article-card article-type-post" itemprop="blogPost">
+ 
+</main>
 
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2018/08/25/redis-cluster-install/">单节点安装redis 3.2版本集群</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-meta">
-        <time class="post-time" title="2018-08-25 14:09:47 14:09:47" datetime="2018-08-25T06:09:47.000Z"  itemprop="datePublished">2018-08-25 14:09:47</time>
-
-        
-
-
-    </div>
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        本文参考资料https://blog.csdn.net/qq_37595946/article/details/77800147https://blog.csdn.net/ahzxj2012/article/details/73468119https://www.jianshu.com/p/854d702e6153
-背景交代公司有些没权限的机器又抽风，于是想把部分服务放到有权限的机器上。比如redis cluster。
-安装规划采用docker安装redis node。由redis-trib.rb构建集群。
-安装过程docker安装redisnode准备配置文件port 6381bind 10.2.1.31cluster-enabled yescluster-config-file nodes.confcluster-node-timeout 5000appendonly yes
-拉取镜像并启动docker pull redis:3.2.0docker run --net=host -m 100m --name=redis1  -v `pwd`/redis1.conf:/usr/...
-    
-
-        <a href="/2018/08/25/redis-cluster-install/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redis/">redis</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/中间件技术/">中间件技术</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-docker-monitor-tech"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2018/08/14/docker-monitor-tech/">【转载】打造高逼格、可视化的Docker容器监控系统平台</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-meta">
-        <time class="post-time" title="2018-08-14 20:03:07 20:03:07" datetime="2018-08-14T12:03:07.000Z"  itemprop="datePublished">2018-08-14 20:03:07</time>
-
-        
-
-
-    </div>
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        原文地址https://mp.weixin.qq.com/s?__biz=MzI0MDQ4MTM5NQ==&amp;mid=2247486129&amp;idx=1&amp;sn=986d170f115071cbe676d211a0458008&amp;chksm=e91b6fadde6ce6bb271dedda23acef2c031ee3bdd7d9e2034ceab9a9e2c65f2caa98932e9491&amp;scene=38#wechat_redirect
-笔记版
-                
-                    
-                    
-                
-                
-            
-    
-
-        <a href="/2018/08/14/docker-monitor-tech/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DevOps工具/">DevOps工具</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/容器监控技术/">容器监控技术</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-centos7-install-nodejs"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2018/08/12/centos7-install-nodejs/">安装nodejs并初步使用</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-meta">
-        <time class="post-time" title="2018-08-12 16:37:48 16:37:48" datetime="2018-08-12T08:37:48.000Z"  itemprop="datePublished">2018-08-12 16:37:48</time>
-
-        
-
-
-    </div>
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        node与npm介绍
-                
-                    
-                    
-                
-                
-            
-centos下安装nodejs下载执行脚本curl -sL https://rpm.nodesource.com/setup_10.x | bash -
-安装依赖yum install gcc-c++ make
-安装nodejsyum install -y nodejs
-初步使用node帮助命令
-                
-                    
-                    
-                
-                
-            
-npm帮助命令
-                
-                    
-                    
-                
-                
-            
-npm安装命令
-   ...
-    
-
-        <a href="/2018/08/12/centos7-install-nodejs/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es6/">es6</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编程语言技术/">编程语言技术</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-2019_learn_plan"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2018/08/06/2019_learn_plan/">2018年下半年学习落地计划</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-meta">
-        <time class="post-time" title="2018-08-06 10:35:47 10:35:47" datetime="2018-08-06T02:35:47.000Z"  itemprop="datePublished">2018-08-06 10:35:47</time>
-
-        
-
-
-    </div>
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        2019年度展望和学习计划在上述通用技术架构中已掌握的5大块进行加强:
-
-服务化所需的中间件 openresty、keepalived、mysql、redis、zookeeper、rabbitmq/kafka、注册中心、配置中心等中间件技术。
-
-研发管理平台 项目管理、持续集成、持续交付、静态代码扫描、wiki知识管理。
-
-容器云平台技术 云原生中间件-docker、etcd、kubernetes等容器技术。
-
-监控平台技术 zipkin调用连监控技术、prometheus监控技术、容器监控技术。
-
-编程框架和中间件客户端java语言的应用开发脚手架主要是spring boot2.X，微服务集成框架则是spring cloud 2.X版本。go语言的应用开发脚手架主要是gin,主要是go-micro框架。
-
-杂项 比如os系统，比如centos 6、centos 7、centos8(待发布，RHEL8已经出了beta版本)。
-
-
-最后来张图。
-                
-                    
-                    
-          ...
-    
-
-        <a href="/2018/08/06/2019_learn_plan/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/杂项/">杂项</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-elastic-job-basic-use"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2018/07/29/elastic-job-basic-use/">elastic-job-lite使用和源码初步分析</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-meta">
-        <time class="post-time" title="2018-07-29 22:20:03 22:20:03" datetime="2018-07-29T14:20:03.000Z"  itemprop="datePublished">2018-07-29 22:20:03</time>
-
-        
-
-
-    </div>
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        elastic-job使用elasticjob概念模型elastic-job的概念模型主要分为5类：
-
-注册中心bean(ZookeeperRegistryCenter)
-job配置bean
-业务逻辑job(需要实现simpleJob/DataJob)
-job事件配置(需要写入到存储中去)
-job调度器bean开发者显示调用jobscheduler的init方法（或者采用spring注解，初始化init方法），进入到quartz调度。
-
-elastic-job使用ZookeeperRegistryCenter配置LiteJobConfiguration配置elastic-job源码分析ZookeeperRegistryCenter封装cutor，调用zookeeper。
-LiteJobConfiguration执行逻辑的元数据：类名、分片数量。
-JobEventConfiguration数据源封装，结果最终会记录入库
-JobScheduler这是核心类，作用：任务调度
-SpringJobScheduler简单job的任务调度器。
-LiteJob继承quartz的job接口，实现e...
-    
-
-        <a href="/2018/07/29/elastic-job-basic-use/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/elastic-job/">elastic job</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/中间件技术/">中间件技术</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-golang-build-web-application-client"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2018/07/10/golang-build-web-application-client/">go语言http编程(client端)</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-meta">
-        <time class="post-time" title="2018-07-10 19:23:20 19:23:20" datetime="2018-07-10T11:23:20.000Z"  itemprop="datePublished">2018-07-10 19:23:20</time>
-
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/jingzhouyouxia" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
         
-
-
-    </div>
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        参考资料https://learnku.com/articles/23431/golang-learning-notes-two-http-client-using-client-type
-http编程概念模型
-                
-                    
-                    
-                
-                
-            
-简单来说，就是:http包下client.go文件的
-
-Client结构体、
-DefaultClient常量
-Do、Get、Head、Post、PostForm方法
-
-具体例子访问rabbitmq的restful接口func main() &#123;	result, err := do(&quot;GET&quot;, &quot;http://192.168.172.3:15672/api/connections&quot;, nil)	if err != nil &#123;		panic(err)	&#125;	buf := new(bytes.Buffe...
-    
-
-        <a href="/2018/07/10/golang-build-web-application-client/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/golang/">golang</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编程语言技术/">编程语言技术</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-jishuzongjie-2018_beta"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2018/07/01/jishuzongjie-2018_beta/">2016-2018年技术感悟总结(草稿)</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-meta">
-        <time class="post-time" title="2018-07-01 10:35:41 10:35:41" datetime="2018-07-01T02:35:41.000Z"  itemprop="datePublished">2018-07-01 10:35:41</time>
-
-        
-
-
-    </div>
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        背景背景新年了，要盘盘肚子里面的“存货”了。
-2016-2018年度年技术总结在五大块进行加强:
-java语言和框架主要是spring boot2.X。
-go语言和框架主要是go-micro框架。
-系统工具-centos centos 6、centos 7、centos8(待发布，RHEL8已经出了beta版本)。
-研发管理平台 项目管理、持续集成、持续交付、静态代码扫描、知识管理 
-服务化所需的中间件 openresty、keepalived、mysql、redis、zookeeper、rabbitmq/kafka等中间件技术、监控技术、prometheus监控技术。一图胜千言
-                
-                    
-                    
-                
-                
-            
-
-
-2019年度的技术主题因为微服务很火、云原生也渐渐在大厂落地，所以，大家都在研究和投入，所以，可供学习和思考的点就很多。
-
-    
-
-        <a href="/2018/07/01/jishuzongjie-2018_beta/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/杂项/">杂项</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-oauth2-technologies-understanding"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2018/06/21/oauth2-technologies-understanding/">对oauth2技术的简单理解</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-meta">
-        <time class="post-time" title="2018-06-21 20:55:27 20:55:27" datetime="2018-06-21T12:55:27.000Z"  itemprop="datePublished">2018-06-21 20:55:27</time>
-
-        
-
-
-    </div>
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        
-                
-                    
-                    
-                
-                
-            
-    
-
-        <a href="/2018/06/21/oauth2-technologies-understanding/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/中间件技术/">中间件技术</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/微服务spring-cloud解决方案/">微服务spring cloud解决方案</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-oauth2-introduce"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2018/06/16/oauth2-introduce/">【转载】oauth2介绍</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-meta">
-        <time class="post-time" title="2018-06-16 15:02:30 15:02:30" datetime="2018-06-16T07:02:30.000Z"  itemprop="datePublished">2018-06-16 15:02:30</time>
-
-        
-
-
-    </div>
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        
-                
-                    
-                    
-                
-                
-            
-原文地址:https://zhuanlan.zhihu.com/p/30720675
-
-    
-
-        <a href="/2018/06/16/oauth2-introduce/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/中间件技术/">中间件技术</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/微服务spring-cloud解决方案/">微服务spring cloud解决方案</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-zipkin_rpc_example"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2018/06/09/zipkin_rpc_example/">zipkin与thrift结合进行接口监控</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-meta">
-        <time class="post-time" title="2018-06-09 11:02:34 11:02:34" datetime="2018-06-09T03:02:34.000Z"  itemprop="datePublished">2018-06-09 11:02:34</time>
-
-        
-
-
-    </div>
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        #参考资料http://blog.mozhu.org/2017/11/11/zipkin/zipkin-2.html
-进入正题添加maven依赖&lt;dependency&gt;	&lt;groupId&gt;io.zipkin.brave&lt;/groupId&gt;	&lt;artifactId&gt;brave&lt;/artifactId&gt;	&lt;version&gt;5.0.0&lt;/version&gt;&lt;/dependency&gt;&lt;dependency&gt;	&lt;groupId&gt;io.zipkin.reporter2&lt;/groupId&gt;	&lt;artifactId&gt;zipkin-reporter&lt;/artifactId&gt;	&lt;version&gt;2.7.0&lt;/version&gt;&lt;/dependency&gt;&lt;!-- https://mvnrepository.com/artifact/io..reporter2/-sender-okhttp3 --&gt;&lt;...
-    
-
-        <a href="/2018/06/09/zipkin_rpc_example/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/中间件技术/">中间件技术</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/链路跟踪技术/">链路跟踪技术</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-spring-cloud-1x-cloud-netfix-ribbon"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2018/06/03/spring-cloud-1x-cloud-netfix-ribbon/">【微服务架构spring cloud解决方案】spring-cloud之netfix-ribbon</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-meta">
-        <time class="post-time" title="2018-06-03 17:14:29 17:14:29" datetime="2018-06-03T09:14:29.000Z"  itemprop="datePublished">2018-06-03 17:14:29</time>
-
-        
-
-
-    </div>
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        关于spring boot/cloud 1.X系列spring.io在spring boot和springcloud推出之前，开源了很多的框架（见下文附录），但是除了spring framework自身，影响力都不够。直到spring boot、spring cloud系列框架推出，才成了spring框架的扩展中最有影响力的两个(或者说集大成者)。Spring Boot的设计目的是用来简化新Spring应用的初始搭建以及开发过程。该框架使用了特定的方式来进行配置，从而使开发人员不再需要定义样板化的配置。通俗点理解，就是spring boot其实不是什么新的框架，它默认配置了很多框架的使用方式，就像maven整合了很多的jar包，比如散落在各处的spring框架：spring amqp、spring data redis client、spring web service，进而集大成。Spring Cloud为开发人员提供了快速构建分布式系统中一些常见模式的工具，例如配置管理，服务发现，断路器，智能路由，微代理，控制总线，一次性令牌，全局锁定，领导选举，分布式会话，集群状态。从技术...
-    
-
-        <a href="/2018/06/03/spring-cloud-1x-cloud-netfix-ribbon/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
         
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/中间件技术/">中间件技术</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/微服务spring-cloud解决方案/">微服务spring cloud解决方案</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
     </ul>
 
-    
-<nav id="page-nav">
-    <div class="inner">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">下一页</a>
-    </div>
-</nav>
-
-
-</div>
-
-        <footer class="footer">
-    <div class="top">
+    <div class="copyright">
+    	
+        &copy; 2020 游侠
         
-<p>
-    <span id="busuanzi_container_site_uv" style='display:none'>
-        站点总访客数：<span id="busuanzi_value_site_uv"></span>
-    </span>
-    <span id="busuanzi_container_site_pv" style='display:none'>
-        站点总访问量：<span id="busuanzi_value_site_pv"></span>
-    </span>
-</p>
-
-
-        <p>
-            
-                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
-            
-            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
-        </p>
-    </div>
-    <div class="bottom">
-        <p><span>游侠 &copy; 2015 - 2020</span>
-            <span>
-                
-                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
-            </span>
-        </p>
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
     </div>
 </footer>
-
-    </main>
-    <div class="mask" id="mask"></div>
-<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
-
-
-
-<div class="global-share" id="globalShare">
-    <ul class="reset share-icons">
-      <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://jingzhouyouxia.github.io/&title=思路比试错更重要&pic=https://jingzhouyouxia.github.io/img/avatar.jpg" data-title="微博">
-          <i class="icon icon-weibo"></i>
-        </a>
-      </li>
-      <li>
-        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
-          <i class="icon icon-weixin"></i>
-        </a>
-      </li>
-      <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://jingzhouyouxia.github.io/&title=思路比试错更重要&source=" data-title=" QQ">
-          <i class="icon icon-qq"></i>
-        </a>
-      </li>
-      <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://jingzhouyouxia.github.io/" data-title=" Facebook">
-          <i class="icon icon-facebook"></i>
-        </a>
-      </li>
-      <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=思路比试错更重要&url=https://jingzhouyouxia.github.io/&via=https://jingzhouyouxia.github.io" data-title=" Twitter">
-          <i class="icon icon-twitter"></i>
-        </a>
-      </li>
-      <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://jingzhouyouxia.github.io/" data-title=" Google+">
-          <i class="icon icon-google-plus"></i>
-        </a>
-      </li>
-    </ul>
- </div>
-
-
-<div class="page-modal wx-share" id="wxShare">
-    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://jingzhouyouxia.github.io/" alt="微信分享二维码">
-</div>
-
-
-
-
-    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
 <script>
-var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
-
-
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 </script>
 
-<script src="/js/main.min.js?v=1.7.2"></script>
+<script src="/js/plugin.min.js"></script>
 
 
-<div class="search-panel" id="search-panel">
-    <ul class="search-result" id="search-result"></ul>
-</div>
-<template id="search-tpl">
-<li class="item">
-    <a href="{path}" class="waves-block waves-effect">
-        <div class="title ellipsis" title="{title}">{title}</div>
-        <div class="flex-row flex-middle">
-            <div class="tags ellipsis">
-                {tags}
-            </div>
-            <time class="flex-col time">{date}</time>
-        </div>
-    </a>
-</li>
-</template>
-
-<script src="/js/search.min.js?v=1.7.2" async></script>
+<script src="/js/application.js"></script>
 
 
-
-
-
-
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-
-
-<script>
-(function() {
-    var OriginTitile = document.title, titleTime;
-    document.addEventListener('visibilitychange', function() {
-        if (document.hidden) {
-            document.title = '';
-            clearTimeout(titleTime);
-        } else {
-            document.title = '';
-            titleTime = setTimeout(function() {
-                document.title = OriginTitile;
-            },2000);
-        }
-    });
-})();
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
 </script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+
+
 
 
 

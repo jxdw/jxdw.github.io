@@ -25,13 +25,13 @@
 <meta property="og:site_name" content="永远在路上">
 <meta property="og:description" content="本文参考资料https:&#x2F;&#x2F;redis.io&#x2F;topics&#x2F;protocol  redis-cli命令与redis通信协议redis-cli命令redis命令在从提交到返回处理结果的过程中，消耗的时间我们称之为RTT（往返时间）。在需要批量执行redis 命令的场景下，如果命令单条逐个执行，那么总共花费的时间是命令条数 N * RTT。redis 提供了管道">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://jingzhouyouxia.github.io/img/redis/redis3.2_clihelpcmand.png">
+<meta property="og:image" content="https://jingzhouyouxia.github.io/img/business/redis/redis3.2_clihelpcmand.png">
 <meta property="article:published_time" content="2016-07-21T11:58:10.000Z">
-<meta property="article:modified_time" content="2020-10-02T09:14:53.313Z">
+<meta property="article:modified_time" content="2020-10-02T09:53:19.006Z">
 <meta property="article:author" content="游侠">
 <meta property="article:tag" content="业务开发中间件">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://jingzhouyouxia.github.io/img/redis/redis3.2_clihelpcmand.png">
+<meta name="twitter:image" content="https://jingzhouyouxia.github.io/img/business/redis/redis3.2_clihelpcmand.png">
   <!-- Canonical links -->
   <link rel="canonical" href="https://jingzhouyouxia.github.io/2016/07/21/redis-protocol/index.html">
   
@@ -337,7 +337,7 @@
 
 <h1 id="redis-cli命令与redis通信协议"><a href="#redis-cli命令与redis通信协议" class="headerlink" title="redis-cli命令与redis通信协议"></a>redis-cli命令与redis通信协议</h1><h2 id="redis-cli命令"><a href="#redis-cli命令" class="headerlink" title="redis-cli命令"></a>redis-cli命令</h2><p>redis命令在从提交到返回处理结果的过程中，消耗的时间我们称之为RTT（往返时间）。在需要批量执行redis 命令的场景下，如果命令单条逐个执行，那么总共花费的时间是命令条数 N * RTT。redis 提供了管道技术来提高批量执行效率，即将多个命令打包发送给redis服务端，所有命令执行完后，再将所有结果打包返回。在所有命令执行结束前，redis服务器会缓存已执行结束的结果。<br>在redis-cli命令行中，使用redis管道技术时，我们通常将待执行的命令放到一个文本里，比如commands.txt，然后使用命令：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cat commands.txt | redis-cli --pipe</span><br></pre></td></tr></table></figure>
-<p>去读取文本里的命令，然后打包已pipe管道的方式发送给redis服务端。<br>其他命令见<img src="https://jingzhouyouxia.github.io/img/redis/redis3.2_clihelpcmand.png"></p>
+<p>去读取文本里的命令，然后打包已pipe管道的方式发送给redis服务端。<br>其他命令见<img src="https://jingzhouyouxia.github.io/img/business/redis/redis3.2_clihelpcmand.png"></p>
 <h2 id="redis通信协议"><a href="#redis通信协议" class="headerlink" title="redis通信协议"></a>redis通信协议</h2><p>Redis服务器与客户端通过RESP（REdis Serialization Protocol）协议通信。协议用 \r\n 做间隔。对于简单的字符串，以 + 开头，例如 :+OK\r\n。对于错误消息，以 - 开头 ，例如:</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">-ERR unknown command &#39;foobar&#39;\r\n</span><br><span class="line">-WRONGTYPE Operation against a key holding the wrong kind of value\r\n</span><br></pre></td></tr></table></figure>
 <p>对于整数，以:开头，例如:</p>

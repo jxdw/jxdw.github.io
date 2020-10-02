@@ -25,13 +25,13 @@
 <meta property="og:site_name" content="永远在路上">
 <meta property="og:description" content="本文背景背景经同事推荐，觉得docker对于我们这些centos菜鸟很不错（把安装步骤在dokcerfile写好了），建议学习一下。 参考资料https:&#x2F;&#x2F;hub.docker.com (很重要，类似于官方文档)https:&#x2F;&#x2F;cr.console.aliyun.com&#x2F;cn-hangzhou&#x2F;mirrors (镜像加速器，在国内绕不过">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://jingzhouyouxia.github.io/img/cloudnative/docker/docker_help.png">
+<meta property="og:image" content="https://jingzhouyouxia.github.io/img/devops/docker/docker_help.png">
 <meta property="article:published_time" content="2017-02-05T01:54:55.000Z">
-<meta property="article:modified_time" content="2020-10-02T09:14:53.040Z">
+<meta property="article:modified_time" content="2020-10-02T09:51:24.485Z">
 <meta property="article:author" content="游侠">
 <meta property="article:tag" content="研发效率中间件">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://jingzhouyouxia.github.io/img/cloudnative/docker/docker_help.png">
+<meta name="twitter:image" content="https://jingzhouyouxia.github.io/img/devops/docker/docker_help.png">
   <!-- Canonical links -->
   <link rel="canonical" href="https://jingzhouyouxia.github.io/2017/02/05/docker-1-10-install/index.html">
   
@@ -344,7 +344,7 @@
 <h2 id="其他可能会出问题的地方"><a href="#其他可能会出问题的地方" class="headerlink" title="其他可能会出问题的地方"></a>其他可能会出问题的地方</h2><p>其他可能会出现问题的地方，基本上都是在启动命令这一行。有问题，修改就好</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ExecStart&#x3D;&#x2F;usr&#x2F;bin&#x2F;docker-current daemon \</span><br><span class="line">          --exec-opt native.cgroupdriver&#x3D;systemd \</span><br><span class="line">          $OPTIONS \</span><br><span class="line">          $DOCKER_STORAGE_OPTIONS \</span><br><span class="line">          $DOCKER_NETWORK_OPTIONS \</span><br><span class="line">          $ADD_REGISTRY \</span><br><span class="line">          $BLOCK_REGISTRY \</span><br><span class="line">          $INSECURE_REGISTRY</span><br></pre></td></tr></table></figure>
 <h1 id="启动命令"><a href="#启动命令" class="headerlink" title="启动命令"></a>启动命令</h1><p>systemctl daemon-reload<br>systemctl restart docker.service</p>
-<h1 id="docker实操"><a href="#docker实操" class="headerlink" title="docker实操"></a>docker实操</h1><p>可以见docker help命令和官网指南<br><img src="https://jingzhouyouxia.github.io/img/cloudnative/docker/docker_help.png"></p>
+<h1 id="docker实操"><a href="#docker实操" class="headerlink" title="docker实操"></a>docker实操</h1><p>可以见docker help命令和官网指南<br><img src="https://jingzhouyouxia.github.io/img/devops/docker/docker_help.png"></p>
 
       
     </div>

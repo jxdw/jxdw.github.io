@@ -6,7 +6,7 @@
   <link href="https://jingzhouyouxia.github.io/atom.xml" rel="self"/>
   
   <link href="https://jingzhouyouxia.github.io/"/>
-  <updated>2020-10-02T14:22:00.816Z</updated>
+  <updated>2020-10-02T14:41:32.454Z</updated>
   <id>https://jingzhouyouxia.github.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>阿里云oss的go client使用</title>
+    <link href="https://jingzhouyouxia.github.io/2020/07/20/upload-file-to-alicloud/"/>
+    <id>https://jingzhouyouxia.github.io/2020/07/20/upload-file-to-alicloud/</id>
+    <published>2020-07-20T12:17:59.000Z</published>
+    <updated>2020-10-02T14:41:32.454Z</updated>
+    
+    <content type="html"><![CDATA[<p>golang写一些工具程序是真的方便。<br>直接上源码：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">&quot;fmt&quot;</span><br><span class="line">uuid &quot;github.com&#x2F;satori&#x2F;go.uuid&quot;</span><br><span class="line">&quot;os&quot;</span><br><span class="line">&quot;github.com&#x2F;aliyun&#x2F;aliyun-oss-go-sdk&#x2F;oss&quot;</span><br><span class="line">&quot;time&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">&#x2F;&#x2F; 创建OSSClient实例。</span><br><span class="line">endPoint:&#x3D;&quot;http:&#x2F;&#x2F;oss-cn-hangzhou.aliyuncs.com&quot;;</span><br><span class="line">accessKeyID:&#x3D;&quot;申请的keyid&quot;;</span><br><span class="line">accessKeySecret:&#x3D;&quot;申请的keysecret&quot;</span><br><span class="line">client, err :&#x3D; oss.New(endPoint, accessKeyID, accessKeySecret)</span><br><span class="line">if err !&#x3D; nil &#123;</span><br><span class="line">fmt.Println(&quot;Error:&quot;, err)</span><br><span class="line">os.Exit(-1)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 获取存储空间。</span><br><span class="line">bucket, err :&#x3D; client.Bucket(&quot;申请的bucket名&quot;)</span><br><span class="line">if err !&#x3D; nil &#123;</span><br><span class="line">fmt.Println(&quot;Error:&quot;, err)</span><br><span class="line">os.Exit(-1)</span><br><span class="line">&#125;</span><br><span class="line">u2 :&#x3D; uuid.NewV4()</span><br><span class="line">&#x2F;&#x2F;上传本地文件。</span><br><span class="line">err &#x3D; bucket.PutObjectFromFile(os.Args[1]+&quot;&#x2F;&quot;+ u2.String()+os.Args[2], os.Args[3])</span><br><span class="line">fmt.Printf(&quot;%s&quot;, &quot;https:&#x2F;&#x2F;oss-cn-hangzhou.aliyuncs.com&#x2F;申请的bucket名&#x2F;&quot;+os.Args[1]+&quot;&#x2F;&quot;+ u2.String()+os.Args[2]);</span><br><span class="line">if err !&#x3D; nil &#123;</span><br><span class="line">fmt.Println(&quot;Error:&quot;, err)</span><br><span class="line">os.Exit(-1)</span><br><span class="line">&#125;</span><br><span class="line">fmt.Println(&quot;unix timestamp&quot;,time.Now().Unix())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;golang写一些工具程序是真的方便。&lt;br&gt;直接上源码：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;package main&lt;/span&gt;</summary>
+      
+    
+    
+    
+    
+    <category term="业务开发中间件" scheme="https://jingzhouyouxia.github.io/tags/%E4%B8%9A%E5%8A%A1%E5%BC%80%E5%8F%91%E4%B8%AD%E9%97%B4%E4%BB%B6/"/>
+    
+  </entry>
   
   <entry>
     <title>go语言模拟curl程序将json文件内容发送到httpserver</title>
@@ -433,29 +456,6 @@
     
     
     <category term="业务开发中间件" scheme="https://jingzhouyouxia.github.io/tags/%E4%B8%9A%E5%8A%A1%E5%BC%80%E5%8F%91%E4%B8%AD%E9%97%B4%E4%BB%B6/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>2018年度的技术总结</title>
-    <link href="https://jingzhouyouxia.github.io/2019/01/01/jishuzongjie-2018/"/>
-    <id>https://jingzhouyouxia.github.io/2019/01/01/jishuzongjie-2018/</id>
-    <published>2019-01-01T02:35:47.000Z</published>
-    <updated>2020-10-02T09:14:53.204Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>新年了，按惯例，要盘盘肚子里面的“存货”了.</p><h1 id="2018年度已掌握的技术学习"><a href="#2018年度已掌握的技术学习" class="headerlink" title="2018年度已掌握的技术学习"></a>2018年度已掌握的技术学习</h1><p>已初步掌握的技术的进展，即具体技术流水账：</p><h2 id="java"><a href="#java" class="headerlink" title="java"></a>java</h2><p>代码写的有点少，spring boot2.0、spring cloud2.X没有过多的深入和落地。</p><h2 id="go语言"><a href="#go语言" class="headerlink" title="go语言"></a>go语言</h2><p>没有很深入的学，就学了gin、go-kit的皮毛、了解协程的调度。</p><h2 id="中间件技术"><a href="#中间件技术" class="headerlink" title="中间件技术"></a>中间件技术</h2><h3 id="mysql"><a href="#mysql" class="headerlink" title="mysql"></a>mysql</h3><p>还是有点云里雾里，还是没有彻底搞清楚线程模型，线程调度</p><h3 id="rabbitmq"><a href="#rabbitmq" class="headerlink" title="rabbitmq"></a>rabbitmq</h3><p>还是有点云里雾里，还是没有彻底掌握</p><h3 id="redis"><a href="#redis" class="headerlink" title="redis"></a>redis</h3><p>新学了一个codis的方案，这个方案有点重，有些命令用不了，比如keys *（没有从group做聚合）</p><h3 id="zookeeper"><a href="#zookeeper" class="headerlink" title="zookeeper"></a>zookeeper</h3><p>还是保留在会用的阶段。</p><h3 id="elasticsearch"><a href="#elasticsearch" class="headerlink" title="elasticsearch"></a>elasticsearch</h3><p>还是保留在会用的阶段。</p><h3 id="elastic-job-lite"><a href="#elastic-job-lite" class="headerlink" title="elastic-job-lite"></a>elastic-job-lite</h3><p>elastic-job-lite整个流程，看了一遍源码。</p><h3 id="keepalived高可用技术"><a href="#keepalived高可用技术" class="headerlink" title="keepalived高可用技术"></a>keepalived高可用技术</h3><p>这一年没有什么进展。</p><h2 id="系统工具-centos技术"><a href="#系统工具-centos技术" class="headerlink" title="系统工具-centos技术"></a>系统工具-centos技术</h2><p>这一年没有什么进展。</p><h2 id="中间件技术-1"><a href="#中间件技术-1" class="headerlink" title="中间件技术"></a>中间件技术</h2><h3 id="注册中心和配置中心"><a href="#注册中心和配置中心" class="headerlink" title="注册中心和配置中心"></a>注册中心和配置中心</h3><p>还是eureka，配置中心还是用的携程的apollo，至于阿里云的nacos，继续跟进吧。</p><h3 id="docker和kubernetes"><a href="#docker和kubernetes" class="headerlink" title="docker和kubernetes"></a>docker和kubernetes</h3><p>这一年，开始捣鼓portainer和kubernetes。下半年的时候，花了一些时间捣鼓了一下kubernetes,并结合之前的技术方案，捣鼓了一套基于apollo+kubernetes方案（后面发现社区有公司也是采用类似的方案）:见本文附录。<br>总的感觉，kubernetes是个好东西。如果要推动，需要自上而下的推动。现在这个产品驱动开发的公司，技术老大的重心由偏向于产品层面，所以，只能在线下玩一玩。<br>如果要推动，需要自上而下的推动。现在这个产品驱动开发的公司，技术老大的重心由偏向于产品层面，所以，只能在线下玩一玩。运维做的有点多了。</p><h1 id="监控跟踪技术"><a href="#监控跟踪技术" class="headerlink" title="监控跟踪技术"></a>监控跟踪技术</h1><h3 id="容器监控技术"><a href="#容器监控技术" class="headerlink" title="容器监控技术"></a>容器监控技术</h3><p>还是比较熟悉prometheus。也了解了cadvisord技术和influxdb技术。</p><h3 id="zipkin技术"><a href="#zipkin技术" class="headerlink" title="zipkin技术"></a>zipkin技术</h3><p>链路监控还是比较熟悉zipkin。</p><h3 id="应用监控和中间件监控"><a href="#应用监控和中间件监控" class="headerlink" title="应用监控和中间件监控"></a>应用监控和中间件监控</h3><p>还是比较熟悉prometheus。</p><h2 id="技术架构方面的收获"><a href="#技术架构方面的收获" class="headerlink" title="技术架构方面的收获"></a>技术架构方面的收获</h2><h3 id="架构方面的书籍"><a href="#架构方面的书籍" class="headerlink" title="架构方面的书籍"></a>架构方面的书籍</h3><p>本人工作伊始，到现在一直都有接触各种“架构”模式：SOA、分层、服务化、微服务、云原生。相关的词汇陈出不穷。<br>所以，今年花了比较多的时间在理解云原生与微服务的区别（后面发现其实没啥本质区别，就是升级版）。并读了一本质量还行的书《云原生架构下的微服务最佳实践》。</p><h4 id="综合评价"><a href="#综合评价" class="headerlink" title="综合评价"></a>综合评价</h4><p>先说综合评价，这本书还是有点货的，里面的很多技术是可以引入到项目的技术体系。<br>如果让我推荐，我会推荐读。然后，根据组织结构，去各个技术的官方站点，看官方文档，仔细的撸一遍代码和命令。</p><h4 id="这本书的组织架构"><a href="#这本书的组织架构" class="headerlink" title="这本书的组织架构"></a>这本书的组织架构</h4><p>从这本书的组织结构，可以看出，这是位有“货”的架构师。从传统架构谈到了:</p><ul><li>架构模式（云原生、微服务）</li><li>公有或者私有云(一笔带过)</li><li>云上技术基础设施（数据库、缓存、消息中间件、任务调度中间件、自动化、持续集成、监控、框架、分布式ID）</li><li>分布式系统面临的一致性</li><li>分布式系统面临的可用性</li><li>分布式系统面临的扩展性</li><li>分布式系统面临的性能</li><li>未来值得关注的方向</li><li>研发流程、组织结构、研发文化</li></ul><h4 id="这本书的槽点"><a href="#这本书的槽点" class="headerlink" title="这本书的槽点"></a>这本书的槽点</h4><p>下面本人将按组织结构的顺序进行点评。</p><h4 id="架构模式"><a href="#架构模式" class="headerlink" title="架构模式"></a>架构模式</h4><p>本书花了6页的篇幅，探讨云原生的概念。个人认为还是比较浅，还可以深入点。后面又花了40多页的篇幅探讨为什么要引入微服务架构、微服务设计原则、实施的先决条件（很重要的一个点）、服务划分模式、接口设计、接口可视化（对于团队开发很重要）。基本算是合格。</p><h4 id="公有-私有云"><a href="#公有-私有云" class="headerlink" title="公有/私有云"></a>公有/私有云</h4><p>有点遗憾，这块基本上是一笔带过。<br>其实还是可以提一下GCP、AWS、IBM、Azure（毕竟公有云现在如日中天）、基于openstack或者kvm组成的私有云，以及基于这些云上的容器云技术kubernetes。</p><h4 id="云上技术基础设施"><a href="#云上技术基础设施" class="headerlink" title="云上技术基础设施"></a>云上技术基础设施</h4><p>云上技术基础设施：数据库、缓存、消息中间件、任务调度中间件、自动化、持续集成、监控、框架、分布式ID。<br>这些技术分成了第二章的后半章、第三章整章来说，个人认为，从篇幅上是很不够的。应该是每个技术安排一章。<br>不过也理解，纸质书籍有其局限性，还要出版社方面的考虑。<br>因为纸质书籍的局限性，给了博客一些机会，本人的博客，也细化了这些技术。<br></p><h4 id="分布式系统面临的可用性"><a href="#分布式系统面临的可用性" class="headerlink" title="分布式系统面临的可用性"></a>分布式系统面临的可用性</h4><p>谈到了几点：可用性的几板斧-重试、流控、熔断、容量预估、隔离。<br>至于服务端入口处的高可用，没有谈论到。</p><h4 id="分布式系统面临的可扩展性"><a href="#分布式系统面临的可扩展性" class="headerlink" title="分布式系统面临的可扩展性"></a>分布式系统面临的可扩展性</h4><p>谈到了一点：AKF。<br>没有记错的话，架构即未来也谈到了这个方法论。</p><h4 id="分布式系统面临的性能"><a href="#分布式系统面临的性能" class="headerlink" title="分布式系统面临的性能"></a>分布式系统面临的性能</h4><p>性能这块，其实就几板斧：同步变异步、缓存、数据库分库分表、消息队列。</p><h4 id="分布式系统面临的一致性"><a href="#分布式系统面临的一致性" class="headerlink" title="分布式系统面临的一致性"></a>分布式系统面临的一致性</h4><p>本书从传统的定义引入分布式系统的一致性，然后做了分类（数据为中心的一致性、用户为中心的一致性）。然后讲了两阶段提交的局限性、三阶段提交的局限性。以及业界常用的几种解决方案：<br><br>重试机制、本地记录日志、可靠事件机制、TCC事务模型。另外还提到了分布式锁。其实分布式锁、分布式id、可以单独起一章讨论。</p><h4 id="后续值得关注的技术、组织文化、研发流程"><a href="#后续值得关注的技术、组织文化、研发流程" class="headerlink" title="后续值得关注的技术、组织文化、研发流程"></a>后续值得关注的技术、组织文化、研发流程</h4><p>至于这块，当小说看了。尤其是组织、研发流程变化，最好是自上而下的推动，而不是自下而上。</p><h3 id="形成自己的通用技术架构图"><a href="#形成自己的通用技术架构图" class="headerlink" title="形成自己的通用技术架构图"></a>形成自己的通用技术架构图</h3><p>形成自己的业务平台通用技术架构图:<br><img src="https://jingzhouyouxia.github.io/img/architectrue/tech_architectrue_shuiyin.png"></p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;/a&gt;背景&lt;/h1&gt;&lt;p&gt;新年了，按惯例，要盘盘肚子里面的“存货”了.&lt;/p&gt;
-&lt;h1 id=&quot;2018年度已掌握的技术学习&quot;&gt;&lt;a href=&quot;#2018年度已掌握</summary>
-      
-    
-    
-    
-    
-    <category term="架构/知识体系" scheme="https://jingzhouyouxia.github.io/tags/%E6%9E%B6%E6%9E%84-%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/"/>
     
   </entry>
   

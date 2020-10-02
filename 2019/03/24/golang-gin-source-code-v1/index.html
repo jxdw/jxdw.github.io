@@ -25,13 +25,13 @@
 <meta property="og:site_name" content="永远在路上">
 <meta property="og:description" content="demo源码package mainimport (	&quot;encoding&#x2F;json&quot;	&quot;fmt&quot;	&quot;github.com&#x2F;gin-gonic&#x2F;gin&quot;)type User struct &amp;#123;	Id int	Name string	Age int&amp;#125;func main()  &amp;#123;	def">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://youxia999.github.io/img/go/ginsourcev1.png">
+<meta property="og:image" content="https://jingzhouyouxia.github.io/img/go/ginsourcev1.png">
 <meta property="article:published_time" content="2019-03-24T04:48:30.000Z">
-<meta property="article:modified_time" content="2020-10-02T08:11:08.802Z">
+<meta property="article:modified_time" content="2020-10-02T09:14:53.150Z">
 <meta property="article:author" content="游侠">
 <meta property="article:tag" content="编程语言">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://youxia999.github.io/img/go/ginsourcev1.png">
+<meta name="twitter:image" content="https://jingzhouyouxia.github.io/img/go/ginsourcev1.png">
   <!-- Canonical links -->
   <link rel="canonical" href="https://jingzhouyouxia.github.io/2019/03/24/golang-gin-source-code-v1/index.html">
   
@@ -336,7 +336,7 @@
         <h1 id="demo源码"><a href="#demo源码" class="headerlink" title="demo源码"></a>demo源码</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;encoding&#x2F;json&quot;</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">	&quot;github.com&#x2F;gin-gonic&#x2F;gin&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">type User struct &#123;</span><br><span class="line">	Id int</span><br><span class="line">	Name string</span><br><span class="line">	Age int</span><br><span class="line">&#125;</span><br><span class="line">func main()  &#123;</span><br><span class="line">	defaultServer:&#x3D;gin.New();</span><br><span class="line">	defaultServer.RouterGroup.GET(&quot;&#x2F;&quot;,defaultHandeler)</span><br><span class="line">	v1 :&#x3D; defaultServer.Group(&quot;&#x2F;v1&quot;)</span><br><span class="line">	v1.GET(&quot;&#x2F;ping&quot;,v1pingHandeler)</span><br><span class="line"></span><br><span class="line">	defaultServer.Run(&quot;:8083&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">func defaultHandeler(ctx *gin.Context)  &#123;</span><br><span class="line">	ctx.JSON(200,gin.H&#123;</span><br><span class="line">		&quot;status&quot;:200,</span><br><span class="line">		&quot;success&quot;:true,</span><br><span class="line">		&quot;data&quot;:&quot;&#123;&#125;&quot;,</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;</span><br><span class="line">func v1pingHandeler(context *gin.Context) &#123;</span><br><span class="line">	user:&#x3D;User&#123;1,&quot;golang&quot;,20&#125;</span><br><span class="line">	data,_:&#x3D;json.Marshal(user)</span><br><span class="line">	fmt.Println(user,data)</span><br><span class="line">	context.JSON(200,gin.H&#123;</span><br><span class="line">		&quot;status&quot;:200,</span><br><span class="line">		&quot;success&quot;:true,</span><br><span class="line">		&quot;data&quot;:string(data),</span><br><span class="line">	&#125;)</span><br><span class="line">	&#x2F;&#x2F;context.Redirect(http.StatusMovedPermanently,&quot;https:&#x2F;&#x2F;github.com&#x2F;gin-goinc&#x2F;gin&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
-<h1 id="时序图"><a href="#时序图" class="headerlink" title="时序图"></a>时序图</h1><p><img src="https://youxia999.github.io/img/go/ginsourcev1.png"></p>
+<h1 id="时序图"><a href="#时序图" class="headerlink" title="时序图"></a>时序图</h1><p><img src="https://jingzhouyouxia.github.io/img/go/ginsourcev1.png"></p>
 
       
     </div>

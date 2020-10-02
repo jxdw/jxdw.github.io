@@ -25,16 +25,16 @@
 <meta property="og:site_name" content="永远在路上">
 <meta property="og:description" content="node与npm介绍 centos下安装nodejs下载执行脚本curl -sL https:&#x2F;&#x2F;rpm.nodesource.com&#x2F;setup_10.x | bash - 安装依赖yum install gcc-c++ make 安装nodejsyum install -y nodejs 初步使用node帮助命令 npm帮助命令 npm安装命令 第一个nodejs程序var http&amp;#x3D">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://youxia999.github.io/img/es6/node_npm_introduce.png">
-<meta property="og:image" content="https://youxia999.github.io/img/es6/node_help.png">
-<meta property="og:image" content="https://youxia999.github.io/img/es6/npm_list.png">
-<meta property="og:image" content="https://youxia999.github.io/img/es6/npm_install.png">
+<meta property="og:image" content="https://jingzhouyouxia.github.io/img/es6/node_npm_introduce.png">
+<meta property="og:image" content="https://jingzhouyouxia.github.io/img/es6/node_help.png">
+<meta property="og:image" content="https://jingzhouyouxia.github.io/img/es6/npm_list.png">
+<meta property="og:image" content="https://jingzhouyouxia.github.io/img/es6/npm_install.png">
 <meta property="article:published_time" content="2018-08-12T08:37:48.000Z">
-<meta property="article:modified_time" content="2020-10-02T08:06:49.999Z">
+<meta property="article:modified_time" content="2020-10-02T09:14:52.917Z">
 <meta property="article:author" content="游侠">
 <meta property="article:tag" content="研发效率中间件">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://youxia999.github.io/img/es6/node_npm_introduce.png">
+<meta name="twitter:image" content="https://jingzhouyouxia.github.io/img/es6/node_npm_introduce.png">
   <!-- Canonical links -->
   <link rel="canonical" href="https://jingzhouyouxia.github.io/2018/08/12/centos7-install-nodejs/index.html">
   
@@ -336,13 +336,13 @@
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <h1 id="node与npm介绍"><a href="#node与npm介绍" class="headerlink" title="node与npm介绍"></a>node与npm介绍</h1><p><img src="https://youxia999.github.io/img/es6/node_npm_introduce.png"></p>
+        <h1 id="node与npm介绍"><a href="#node与npm介绍" class="headerlink" title="node与npm介绍"></a>node与npm介绍</h1><p><img src="https://jingzhouyouxia.github.io/img/es6/node_npm_introduce.png"></p>
 <h1 id="centos下安装nodejs"><a href="#centos下安装nodejs" class="headerlink" title="centos下安装nodejs"></a>centos下安装nodejs</h1><h2 id="下载执行脚本"><a href="#下载执行脚本" class="headerlink" title="下载执行脚本"></a>下载执行脚本</h2><p>curl -sL <a target="_blank" rel="noopener" href="https://rpm.nodesource.com/setup_10.x">https://rpm.nodesource.com/setup_10.x</a> | bash -</p>
 <h2 id="安装依赖"><a href="#安装依赖" class="headerlink" title="安装依赖"></a>安装依赖</h2><p>yum install gcc-c++ make</p>
 <h2 id="安装nodejs"><a href="#安装nodejs" class="headerlink" title="安装nodejs"></a>安装nodejs</h2><p>yum install -y nodejs</p>
-<h1 id="初步使用"><a href="#初步使用" class="headerlink" title="初步使用"></a>初步使用</h1><h2 id="node帮助命令"><a href="#node帮助命令" class="headerlink" title="node帮助命令"></a>node帮助命令</h2><p><img src="https://youxia999.github.io/img/es6/node_help.png"></p>
-<h2 id="npm帮助命令"><a href="#npm帮助命令" class="headerlink" title="npm帮助命令"></a>npm帮助命令</h2><p><img src="https://youxia999.github.io/img/es6/npm_list.png"></p>
-<h2 id="npm安装命令"><a href="#npm安装命令" class="headerlink" title="npm安装命令"></a>npm安装命令</h2><p><img src="https://youxia999.github.io/img/es6/npm_install.png"></p>
+<h1 id="初步使用"><a href="#初步使用" class="headerlink" title="初步使用"></a>初步使用</h1><h2 id="node帮助命令"><a href="#node帮助命令" class="headerlink" title="node帮助命令"></a>node帮助命令</h2><p><img src="https://jingzhouyouxia.github.io/img/es6/node_help.png"></p>
+<h2 id="npm帮助命令"><a href="#npm帮助命令" class="headerlink" title="npm帮助命令"></a>npm帮助命令</h2><p><img src="https://jingzhouyouxia.github.io/img/es6/npm_list.png"></p>
+<h2 id="npm安装命令"><a href="#npm安装命令" class="headerlink" title="npm安装命令"></a>npm安装命令</h2><p><img src="https://jingzhouyouxia.github.io/img/es6/npm_install.png"></p>
 <h2 id="第一个nodejs程序"><a href="#第一个nodejs程序" class="headerlink" title="第一个nodejs程序"></a>第一个nodejs程序</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var http&#x3D;require(&#39;http&#39;)</span><br><span class="line">http.createServer(function(req,res)&#123;</span><br><span class="line">  res.writeHead(200,&#123;&#39;Content-type&#39;:&#39;test&#x2F;plain&#39;&#125;);</span><br><span class="line">  res.end(&#39;hello,wordl\n&#39;);</span><br><span class="line">&#125;).listen(1337,&#39;127.0.0.1&#39;);</span><br><span class="line">console.log(&#39;server running  at http:&#x2F;&#x2F;127.0.0.1:1337&#39;);</span><br></pre></td></tr></table></figure>
       
     </div>

@@ -25,14 +25,14 @@
 <meta property="og:site_name" content="永远在路上">
 <meta property="og:description" content="下载安装下载和安装下载tar.gz文件，解压并cp到&#x2F;usr&#x2F;bin&#x2F;目录 创建用户和目录useradd etcdmkdir -p &#x2F;data&#x2F;etcd&#x2F;etcd02mkdir -p &#x2F;etc&#x2F;etcd&#x2F;chown etcd:etcd &#x2F;data&#x2F;etcd&#x2F;etcd02chown etcd:etcd &amp;#x2">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://youxia999.github.io/img/etcd/etcd_help.png">
-<meta property="og:image" content="https://youxia999.github.io/img/etcd/etcd_jiankangjiancha.png">
+<meta property="og:image" content="https://jingzhouyouxia.github.io/img/etcd/etcd_help.png">
+<meta property="og:image" content="https://jingzhouyouxia.github.io/img/etcd/etcd_jiankangjiancha.png">
 <meta property="article:published_time" content="2018-12-05T13:58:54.000Z">
-<meta property="article:modified_time" content="2020-10-02T08:17:46.256Z">
+<meta property="article:modified_time" content="2020-10-02T09:14:53.008Z">
 <meta property="article:author" content="游侠">
 <meta property="article:tag" content="研发效率中间件">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://youxia999.github.io/img/etcd/etcd_help.png">
+<meta name="twitter:image" content="https://jingzhouyouxia.github.io/img/etcd/etcd_help.png">
   <!-- Canonical links -->
   <link rel="canonical" href="https://jingzhouyouxia.github.io/2018/12/05/container-etcd-install/index.html">
   
@@ -344,8 +344,8 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 节点名称</span><br><span class="line">ETCD_NAME&#x3D;etcd02</span><br><span class="line"># 数据存放位置</span><br><span class="line">ETCD_DATA_DIR&#x3D;&quot;&#x2F;data&#x2F;etcd&#x2F;etcd02&quot;</span><br><span class="line"># 监听其他 Etcd 实例的地址</span><br><span class="line">ETCD_LISTEN_PEER_URLS&#x3D;&quot;http:&#x2F;&#x2F;10.2.1.31:2380&quot;</span><br><span class="line"># 监听客户端地址</span><br><span class="line">ETCD_LISTEN_CLIENT_URLS&#x3D;&quot;http:&#x2F;&#x2F;10.2.1.31:2379,http:&#x2F;&#x2F;10.2.1.31:4001&quot;</span><br><span class="line"># 通知其他 Etcd 实例地址</span><br><span class="line">ETCD_INITIAL_ADVERTISE_PEER_URLS&#x3D;&quot;http:&#x2F;&#x2F;10.2.1.31:2380&quot;</span><br><span class="line"># 初始化集群内节点地址</span><br><span class="line">ETCD_INITIAL_CLUSTER&#x3D;&quot;etcd01&#x3D;http:&#x2F;&#x2F;10.2.1.30:2380,etcd02&#x3D;http:&#x2F;&#x2F;10.2.1.31:2380,etcd03&#x3D;http:&#x2F;&#x2F;10.2.1.33:2380&quot;</span><br><span class="line"># 初始化集群状态，new 表示新建</span><br><span class="line">ETCD_INITIAL_CLUSTER_STATE&#x3D;&quot;new&quot;</span><br><span class="line"># 初始化集群 token</span><br><span class="line">ETCD_INITIAL_CLUSTER_TOKEN&#x3D;&quot;etcd-cluster&quot;</span><br><span class="line"># 通知 客户端地址</span><br><span class="line">ETCD_ADVERTISE_CLIENT_URLS&#x3D;&quot;http:&#x2F;&#x2F;10.2.1.31:2379,http:&#x2F;&#x2F;10.2.1.31:4001&quot;</span><br></pre></td></tr></table></figure>
 
 <h2 id="启动etcd"><a href="#启动etcd" class="headerlink" title="启动etcd"></a>启动etcd</h2><p>systemctl daemon-reload<br>systemctl start etcd.service</p>
-<h1 id="etcd操作"><a href="#etcd操作" class="headerlink" title="etcd操作"></a>etcd操作</h1><h2 id="etcdctl-api2操作指南"><a href="#etcdctl-api2操作指南" class="headerlink" title="etcdctl api2操作指南"></a>etcdctl api2操作指南</h2><p><img src="https://youxia999.github.io/img/etcd/etcd_help.png"></p>
-<h2 id="etcdctl-api2健康检查"><a href="#etcdctl-api2健康检查" class="headerlink" title="etcdctl api2健康检查"></a>etcdctl api2健康检查</h2><p><img src="https://youxia999.github.io/img/etcd/etcd_jiankangjiancha.png"></p>
+<h1 id="etcd操作"><a href="#etcd操作" class="headerlink" title="etcd操作"></a>etcd操作</h1><h2 id="etcdctl-api2操作指南"><a href="#etcdctl-api2操作指南" class="headerlink" title="etcdctl api2操作指南"></a>etcdctl api2操作指南</h2><p><img src="https://jingzhouyouxia.github.io/img/etcd/etcd_help.png"></p>
+<h2 id="etcdctl-api2健康检查"><a href="#etcdctl-api2健康检查" class="headerlink" title="etcdctl api2健康检查"></a>etcdctl api2健康检查</h2><p><img src="https://jingzhouyouxia.github.io/img/etcd/etcd_jiankangjiancha.png"></p>
 
       
     </div>

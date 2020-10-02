@@ -25,13 +25,13 @@
 <meta property="og:site_name" content="永远在路上">
 <meta property="og:description" content="本文可用于测试环境。 redis主从的工作原理1.如果设置了一个Slave，无论是第一次连接还是重连到Master，它都会发出一个SYNC命令；2.当Master收到SYNC命令之后，会做两件事：    a) Master执行BGSAVE：后台写数据到磁盘（rdb快照）；    b) Master同时将新收到的写入和修改数据集的命令存入缓冲区（非查询类）；3.当Master在后台把数据保存到快照文">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://youxia999.github.io/img/redis/docker_redis_ms.png">
+<meta property="og:image" content="https://jingzhouyouxia.github.io/img/redis/docker_redis_ms.png">
 <meta property="article:published_time" content="2017-03-13T05:13:50.000Z">
-<meta property="article:modified_time" content="2020-10-02T08:12:09.542Z">
+<meta property="article:modified_time" content="2020-10-02T09:14:53.109Z">
 <meta property="article:author" content="游侠">
 <meta property="article:tag" content="业务开发中间件">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://youxia999.github.io/img/redis/docker_redis_ms.png">
+<meta name="twitter:image" content="https://jingzhouyouxia.github.io/img/redis/docker_redis_ms.png">
   <!-- Canonical links -->
   <link rel="canonical" href="https://jingzhouyouxia.github.io/2017/03/13/docker-redis-master-slave/index.html">
   
@@ -340,7 +340,7 @@
 <h2 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h2><p>cd /data/server/redis/conf<br>sed -i ‘s/# slaveof <masterip> <masterport>/slaveof redis-master 6379/g’ redis.conf </p>
 <h2 id="启动主从节点"><a href="#启动主从节点" class="headerlink" title="启动主从节点"></a>启动主从节点</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker run --name redis-master -p 6379:6379 -d redis</span><br><span class="line">docker run --link redis-master:redis-master -p 6380:6379 -v &#x2F;data&#x2F;server&#x2F;redis&#x2F;conf&#x2F;redis.conf:&#x2F;usr&#x2F;local&#x2F;etc&#x2F;redis&#x2F;redis.conf --name redis-slave1 -d redis redis-server &#x2F;usr&#x2F;local&#x2F;etc&#x2F;redis&#x2F;redis.conf</span><br><span class="line">docker run --link redis-master:redis-master -p 6381:6379 -v &#x2F;data&#x2F;server&#x2F;redis&#x2F;conf&#x2F;redis.conf:&#x2F;usr&#x2F;local&#x2F;etc&#x2F;redis&#x2F;redis.conf --name redis-slave2 -d redis redis-server &#x2F;usr&#x2F;local&#x2F;etc&#x2F;redis&#x2F;redis.conf</span><br><span class="line">docker run --link redis-master:redis-master -p 6382:6379 -v &#x2F;data&#x2F;server&#x2F;redis&#x2F;conf&#x2F;redis.conf:&#x2F;usr&#x2F;local&#x2F;etc&#x2F;redis&#x2F;redis.conf --name redis-slave3 -d redis redis-server &#x2F;usr&#x2F;local&#x2F;etc&#x2F;redis&#x2F;redis.conf</span><br></pre></td></tr></table></figure>
 
-<h1 id="redis主从实验"><a href="#redis主从实验" class="headerlink" title="redis主从实验"></a>redis主从实验</h1><p><img src="https://youxia999.github.io/img/redis/docker_redis_ms.png"></p>
+<h1 id="redis主从实验"><a href="#redis主从实验" class="headerlink" title="redis主从实验"></a>redis主从实验</h1><p><img src="https://jingzhouyouxia.github.io/img/redis/docker_redis_ms.png"></p>
 
       
     </div>

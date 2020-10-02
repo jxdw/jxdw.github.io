@@ -25,14 +25,14 @@
 <meta property="og:site_name" content="永远在路上">
 <meta property="og:description" content="本文背景背景最近闲着无事，准备玩一把k8s，作为核心，要升级一波docker。这次直接安装docker1.12。查了资料，docker1.12的最显著特性就是内置了docker自身的swarm调度。 安装过程参考去年的docker 1.10安装心得,整一次1.12。 下载rpm包并安装yum install -y --nogpgcheck http:&#x2F;&#x2F;mirrors.aliy">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://youxia999.github.io/img/cloudnative/docker/docker_112_110.png">
-<meta property="og:image" content="https://youxia999.github.io/img/cloudnative/docker/docker_swarm_help.png">
+<meta property="og:image" content="https://jingzhouyouxia.github.io/img/cloudnative/docker/docker_112_110.png">
+<meta property="og:image" content="https://jingzhouyouxia.github.io/img/cloudnative/docker/docker_swarm_help.png">
 <meta property="article:published_time" content="2018-10-07T02:51:23.000Z">
-<meta property="article:modified_time" content="2020-10-02T08:18:01.289Z">
+<meta property="article:modified_time" content="2020-10-02T09:14:53.047Z">
 <meta property="article:author" content="游侠">
 <meta property="article:tag" content="研发效率中间件">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://youxia999.github.io/img/cloudnative/docker/docker_112_110.png">
+<meta name="twitter:image" content="https://jingzhouyouxia.github.io/img/cloudnative/docker/docker_112_110.png">
   <!-- Canonical links -->
   <link rel="canonical" href="https://jingzhouyouxia.github.io/2018/10/07/docker-1-12-install/index.html">
   
@@ -344,7 +344,7 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;insecure-registries&quot;: [</span><br><span class="line">        &quot;10.2.1.30:5000&quot;</span><br><span class="line">    ],</span><br><span class="line">    &quot;registry-mirror&quot;: [</span><br><span class="line">        &quot;https:&#x2F;&#x2F;csokz3oi.mirror.aliyuncs.com&quot;</span><br><span class="line">    ],</span><br><span class="line">   &quot;graph&quot;:&quot;&#x2F;data&#x2F;docker&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="启动docker"><a href="#启动docker" class="headerlink" title="启动docker"></a>启动docker</h2><p>systemctl restart docker.service</p>
-<h1 id="docker操作"><a href="#docker操作" class="headerlink" title="docker操作"></a>docker操作</h1><h2 id="docker1-12与1-10的区别"><a href="#docker1-12与1-10的区别" class="headerlink" title="docker1.12与1.10的区别"></a>docker1.12与1.10的区别</h2><p>先看docker –help对比<br><img src="https://youxia999.github.io/img/cloudnative/docker/docker_112_110.png"><br>果然是多了三个关键字:<br>docker node<br>docker swarm<br>docker service<br><img src="https://youxia999.github.io/img/cloudnative/docker/docker_swarm_help.png"></p>
+<h1 id="docker操作"><a href="#docker操作" class="headerlink" title="docker操作"></a>docker操作</h1><h2 id="docker1-12与1-10的区别"><a href="#docker1-12与1-10的区别" class="headerlink" title="docker1.12与1.10的区别"></a>docker1.12与1.10的区别</h2><p>先看docker –help对比<br><img src="https://jingzhouyouxia.github.io/img/cloudnative/docker/docker_112_110.png"><br>果然是多了三个关键字:<br>docker node<br>docker swarm<br>docker service<br><img src="https://jingzhouyouxia.github.io/img/cloudnative/docker/docker_swarm_help.png"></p>
 <h2 id="docker1-12-实操"><a href="#docker1-12-实操" class="headerlink" title="docker1.12 实操"></a>docker1.12 实操</h2><p>先看docker help和docker.hub.com。</p>
 <h3 id="docker-login"><a href="#docker-login" class="headerlink" title="docker login"></a>docker login</h3><p>命令作用:登录私有镜像仓库</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker login 10.2.1.30:5000</span><br></pre></td></tr></table></figure>

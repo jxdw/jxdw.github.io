@@ -17,21 +17,21 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>【微服务架构java解决方案】spring-cloud之netfix-ribbon | 渐学顿悟</title>
-  <meta name="description" content="关于spring boot&#x2F;cloud 1.X系列spring.io在spring boot和springcloud推出之前，开源了很多的框架（见下文附录），但是除了spring framework自身，影响力都不够。直到spring boot、spring cloud系列框架推出，才成了spring框架的扩展中最有影响力的两个(或者说集大成者)。Spring Boot的设计目的是用来简化新Spr">
+  <title>go语言服务使用nacos server作为配置中心 | 渐学顿悟</title>
+  <meta name="description" content="&#96;&#96;&#96;package main import (    “fmt”    “github.com&#x2F;nacos-group&#x2F;nacos-sdk-go&#x2F;clients”    “github.com&#x2F;nacos-group&#x2F;nacos-sdk-go&#x2F;clients&#x2F;config_client”    “github.com&#x2F;nacos-group&#x2F;nacos-sdk-go&#x2F;common&#x2F;constan">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【微服务架构java解决方案】spring-cloud之netfix-ribbon">
-<meta property="og:url" content="https://jingzhouyouxia.github.io/2018/06/03/spring-cloud-1x-cloud-netfix-ribbon/index.html">
+<meta property="og:title" content="go语言服务使用nacos server作为配置中心">
+<meta property="og:url" content="https://jingzhouyouxia.github.io/2020/09/25/nacos-go-client-config-example/index.html">
 <meta property="og:site_name" content="渐学顿悟">
-<meta property="og:description" content="关于spring boot&#x2F;cloud 1.X系列spring.io在spring boot和springcloud推出之前，开源了很多的框架（见下文附录），但是除了spring framework自身，影响力都不够。直到spring boot、spring cloud系列框架推出，才成了spring框架的扩展中最有影响力的两个(或者说集大成者)。Spring Boot的设计目的是用来简化新Spr">
+<meta property="og:description" content="&#96;&#96;&#96;package main import (    “fmt”    “github.com&#x2F;nacos-group&#x2F;nacos-sdk-go&#x2F;clients”    “github.com&#x2F;nacos-group&#x2F;nacos-sdk-go&#x2F;clients&#x2F;config_client”    “github.com&#x2F;nacos-group&#x2F;nacos-sdk-go&#x2F;common&#x2F;constan">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2018-06-03T09:14:29.000Z">
-<meta property="article:modified_time" content="2020-10-02T09:06:50.399Z">
+<meta property="article:published_time" content="2020-09-25T11:17:59.000Z">
+<meta property="article:modified_time" content="2020-10-03T04:20:33.360Z">
 <meta property="article:author" content="渐学顿悟">
 <meta property="article:tag" content="业务开发中间件">
 <meta name="twitter:card" content="summary">
   <!-- Canonical links -->
-  <link rel="canonical" href="https://jingzhouyouxia.github.io/2018/06/03/spring-cloud-1x-cloud-netfix-ribbon/index.html">
+  <link rel="canonical" href="https://jingzhouyouxia.github.io/2020/09/25/nacos-go-client-config-example/index.html">
   
     <link rel="alternate" href="/atom.xml" title="渐学顿悟" type="application/atom+xml">
   
@@ -296,14 +296,14 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-spring-cloud-1x-cloud-netfix-ribbon" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <article id="post-nacos-go-client-config-example" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
     <div class="article-header">
       
         
   
     <h1 class="article-title" itemprop="name">
-      【微服务架构java解决方案】spring-cloud之netfix-ribbon
+      go语言服务使用nacos server作为配置中心
     </h1>
   
 
@@ -311,8 +311,8 @@
       <div class="article-meta">
         <span class="article-date">
     <i class="icon icon-calendar-check"></i>
-	<a href="/2018/06/03/spring-cloud-1x-cloud-netfix-ribbon/" class="article-date">
-	  <time datetime="2018-06-03T09:14:29.000Z" itemprop="datePublished">2018-06-03 17:14:29日</time>
+	<a href="/2020/09/25/nacos-go-client-config-example/" class="article-date">
+	  <time datetime="2020-09-25T11:17:59.000Z" itemprop="datePublished">2020-09-25 19:17:59日</time>
 	</a>
 </span>
         
@@ -325,13 +325,61 @@
 
         
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2018/06/03/spring-cloud-1x-cloud-netfix-ribbon/#comments" class="article-comment-link">评论</a></span>
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/09/25/nacos-go-client-config-example/#comments" class="article-comment-link">评论</a></span>
         
       </div>
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <h1 id="关于spring-boot-cloud-1-X系列"><a href="#关于spring-boot-cloud-1-X系列" class="headerlink" title="关于spring boot/cloud 1.X系列"></a>关于spring boot/cloud 1.X系列</h1><p>spring.io在spring boot和springcloud推出之前，开源了很多的框架（见下文附录），但是除了spring framework自身，影响力都不够。<br>直到spring boot、spring cloud系列框架推出，才成了spring框架的扩展中最有影响力的两个(或者说集大成者)。<br>Spring Boot的设计目的是用来简化新Spring应用的初始搭建以及开发过程。<br>该框架使用了特定的方式来进行配置，从而使开发人员不再需要定义样板化的配置。<br>通俗点理解，就是spring boot其实不是什么新的框架，它默认配置了很多框架的使用方式，就像maven整合了很多的jar包，比如散落在各处的spring框架：spring amqp、spring data redis client、spring web service，进而集大成。<br>Spring Cloud为开发人员提供了快速构建分布式系统中一些常见模式的工具，例如配置管理，服务发现，断路器，智能路由，微代理，控制总线，一次性令牌，全局锁定，领导选举，分布式会话，集群状态。<br>从技术实现上来说，也是集成开源届的各种方案比如 client、rabbitmq client、eureka client。</p>
+        <p>```<br>package main</p>
+<p>import (<br>    “fmt”<br>    “github.com/nacos-group/nacos-sdk-go/clients”<br>    “github.com/nacos-group/nacos-sdk-go/clients/config_client”<br>    “github.com/nacos-group/nacos-sdk-go/common/constant”<br>    “github.com/nacos-group/nacos-sdk-go/vo”<br>    “net/http”<br>)</p>
+<p>//创建一个真正的注册中心<br>func init()  {<br>    serverconfig:=[]constant.ServerConfig{<br>        {<br>            IpAddr: “192.168.172.9”,<br>            Port:   8848,<br>        },<br>    }<br>    clientconfig:=constant.ClientConfig{<br>        TimeoutMs:           5000,<br>        NotLoadCacheAtStart: true,<br>        LogDir:              “\data\server\nacos\log”,<br>        NamespaceId: “0cf7435e-262c-4827-86d2-474408a0dced”,<br>        CacheDir: “\data\server\demoservice”,<br>        //Username:             “nacos”,<br>        //Password:             “nacos”,<br>        LogLevel:            “warn”,<br>    }<br>    configclient, err := clients.CreateConfigClient(map[string]interface{}{<br>        “serverConfigs”: serverconfig,<br>        “clientConfig”:  clientconfig,<br>    })</p>
+<pre><code>configFile,err:=configclient.GetConfig(vo.ConfigParam&#123;
+    DataId: &quot;test-data&quot;,
+    Group:  &quot;test-group&quot;,
+&#125;)
+
+fmt.Println(&quot;config file  content is :&quot;+configFile)
+
+go listenConfig(configclient)
+
+namingClient, err := clients.CreateNamingClient(map[string]interface&#123;&#125;&#123;
+    &quot;serverConfigs&quot;:serverconfig ,
+    &quot;clientConfig&quot;: clientconfig,
+&#125;)
+
+if err != nil &#123;
+    panic(err)
+&#125;
+var param = vo.RegisterInstanceParam&#123;
+    Ip:          &quot;10.3.20.215&quot;,
+    Port:        18848,
+    ServiceName: &quot;go_demo_service&quot;,
+    Weight:      10,
+    ClusterName: &quot;zwt&quot;,
+    Enable:      true,
+    Healthy:     true,
+    Ephemeral:   true,
+    Metadata:    map[string]string&#123;&quot;preserved.heart.beat.interval&quot;: &quot;100000000000&quot;,&#125;,
+&#125;
+success,err:=namingClient.RegisterInstance(param)
+
+if !success &#123;
+    fmt.Printf(&quot;RegisterServiceInstance,param:%+v,result:%+v \n\n&quot;, param, err)
+    return
+&#125;
+
+service,_:=namingClient.GetService(vo.GetServiceParam&#123;
+    Clusters: []string&#123;
+        &quot;zwt&quot;,
+    &#125;,
+    ServiceName: &quot;go_demo_service&quot;,
+&#125;)
+fmt.Println(&quot;service is &quot;,service)</code></pre>
+<p>}</p>
+<p>func listenConfig(client config_client.IConfigClient) {<br>    for  {<br>        err := client.ListenConfig(vo.ConfigParam{<br>            DataId: “test-data”,<br>            Group:  “test-group”,<br>            OnChange: func(namespace, group, dataId, data string) {<br>                fmt.Println(“config changed group:” + group + “, dataId:” + dataId + “, content:” + data)<br>            },<br>        })<br>        if err!=nil {<br>            fmt.Println(“error is “,err)<br>        }<br>    }<br>}</p>
+<p>func main() {<br>    http.HandleFunc(“/“,HelloworldHander)<br>    http.ListenAndServe(“10.3.20.215:18848” ,nil)<br>}</p>
+<p>func HelloworldHander(writer http.ResponseWriter, request *http.Request) {<br>    message:=”hello world”<br>    writer.Write([]byte(message))<br>}</p>
 
       
     </div>
@@ -341,7 +389,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="https://jingzhouyouxia.github.io/2018/06/03/spring-cloud-1x-cloud-netfix-ribbon/" title="【微服务架构java解决方案】spring-cloud之netfix-ribbon" target="_blank" rel="external">https://jingzhouyouxia.github.io/2018/06/03/spring-cloud-1x-cloud-netfix-ribbon/</a>
+      <a href="https://jingzhouyouxia.github.io/2020/09/25/nacos-go-client-config-example/" title="go语言服务使用nacos server作为配置中心" target="_blank" rel="external">https://jingzhouyouxia.github.io/2020/09/25/nacos-go-client-config-example/</a>
     </li>
     
     <li class="post-copyright-license">
@@ -387,13 +435,9 @@
   
   <ul class="pager pull-left">
     
-    <li class="prev">
-      <a href="/2018/06/09/zipkin_rpc_example/" title="zipkin与thrift结合进行接口监控"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
-    </li>
-    
     
     <li class="next">
-      <a href="/2018/05/27/spring-cloud-1x-cloud-netfix-eureka/" title="【微服务架构java解决方案】服务注册中心eureka的初步使用"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+      <a href="/2020/07/20/upload-file-to-alicloud/" title="阿里云oss的go client使用"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
     </li>
     
     

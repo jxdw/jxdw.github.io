@@ -67,9 +67,9 @@
     <link href="https://jingzhouyouxia.github.io/2020/03/25/jishuzongjie-2019/"/>
     <id>https://jingzhouyouxia.github.io/2020/03/25/jishuzongjie-2019/</id>
     <published>2020-03-25T02:35:47.000Z</published>
-    <updated>2020-10-04T01:23:10.474Z</updated>
+    <updated>2020-10-04T04:24:17.202Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>2019年一直在”奔跑”，鲜有时间真正沉下心来想事情。<br>直到这次的突发情况被困老家35天，才有时间来想过去一年、以及未来需要做的事情：<br>1.物理层的东西是我们不可控的，只能依靠有想法的企业或者产业基金去投入。<br>2.操作系统和网络类也不是我们能接触到的，只能累积经验。<br>3.我们能做的就是编程语言和中间件做积累和突破。<br><img src="https://jxdw.github.io/img/architectrue/silu.png"><br><img src="https://jxdw.github.io/img/architectrue/silu_2.png"></p>]]></content>
+    <content type="html"><![CDATA[<h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>2019年一直在”奔跑”，鲜有时间真正沉下心来想事情。<br>直到这次的突发情况被困老家35天，才有时间来想过去一年、以及未来需要做的事情：<br>1.物理层的东西是我们不可控的，只能依靠有想法的企业或者产业基金去投入。<br>2.操作系统和网络类也不是我们能接触到的，只能累积经验。<br>3.我们能做的就是编程语言和中间件做积累和突破。<br><img src="https://jxdw.github.io/img/architectrue/silu.png"></p>]]></content>
     
     
       
@@ -89,7 +89,7 @@
     <link href="https://jingzhouyouxia.github.io/2019/10/20/post-json-file-to-http-server/"/>
     <id>https://jingzhouyouxia.github.io/2019/10/20/post-json-file-to-http-server/</id>
     <published>2019-10-20T11:17:59.000Z</published>
-    <updated>2020-10-03T14:30:41.626Z</updated>
+    <updated>2020-10-04T04:42:27.656Z</updated>
     
     <content type="html"><![CDATA[<h1 id="业务背景"><a href="#业务背景" class="headerlink" title="业务背景"></a>业务背景</h1><p>最近一个需求：需要将某些数据塞到数据。如果会ui，搞个前后端分离，这个需求很简单。<br><br>不过我的前端技术实在拿不出手。而我又想固化成程序(造轮子、实现curl命令的部分功能)。<br><br>不说了，只能直接上源码。</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">&quot;fmt&quot;</span><br><span class="line">&quot;os&quot;</span><br><span class="line">&quot;strings&quot;</span><br><span class="line">&quot;net&#x2F;http&quot;</span><br><span class="line">&quot;io&#x2F;ioutil&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">url :&#x3D; os.Args[1]</span><br><span class="line">method :&#x3D; &quot;POST&quot;</span><br><span class="line"></span><br><span class="line">payload ,err:&#x3D; ioutil.ReadFile(&quot;post.json&quot;)</span><br><span class="line"></span><br><span class="line">client :&#x3D; &amp;http.Client &#123;</span><br><span class="line">&#125;</span><br><span class="line">reqdata:&#x3D;string(payload)</span><br><span class="line">fmt.Println(&quot;request request&quot;,reqdata)</span><br><span class="line">req, err :&#x3D; http.NewRequest(method, url, strings.NewReader(reqdata))</span><br><span class="line"></span><br><span class="line">if err !&#x3D; nil &#123;</span><br><span class="line">fmt.Println(err)</span><br><span class="line">&#125;</span><br><span class="line">req.Header.Add(&quot;Content-Type&quot;, &quot;application&#x2F;json&quot;)</span><br><span class="line"></span><br><span class="line">res, err :&#x3D; client.Do(req)</span><br><span class="line">defer res.Body.Close()</span><br><span class="line">body, err :&#x3D; ioutil.ReadAll(res.Body)</span><br><span class="line"></span><br><span class="line">fmt.Println(string(body))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
     
@@ -102,7 +102,7 @@
     
     
     
-    <category term="java/golang编程语言" scheme="https://jingzhouyouxia.github.io/tags/java-golang%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/"/>
+    <category term="golang编程语言" scheme="https://jingzhouyouxia.github.io/tags/golang%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/"/>
     
   </entry>
   
@@ -245,7 +245,7 @@
     <link href="https://jingzhouyouxia.github.io/2019/05/12/spring-architecture/"/>
     <id>https://jingzhouyouxia.github.io/2019/05/12/spring-architecture/</id>
     <published>2019-05-12T13:46:07.000Z</published>
-    <updated>2020-10-03T14:31:28.374Z</updated>
+    <updated>2020-10-04T04:43:00.885Z</updated>
     
     <content type="html"><![CDATA[<p>最近有学PHP的朋友想转到java（说公司要求用spring boot做项目），问我有没有什么捷径或者经验，给他一个换语言的学习指引。<br>看得出来，他还没有搭建自己的知识体系，我就趁机给他灌输一个观念：先要有完整的知识体系结构（或者通用技术架构），然后编程语言只是工具，是可以被替换的。当然，这不是我的原创，是一些前辈告诉我的（我相信很多高手都会觉得:语言都是工具,架构模式才是关键。用java写的，用go语言、Python也可以，只是效果、代码管理、维护性的差异）。<br>当然，计算机是讲究动手的学科，不能空谈理论，得输出点东西才可信，然后基于本人最近的一些思考（看了几张别人spring全家桶教程的ppt），画了一张整体架构图给朋友。<br>并且告知：java是可以被换成go、python语言实现的，就看技术决策者熟悉哪门语言、以及要实现什么样的系统（其实是废话：单讲语言生态，目前java确实是生态最好的语言，尤其是在spring的助攻下。呵呵）<br><img src="https://jxdw.github.io/img/architectrue/spring_architecture.png"></p>]]></content>
     
@@ -258,7 +258,7 @@
     
     
     
-    <category term="java/golang编程语言" scheme="https://jingzhouyouxia.github.io/tags/java-golang%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/"/>
+    <category term="java编程语言" scheme="https://jingzhouyouxia.github.io/tags/java%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/"/>
     
   </entry>
   
@@ -399,7 +399,7 @@
     <link href="https://jingzhouyouxia.github.io/2019/02/26/golang-1-12-experience/"/>
     <id>https://jingzhouyouxia.github.io/2019/02/26/golang-1-12-experience/</id>
     <published>2019-02-26T11:10:08.000Z</published>
-    <updated>2020-10-03T14:30:41.557Z</updated>
+    <updated>2020-10-04T04:41:33.688Z</updated>
     
     <content type="html"><![CDATA[<h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>golang 1.12于2月25号发布了，迫不及待的体验了一把。<br>除了下载golang1.12，goland也更下2018.3.4。</p><h1 id="体验"><a href="#体验" class="headerlink" title="体验"></a>体验</h1><p>把之前的项目（1.11版本开发）的mod更新了，设置了把代理（不设置代理，就要用replace）。<br><img src="https://jxdw.github.io/img/program/go/go_mod_settings.png"><br>然后体验了一把go list -m -json all。贼快了。有点激动哈。<br>重温下go mod相关的命令。<br><img src="https://jxdw.github.io/img/program/go/go_mod_command.png"></p>]]></content>
     
@@ -412,7 +412,7 @@
     
     
     
-    <category term="java/golang编程语言" scheme="https://jingzhouyouxia.github.io/tags/java-golang%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/"/>
+    <category term="golang编程语言" scheme="https://jingzhouyouxia.github.io/tags/golang%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/"/>
     
   </entry>
   

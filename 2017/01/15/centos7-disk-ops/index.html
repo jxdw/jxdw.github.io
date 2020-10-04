@@ -17,21 +17,30 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>构建自定义基础镜像 | 渐学顿悟</title>
-  <meta name="description" content="本文背景最近一年，时不时都在玩docker，有时候想实操一些特性或者功能的时候，发现从hub.docker.com上pull下的镜像，不是ubuntu就是最简版的linux,或者jre，好多命令都没有，甚是烦躁。今天终于忍不住，下定决心自己构建一个基础镜像。 编写dockerfile一直觉得centos7不错，也用习惯了。所以，基础镜像就基于centos FROM centos:7ADD jdk-">
+  <title>玩转centos7之格盘和挂载 | 渐学顿悟</title>
+  <meta name="description" content="运维同事在虚拟物理机成虚拟机时，一般会有个系统盘(一般就50G)，然后会分配一个数据盘（大小依据业务决定），挂在&#x2F;data目录下。如果系统盘和数据盘放在一个文件里面，移动的时候，会有大坑。 问题來了重启之后，挂载丢失了。 解决之道格盘 查询uuid 挂载磁盘 修改&#x2F;etc&#x2F;fstab 最终效果">
 <meta property="og:type" content="article">
-<meta property="og:title" content="构建自定义基础镜像">
-<meta property="og:url" content="https://jingzhouyouxia.github.io/2017/06/28/docker-build-basic-image/index.html">
+<meta property="og:title" content="玩转centos7之格盘和挂载">
+<meta property="og:url" content="https://jingzhouyouxia.github.io/2017/01/15/centos7-disk-ops/index.html">
 <meta property="og:site_name" content="渐学顿悟">
-<meta property="og:description" content="本文背景最近一年，时不时都在玩docker，有时候想实操一些特性或者功能的时候，发现从hub.docker.com上pull下的镜像，不是ubuntu就是最简版的linux,或者jre，好多命令都没有，甚是烦躁。今天终于忍不住，下定决心自己构建一个基础镜像。 编写dockerfile一直觉得centos7不错，也用习惯了。所以，基础镜像就基于centos FROM centos:7ADD jdk-">
+<meta property="og:description" content="运维同事在虚拟物理机成虚拟机时，一般会有个系统盘(一般就50G)，然后会分配一个数据盘（大小依据业务决定），挂在&#x2F;data目录下。如果系统盘和数据盘放在一个文件里面，移动的时候，会有大坑。 问题來了重启之后，挂载丢失了。 解决之道格盘 查询uuid 挂载磁盘 修改&#x2F;etc&#x2F;fstab 最终效果">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2017-06-28T14:24:01.000Z">
-<meta property="article:modified_time" content="2020-10-03T14:11:48.329Z">
+<meta property="og:image" content="https://jxdw.github.io/img/devops/centos7/df-h.png">
+<meta property="og:image" content="https://jxdw.github.io/img/devops/centos7/fdisk.png">
+<meta property="og:image" content="https://jxdw.github.io/img/devops/centos7/fstab_old.png">
+<meta property="og:image" content="https://jxdw.github.io/img/devops/centos7/mkfs.png">
+<meta property="og:image" content="https://jxdw.github.io/img/devops/centos7/byuuid.png">
+<meta property="og:image" content="https://jxdw.github.io/img/devops/centos7/mount_uuid.png">
+<meta property="og:image" content="https://jxdw.github.io/img/devops/centos7/fstab_df.png">
+<meta property="og:image" content="https://jxdw.github.io/img/devops/centos7/fstab_df.png">
+<meta property="article:published_time" content="2017-01-15T11:11:16.000Z">
+<meta property="article:modified_time" content="2020-10-04T03:56:54.457Z">
 <meta property="article:author" content="渐学顿悟">
-<meta property="article:tag" content="研发效率类中间件">
+<meta property="article:tag" content="操作系统与网络">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jxdw.github.io/img/devops/centos7/df-h.png">
   <!-- Canonical links -->
-  <link rel="canonical" href="https://jingzhouyouxia.github.io/2017/06/28/docker-build-basic-image/index.html">
+  <link rel="canonical" href="https://jingzhouyouxia.github.io/2017/01/15/centos7-disk-ops/index.html">
   
     <link rel="alternate" href="/atom.xml" title="渐学顿悟" type="application/atom+xml">
   
@@ -293,14 +302,14 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-docker-build-basic-image" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <article id="post-centos7-disk-ops" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
     <div class="article-header">
       
         
   
     <h1 class="article-title" itemprop="name">
-      构建自定义基础镜像
+      玩转centos7之格盘和挂载
     </h1>
   
 
@@ -308,33 +317,33 @@
       <div class="article-meta">
         <span class="article-date">
     <i class="icon icon-calendar-check"></i>
-	<a href="/2017/06/28/docker-build-basic-image/" class="article-date">
-	  <time datetime="2017-06-28T14:24:01.000Z" itemprop="datePublished">2017-06-28 22:24:01日</time>
+	<a href="/2017/01/15/centos7-disk-ops/" class="article-date">
+	  <time datetime="2017-01-15T11:11:16.000Z" itemprop="datePublished">2017-01-15 19:11:16日</time>
 	</a>
 </span>
         
         
   <span class="article-tag">
     <i class="icon icon-tags"></i>
-	<a class="article-tag-link-link" href="/tags/%E7%A0%94%E5%8F%91%E6%95%88%E7%8E%87%E7%B1%BB%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="tag">研发效率类中间件</a>
+	<a class="article-tag-link-link" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8E%E7%BD%91%E7%BB%9C/" rel="tag">操作系统与网络</a>
   </span>
 
 
         
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2017/06/28/docker-build-basic-image/#comments" class="article-comment-link">评论</a></span>
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2017/01/15/centos7-disk-ops/#comments" class="article-comment-link">评论</a></span>
         
       </div>
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <h1 id="本文背景"><a href="#本文背景" class="headerlink" title="本文背景"></a>本文背景</h1><p>最近一年，时不时都在玩docker，有时候想实操一些特性或者功能的时候，发现从hub.docker.com上pull下的镜像，不是ubuntu就是最简版的linux,或者jre，好多命令都没有，甚是烦躁。<br>今天终于忍不住，下定决心自己构建一个基础镜像。</p>
-<h1 id="编写dockerfile"><a href="#编写dockerfile" class="headerlink" title="编写dockerfile"></a>编写dockerfile</h1><p>一直觉得centos7不错，也用习惯了。所以，基础镜像就基于centos</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">FROM centos:7</span><br><span class="line">ADD jdk-8u102-linux-x64.tar.gz &#x2F;usr&#x2F;local&#x2F;       </span><br><span class="line"></span><br><span class="line">ENV JAVA_HOME &#x2F;usr&#x2F;local&#x2F;jdk1.8.0_102</span><br><span class="line">ENV CLASSPATH $JAVA_HOME&#x2F;lib&#x2F;dt.jar:$JAVA_HOME&#x2F;lib&#x2F;tools.jar</span><br><span class="line">ENV PATH $PATH:$JAVA_HOME&#x2F;bin</span><br></pre></td></tr></table></figure>
-
-<h1 id="执行构建命令"><a href="#执行构建命令" class="headerlink" title="执行构建命令"></a>执行构建命令</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker build -t centos7java:8 .</span><br></pre></td></tr></table></figure>
-
-<h1 id="后续操作"><a href="#后续操作" class="headerlink" title="后续操作"></a>后续操作</h1><p>可以执行docker tag到私有仓库url，然后push到私有仓库</p>
+        <p>运维同事在虚拟物理机成虚拟机时，一般会有个系统盘(一般就50G)，然后会分配一个数据盘（大小依据业务决定），挂在/data目录下。<br>如果系统盘和数据盘放在一个文件里面，移动的时候，会有大坑。</p>
+<h1 id="问题來了"><a href="#问题來了" class="headerlink" title="问题來了"></a>问题來了</h1><p>重启之后，挂载丢失了。<br><img src="https://jxdw.github.io/img/devops/centos7/df-h.png"><br><img src="https://jxdw.github.io/img/devops/centos7/fdisk.png"><br><img src="https://jxdw.github.io/img/devops/centos7/fstab_old.png"></p>
+<h1 id="解决之道"><a href="#解决之道" class="headerlink" title="解决之道"></a>解决之道</h1><h2 id="格盘"><a href="#格盘" class="headerlink" title="格盘"></a>格盘</h2><p><img src="https://jxdw.github.io/img/devops/centos7/mkfs.png"></p>
+<h2 id="查询uuid"><a href="#查询uuid" class="headerlink" title="查询uuid"></a>查询uuid</h2><p><img src="https://jxdw.github.io/img/devops/centos7/byuuid.png"></p>
+<h2 id="挂载磁盘"><a href="#挂载磁盘" class="headerlink" title="挂载磁盘"></a>挂载磁盘</h2><p><img src="https://jxdw.github.io/img/devops/centos7/mount_uuid.png"></p>
+<h2 id="修改-etc-fstab"><a href="#修改-etc-fstab" class="headerlink" title="修改/etc/fstab"></a>修改/etc/fstab</h2><p><img src="https://jxdw.github.io/img/devops/centos7/fstab_df.png"></p>
+<h1 id="最终效果"><a href="#最终效果" class="headerlink" title="最终效果"></a>最终效果</h1><p><img src="https://jxdw.github.io/img/devops/centos7/fstab_df.png"></p>
 
       
     </div>
@@ -344,7 +353,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="https://jingzhouyouxia.github.io/2017/06/28/docker-build-basic-image/" title="构建自定义基础镜像" target="_blank" rel="external">https://jingzhouyouxia.github.io/2017/06/28/docker-build-basic-image/</a>
+      <a href="https://jingzhouyouxia.github.io/2017/01/15/centos7-disk-ops/" title="玩转centos7之格盘和挂载" target="_blank" rel="external">https://jingzhouyouxia.github.io/2017/01/15/centos7-disk-ops/</a>
     </li>
     
     <li class="post-copyright-license">
@@ -391,12 +400,12 @@
   <ul class="pager pull-left">
     
     <li class="prev">
-      <a href="/2017/07/21/redis-config-introduce/" title="redis3.2.1配置文件解读"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+      <a href="/2017/01/15/centos7-file-transfer/" title="玩转centos7之局域网文件传输"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
     </li>
     
     
     <li class="next">
-      <a href="/2017/05/27/spring-cloud-1x-cloud-netfix-eureka/" title="【微服务架构java解决方案】服务注册中心eureka的初步使用"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+      <a href="/2017/01/14/centos7-directory-introduce/" title="玩转centos7之目录解读"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
     </li>
     
     

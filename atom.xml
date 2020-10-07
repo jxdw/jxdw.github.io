@@ -80,9 +80,9 @@
     <link href="https://jingzhouyouxia.github.io/2020/03/25/jishuzongjie-2019/"/>
     <id>https://jingzhouyouxia.github.io/2020/03/25/jishuzongjie-2019/</id>
     <published>2020-03-25T02:35:47.000Z</published>
-    <updated>2020-10-04T04:24:17.202Z</updated>
+    <updated>2020-10-07T06:52:25.958Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>2019年一直在”奔跑”，鲜有时间真正沉下心来想事情。<br>直到这次的突发情况被困老家35天，才有时间来想过去一年、以及未来需要做的事情：<br>1.物理层的东西是我们不可控的，只能依靠有想法的企业或者产业基金去投入。<br>2.操作系统和网络类也不是我们能接触到的，只能累积经验。<br>3.我们能做的就是编程语言和中间件做积累和突破。<br><img src="https://jxdw.github.io/img/architectrue/silu.png"></p>]]></content>
+    <content type="html"><![CDATA[<h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>2019年一直在”奔跑”，鲜有时间真正沉下心来想事情。<br>直到这次的突发情况被困老家35天，才有时间来想过去一年、以及未来需要做的事情：<br>1.物理层的东西是我们不可控的，只能依靠有想法的企业或者产业基金去投入。<br>2.操作系统和网络类也不是我们能接触到的，只能累积经验。<br>3.我们能做的就是编程语言和中间件做积累和突破。<br><img src="https://jxdw.github.io/img/architecture/silu.png"></p>]]></content>
     
     
       
@@ -236,9 +236,9 @@
     <link href="https://jingzhouyouxia.github.io/2019/05/12/spring-architecture/"/>
     <id>https://jingzhouyouxia.github.io/2019/05/12/spring-architecture/</id>
     <published>2019-05-12T13:46:07.000Z</published>
-    <updated>2020-10-04T04:43:00.885Z</updated>
+    <updated>2020-10-07T06:52:26.063Z</updated>
     
-    <content type="html"><![CDATA[<p>最近有学PHP的朋友想转到java（说公司要求用spring boot做项目），问我有没有什么捷径或者经验，给他一个换语言的学习指引。<br>看得出来，他还没有搭建自己的知识体系，我就趁机给他灌输一个观念：先要有完整的知识体系结构（或者通用技术架构），然后编程语言只是工具，是可以被替换的。当然，这不是我的原创，是一些前辈告诉我的（我相信很多高手都会觉得:语言都是工具,架构模式才是关键。用java写的，用go语言、Python也可以，只是效果、代码管理、维护性的差异）。<br>当然，计算机是讲究动手的学科，不能空谈理论，得输出点东西才可信，然后基于本人最近的一些思考（看了几张别人spring全家桶教程的ppt），画了一张整体架构图给朋友。<br>并且告知：java是可以被换成go、python语言实现的，就看技术决策者熟悉哪门语言、以及要实现什么样的系统（其实是废话：单讲语言生态，目前java确实是生态最好的语言，尤其是在spring的助攻下。呵呵）<br><img src="https://jxdw.github.io/img/architectrue/spring_architecture.png"></p>]]></content>
+    <content type="html"><![CDATA[<p>最近有学PHP的朋友想转到java（说公司要求用spring boot做项目），问我有没有什么捷径或者经验，给他一个换语言的学习指引。<br>看得出来，他还没有搭建自己的知识体系，我就趁机给他灌输一个观念：先要有完整的知识体系结构（或者通用技术架构），然后编程语言只是工具，是可以被替换的。当然，这不是我的原创，是一些前辈告诉我的（我相信很多高手都会觉得:语言都是工具,架构模式才是关键。用java写的，用go语言、Python也可以，只是效果、代码管理、维护性的差异）。<br>当然，计算机是讲究动手的学科，不能空谈理论，得输出点东西才可信，然后基于本人最近的一些思考（看了几张别人spring全家桶教程的ppt），画了一张整体架构图给朋友。<br>并且告知：java是可以被换成go、python语言实现的，就看技术决策者熟悉哪门语言、以及要实现什么样的系统（其实是废话：单讲语言生态，目前java确实是生态最好的语言，尤其是在spring的助攻下。呵呵）<br><img src="https://jxdw.github.io/img/architecture/spring_architecture.png"></p>]]></content>
     
     
       

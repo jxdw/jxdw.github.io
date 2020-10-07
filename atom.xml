@@ -6,7 +6,7 @@
   <link href="https://jingzhouyouxia.github.io/atom.xml" rel="self"/>
   
   <link href="https://jingzhouyouxia.github.io/"/>
-  <updated>2020-10-07T03:33:48.200Z</updated>
+  <updated>2020-10-03T14:11:15.725Z</updated>
   <id>https://jingzhouyouxia.github.io/</id>
   
   <author>
@@ -15,19 +15,6 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title></title>
-    <link href="https://jingzhouyouxia.github.io/2020/10/07/golang_syntactic_sugar/"/>
-    <id>https://jingzhouyouxia.github.io/2020/10/07/golang_syntactic_sugar/</id>
-    <published>2020-10-07T03:33:48.200Z</published>
-    <updated>2020-10-07T03:33:48.200Z</updated>
-    
-    
-    
-    
-    
-  </entry>
   
   <entry>
     <title>go语言服务使用nacos server作为配置中心</title>
@@ -138,6 +125,29 @@
     
     
     <category term="业务类中间件" scheme="https://jingzhouyouxia.github.io/tags/%E4%B8%9A%E5%8A%A1%E7%B1%BB%E4%B8%AD%E9%97%B4%E4%BB%B6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>go语言运行时的工作过程</title>
+    <link href="https://jingzhouyouxia.github.io/2019/08/21/go_run_principle/"/>
+    <id>https://jingzhouyouxia.github.io/2019/08/21/go_run_principle/</id>
+    <published>2019-08-21T10:41:34.000Z</published>
+    <updated>2020-10-07T07:38:30.432Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="https://jxdw.github.io/img/program/go/how_main_run.png"></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;&lt;img src=&quot;https://jxdw.github.io/img/program/go/how_main_run.png&quot;&gt;&lt;/p&gt;
+</summary>
+      
+    
+    
+    
+    
+    <category term="golang编程语言" scheme="https://jingzhouyouxia.github.io/tags/golang%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/"/>
     
   </entry>
   

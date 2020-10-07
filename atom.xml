@@ -3,11 +3,11 @@
   <title>渐学顿悟</title>
   
   <subtitle>记录技术的学习和实践过程</subtitle>
-  <link href="https://jingzhouyouxia.github.io/atom.xml" rel="self"/>
+  <link href="https://jxdw.github.io/atom.xml" rel="self"/>
   
-  <link href="https://jingzhouyouxia.github.io/"/>
+  <link href="https://jxdw.github.io/"/>
   <updated>2020-10-07T10:52:35.540Z</updated>
-  <id>https://jingzhouyouxia.github.io/</id>
+  <id>https://jxdw.github.io/</id>
   
   <author>
     <name>渐学顿悟</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>go语言服务使用nacos server作为配置中心</title>
-    <link href="https://jingzhouyouxia.github.io/2020/09/25/nacos-go-client-config-example/"/>
-    <id>https://jingzhouyouxia.github.io/2020/09/25/nacos-go-client-config-example/</id>
+    <link href="https://jxdw.github.io/2020/09/25/nacos-go-client-config-example/"/>
+    <id>https://jxdw.github.io/2020/09/25/nacos-go-client-config-example/</id>
     <published>2020-09-25T11:17:59.000Z</published>
     <updated>2020-10-07T10:52:35.540Z</updated>
     
@@ -35,14 +35,14 @@
     
     
     
-    <category term="apollo/nacos技术" scheme="https://jingzhouyouxia.github.io/tags/apollo-nacos%E6%8A%80%E6%9C%AF/"/>
+    <category term="apollo/nacos技术" scheme="https://jxdw.github.io/tags/apollo-nacos%E6%8A%80%E6%9C%AF/"/>
     
   </entry>
   
   <entry>
     <title>阿里云oss的go client使用</title>
-    <link href="https://jingzhouyouxia.github.io/2020/07/20/upload-file-to-alicloud/"/>
-    <id>https://jingzhouyouxia.github.io/2020/07/20/upload-file-to-alicloud/</id>
+    <link href="https://jxdw.github.io/2020/07/20/upload-file-to-alicloud/"/>
+    <id>https://jxdw.github.io/2020/07/20/upload-file-to-alicloud/</id>
     <published>2020-07-20T12:17:59.000Z</published>
     <updated>2020-10-07T11:02:01.204Z</updated>
     
@@ -58,14 +58,14 @@
     
     
     
-    <category term="golang编程" scheme="https://jingzhouyouxia.github.io/tags/golang%E7%BC%96%E7%A8%8B/"/>
+    <category term="golang编程" scheme="https://jxdw.github.io/tags/golang%E7%BC%96%E7%A8%8B/"/>
     
   </entry>
   
   <entry>
     <title>2019年度的总结</title>
-    <link href="https://jingzhouyouxia.github.io/2020/03/25/jishuzongjie-2019/"/>
-    <id>https://jingzhouyouxia.github.io/2020/03/25/jishuzongjie-2019/</id>
+    <link href="https://jxdw.github.io/2020/03/25/jishuzongjie-2019/"/>
+    <id>https://jxdw.github.io/2020/03/25/jishuzongjie-2019/</id>
     <published>2020-03-25T02:35:47.000Z</published>
     <updated>2020-10-07T06:52:25.958Z</updated>
     
@@ -80,14 +80,14 @@
     
     
     
-    <category term="架构/知识体系" scheme="https://jingzhouyouxia.github.io/tags/%E6%9E%B6%E6%9E%84-%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/"/>
+    <category term="架构/知识体系" scheme="https://jxdw.github.io/tags/%E6%9E%B6%E6%9E%84-%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/"/>
     
   </entry>
   
   <entry>
     <title>Prometheus监控rabbitmq3.8.0</title>
-    <link href="https://jingzhouyouxia.github.io/2019/10/07/prometheus_monitor_rabbitmq/"/>
-    <id>https://jingzhouyouxia.github.io/2019/10/07/prometheus_monitor_rabbitmq/</id>
+    <link href="https://jxdw.github.io/2019/10/07/prometheus_monitor_rabbitmq/"/>
+    <id>https://jxdw.github.io/2019/10/07/prometheus_monitor_rabbitmq/</id>
     <published>2019-10-07T04:46:48.000Z</published>
     <updated>2020-10-07T11:03:41.737Z</updated>
     
@@ -102,14 +102,14 @@
     
     
     
-    <category term="prometheus技术" scheme="https://jingzhouyouxia.github.io/tags/prometheus%E6%8A%80%E6%9C%AF/"/>
+    <category term="prometheus技术" scheme="https://jxdw.github.io/tags/prometheus%E6%8A%80%E6%9C%AF/"/>
     
   </entry>
   
   <entry>
     <title>跟踪平台jaeger安装、配置</title>
-    <link href="https://jingzhouyouxia.github.io/2019/10/01/jaeger-install-config/"/>
-    <id>https://jingzhouyouxia.github.io/2019/10/01/jaeger-install-config/</id>
+    <link href="https://jxdw.github.io/2019/10/01/jaeger-install-config/"/>
+    <id>https://jxdw.github.io/2019/10/01/jaeger-install-config/</id>
     <published>2019-10-01T11:00:00.000Z</published>
     <updated>2020-10-07T10:52:05.068Z</updated>
     
@@ -124,14 +124,14 @@
     
     
     
-    <category term="zipkin/jaeger技术" scheme="https://jingzhouyouxia.github.io/tags/zipkin-jaeger%E6%8A%80%E6%9C%AF/"/>
+    <category term="zipkin/jaeger技术" scheme="https://jxdw.github.io/tags/zipkin-jaeger%E6%8A%80%E6%9C%AF/"/>
     
   </entry>
   
   <entry>
     <title>go语言运行时的工作过程</title>
-    <link href="https://jingzhouyouxia.github.io/2019/08/21/go_run_principle/"/>
-    <id>https://jingzhouyouxia.github.io/2019/08/21/go_run_principle/</id>
+    <link href="https://jxdw.github.io/2019/08/21/go_run_principle/"/>
+    <id>https://jxdw.github.io/2019/08/21/go_run_principle/</id>
     <published>2019-08-21T10:41:34.000Z</published>
     <updated>2020-10-07T11:01:49.613Z</updated>
     
@@ -147,14 +147,14 @@
     
     
     
-    <category term="golang编程" scheme="https://jingzhouyouxia.github.io/tags/golang%E7%BC%96%E7%A8%8B/"/>
+    <category term="golang编程" scheme="https://jxdw.github.io/tags/golang%E7%BC%96%E7%A8%8B/"/>
     
   </entry>
   
   <entry>
     <title>dubbov2.7.3使用zipkin进行链路监控</title>
-    <link href="https://jingzhouyouxia.github.io/2019/08/11/apache_dubbo_zipkin_merge/"/>
-    <id>https://jingzhouyouxia.github.io/2019/08/11/apache_dubbo_zipkin_merge/</id>
+    <link href="https://jxdw.github.io/2019/08/11/apache_dubbo_zipkin_merge/"/>
+    <id>https://jxdw.github.io/2019/08/11/apache_dubbo_zipkin_merge/</id>
     <published>2019-08-11T03:02:34.000Z</published>
     <updated>2020-10-07T10:49:08.257Z</updated>
     
@@ -169,14 +169,14 @@
     
     
     
-    <category term="zipkin/jaeger技术" scheme="https://jingzhouyouxia.github.io/tags/zipkin-jaeger%E6%8A%80%E6%9C%AF/"/>
+    <category term="zipkin/jaeger技术" scheme="https://jxdw.github.io/tags/zipkin-jaeger%E6%8A%80%E6%9C%AF/"/>
     
   </entry>
   
   <entry>
     <title>【转载】jira7.13版本破解与restful api</title>
-    <link href="https://jingzhouyouxia.github.io/2019/06/30/cicd-jira-crack-restfulapi/"/>
-    <id>https://jingzhouyouxia.github.io/2019/06/30/cicd-jira-crack-restfulapi/</id>
+    <link href="https://jxdw.github.io/2019/06/30/cicd-jira-crack-restfulapi/"/>
+    <id>https://jxdw.github.io/2019/06/30/cicd-jira-crack-restfulapi/</id>
     <published>2019-06-30T11:00:00.000Z</published>
     <updated>2020-10-07T11:05:01.993Z</updated>
     
@@ -191,14 +191,14 @@
     
     
     
-    <category term="jenkins/jira技术" scheme="https://jingzhouyouxia.github.io/tags/jenkins-jira%E6%8A%80%E6%9C%AF/"/>
+    <category term="jenkins/jira技术" scheme="https://jxdw.github.io/tags/jenkins-jira%E6%8A%80%E6%9C%AF/"/>
     
   </entry>
   
   <entry>
     <title>【转载】TCP通信转UDP通信并加速</title>
-    <link href="https://jingzhouyouxia.github.io/2019/06/01/centos7-share-a-photo/"/>
-    <id>https://jingzhouyouxia.github.io/2019/06/01/centos7-share-a-photo/</id>
+    <link href="https://jxdw.github.io/2019/06/01/centos7-share-a-photo/"/>
+    <id>https://jxdw.github.io/2019/06/01/centos7-share-a-photo/</id>
     <published>2019-06-01T13:46:40.000Z</published>
     <updated>2020-10-07T11:04:42.043Z</updated>
     
@@ -215,14 +215,14 @@
     
     
     
-    <category term="操作系统与网络" scheme="https://jingzhouyouxia.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8E%E7%BD%91%E7%BB%9C/"/>
+    <category term="操作系统与网络" scheme="https://jxdw.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8E%E7%BD%91%E7%BB%9C/"/>
     
   </entry>
   
   <entry>
     <title>redis5.0的sentinel模式体验</title>
-    <link href="https://jingzhouyouxia.github.io/2019/05/19/redis-sentinel-install/"/>
-    <id>https://jingzhouyouxia.github.io/2019/05/19/redis-sentinel-install/</id>
+    <link href="https://jxdw.github.io/2019/05/19/redis-sentinel-install/"/>
+    <id>https://jxdw.github.io/2019/05/19/redis-sentinel-install/</id>
     <published>2019-05-19T02:43:17.000Z</published>
     <updated>2020-10-07T10:55:08.522Z</updated>
     
@@ -237,14 +237,14 @@
     
     
     
-    <category term="redis技术" scheme="https://jingzhouyouxia.github.io/tags/redis%E6%8A%80%E6%9C%AF/"/>
+    <category term="redis技术" scheme="https://jxdw.github.io/tags/redis%E6%8A%80%E6%9C%AF/"/>
     
   </entry>
   
   <entry>
     <title>关于java学习的阶段性思考</title>
-    <link href="https://jingzhouyouxia.github.io/2019/05/12/spring-architecture/"/>
-    <id>https://jingzhouyouxia.github.io/2019/05/12/spring-architecture/</id>
+    <link href="https://jxdw.github.io/2019/05/12/spring-architecture/"/>
+    <id>https://jxdw.github.io/2019/05/12/spring-architecture/</id>
     <published>2019-05-12T13:46:07.000Z</published>
     <updated>2020-10-07T11:07:01.971Z</updated>
     
@@ -259,14 +259,14 @@
     
     
     
-    <category term="java编程" scheme="https://jingzhouyouxia.github.io/tags/java%E7%BC%96%E7%A8%8B/"/>
+    <category term="java编程" scheme="https://jxdw.github.io/tags/java%E7%BC%96%E7%A8%8B/"/>
     
   </entry>
   
   <entry>
     <title>RHEL8发布，坐等centos8</title>
-    <link href="https://jingzhouyouxia.github.io/2019/05/12/centos8-base-rhel8-release/"/>
-    <id>https://jingzhouyouxia.github.io/2019/05/12/centos8-base-rhel8-release/</id>
+    <link href="https://jxdw.github.io/2019/05/12/centos8-base-rhel8-release/"/>
+    <id>https://jxdw.github.io/2019/05/12/centos8-base-rhel8-release/</id>
     <published>2019-05-12T05:24:41.000Z</published>
     <updated>2020-10-03T13:52:07.669Z</updated>
     
@@ -281,14 +281,14 @@
     
     
     
-    <category term="操作系统与网络" scheme="https://jingzhouyouxia.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8E%E7%BD%91%E7%BB%9C/"/>
+    <category term="操作系统与网络" scheme="https://jxdw.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8E%E7%BD%91%E7%BB%9C/"/>
     
   </entry>
   
   <entry>
     <title>单节点安装redis 5.0集群</title>
-    <link href="https://jingzhouyouxia.github.io/2019/04/19/redis-5-0-install/"/>
-    <id>https://jingzhouyouxia.github.io/2019/04/19/redis-5-0-install/</id>
+    <link href="https://jxdw.github.io/2019/04/19/redis-5-0-install/"/>
+    <id>https://jxdw.github.io/2019/04/19/redis-5-0-install/</id>
     <published>2019-04-19T08:46:12.000Z</published>
     <updated>2020-10-07T10:58:08.227Z</updated>
     
@@ -303,14 +303,14 @@
     
     
     
-    <category term="redis技术" scheme="https://jingzhouyouxia.github.io/tags/redis%E6%8A%80%E6%9C%AF/"/>
+    <category term="redis技术" scheme="https://jxdw.github.io/tags/redis%E6%8A%80%E6%9C%AF/"/>
     
   </entry>
   
   <entry>
     <title>percona-xtrabackup 8.0安装和初步使用</title>
-    <link href="https://jingzhouyouxia.github.io/2019/04/13/percona-xtrabackup-for-mysql-8-0/"/>
-    <id>https://jingzhouyouxia.github.io/2019/04/13/percona-xtrabackup-for-mysql-8-0/</id>
+    <link href="https://jxdw.github.io/2019/04/13/percona-xtrabackup-for-mysql-8-0/"/>
+    <id>https://jxdw.github.io/2019/04/13/percona-xtrabackup-for-mysql-8-0/</id>
     <published>2019-04-13T04:58:32.000Z</published>
     <updated>2020-10-07T10:56:14.999Z</updated>
     
@@ -325,14 +325,14 @@
     
     
     
-    <category term="mysql技术" scheme="https://jingzhouyouxia.github.io/tags/mysql%E6%8A%80%E6%9C%AF/"/>
+    <category term="mysql技术" scheme="https://jxdw.github.io/tags/mysql%E6%8A%80%E6%9C%AF/"/>
     
   </entry>
   
   <entry>
     <title>centos7内核升级</title>
-    <link href="https://jingzhouyouxia.github.io/2019/04/01/centos7-kernel-upgrade/"/>
-    <id>https://jingzhouyouxia.github.io/2019/04/01/centos7-kernel-upgrade/</id>
+    <link href="https://jxdw.github.io/2019/04/01/centos7-kernel-upgrade/"/>
+    <id>https://jxdw.github.io/2019/04/01/centos7-kernel-upgrade/</id>
     <published>2019-04-01T13:12:52.000Z</published>
     <updated>2020-10-03T13:52:07.653Z</updated>
     
@@ -347,14 +347,14 @@
     
     
     
-    <category term="操作系统与网络" scheme="https://jingzhouyouxia.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8E%E7%BD%91%E7%BB%9C/"/>
+    <category term="操作系统与网络" scheme="https://jxdw.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8E%E7%BD%91%E7%BB%9C/"/>
     
   </entry>
   
   <entry>
     <title>rhel8 beta尝鲜</title>
-    <link href="https://jingzhouyouxia.github.io/2019/03/31/rhel8-beta-experience/"/>
-    <id>https://jingzhouyouxia.github.io/2019/03/31/rhel8-beta-experience/</id>
+    <link href="https://jxdw.github.io/2019/03/31/rhel8-beta-experience/"/>
+    <id>https://jxdw.github.io/2019/03/31/rhel8-beta-experience/</id>
     <published>2019-03-31T14:54:07.000Z</published>
     <updated>2020-10-04T03:21:12.731Z</updated>
     
@@ -369,14 +369,14 @@
     
     
     
-    <category term="操作系统与网络" scheme="https://jingzhouyouxia.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8E%E7%BD%91%E7%BB%9C/"/>
+    <category term="操作系统与网络" scheme="https://jxdw.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8E%E7%BD%91%E7%BB%9C/"/>
     
   </entry>
   
   <entry>
     <title>gin源码分析第一版</title>
-    <link href="https://jingzhouyouxia.github.io/2019/03/24/golang-gin-source-code-v1/"/>
-    <id>https://jingzhouyouxia.github.io/2019/03/24/golang-gin-source-code-v1/</id>
+    <link href="https://jxdw.github.io/2019/03/24/golang-gin-source-code-v1/"/>
+    <id>https://jxdw.github.io/2019/03/24/golang-gin-source-code-v1/</id>
     <published>2019-03-24T04:48:30.000Z</published>
     <updated>2020-10-07T11:01:49.581Z</updated>
     
@@ -391,14 +391,14 @@
     
     
     
-    <category term="golang编程" scheme="https://jingzhouyouxia.github.io/tags/golang%E7%BC%96%E7%A8%8B/"/>
+    <category term="golang编程" scheme="https://jxdw.github.io/tags/golang%E7%BC%96%E7%A8%8B/"/>
     
   </entry>
   
   <entry>
     <title>Percona Server8.0安装和初步使用</title>
-    <link href="https://jingzhouyouxia.github.io/2019/03/04/percona-server-for-mysql-8-0-install/"/>
-    <id>https://jingzhouyouxia.github.io/2019/03/04/percona-server-for-mysql-8-0-install/</id>
+    <link href="https://jxdw.github.io/2019/03/04/percona-server-for-mysql-8-0-install/"/>
+    <id>https://jxdw.github.io/2019/03/04/percona-server-for-mysql-8-0-install/</id>
     <published>2019-03-04T02:43:32.000Z</published>
     <updated>2020-10-07T10:58:23.192Z</updated>
     
@@ -413,14 +413,14 @@
     
     
     
-    <category term="mysql技术" scheme="https://jingzhouyouxia.github.io/tags/mysql%E6%8A%80%E6%9C%AF/"/>
+    <category term="mysql技术" scheme="https://jxdw.github.io/tags/mysql%E6%8A%80%E6%9C%AF/"/>
     
   </entry>
   
   <entry>
     <title>golang 1.12初步体验</title>
-    <link href="https://jingzhouyouxia.github.io/2019/02/28/golang-1-12-experience/"/>
-    <id>https://jingzhouyouxia.github.io/2019/02/28/golang-1-12-experience/</id>
+    <link href="https://jxdw.github.io/2019/02/28/golang-1-12-experience/"/>
+    <id>https://jxdw.github.io/2019/02/28/golang-1-12-experience/</id>
     <published>2019-02-28T11:10:08.000Z</published>
     <updated>2020-10-07T11:01:49.573Z</updated>
     
@@ -435,14 +435,14 @@
     
     
     
-    <category term="golang编程" scheme="https://jingzhouyouxia.github.io/tags/golang%E7%BC%96%E7%A8%8B/"/>
+    <category term="golang编程" scheme="https://jxdw.github.io/tags/golang%E7%BC%96%E7%A8%8B/"/>
     
   </entry>
   
   <entry>
     <title>spring框架系列之spring cloud sleuth</title>
-    <link href="https://jingzhouyouxia.github.io/2019/02/09/spring-cloud-2x-cloud-sleuth/"/>
-    <id>https://jingzhouyouxia.github.io/2019/02/09/spring-cloud-2x-cloud-sleuth/</id>
+    <link href="https://jxdw.github.io/2019/02/09/spring-cloud-2x-cloud-sleuth/"/>
+    <id>https://jxdw.github.io/2019/02/09/spring-cloud-2x-cloud-sleuth/</id>
     <published>2019-02-09T09:15:36.000Z</published>
     <updated>2020-10-07T10:50:24.642Z</updated>
     
@@ -457,7 +457,7 @@
     
     
     
-    <category term="微服务架构java解决方案" scheme="https://jingzhouyouxia.github.io/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84java%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/"/>
+    <category term="微服务架构java解决方案" scheme="https://jxdw.github.io/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84java%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/"/>
     
   </entry>
   

@@ -17,16 +17,26 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>标签: 操作系统与网络 | 渐学顿悟</title>
-  <meta property="og:type" content="website">
-<meta property="og:title" content="渐学顿悟">
-<meta property="og:url" content="https://jxdw.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8E%E7%BD%91%E7%BB%9C/index.html">
+  <title>【业务类中间件系列】mysql线程问题引申出来的文章 | 渐学顿悟</title>
+  <meta name="description" content="在之前的文章提到：mysql server处理客户端请求的整个过程 疑惑一直在想，mysql到底起了多少个线程，直到看到了2篇文章：https:&#x2F;&#x2F;cloud.tencent.com&#x2F;developer&#x2F;article&#x2F;1148440 其中核心观点截图 实操安装验证">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【业务类中间件系列】mysql线程问题引申出来的文章">
+<meta property="og:url" content="https://jxdw.github.io/2018/06/30/mysql-percona-server-5-7-10/index.html">
 <meta property="og:site_name" content="渐学顿悟">
+<meta property="og:description" content="在之前的文章提到：mysql server处理客户端请求的整个过程 疑惑一直在想，mysql到底起了多少个线程，直到看到了2篇文章：https:&#x2F;&#x2F;cloud.tencent.com&#x2F;developer&#x2F;article&#x2F;1148440 其中核心观点截图 实操安装验证">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jxdw.github.io/img/business/mysql/mysql_thread_vs_os_thread.png">
+<meta property="og:image" content="https://jxdw.github.io/img/business/mysql/mysql_gdb_attach.png">
+<meta property="og:image" content="https://jxdw.github.io/img/business/mysql/pstree_mysql_pid.png">
+<meta property="og:image" content="https://jxdw.github.io/img/business/mysql/schema_thread_os_thread.png">
+<meta property="article:published_time" content="2018-06-30T09:02:30.000Z">
+<meta property="article:modified_time" content="2020-10-09T14:57:45.181Z">
 <meta property="article:author" content="渐学顿悟">
+<meta property="article:tag" content="mysql技术">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jxdw.github.io/img/business/mysql/mysql_thread_vs_os_thread.png">
   <!-- Canonical links -->
-  <link rel="canonical" href="https://jxdw.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8E%E7%BD%91%E7%BB%9C/index.html">
+  <link rel="canonical" href="https://jxdw.github.io/2018/06/30/mysql-percona-server-5-7-10/index.html">
   
     <link rel="alternate" href="/atom.xml" title="渐学顿悟" type="application/atom+xml">
   
@@ -275,394 +285,127 @@
 </aside>
 
   
-  <main class="main" role="main">
-  <article class="content article article-tags post-type-list" itemscope="">
-    <header class="article-header">
-      <h1 itemprop="name" class="hidden-xs">标签: 操作系统与网络</h1>
-      <p class="text-muted hidden-xs">共 14 篇文章</p>
-      <nav role="navigation" id="nav-main" class="okayNav">
-        <ul>
-          <li><a href="/tags">All</a></li>
-          
-          <li><a href="/tags/mysql技术/">mysql技术</a></li>
-          
-          <li><a href="/tags/微服务架构java解决方案/">微服务架构java解决方案</a></li>
-          
-          <li><a href="/tags/架构-知识体系/">架构/知识体系</a></li>
-          
-          <li><a href="/tags/操作系统与网络/">操作系统与网络</a></li>
-          
-          <li><a href="/tags/apollo-nacos技术/">apollo/nacos技术</a></li>
-          
-          <li><a href="/tags/zipkin-jaeger技术/">zipkin/jaeger技术</a></li>
-          
-          <li><a href="/tags/nginx-haproxy技术/">nginx/haproxy技术</a></li>
-          
-          <li><a href="/tags/redis技术/">redis技术</a></li>
-          
-          <li><a href="/tags/elastic-job技术/">elastic-job技术</a></li>
-          
-          <li><a href="/tags/rabbitmq技术/">rabbitmq技术</a></li>
-          
-          <li><a href="/tags/prometheus技术/">prometheus技术</a></li>
-          
-          <li><a href="/tags/docker-kubernetes技术/">docker/kubernetes技术</a></li>
-          
-          <li><a href="/tags/jenkins-jira技术/">jenkins/jira技术</a></li>
-          
-          <li><a href="/tags/golang语言/">golang语言</a></li>
-          
-          <li><a href="/tags/java语言/">java语言</a></li>
-          
-          <li><a href="/tags/es6语言/">es6语言</a></li>
-          
-        </ul>
-      </nav>
-    </header>
-    <!-- /header -->
-    <div class="article-body">
-      <div class="row">
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-mysql-percona-server-5-7-10" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
         
-<div class="col-md-6">
-    
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2019-06-01T13:46:40.000Z" itemprop="datePublished">2019-06-01 21:46:40</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2019/06/01/centos7-share-a-photo/">【网络系列】【转载】TCP通信转UDP通信并加速</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8E%E7%BD%91%E7%BB%9C/" class="label label-default mb">操作系统与网络</a>
-     
-     
-   </div>
-   
-</article>
+  
+    <h1 class="article-title" itemprop="name">
+      【业务类中间件系列】mysql线程问题引申出来的文章
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2018/06/30/mysql-percona-server-5-7-10/" class="article-date">
+	  <time datetime="2018-06-30T09:02:30.000Z" itemprop="datePublished">2018-06-30 17:02:30</time>
+	</a>
+</span>
+        
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/mysql%E6%8A%80%E6%9C%AF/" rel="tag">mysql技术</a>
+  </span>
 
 
-</div>
+        
 
-<div class="col-md-6">
-    
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2019-05-12T05:24:41.000Z" itemprop="datePublished">2019-05-12 13:24:41</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2019/05/12/centos8-base-rhel8-release/">【操作系统系列】RHEL8发布，坐等centos8</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8E%E7%BD%91%E7%BB%9C/" class="label label-default mb">操作系统与网络</a>
-     
-     
-   </div>
-   
-</article>
-
-
-</div>
-
-<div class="col-md-6">
-    
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2019-04-01T13:12:52.000Z" itemprop="datePublished">2019-04-01 21:12:52</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2019/04/01/centos7-kernel-upgrade/">【操作系统系列】centos7内核升级</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8E%E7%BD%91%E7%BB%9C/" class="label label-default mb">操作系统与网络</a>
-     
-     
-   </div>
-   
-</article>
-
-
-</div>
-
-<div class="col-md-6">
-    
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2019-03-31T14:54:07.000Z" itemprop="datePublished">2019-03-31 22:54:07</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2019/03/31/rhel8-beta-experience/">【操作系统系列】rhel8 beta尝鲜</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8E%E7%BD%91%E7%BB%9C/" class="label label-default mb">操作系统与网络</a>
-     
-     
-   </div>
-   
-</article>
-
-
-</div>
-
-<div class="col-md-6">
-    
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2018-08-12T08:37:48.000Z" itemprop="datePublished">2018-08-12 16:37:48</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2018/08/12/centos7-install-nodejs/">【操作系统系列】安装nodejs并初步使用</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8E%E7%BD%91%E7%BB%9C/" class="label label-default mb">操作系统与网络</a>
-     
-     
-   </div>
-   
-</article>
-
-
-</div>
-
-<div class="col-md-6">
-    
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2017-10-25T11:45:35.000Z" itemprop="datePublished">2017-10-25 19:45:35</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2017/10/25/centos7-binary-install-software/">【操作系统系列】centos7二进制安装go sdk和java sdk</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8E%E7%BD%91%E7%BB%9C/" class="label label-default mb">操作系统与网络</a>
-     
-     
-   </div>
-   
-</article>
-
-
-</div>
-
-<div class="col-md-6">
-    
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2017-08-30T04:31:17.000Z" itemprop="datePublished">2017-08-30 12:31:17</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2017/08/30/centos7-self-shell-reboot/">【操作系统系列】centos7下自定义脚本开机自启动</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8E%E7%BD%91%E7%BB%9C/" class="label label-default mb">操作系统与网络</a>
-     
-     
-   </div>
-   
-</article>
-
-
-</div>
-
-<div class="col-md-6">
-    
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2017-08-05T13:11:16.000Z" itemprop="datePublished">2017-08-05 21:11:16</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2017/08/05/centos7-install-software/">【操作系统系列】玩转centos7之程序安装与启动(rpm、yum、systemd)</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8E%E7%BD%91%E7%BB%9C/" class="label label-default mb">操作系统与网络</a>
-     
-     
-   </div>
-   
-</article>
-
-
-</div>
-
-<div class="col-md-6">
-    
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2017-08-05T08:52:46.000Z" itemprop="datePublished">2017-08-05 16:52:46</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2017/08/05/centos7-repo-introduce/">【操作系统系列】【转载】centos7源介绍与软件安装</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8E%E7%BD%91%E7%BB%9C/" class="label label-default mb">操作系统与网络</a>
-     
-     
-   </div>
-   
-</article>
-
-
-</div>
-
-<div class="col-md-6">
-    
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2017-08-05T06:09:32.000Z" itemprop="datePublished">2017-08-05 14:09:32</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2017/08/05/centos7-bootstrap/">【操作系统系列】【转载】centos7启动以及systemd详细说明</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8E%E7%BD%91%E7%BB%9C/" class="label label-default mb">操作系统与网络</a>
-     
-     
-   </div>
-   
-</article>
-
-
-</div>
-
-<div class="col-md-6">
-    
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2017-03-15T11:11:16.000Z" itemprop="datePublished">2017-03-15 19:11:16</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2017/03/15/centos7_shh/">【操作系统系列】玩转centos7之ssh内网穿透</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8E%E7%BD%91%E7%BB%9C/" class="label label-default mb">操作系统与网络</a>
-     
-     
-   </div>
-   
-</article>
-
-
-</div>
-
-<div class="col-md-6">
-    
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2017-01-15T11:30:16.000Z" itemprop="datePublished">2017-01-15 19:30:16</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2017/01/15/centos7-file-transfer/">【操作系统系列】玩转centos7之局域网文件传输</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8E%E7%BD%91%E7%BB%9C/" class="label label-default mb">操作系统与网络</a>
-     
-     
-   </div>
-   
-</article>
-
-
-</div>
-
-<div class="col-md-6">
-    
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2017-01-15T11:11:16.000Z" itemprop="datePublished">2017-01-15 19:11:16</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2017/01/15/centos7-disk-ops/">【操作系统系列】玩转centos7之格盘和挂载</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8E%E7%BD%91%E7%BB%9C/" class="label label-default mb">操作系统与网络</a>
-     
-     
-   </div>
-   
-</article>
-
-
-</div>
-
-<div class="col-md-6">
-    
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2017-01-14T11:11:16.000Z" itemprop="datePublished">2017-01-14 19:11:16</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2017/01/14/centos7-directory-introduce/">【操作系统系列】玩转centos7之目录解读</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8E%E7%BD%91%E7%BB%9C/" class="label label-default mb">操作系统与网络</a>
-     
-     
-   </div>
-   
-</article>
-
-
-</div>
-
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2018/06/30/mysql-percona-server-5-7-10/#comments" class="article-comment-link">评论</a></span>
+        
       </div>
     </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p>在之前的文章提到：mysql server处理客户端请求的整个过程</p>
+<h2 id="疑惑"><a href="#疑惑" class="headerlink" title="疑惑"></a>疑惑</h2><p>一直在想，mysql到底起了多少个线程，直到看到了2篇文章：<br><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1148440">https://cloud.tencent.com/developer/article/1148440</a></p>
+<p>其中核心观点截图<br><img src="https://jxdw.github.io/img/business/mysql/mysql_thread_vs_os_thread.png"><br><img src="https://jxdw.github.io/img/business/mysql/mysql_gdb_attach.png"></p>
+<h1 id="实操"><a href="#实操" class="headerlink" title="实操"></a>实操</h1><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><h2 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h2><p><img src="https://jxdw.github.io/img/business/mysql/pstree_mysql_pid.png"><br><img src="https://jxdw.github.io/img/business/mysql/schema_thread_os_thread.png"></p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://jxdw.github.io/2018/06/30/mysql-percona-server-5-7-10/" title="【业务类中间件系列】mysql线程问题引申出来的文章" target="_blank" rel="external">https://jxdw.github.io/2018/06/30/mysql-percona-server-5-7-10/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/jxdw" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://www.gravatar.com/avatar/80df4bfee856f0107ea8d54da41c3f31?s=128" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/jxdw" target="_blank"><span class="text-dark">渐学顿悟</span><small class="ml-1x">程序员(后端)</small></a></h3>
+        <div>一个没有技术慧根/悟性的人，只有需要渐学/刻意练习，方能顿悟，自勉。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
   </article>
-   
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2018/07/01/jishuzongjie-2018_beta/" title="2016-2018年技术感悟总结(草稿)"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2018/06/21/oauth2-technologies-understanding/" title="【业务类中间件系列】对oauth2技术的简单理解"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+
+
 </main>
 
   <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
@@ -719,6 +462,37 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 
 
 
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: true,
+    notify: false,
+    appId: 'wrre3Nrx21CqKiChLnKn034M-gzGzoHsz',
+    appKey: 'rkWWNONo7LAJhlS936vnywQ9',
+    placeholder: '请输入您的评论',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
 
 
 

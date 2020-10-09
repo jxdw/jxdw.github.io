@@ -17,10 +17,10 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>【转载】rabbitmq手册之rabbitmqctl | 渐学顿悟</title>
+  <title>【业务类中间件系列】(转载)rabbitmq手册之rabbitmqctl | 渐学顿悟</title>
   <meta name="description" content="原文地址https:&#x2F;&#x2F;www.jianshu.com&#x2F;p&#x2F;61a90fba1d2a application相关命令(集群管理的基础)rabbitmqctl stop [{pid_file}]rabbitmqctl stop 或者 rabbitmqctl stop[{pid_file}] 表示stop 在RabbitMQ服务器上运行的一个Erlang节点，可以指定某一个 *pid_file*，表示">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【转载】rabbitmq手册之rabbitmqctl">
+<meta property="og:title" content="【业务类中间件系列】(转载)rabbitmq手册之rabbitmqctl">
 <meta property="og:url" content="https://jxdw.github.io/2017/12/22/rabbitmqctl-handbook/index.html">
 <meta property="og:site_name" content="渐学顿悟">
 <meta property="og:description" content="原文地址https:&#x2F;&#x2F;www.jianshu.com&#x2F;p&#x2F;61a90fba1d2a application相关命令(集群管理的基础)rabbitmqctl stop [{pid_file}]rabbitmqctl stop 或者 rabbitmqctl stop[{pid_file}] 表示stop 在RabbitMQ服务器上运行的一个Erlang节点，可以指定某一个 *pid_file*，表示">
@@ -28,7 +28,7 @@
 <meta property="og:image" content="https://jxdw.github.io/img/business/rabbitmq/rabbitmq_startapp_status.png">
 <meta property="og:image" content="https://jxdw.github.io/img/business/rabbitmq/rabbitmq_stopapp_status.png">
 <meta property="article:published_time" content="2017-12-22T11:52:16.000Z">
-<meta property="article:modified_time" content="2020-10-07T10:55:46.842Z">
+<meta property="article:modified_time" content="2020-10-09T14:34:50.515Z">
 <meta property="article:author" content="渐学顿悟">
 <meta property="article:tag" content="rabbitmq技术">
 <meta name="twitter:card" content="summary">
@@ -176,7 +176,7 @@
   <div class="widget">
     <h3 class="widget-title">文章归档</h3>
     <div class="widget-body">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/">2019</a><span class="archive-list-count">20</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018</a><span class="archive-list-count">37</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/">2017</a><span class="archive-list-count">34</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/">2016</a><span class="archive-list-count">13</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/">2019</a><span class="archive-list-count">20</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018</a><span class="archive-list-count">38</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/">2017</a><span class="archive-list-count">33</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/">2016</a><span class="archive-list-count">13</span></li></ul>
     </div>
   </div>
 
@@ -186,7 +186,7 @@
   <div class="widget">
     <h3 class="widget-title">文章标签</h3>
     <div class="widget-body">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/apollo-nacos%E6%8A%80%E6%9C%AF/" rel="tag">apollo/nacos技术</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker-kubernetes%E6%8A%80%E6%9C%AF/" rel="tag">docker/kubernetes技术</a><span class="tag-list-count">16</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/elastic-job%E6%8A%80%E6%9C%AF/" rel="tag">elastic-job技术</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es6%E8%AF%AD%E8%A8%80/" rel="tag">es6语言</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang%E8%AF%AD%E8%A8%80/" rel="tag">golang语言</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java%E8%AF%AD%E8%A8%80/" rel="tag">java语言</a><span class="tag-list-count">16</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jenkins-jira%E6%8A%80%E6%9C%AF/" rel="tag">jenkins/jira技术</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql%E6%8A%80%E6%9C%AF/" rel="tag">mysql技术</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx-haproxy%E6%8A%80%E6%9C%AF/" rel="tag">nginx/haproxy技术</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/prometheus%E6%8A%80%E6%9C%AF/" rel="tag">prometheus技术</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rabbitmq%E6%8A%80%E6%9C%AF/" rel="tag">rabbitmq技术</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis%E6%8A%80%E6%9C%AF/" rel="tag">redis技术</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zipkin-jaeger%E6%8A%80%E6%9C%AF/" rel="tag">zipkin/jaeger技术</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84java%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" rel="tag">微服务架构java解决方案</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8E%E7%BD%91%E7%BB%9C/" rel="tag">操作系统与网络</a><span class="tag-list-count">15</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9E%B6%E6%9E%84-%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" rel="tag">架构/知识体系</a><span class="tag-list-count">6</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/apollo-nacos%E6%8A%80%E6%9C%AF/" rel="tag">apollo/nacos技术</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker-kubernetes%E6%8A%80%E6%9C%AF/" rel="tag">docker/kubernetes技术</a><span class="tag-list-count">16</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/elastic-job%E6%8A%80%E6%9C%AF/" rel="tag">elastic-job技术</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es6%E8%AF%AD%E8%A8%80/" rel="tag">es6语言</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang%E8%AF%AD%E8%A8%80/" rel="tag">golang语言</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java%E8%AF%AD%E8%A8%80/" rel="tag">java语言</a><span class="tag-list-count">16</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jenkins-jira%E6%8A%80%E6%9C%AF/" rel="tag">jenkins/jira技术</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql%E6%8A%80%E6%9C%AF/" rel="tag">mysql技术</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx-haproxy%E6%8A%80%E6%9C%AF/" rel="tag">nginx/haproxy技术</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/prometheus%E6%8A%80%E6%9C%AF/" rel="tag">prometheus技术</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rabbitmq%E6%8A%80%E6%9C%AF/" rel="tag">rabbitmq技术</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis%E6%8A%80%E6%9C%AF/" rel="tag">redis技术</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zipkin-jaeger%E6%8A%80%E6%9C%AF/" rel="tag">zipkin/jaeger技术</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84java%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" rel="tag">微服务架构java解决方案</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8E%E7%BD%91%E7%BB%9C/" rel="tag">操作系统与网络</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9E%B6%E6%9E%84-%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" rel="tag">架构/知识体系</a><span class="tag-list-count">6</span></li></ul>
     </div>
   </div>
 
@@ -205,7 +205,7 @@
                 
               </p>
               <p class="item-title">
-                <a href="/2020/09/25/nacos-go-client-config-example/" class="title">go语言服务使用nacos server作为配置中心</a>
+                <a href="/2020/09/25/nacos-go-client-config-example/" class="title">【业务类中间件系列】go语言服务使用nacos server作为配置中心</a>
               </p>
               <p class="item-date">
                 <time datetime="2020-09-25T11:17:59.000Z" itemprop="datePublished">2020-09-25 19:17:59</time>
@@ -220,7 +220,7 @@
                 
               </p>
               <p class="item-title">
-                <a href="/2020/07/20/golang-upload-file-to-alicloud/" class="title">阿里云oss的go client使用</a>
+                <a href="/2020/07/20/golang-upload-file-to-alicloud/" class="title">【golang语言系列】阿里云oss的go client使用</a>
               </p>
               <p class="item-date">
                 <time datetime="2020-07-20T12:17:59.000Z" itemprop="datePublished">2020-07-20 20:17:59</time>
@@ -293,7 +293,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      【转载】rabbitmq手册之rabbitmqctl
+      【业务类中间件系列】(转载)rabbitmq手册之rabbitmqctl
     </h1>
   
 
@@ -459,7 +459,7 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">## rabbitmqctl eval &#123;expr&#125;</span><br></pre></td></tr></table></figure>
 <p>评估一个任务Erlang表达式<br>rabbitmqctl eval ‘node().’<br>上述例子，将返回 rabbitmqctl 已经连接的节点名称</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"># Miscellaneous(繁杂)</span><br><span class="line">##  rabbitmqctl close_connection &#123;connectionpid&#125; &#123;explanation&#125;</span><br></pre></td></tr></table></figure>
-<p>{connectionpid} 表示待关闭连接的Erlang进程的ID号<br>{explanation} 表示解释字符串<br>指引broker去关闭与ID为 {connectionid} Erlang进程相关联的连接，作为AMQP连接关闭协议的一部分，它也会向连接的客户端传递 {explanation} 字符串<br>rabbitmqctl close_connection “<a href="mailto:&#114;&#x61;&#x62;&#98;&#x69;&#116;&#x40;&#x74;&#x61;&#110;&#116;&#111;&#x2e;&#52;&#x32;&#54;&#x32;&#x2e;&#48;">&#114;&#x61;&#x62;&#98;&#x69;&#116;&#x40;&#x74;&#x61;&#110;&#116;&#111;&#x2e;&#52;&#x32;&#54;&#x32;&#x2e;&#48;</a>“ “go away”<br>上述例子，表示关闭与ID号为 “<a href="mailto:&#x72;&#x61;&#98;&#x62;&#105;&#x74;&#x40;&#x74;&#97;&#110;&#x74;&#111;&#46;&#x34;&#x32;&#x36;&#x32;&#46;&#x30;">&#x72;&#x61;&#98;&#x62;&#105;&#x74;&#x40;&#x74;&#97;&#110;&#x74;&#111;&#46;&#x34;&#x32;&#x36;&#x32;&#46;&#x30;</a>“ 的Erlang进程相关联的连接，并向连接的客户端传输解释性语句 “go away”。</p>
+<p>{connectionpid} 表示待关闭连接的Erlang进程的ID号<br>{explanation} 表示解释字符串<br>指引broker去关闭与ID为 {connectionid} Erlang进程相关联的连接，作为AMQP连接关闭协议的一部分，它也会向连接的客户端传递 {explanation} 字符串<br>rabbitmqctl close_connection “<a href="mailto:&#x72;&#97;&#x62;&#98;&#x69;&#x74;&#64;&#x74;&#97;&#110;&#116;&#111;&#46;&#x34;&#50;&#54;&#50;&#x2e;&#x30;">&#x72;&#97;&#x62;&#98;&#x69;&#x74;&#64;&#x74;&#97;&#110;&#116;&#111;&#46;&#x34;&#50;&#54;&#50;&#x2e;&#x30;</a>“ “go away”<br>上述例子，表示关闭与ID号为 “<a href="mailto:&#114;&#x61;&#x62;&#x62;&#x69;&#x74;&#64;&#x74;&#x61;&#110;&#116;&#x6f;&#x2e;&#x34;&#x32;&#54;&#x32;&#x2e;&#48;">&#114;&#x61;&#x62;&#x62;&#x69;&#x74;&#64;&#x74;&#x61;&#110;&#116;&#x6f;&#x2e;&#x34;&#x32;&#54;&#x32;&#x2e;&#48;</a>“ 的Erlang进程相关联的连接，并向连接的客户端传输解释性语句 “go away”。</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">## rabbitmqctl trace_on [-p vhost]</span><br></pre></td></tr></table></figure>
 <p>vhost 表示要启动跟踪的虚拟机名称。开始跟踪。注意，跟踪状态不是持久的，如果服务重启，它将恢复为关闭</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">## rabbitmqctl trace_off [-p vhost]</span><br><span class="line">作用:停止跟踪</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">## rabbitmqctl set_vm_memory_high_watermark &#123;fraction&#125;</span><br></pre></td></tr></table></figure>
@@ -481,7 +481,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="https://jxdw.github.io/2017/12/22/rabbitmqctl-handbook/" title="【转载】rabbitmq手册之rabbitmqctl" target="_blank" rel="external">https://jxdw.github.io/2017/12/22/rabbitmqctl-handbook/</a>
+      <a href="https://jxdw.github.io/2017/12/22/rabbitmqctl-handbook/" title="【业务类中间件系列】(转载)rabbitmq手册之rabbitmqctl" target="_blank" rel="external">https://jxdw.github.io/2017/12/22/rabbitmqctl-handbook/</a>
     </li>
     
     <li class="post-copyright-license">
@@ -528,7 +528,7 @@
   <ul class="pager pull-left">
     
     <li class="prev">
-      <a href="/2017/12/23/rabbitmq-cluster-install/" title="centos7下rabbitmq3.7.2集群配置"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+      <a href="/2017/12/23/rabbitmq-cluster-install/" title="【业务类中间件系列】centos7下rabbitmq3.7.2集群配置"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
     </li>
     
     

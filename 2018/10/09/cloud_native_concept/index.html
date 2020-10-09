@@ -17,21 +17,22 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>【研发效率类中间件系列】构建自定义基础镜像 | 渐学顿悟</title>
-  <meta name="description" content="本文背景最近一年，时不时都在玩docker，有时候想实操一些特性或者功能的时候，发现从hub.docker.com上pull下的镜像，不是ubuntu就是最简版的linux,或者jre，好多命令都没有，甚是烦躁。今天终于忍不住，下定决心自己构建一个基础镜像。 编写dockerfile一直觉得centos7不错，也用习惯了。所以，基础镜像就基于centos FROM centos:7ADD jdk-">
-<meta property="og:type" content="article">
-<meta property="og:title" content="【研发效率类中间件系列】构建自定义基础镜像">
-<meta property="og:url" content="https://jxdw.github.io/2017/06/28/docker-build-basic-image/index.html">
+  <title>【转载】什么是云原生 | 渐学顿悟</title>
+  <meta property="og:type" content="article">
+<meta property="og:title" content="【转载】什么是云原生">
+<meta property="og:url" content="https://jxdw.github.io/2018/10/09/cloud_native_concept/index.html">
 <meta property="og:site_name" content="渐学顿悟">
-<meta property="og:description" content="本文背景最近一年，时不时都在玩docker，有时候想实操一些特性或者功能的时候，发现从hub.docker.com上pull下的镜像，不是ubuntu就是最简版的linux,或者jre，好多命令都没有，甚是烦躁。今天终于忍不住，下定决心自己构建一个基础镜像。 编写dockerfile一直觉得centos7不错，也用习惯了。所以，基础镜像就基于centos FROM centos:7ADD jdk-">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2017-06-28T14:24:01.000Z">
-<meta property="article:modified_time" content="2020-10-09T14:26:37.887Z">
+<meta property="og:image" content="https://jxdw.github.io/img/architecture/cloudnative_concept.png">
+<meta property="og:image" content="https://jxdw.github.io/img/architecture/Cloud-Native-Applications-vs-traditional-application.png">
+<meta property="article:published_time" content="2018-10-09T13:26:11.000Z">
+<meta property="article:modified_time" content="2020-10-09T14:25:30.225Z">
 <meta property="article:author" content="渐学顿悟">
-<meta property="article:tag" content="docker&#x2F;kubernetes技术">
+<meta property="article:tag" content="架构&#x2F;知识体系">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jxdw.github.io/img/architecture/cloudnative_concept.png">
   <!-- Canonical links -->
-  <link rel="canonical" href="https://jxdw.github.io/2017/06/28/docker-build-basic-image/index.html">
+  <link rel="canonical" href="https://jxdw.github.io/2018/10/09/cloud_native_concept/index.html">
   
     <link rel="alternate" href="/atom.xml" title="渐学顿悟" type="application/atom+xml">
   
@@ -283,14 +284,14 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-docker-build-basic-image" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <article id="post-cloud_native_concept" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
     <div class="article-header">
       
         
   
     <h1 class="article-title" itemprop="name">
-      【研发效率类中间件系列】构建自定义基础镜像
+      【转载】什么是云原生
     </h1>
   
 
@@ -298,33 +299,28 @@
       <div class="article-meta">
         <span class="article-date">
     <i class="icon icon-calendar-check"></i>
-	<a href="/2017/06/28/docker-build-basic-image/" class="article-date">
-	  <time datetime="2017-06-28T14:24:01.000Z" itemprop="datePublished">2017-06-28 22:24:01</time>
+	<a href="/2018/10/09/cloud_native_concept/" class="article-date">
+	  <time datetime="2018-10-09T13:26:11.000Z" itemprop="datePublished">2018-10-09 21:26:11</time>
 	</a>
 </span>
         
         
   <span class="article-tag">
     <i class="icon icon-tags"></i>
-	<a class="article-tag-link-link" href="/tags/docker-kubernetes%E6%8A%80%E6%9C%AF/" rel="tag">docker/kubernetes技术</a>
+	<a class="article-tag-link-link" href="/tags/%E6%9E%B6%E6%9E%84-%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" rel="tag">架构/知识体系</a>
   </span>
 
 
         
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2017/06/28/docker-build-basic-image/#comments" class="article-comment-link">评论</a></span>
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2018/10/09/cloud_native_concept/#comments" class="article-comment-link">评论</a></span>
         
       </div>
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <h1 id="本文背景"><a href="#本文背景" class="headerlink" title="本文背景"></a>本文背景</h1><p>最近一年，时不时都在玩docker，有时候想实操一些特性或者功能的时候，发现从hub.docker.com上pull下的镜像，不是ubuntu就是最简版的linux,或者jre，好多命令都没有，甚是烦躁。<br>今天终于忍不住，下定决心自己构建一个基础镜像。</p>
-<h1 id="编写dockerfile"><a href="#编写dockerfile" class="headerlink" title="编写dockerfile"></a>编写dockerfile</h1><p>一直觉得centos7不错，也用习惯了。所以，基础镜像就基于centos</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">FROM centos:7</span><br><span class="line">ADD jdk-8u102-linux-x64.tar.gz &#x2F;usr&#x2F;local&#x2F;       </span><br><span class="line"></span><br><span class="line">ENV JAVA_HOME &#x2F;usr&#x2F;local&#x2F;jdk1.8.0_102</span><br><span class="line">ENV CLASSPATH $JAVA_HOME&#x2F;lib&#x2F;dt.jar:$JAVA_HOME&#x2F;lib&#x2F;tools.jar</span><br><span class="line">ENV PATH $PATH:$JAVA_HOME&#x2F;bin</span><br></pre></td></tr></table></figure>
-
-<h1 id="执行构建命令"><a href="#执行构建命令" class="headerlink" title="执行构建命令"></a>执行构建命令</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker build -t centos7java:8 .</span><br></pre></td></tr></table></figure>
-
-<h1 id="后续操作"><a href="#后续操作" class="headerlink" title="后续操作"></a>后续操作</h1><p>可以执行docker tag到私有仓库url，然后push到私有仓库</p>
+        <p><img src="https://jxdw.github.io/img/architecture/cloudnative_concept.png"></p>
+<p><img src="https://jxdw.github.io/img/architecture/Cloud-Native-Applications-vs-traditional-application.png"></p>
 
       
     </div>
@@ -334,7 +330,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="https://jxdw.github.io/2017/06/28/docker-build-basic-image/" title="【研发效率类中间件系列】构建自定义基础镜像" target="_blank" rel="external">https://jxdw.github.io/2017/06/28/docker-build-basic-image/</a>
+      <a href="https://jxdw.github.io/2018/10/09/cloud_native_concept/" title="【转载】什么是云原生" target="_blank" rel="external">https://jxdw.github.io/2018/10/09/cloud_native_concept/</a>
     </li>
     
     <li class="post-copyright-license">
@@ -381,12 +377,12 @@
   <ul class="pager pull-left">
     
     <li class="prev">
-      <a href="/2017/07/21/redis-config-introduce/" title="【业务类中间件系列】redis3.2.1配置文件解读"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+      <a href="/2018/10/09/docker-network-basic/" title="【网络系列】docker扩展iptables实现网络隔离与通信"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
     </li>
     
     
     <li class="next">
-      <a href="/2017/06/21/mysql-conf-introduce/" title="【业务类中间件系列】mysql配置文件解读"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+      <a href="/2018/10/07/docker-1-12-install/" title="【研发效率类中间件系列】docker1.12安装和初步使用"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
     </li>
     
     

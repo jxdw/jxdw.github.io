@@ -6,7 +6,7 @@
   <link href="https://jxdw.github.io/atom.xml" rel="self"/>
   
   <link href="https://jxdw.github.io/"/>
-  <updated>2020-10-09T12:38:29.839Z</updated>
+  <updated>2020-10-07T10:52:35.540Z</updated>
   <id>https://jxdw.github.io/</id>
   
   <author>
@@ -15,26 +15,6 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title></title>
-    <link href="https://jxdw.github.io/2020/10/09/mysql_pid/"/>
-    <id>https://jxdw.github.io/2020/10/09/mysql_pid/</id>
-    <published>2020-10-09T12:38:29.839Z</published>
-    <updated>2020-10-09T12:38:29.839Z</updated>
-    
-    <content type="html"><![CDATA[<p>mysqld(2926)─┬─{mysqld}(2927)<br>             ├─{mysqld}(2928)<br>             ├─{mysqld}(2929)<br>             ├─{mysqld}(2930)<br>             ├─{mysqld}(2931)<br>             ├─{mysqld}(2932)<br>             ├─{mysqld}(2933)<br>             ├─{mysqld}(2934)<br>             ├─{mysqld}(2935)<br>             ├─{mysqld}(2936)<br>             ├─{mysqld}(2937)<br>             ├─{mysqld}(2938)<br>             ├─{mysqld}(2939)<br>             ├─{mysqld}(2940)<br>             ├─{mysqld}(2941)<br>             ├─{mysqld}(2944)<br>             ├─{mysqld}(2945)<br>             ├─{mysqld}(2946)<br>             ├─{mysqld}(2947)<br>             ├─{mysqld}(2948)<br>             ├─{mysqld}(2949)<br>             ├─{mysqld}(2950)<br>             ├─{mysqld}(2951)<br>             ├─{mysqld}(2952)<br>             ├─{mysqld}(2953)<br>             ├─{mysqld}(2954)<br>             ├─{mysqld}(2955)<br>             ├─{mysqld}(2956)<br>             ├─{mysqld}(2958)<br>             ├─{mysqld}(2973)<br>             ├─{mysqld}(2974)<br>             ├─{mysqld}(2993)<br>             ├─{mysqld}(2996)<br>             ├─{mysqld}(2997)<br>             ├─{mysqld}(3004)<br>             ├─{mysqld}(3039)<br>             ├─{mysqld}(3040)<br>             ├─{mysqld}(3042)<br>             ├─{mysqld}(3043)<br>             ├─{mysqld}(3067)<br>             ├─{mysqld}(3422)<br>             ├─{mysqld}(3573)<br>             ├─{mysqld}(3984)<br>             ├─{mysqld}(4016)<br>             ├─{mysqld}(4728)<br>             ├─{mysqld}(7351)<br>             ├─{mysqld}(8079)<br>             ├─{mysqld}(8215)<br>             ├─{mysqld}(10973)<br>             ├─{mysqld}(10975)<br>             ├─{mysqld}(11003)<br>             ├─{mysqld}(14124)<br>             ├─{mysqld}(14146)<br>             ├─{mysqld}(14149)<br>             ├─{mysqld}(14174)<br>             ├─{mysqld}(15008)<br>             ├─{mysqld}(15791)<br>             ├─{mysqld}(15836)<br>             ├─{mysqld}(16393)<br>             ├─{mysqld}(16430)<br>             ├─{mysqld}(16966)<br>             ├─{mysqld}(16994)<br>             ├─{mysqld}(17002)<br>             ├─{mysqld}(17004)<br>             ├─{mysqld}(17005)<br>             ├─{mysqld}(17007)<br>             ├─{mysqld}(17009)<br>             ├─{mysqld}(17435)<br>             ├─{mysqld}(17438)<br>             ├─{mysqld}(17440)<br>             ├─{mysqld}(17448)<br>             ├─{mysqld}(17449)<br>             ├─{mysqld}(17544)<br>             ├─{mysqld}(17545)<br>             ├─{mysqld}(17549)<br>             ├─{mysqld}(17552)<br>             ├─{mysqld}(17553)<br>             ├─{mysqld}(17554)<br>             ├─{mysqld}(17556)<br>             ├─{mysqld}(17563)<br>             ├─{mysqld}(17585)<br>             ├─{mysqld}(17590)<br>             ├─{mysqld}(19131)<br>             ├─{mysqld}(19132)<br>             ├─{mysqld}(19182)<br>             ├─{mysqld}(19315)<br>             ├─{mysqld}(19813)<br>             ├─{mysqld}(19815)<br>             ├─{mysqld}(19845)<br>             ├─{mysqld}(19849)<br>             ├─{mysqld}(19869)<br>             ├─{mysqld}(20425)<br>             ├─{mysqld}(20426)<br>             ├─{mysqld}(20427)<br>             ├─{mysqld}(20430)<br>             ├─{mysqld}(20431)<br>             ├─{mysqld}(20994)<br>             ├─{mysqld}(20996)<br>             ├─{mysqld}(21527)<br>             ├─{mysqld}(21528)<br>             ├─{mysqld}(21546)<br>             ├─{mysqld}(21550)<br>             ├─{mysqld}(21551)<br>             ├─{mysqld}(21554)<br>             ├─{mysqld}(21562)<br>             ├─{mysqld}(21563)<br>             ├─{mysqld}(21582)<br>             ├─{mysqld}(22649)<br>             ├─{mysqld}(22653)<br>             ├─{mysqld}(22670)<br>             ├─{mysqld}(22671)<br>             ├─{mysqld}(23206)<br>             ├─{mysqld}(23207)<br>             ├─{mysqld}(23208)<br>             ├─{mysqld}(23226)<br>             ├─{mysqld}(23228)<br>             ├─{mysqld}(23631)<br>             ├─{mysqld}(23632)<br>             ├─{mysqld}(23633)<br>             ├─{mysqld}(23634)<br>             ├─{mysqld}(23635)<br>             ├─{mysqld}(23638)<br>             ├─{mysqld}(23639)<br>             ├─{mysqld}(23791)<br>             ├─{mysqld}(29232)<br>             ├─{mysqld}(29235)<br>             ├─{mysqld}(29236)<br>             └─{mysqld}(29237)</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;mysqld(2926)─┬─{mysqld}(2927)&lt;br&gt;             ├─{mysqld}(2928)&lt;br&gt;             ├─{mysqld}(2929)&lt;br&gt;             ├─{mysqld}(2930)&lt;br&gt;     </summary>
-      
-    
-    
-    
-    
-  </entry>
   
   <entry>
     <title>go语言服务使用nacos server作为配置中心</title>
@@ -456,6 +436,28 @@
     
     
     <category term="java语言" scheme="https://jxdw.github.io/tags/java%E8%AF%AD%E8%A8%80/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>RHEL8发布，坐等centos8</title>
+    <link href="https://jxdw.github.io/2019/05/12/centos8-base-rhel8-release/"/>
+    <id>https://jxdw.github.io/2019/05/12/centos8-base-rhel8-release/</id>
+    <published>2019-05-12T05:24:41.000Z</published>
+    <updated>2020-10-03T13:52:07.669Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="背景和参考资料"><a href="#背景和参考资料" class="headerlink" title="背景和参考资料"></a>背景和参考资料</h1><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">https:&#x2F;&#x2F;access.redhat.com&#x2F;documentation&#x2F;en-us&#x2F;red_hat_enterprise_linux&#x2F;8&#x2F;html-single&#x2F;8.0_release_notes&#x2F;index</span><br><span class="line">https:&#x2F;&#x2F;access.redhat.com&#x2F;documentation&#x2F;zh-cn&#x2F;red_hat_enterprise_linux&#x2F;8&#x2F;html-single&#x2F;8.0_release_notes&#x2F;index(机器翻译版)</span><br><span class="line">https:&#x2F;&#x2F;blog.51cto.com&#x2F;vanehsuan&#x2F;2392207</span><br><span class="line">https:&#x2F;&#x2F;www.itzgeek.com&#x2F;how-tos&#x2F;linux&#x2F;centos-how-tos&#x2F;how-to-install-mysql-8-0-on-rhel-8.html</span><br></pre></td></tr></table></figure><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>正文上面的参考资料所说，5月7号，红帽子公司发布了REDHAT ENTERPRISE LINUX 8(简称RHEL8)。<br>于是乎，想先体验一把新特性和原有功能，为后面的centos8做技术储备。</p><h2 id="rhel8的release-note"><a href="#rhel8的release-note" class="headerlink" title="rhel8的release note"></a>rhel8的release note</h2><p><img src="https://jxdw.github.io/img/devops/centos7/rhel8_release_notes.png"></p><h1 id="虚拟机安装RHEL8"><a href="#虚拟机安装RHEL8" class="headerlink" title="虚拟机安装RHEL8"></a>虚拟机安装RHEL8</h1><h2 id="下载RHEL8镜像"><a href="#下载RHEL8镜像" class="headerlink" title="下载RHEL8镜像"></a>下载RHEL8镜像</h2><p>注册一个redhat的账号，从官网下载RHEL8</p><h2 id="虚拟机安装RHEL8-1"><a href="#虚拟机安装RHEL8-1" class="headerlink" title="虚拟机安装RHEL8"></a>虚拟机安装RHEL8</h2><p>参考<a href="https://blog.51cto.com/vanehsuan/2392207%E5%81%9A%E4%B8%8B%E7%89%88%E6%9C%AC%E7%9A%84%E9%80%89%E6%8B%A9%EF%BC%8C%E7%A3%81%E7%9B%98%E7%9A%84%E9%80%89%E6%8B%A9%EF%BC%8C%E6%95%B4%E4%B8%AA%E8%BF%87%E7%A8%8B%E8%BF%98%E6%98%AF%E6%AF%94%E8%BE%83%E9%A1%BA%E7%95%85%E3%80%82">https://blog.51cto.com/vanehsuan/2392207做下版本的选择，磁盘的选择，整个过程还是比较顺畅。</a></p><p>#安装后的初步体验</p><h2 id="内核版本"><a href="#内核版本" class="headerlink" title="内核版本"></a>内核版本</h2><p>采用的之前beta版本用的4.18版本（内核社区好像没有提供本版本的长期支持版）<br><img src="https://jxdw.github.io/img/devops/centos7/rhel8_uname.png"></p><h2 id="注册账号订阅仓库"><a href="#注册账号订阅仓库" class="headerlink" title="注册账号订阅仓库"></a>注册账号订阅仓库</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">subscription-manager register --username 红帽子账号 --password 密码 --auto-attach</span><br><span class="line">subscription-manager repos --list-enabled</span><br></pre></td></tr></table></figure><h2 id="安装mysql8-0"><a href="#安装mysql8-0" class="headerlink" title="安装mysql8.0"></a>安装mysql8.0</h2><p>简单安装</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">dnf clean packages</span><br><span class="line">yum -y install @mysql</span><br><span class="line">systemctl start mysqld</span><br></pre></td></tr></table></figure><p><img src="https://jxdw.github.io/img/devops/centos7/rhel8_mysql.png"><br>查看日志</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">2019-05-12T12:45:20.890020Z 0 [System] [MY-013169] [Server] &#x2F;usr&#x2F;libexec&#x2F;mysqld (mysqld 8.0.13) initializing of server in progress as process 40113</span><br><span class="line">2019-05-12T12:45:23.643786Z 5 [Warning] [MY-010453] [Server] root@localhost is created with an empty password ! Please consider switching off the --initialize-insecure option.</span><br><span class="line">2019-05-12T12:45:26.199807Z 0 [System] [MY-013170] [Server] &#x2F;usr&#x2F;libexec&#x2F;mysqld (mysqld 8.0.13) initializing of server has completed</span><br><span class="line">2019-05-12T12:45:28.821217Z 0 [System] [MY-010116] [Server] &#x2F;usr&#x2F;libexec&#x2F;mysqld (mysqld 8.0.13) starting as process 40159</span><br><span class="line">2019-05-12T12:45:29.877569Z 0 [Warning] [MY-010068] [Server] CA certificate ca.pem is self signed.</span><br><span class="line">2019-05-12T12:45:29.987015Z 0 [System] [MY-010931] [Server] &#x2F;usr&#x2F;libexec&#x2F;mysqld: ready for connections. Version: &#39;8.0.13&#39;  socket: &#39;&#x2F;var&#x2F;lib&#x2F;mysql&#x2F;mysql.sock&#39;  port: 3306  Source distribution.</span><br><span class="line">2019-05-12T12:45:30.206112Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Socket: &#39;&#x2F;var&#x2F;lib&#x2F;mysql&#x2F;mysqlx.sock&#39; bind-address: &#39;::&#39; port: 33060</span><br></pre></td></tr></table></figure><p>知道mysql8的root账号密码为空，所以需要登录后，初始化密码。</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">alter user &#39;root&#39;@&#39;localhost&#39; identified with mysql_native_password by &#39;123456&#39;;</span><br><span class="line">update user set host&#x3D;&#39;%&#39; where user&#x3D;&#39;root&#39;;</span><br><span class="line">flush privileges;</span><br></pre></td></tr></table></figure><h1 id="初步结论"><a href="#初步结论" class="headerlink" title="初步结论"></a>初步结论</h1><p> 软件安装这块，除了增加appstream的概念，已经源的控制，和centos7没有太大的差别。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;背景和参考资料&quot;&gt;&lt;a href=&quot;#背景和参考资料&quot; class=&quot;headerlink&quot; title=&quot;背景和参考资料&quot;&gt;&lt;/a&gt;背景和参考资料&lt;/h1&gt;&lt;h2 id=&quot;参考资料&quot;&gt;&lt;a href=&quot;#参考资料&quot; class=&quot;headerlink&quot; titl</summary>
+      
+    
+    
+    
+    
+    <category term="操作系统与网络" scheme="https://jxdw.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8E%E7%BD%91%E7%BB%9C/"/>
     
   </entry>
   

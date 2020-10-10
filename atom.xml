@@ -328,11 +328,11 @@
   </entry>
   
   <entry>
-    <title>【redis知识体系】redis的go client写入百万数据</title>
+    <title>【redis知识体系】redis的go client写入百万个测试数据</title>
     <link href="https://jxdw.github.io/2019/08/21/redis_golang_client_insert_billion_data/"/>
     <id>https://jxdw.github.io/2019/08/21/redis_golang_client_insert_billion_data/</id>
     <published>2019-08-21T09:02:30.000Z</published>
-    <updated>2020-10-10T15:00:23.572Z</updated>
+    <updated>2020-10-10T15:50:13.374Z</updated>
     
     <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">&quot;fmt&quot;</span><br><span class="line">&quot;github.com&#x2F;go-redis&#x2F;redis&quot;</span><br><span class="line">&quot;strconv&quot;</span><br><span class="line">&quot;time&quot;</span><br><span class="line">)</span><br><span class="line">var redisClient *redis.Client</span><br><span class="line">func init()  &#123;</span><br><span class="line">var err error</span><br><span class="line">redisClient&#x3D;redis.NewClient(&amp;redis.Options&#123;</span><br><span class="line">Addr:&quot;192.168.172.14:6379&quot;,</span><br><span class="line">Password:&quot;&quot;,</span><br><span class="line">DB:0,</span><br><span class="line">PoolSize: 100,</span><br><span class="line">&#x2F;&#x2F;这个参数必须配置，否则会报超时的错</span><br><span class="line">WriteTimeout: 300*time.Second,</span><br><span class="line">ReadTimeout: 300*time.Second,</span><br><span class="line">&#125;)</span><br><span class="line">pong,err:&#x3D;redisClient.Ping().Result()</span><br><span class="line">if err!&#x3D;nil &#123;</span><br><span class="line">panic(err)</span><br><span class="line">&#125;</span><br><span class="line">fmt.Println(&quot;connect result:&quot;,pong,err)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main()&#123;</span><br><span class="line">fmt.Println(time.Now().Format(&quot;2006-01-02 15:04:00.000&quot;))</span><br><span class="line">pipe:&#x3D;redisClient.Pipeline()</span><br><span class="line">for i:&#x3D;0;i&lt;1000000;i++ &#123;</span><br><span class="line">pipe.Set(&quot;test_&quot;+strconv.Itoa(i),&quot;value_&quot;+strconv.Itoa(i),time.Hour)</span><br><span class="line">&#125;</span><br><span class="line">_, err :&#x3D; pipe.Exec()</span><br><span class="line">if err!&#x3D;nil &#123;</span><br><span class="line">fmt.Println(err)</span><br><span class="line">&#125;</span><br><span class="line">fmt.Println(time.Now().Format(&quot;2006-01-02 15:04:00.000&quot;))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
     
@@ -368,6 +368,28 @@
     
     
     <category term="zipkin/jaeger技术" scheme="https://jxdw.github.io/tags/zipkin-jaeger%E6%8A%80%E6%9C%AF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【golang知识体系】viper框架的使用</title>
+    <link href="https://jxdw.github.io/2019/07/02/golang_viper_config_use/"/>
+    <id>https://jxdw.github.io/2019/07/02/golang_viper_config_use/</id>
+    <published>2019-07-02T09:15:05.000Z</published>
+    <updated>2020-10-10T15:55:47.378Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="源代码"><a href="#源代码" class="headerlink" title="源代码"></a>源代码</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">&quot;fmt&quot;</span><br><span class="line">&quot;github.com&#x2F;spf13&#x2F;pflag&quot;</span><br><span class="line">&quot;github.com&#x2F;spf13&#x2F;viper&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">pflag.String(&quot;ip&quot;, &quot;127.0.0.1&quot;, &quot;Server running address&quot;)</span><br><span class="line">pflag.Int64(&quot;port&quot;, 8080, &quot;Server running port&quot;)</span><br><span class="line">pflag.Parse()</span><br><span class="line"></span><br><span class="line">viper.BindPFlags(pflag.CommandLine)</span><br><span class="line">fmt.Printf(&quot;ip :%s , port:%s&quot;, viper.GetString(&quot;ip&quot;), viper.GetString(&quot;port&quot;))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h1 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">go run main.go --ip&#x3D;127.0.0.1 --port&#x3D;8090</span><br></pre></td></tr></table></figure><p>运行结果如下</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ip :127.0.0.1 , port:8080</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;源代码&quot;&gt;&lt;a href=&quot;#源代码&quot; class=&quot;headerlink&quot; title=&quot;源代码&quot;&gt;&lt;/a&gt;源代码&lt;/h1&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;spa</summary>
+      
+    
+    
+    
+    
+    <category term="golang语言" scheme="https://jxdw.github.io/tags/golang%E8%AF%AD%E8%A8%80/"/>
     
   </entry>
   
@@ -436,28 +458,6 @@
     
     
     <category term="redis技术" scheme="https://jxdw.github.io/tags/redis%E6%8A%80%E6%9C%AF/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【java知识体系】关于java学习的阶段性思考</title>
-    <link href="https://jxdw.github.io/2019/05/12/spring-architecture/"/>
-    <id>https://jxdw.github.io/2019/05/12/spring-architecture/</id>
-    <published>2019-05-12T13:46:07.000Z</published>
-    <updated>2020-10-10T15:17:52.805Z</updated>
-    
-    <content type="html"><![CDATA[<p>最近有学PHP的朋友想转到java（说公司要求用spring boot做项目），问我有没有什么捷径或者经验，给他一个换语言的学习指引。<br>看得出来，他还没有搭建自己的知识体系，我就趁机给他灌输一个观念：先要有完整的知识体系结构（或者通用技术架构），然后编程语言只是工具，是可以被替换的。当然，这不是我的原创，是一些前辈告诉我的（我相信很多高手都会觉得:语言都是工具,架构模式才是关键。用java写的，用go语言、Python也可以，只是效果、代码管理、维护性的差异）。<br>当然，计算机是讲究动手的学科，不能空谈理论，得输出点东西才可信，然后基于本人最近的一些思考（看了几张别人spring全家桶教程的ppt），画了一张整体架构图给朋友。<br>并且告知：java是可以被换成go、python语言实现的，就看技术决策者熟悉哪门语言、以及要实现什么样的系统（其实是废话：单讲语言生态，目前java确实是生态最好的语言，尤其是在spring的助攻下。呵呵）<br><img src="https://jxdw.github.io/img/architecture/spring_architecture.png"></p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;最近有学PHP的朋友想转到java（说公司要求用spring boot做项目），问我有没有什么捷径或者经验，给他一个换语言的学习指引。&lt;br&gt;看得出来，他还没有搭建自己的知识体系，我就趁机给他灌输一个观念：先要有完整的知识体系结构（或者通用技术架构），然后编程语言只是工具，</summary>
-      
-    
-    
-    
-    
-    <category term="java语言" scheme="https://jxdw.github.io/tags/java%E8%AF%AD%E8%A8%80/"/>
     
   </entry>
   

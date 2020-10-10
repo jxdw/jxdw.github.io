@@ -17,22 +17,23 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>【转载】什么是云原生 | 渐学顿悟</title>
-  <meta property="og:type" content="article">
-<meta property="og:title" content="【转载】什么是云原生">
-<meta property="og:url" content="https://jxdw.github.io/2017/10/09/cloud_native_concept/index.html">
+  <title>2016-2018年技术感悟总结(草稿) | 渐学顿悟</title>
+  <meta name="description" content="背景背景新年了，要盘盘肚子里面的“存货”了。 2016-2018年度年技术总结在五大块进行加强: java语言和框架主要是spring boot2.X。 go语言和框架主要是go-micro框架。 系统工具-centos centos 6、centos 7、centos8(待发布，RHEL8已经出了beta版本)。 研发管理平台 项目管理、持续集成、持续交付、静态代码扫描、知识管理  服务化所需的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2016-2018年技术感悟总结(草稿)">
+<meta property="og:url" content="https://jxdw.github.io/2018/12/01/jishuzongjie-2018_beta/index.html">
 <meta property="og:site_name" content="渐学顿悟">
+<meta property="og:description" content="背景背景新年了，要盘盘肚子里面的“存货”了。 2016-2018年度年技术总结在五大块进行加强: java语言和框架主要是spring boot2.X。 go语言和框架主要是go-micro框架。 系统工具-centos centos 6、centos 7、centos8(待发布，RHEL8已经出了beta版本)。 研发管理平台 项目管理、持续集成、持续交付、静态代码扫描、知识管理  服务化所需的">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://jxdw.github.io/img/architecture/cloudnative_concept.png">
-<meta property="og:image" content="https://jxdw.github.io/img/architecture/Cloud-Native-Applications-vs-traditional-application.png">
-<meta property="article:published_time" content="2017-10-09T13:26:11.000Z">
-<meta property="article:modified_time" content="2020-10-07T06:52:25.778Z">
+<meta property="og:image" content="https://jxdw.github.io/img/architecture/2017_jishu_zongjie.png">
+<meta property="article:published_time" content="2018-12-01T02:35:41.000Z">
+<meta property="article:modified_time" content="2020-10-10T15:27:04.240Z">
 <meta property="article:author" content="渐学顿悟">
-<meta property="article:tag" content="架构&#x2F;知识体系">
+<meta property="article:tag" content="技术架构原型">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://jxdw.github.io/img/architecture/cloudnative_concept.png">
+<meta name="twitter:image" content="https://jxdw.github.io/img/architecture/2017_jishu_zongjie.png">
   <!-- Canonical links -->
-  <link rel="canonical" href="https://jxdw.github.io/2017/10/09/cloud_native_concept/index.html">
+  <link rel="canonical" href="https://jxdw.github.io/2018/12/01/jishuzongjie-2018_beta/index.html">
   
     <link rel="alternate" href="/atom.xml" title="渐学顿悟" type="application/atom+xml">
   
@@ -174,7 +175,7 @@
   <div class="widget">
     <h3 class="widget-title">文章归档</h3>
     <div class="widget-body">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/">2019</a><span class="archive-list-count">20</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018</a><span class="archive-list-count">37</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/">2017</a><span class="archive-list-count">34</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/">2016</a><span class="archive-list-count">13</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/">2019</a><span class="archive-list-count">21</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018</a><span class="archive-list-count">40</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/">2017</a><span class="archive-list-count">33</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/">2016</a><span class="archive-list-count">13</span></li></ul>
     </div>
   </div>
 
@@ -184,7 +185,7 @@
   <div class="widget">
     <h3 class="widget-title">文章标签</h3>
     <div class="widget-body">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/apollo-nacos%E6%8A%80%E6%9C%AF/" rel="tag">apollo/nacos技术</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker-kubernetes%E6%8A%80%E6%9C%AF/" rel="tag">docker/kubernetes技术</a><span class="tag-list-count">16</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/elastic-job%E6%8A%80%E6%9C%AF/" rel="tag">elastic-job技术</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es6%E8%AF%AD%E8%A8%80/" rel="tag">es6语言</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang%E8%AF%AD%E8%A8%80/" rel="tag">golang语言</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java%E8%AF%AD%E8%A8%80/" rel="tag">java语言</a><span class="tag-list-count">16</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jenkins-jira%E6%8A%80%E6%9C%AF/" rel="tag">jenkins/jira技术</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql%E6%8A%80%E6%9C%AF/" rel="tag">mysql技术</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx-haproxy%E6%8A%80%E6%9C%AF/" rel="tag">nginx/haproxy技术</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/prometheus%E6%8A%80%E6%9C%AF/" rel="tag">prometheus技术</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rabbitmq%E6%8A%80%E6%9C%AF/" rel="tag">rabbitmq技术</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis%E6%8A%80%E6%9C%AF/" rel="tag">redis技术</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zipkin-jaeger%E6%8A%80%E6%9C%AF/" rel="tag">zipkin/jaeger技术</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84java%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" rel="tag">微服务架构java解决方案</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8E%E7%BD%91%E7%BB%9C/" rel="tag">操作系统与网络</a><span class="tag-list-count">15</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9E%B6%E6%9E%84-%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" rel="tag">架构/知识体系</a><span class="tag-list-count">6</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/apollo-nacos%E6%8A%80%E6%9C%AF/" rel="tag">apollo/nacos技术</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker-kubernetes%E6%8A%80%E6%9C%AF/" rel="tag">docker/kubernetes技术</a><span class="tag-list-count">16</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/elastic-job%E6%8A%80%E6%9C%AF/" rel="tag">elastic-job技术</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es6%E8%AF%AD%E8%A8%80/" rel="tag">es6语言</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang%E8%AF%AD%E8%A8%80/" rel="tag">golang语言</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java%E8%AF%AD%E8%A8%80/" rel="tag">java语言</a><span class="tag-list-count">16</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jenkins-jira%E6%8A%80%E6%9C%AF/" rel="tag">jenkins/jira技术</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql%E6%8A%80%E6%9C%AF/" rel="tag">mysql技术</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx-haproxy%E6%8A%80%E6%9C%AF/" rel="tag">nginx/haproxy技术</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/prometheus%E6%8A%80%E6%9C%AF/" rel="tag">prometheus技术</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rabbitmq%E6%8A%80%E6%9C%AF/" rel="tag">rabbitmq技术</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis%E6%8A%80%E6%9C%AF/" rel="tag">redis技术</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zipkin-jaeger%E6%8A%80%E6%9C%AF/" rel="tag">zipkin/jaeger技术</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84java%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" rel="tag">微服务架构java解决方案</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8A%80%E6%9C%AF%E6%9E%B6%E6%9E%84%E5%8E%9F%E5%9E%8B/" rel="tag">技术架构原型</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8E%E7%BD%91%E7%BB%9C/" rel="tag">操作系统与网络</a><span class="tag-list-count">14</span></li></ul>
     </div>
   </div>
 
@@ -203,7 +204,7 @@
                 
               </p>
               <p class="item-title">
-                <a href="/2020/09/25/nacos-go-client-config-example/" class="title">go语言服务使用nacos server作为配置中心</a>
+                <a href="/2020/09/25/nacos-go-client-config-example/" class="title">【配置中心知识体系】go语言服务使用nacos server作为配置中心</a>
               </p>
               <p class="item-date">
                 <time datetime="2020-09-25T11:17:59.000Z" itemprop="datePublished">2020-09-25 19:17:59</time>
@@ -218,7 +219,7 @@
                 
               </p>
               <p class="item-title">
-                <a href="/2020/07/20/golang-upload-file-to-alicloud/" class="title">阿里云oss的go client使用</a>
+                <a href="/2020/07/20/golang-upload-file-to-alicloud/" class="title">【golang知识体系】阿里云oss的go client使用</a>
               </p>
               <p class="item-date">
                 <time datetime="2020-07-20T12:17:59.000Z" itemprop="datePublished">2020-07-20 20:17:59</time>
@@ -284,14 +285,14 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-cloud_native_concept" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <article id="post-jishuzongjie-2018_beta" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
     <div class="article-header">
       
         
   
     <h1 class="article-title" itemprop="name">
-      【转载】什么是云原生
+      2016-2018年技术感悟总结(草稿)
     </h1>
   
 
@@ -299,28 +300,35 @@
       <div class="article-meta">
         <span class="article-date">
     <i class="icon icon-calendar-check"></i>
-	<a href="/2017/10/09/cloud_native_concept/" class="article-date">
-	  <time datetime="2017-10-09T13:26:11.000Z" itemprop="datePublished">2017-10-09 21:26:11</time>
+	<a href="/2018/12/01/jishuzongjie-2018_beta/" class="article-date">
+	  <time datetime="2018-12-01T02:35:41.000Z" itemprop="datePublished">2018-12-01 10:35:41</time>
 	</a>
 </span>
         
         
   <span class="article-tag">
     <i class="icon icon-tags"></i>
-	<a class="article-tag-link-link" href="/tags/%E6%9E%B6%E6%9E%84-%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" rel="tag">架构/知识体系</a>
+	<a class="article-tag-link-link" href="/tags/%E6%8A%80%E6%9C%AF%E6%9E%B6%E6%9E%84%E5%8E%9F%E5%9E%8B/" rel="tag">技术架构原型</a>
   </span>
 
 
         
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2017/10/09/cloud_native_concept/#comments" class="article-comment-link">评论</a></span>
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2018/12/01/jishuzongjie-2018_beta/#comments" class="article-comment-link">评论</a></span>
         
       </div>
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <p><img src="https://jxdw.github.io/img/architecture/cloudnative_concept.png"></p>
-<p><img src="https://jxdw.github.io/img/architecture/Cloud-Native-Applications-vs-traditional-application.png"></p>
+        <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><h2 id="背景-1"><a href="#背景-1" class="headerlink" title="背景"></a>背景</h2><p>新年了，要盘盘肚子里面的“存货”了。</p>
+<h1 id="2016-2018年度年技术总结"><a href="#2016-2018年度年技术总结" class="headerlink" title="2016-2018年度年技术总结"></a>2016-2018年度年技术总结</h1><h2 id="在五大块进行加强"><a href="#在五大块进行加强" class="headerlink" title="在五大块进行加强:"></a>在五大块进行加强:</h2><ul>
+<li>java语言和框架<br>主要是spring boot2.X。</li>
+<li>go语言和框架<br>主要是go-micro框架。</li>
+<li>系统工具-centos<br> centos 6、centos 7、centos8(待发布，RHEL8已经出了beta版本)。</li>
+<li>研发管理平台<br> 项目管理、持续集成、持续交付、静态代码扫描、知识管理 </li>
+<li>服务化所需的中间件<br> openresty、keepalived、mysql、redis、zookeeper、rabbitmq/kafka等中间件技术、监控技术、prometheus监控技术。<h2 id="一图胜千言"><a href="#一图胜千言" class="headerlink" title="一图胜千言"></a>一图胜千言</h2><img src="https://jxdw.github.io/img/architecture/2017_jishu_zongjie.png"></li>
+</ul>
+<h2 id="2019年度的技术主题"><a href="#2019年度的技术主题" class="headerlink" title="2019年度的技术主题"></a>2019年度的技术主题</h2><p>因为微服务很火、云原生也渐渐在大厂落地，所以，大家都在研究和投入，所以，可供学习和思考的点就很多。</p>
 
       
     </div>
@@ -330,7 +338,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="https://jxdw.github.io/2017/10/09/cloud_native_concept/" title="【转载】什么是云原生" target="_blank" rel="external">https://jxdw.github.io/2017/10/09/cloud_native_concept/</a>
+      <a href="https://jxdw.github.io/2018/12/01/jishuzongjie-2018_beta/" title="2016-2018年技术感悟总结(草稿)" target="_blank" rel="external">https://jxdw.github.io/2018/12/01/jishuzongjie-2018_beta/</a>
     </li>
     
     <li class="post-copyright-license">
@@ -377,12 +385,12 @@
   <ul class="pager pull-left">
     
     <li class="prev">
-      <a href="/2017/10/21/java-spring-boot-1x-talk-about_boot/" title="【java语言系列】spring boot阶段性总结"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+      <a href="/2018/12/02/java-spring-boot-2x-boot-admin-server/" title="【prometheus知识体系】spring boot的一种监控技术"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
     </li>
     
     
     <li class="next">
-      <a href="/2017/08/30/centos7-self-shell-reboot/" title="centos7下自定义脚本开机自启动"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+      <a href="/2018/11/18/spring-boot-2x-boot-micrometer/" title="【微服务架构知识体系】spring框架系列之spring boot micrometer监控"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
     </li>
     
     

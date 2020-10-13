@@ -17,17 +17,17 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>【业务类中间件系列】Percona Server8.0安装和初步使用 | 渐学顿悟</title>
+  <title>【mysql知识体系】Percona Server8.0安装和初步使用 | 渐学顿悟</title>
   <meta name="description" content="本文参考资料https:&#x2F;&#x2F;blog.csdn.net&#x2F;vkingnew&#x2F;article&#x2F;details&#x2F;85220187https:&#x2F;&#x2F;www.mayi888.com&#x2F;archives&#x2F;59253https:&#x2F;&#x2F;www.percona.com&#x2F;doc&#x2F;per">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【业务类中间件系列】Percona Server8.0安装和初步使用">
+<meta property="og:title" content="【mysql知识体系】Percona Server8.0安装和初步使用">
 <meta property="og:url" content="https://jxdw.github.io/2019/03/04/percona-server-for-mysql-8-0-install/index.html">
 <meta property="og:site_name" content="渐学顿悟">
 <meta property="og:description" content="本文参考资料https:&#x2F;&#x2F;blog.csdn.net&#x2F;vkingnew&#x2F;article&#x2F;details&#x2F;85220187https:&#x2F;&#x2F;www.mayi888.com&#x2F;archives&#x2F;59253https:&#x2F;&#x2F;www.percona.com&#x2F;doc&#x2F;per">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://jxdw.github.io/img/business/mysql/percona.png">
 <meta property="article:published_time" content="2019-03-04T02:43:32.000Z">
-<meta property="article:modified_time" content="2020-10-09T14:33:17.022Z">
+<meta property="article:modified_time" content="2020-10-10T15:11:26.722Z">
 <meta property="article:author" content="渐学顿悟">
 <meta property="article:tag" content="mysql技术">
 <meta name="twitter:card" content="summary">
@@ -173,9 +173,9 @@
     
       
   <div class="widget">
-    <h3 class="widget-title">文章归档</h3>
+    <h3 class="widget-title">文章标签</h3>
     <div class="widget-body">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/">2019</a><span class="archive-list-count">20</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018</a><span class="archive-list-count">40</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/">2017</a><span class="archive-list-count">33</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/">2016</a><span class="archive-list-count">13</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/apollo-nacos%E6%8A%80%E6%9C%AF/" rel="tag">apollo/nacos技术</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker-kubernetes%E6%8A%80%E6%9C%AF/" rel="tag">docker/kubernetes技术</a><span class="tag-list-count">16</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/elastic-job%E6%8A%80%E6%9C%AF/" rel="tag">elastic-job技术</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es6%E8%AF%AD%E8%A8%80/" rel="tag">es6语言</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang%E8%AF%AD%E8%A8%80/" rel="tag">golang语言</a><span class="tag-list-count">15</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java%E8%AF%AD%E8%A8%80/" rel="tag">java语言</a><span class="tag-list-count">16</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jenkins-jira%E6%8A%80%E6%9C%AF/" rel="tag">jenkins/jira技术</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql%E6%8A%80%E6%9C%AF/" rel="tag">mysql技术</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx-haproxy%E6%8A%80%E6%9C%AF/" rel="tag">nginx/haproxy技术</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/prometheus%E6%8A%80%E6%9C%AF/" rel="tag">prometheus技术</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rabbitmq%E6%8A%80%E6%9C%AF/" rel="tag">rabbitmq技术</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis%E6%8A%80%E6%9C%AF/" rel="tag">redis技术</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zipkin-jaeger%E6%8A%80%E6%9C%AF/" rel="tag">zipkin/jaeger技术</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84java%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" rel="tag">微服务架构java解决方案</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8A%80%E6%9C%AF%E6%9E%B6%E6%9E%84%E5%8E%9F%E5%9E%8B/" rel="tag">技术架构原型</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8E%E7%BD%91%E7%BB%9C/" rel="tag">操作系统与网络</a><span class="tag-list-count">14</span></li></ul>
     </div>
   </div>
 
@@ -183,9 +183,9 @@
     
       
   <div class="widget">
-    <h3 class="widget-title">文章标签</h3>
+    <h3 class="widget-title">文章归档</h3>
     <div class="widget-body">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/apollo-nacos%E6%8A%80%E6%9C%AF/" rel="tag">apollo/nacos技术</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker-kubernetes%E6%8A%80%E6%9C%AF/" rel="tag">docker/kubernetes技术</a><span class="tag-list-count">16</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/elastic-job%E6%8A%80%E6%9C%AF/" rel="tag">elastic-job技术</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es6%E8%AF%AD%E8%A8%80/" rel="tag">es6语言</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang%E8%AF%AD%E8%A8%80/" rel="tag">golang语言</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java%E8%AF%AD%E8%A8%80/" rel="tag">java语言</a><span class="tag-list-count">16</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jenkins-jira%E6%8A%80%E6%9C%AF/" rel="tag">jenkins/jira技术</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql%E6%8A%80%E6%9C%AF/" rel="tag">mysql技术</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx-haproxy%E6%8A%80%E6%9C%AF/" rel="tag">nginx/haproxy技术</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/prometheus%E6%8A%80%E6%9C%AF/" rel="tag">prometheus技术</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rabbitmq%E6%8A%80%E6%9C%AF/" rel="tag">rabbitmq技术</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis%E6%8A%80%E6%9C%AF/" rel="tag">redis技术</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zipkin-jaeger%E6%8A%80%E6%9C%AF/" rel="tag">zipkin/jaeger技术</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84java%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" rel="tag">微服务架构java解决方案</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8E%E7%BD%91%E7%BB%9C/" rel="tag">操作系统与网络</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9E%B6%E6%9E%84-%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" rel="tag">架构/知识体系</a><span class="tag-list-count">6</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/">2019</a><span class="archive-list-count">22</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018</a><span class="archive-list-count">41</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/">2017</a><span class="archive-list-count">33</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/">2016</a><span class="archive-list-count">13</span></li></ul>
     </div>
   </div>
 
@@ -204,7 +204,7 @@
                 
               </p>
               <p class="item-title">
-                <a href="/2020/09/25/nacos-go-client-config-example/" class="title">【业务类中间件系列】go语言服务使用nacos server作为配置中心</a>
+                <a href="/2020/09/25/nacos-go-client-config-example/" class="title">【配置中心知识体系】go语言服务使用nacos server作为配置中心</a>
               </p>
               <p class="item-date">
                 <time datetime="2020-09-25T11:17:59.000Z" itemprop="datePublished">2020-09-25 19:17:59</time>
@@ -219,7 +219,7 @@
                 
               </p>
               <p class="item-title">
-                <a href="/2020/07/20/golang-upload-file-to-alicloud/" class="title">【golang语言系列】阿里云oss的go client使用</a>
+                <a href="/2020/07/20/golang-upload-file-to-alicloud/" class="title">【golang知识体系】阿里云oss的go client使用</a>
               </p>
               <p class="item-date">
                 <time datetime="2020-07-20T12:17:59.000Z" itemprop="datePublished">2020-07-20 20:17:59</time>
@@ -292,7 +292,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      【业务类中间件系列】Percona Server8.0安装和初步使用
+      【mysql知识体系】Percona Server8.0安装和初步使用
     </h1>
   
 
@@ -349,7 +349,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="https://jxdw.github.io/2019/03/04/percona-server-for-mysql-8-0-install/" title="【业务类中间件系列】Percona Server8.0安装和初步使用" target="_blank" rel="external">https://jxdw.github.io/2019/03/04/percona-server-for-mysql-8-0-install/</a>
+      <a href="https://jxdw.github.io/2019/03/04/percona-server-for-mysql-8-0-install/" title="【mysql知识体系】Percona Server8.0安装和初步使用" target="_blank" rel="external">https://jxdw.github.io/2019/03/04/percona-server-for-mysql-8-0-install/</a>
     </li>
     
     <li class="post-copyright-license">
@@ -396,12 +396,12 @@
   <ul class="pager pull-left">
     
     <li class="prev">
-      <a href="/2019/03/24/golang-gin-source-code-v1/" title="【golang语言系列】gin源码分析第一版"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+      <a href="/2019/03/24/golang-gin-source-code-v1/" title="【golang知识体系】gin源码分析第一版"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
     </li>
     
     
     <li class="next">
-      <a href="/2019/02/28/golang-1-12-experience/" title="【golang语言系列】golang 1.12初步体验"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+      <a href="/2019/02/28/golang-1-12-experience/" title="【golang知识体系】golang 1.12初步体验"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
     </li>
     
     

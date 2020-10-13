@@ -17,10 +17,10 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>【golang知识体系】golang 1.12初步体验 | 渐学顿悟</title>
+  <title>【golang标准库系列】golang 1.12初步体验 | 渐学顿悟</title>
   <meta name="description" content="背景golang 1.12于2月25号发布了，迫不及待的体验了一把。除了下载golang1.12，goland也更新到2018.3.4。 体验把之前的项目（1.11版本开发）的mod更新了，设置了把代理（不设置代理，就要用replace）。然后体验了一把go list -m -json all。贼快了。有点激动哈。重温下go mod相关的命令。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【golang知识体系】golang 1.12初步体验">
+<meta property="og:title" content="【golang标准库系列】golang 1.12初步体验">
 <meta property="og:url" content="https://jxdw.github.io/2019/02/28/golang-1-12-experience/index.html">
 <meta property="og:site_name" content="渐学顿悟">
 <meta property="og:description" content="背景golang 1.12于2月25号发布了，迫不及待的体验了一把。除了下载golang1.12，goland也更新到2018.3.4。 体验把之前的项目（1.11版本开发）的mod更新了，设置了把代理（不设置代理，就要用replace）。然后体验了一把go list -m -json all。贼快了。有点激动哈。重温下go mod相关的命令。">
@@ -28,9 +28,9 @@
 <meta property="og:image" content="https://jxdw.github.io/img/program/go/go_mod_settings.png">
 <meta property="og:image" content="https://jxdw.github.io/img/program/go/go_mod_command.png">
 <meta property="article:published_time" content="2019-02-28T11:10:08.000Z">
-<meta property="article:modified_time" content="2020-10-10T15:17:21.643Z">
+<meta property="article:modified_time" content="2020-10-13T12:31:25.859Z">
 <meta property="article:author" content="渐学顿悟">
-<meta property="article:tag" content="golang语言">
+<meta property="article:tag" content="golang知识体系">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://jxdw.github.io/img/program/go/go_mod_settings.png">
   <!-- Canonical links -->
@@ -176,7 +176,7 @@
   <div class="widget">
     <h3 class="widget-title">文章标签</h3>
     <div class="widget-body">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/apollo-nacos%E6%8A%80%E6%9C%AF/" rel="tag">apollo/nacos技术</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker-kubernetes%E6%8A%80%E6%9C%AF/" rel="tag">docker/kubernetes技术</a><span class="tag-list-count">16</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/elastic-job%E6%8A%80%E6%9C%AF/" rel="tag">elastic-job技术</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es6%E8%AF%AD%E8%A8%80/" rel="tag">es6语言</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang%E8%AF%AD%E8%A8%80/" rel="tag">golang语言</a><span class="tag-list-count">15</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java%E8%AF%AD%E8%A8%80/" rel="tag">java语言</a><span class="tag-list-count">16</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jenkins-jira%E6%8A%80%E6%9C%AF/" rel="tag">jenkins/jira技术</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql%E6%8A%80%E6%9C%AF/" rel="tag">mysql技术</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx-haproxy%E6%8A%80%E6%9C%AF/" rel="tag">nginx/haproxy技术</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/prometheus%E6%8A%80%E6%9C%AF/" rel="tag">prometheus技术</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rabbitmq%E6%8A%80%E6%9C%AF/" rel="tag">rabbitmq技术</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis%E6%8A%80%E6%9C%AF/" rel="tag">redis技术</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zipkin-jaeger%E6%8A%80%E6%9C%AF/" rel="tag">zipkin/jaeger技术</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84java%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" rel="tag">微服务架构java解决方案</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8A%80%E6%9C%AF%E6%9E%B6%E6%9E%84%E5%8E%9F%E5%9E%8B/" rel="tag">技术架构原型</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8E%E7%BD%91%E7%BB%9C/" rel="tag">操作系统与网络</a><span class="tag-list-count">14</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/apollo-nacos%E6%8A%80%E6%9C%AF/" rel="tag">apollo/nacos技术</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker-kubernetes%E6%8A%80%E6%9C%AF/" rel="tag">docker/kubernetes技术</a><span class="tag-list-count">16</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/elastic-job%E6%8A%80%E6%9C%AF/" rel="tag">elastic-job技术</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es6%E8%AF%AD%E8%A8%80/" rel="tag">es6语言</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" rel="tag">golang知识体系</a><span class="tag-list-count">15</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java%E8%AF%AD%E8%A8%80/" rel="tag">java语言</a><span class="tag-list-count">16</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jenkins-jira%E6%8A%80%E6%9C%AF/" rel="tag">jenkins/jira技术</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql%E6%8A%80%E6%9C%AF/" rel="tag">mysql技术</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx-haproxy%E6%8A%80%E6%9C%AF/" rel="tag">nginx/haproxy技术</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/prometheus%E6%8A%80%E6%9C%AF/" rel="tag">prometheus技术</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rabbitmq%E6%8A%80%E6%9C%AF/" rel="tag">rabbitmq技术</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis%E6%8A%80%E6%9C%AF/" rel="tag">redis技术</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zipkin-jaeger%E6%8A%80%E6%9C%AF/" rel="tag">zipkin/jaeger技术</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84java%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" rel="tag">微服务架构java解决方案</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8A%80%E6%9C%AF%E6%9E%B6%E6%9E%84%E5%8E%9F%E5%9E%8B/" rel="tag">技术架构原型</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8E%E7%BD%91%E7%BB%9C/" rel="tag">操作系统与网络</a><span class="tag-list-count">14</span></li></ul>
     </div>
   </div>
 
@@ -186,7 +186,7 @@
   <div class="widget">
     <h3 class="widget-title">文章归档</h3>
     <div class="widget-body">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/">2019</a><span class="archive-list-count">22</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018</a><span class="archive-list-count">41</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/">2017</a><span class="archive-list-count">33</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/">2016</a><span class="archive-list-count">13</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/">2019</a><span class="archive-list-count">22</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018</a><span class="archive-list-count">40</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/">2017</a><span class="archive-list-count">33</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/">2016</a><span class="archive-list-count">13</span></li></ul>
     </div>
   </div>
 
@@ -220,7 +220,7 @@
                 
               </p>
               <p class="item-title">
-                <a href="/2020/07/20/golang-upload-file-to-alicloud/" class="title">【golang知识体系】阿里云oss的go client使用</a>
+                <a href="/2020/07/20/golang-upload-file-to-alicloud/" class="title">【中间件go client系列】阿里云oss的go client使用</a>
               </p>
               <p class="item-date">
                 <time datetime="2020-07-20T12:17:59.000Z" itemprop="datePublished">2020-07-20 20:17:59</time>
@@ -293,7 +293,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      【golang知识体系】golang 1.12初步体验
+      【golang标准库系列】golang 1.12初步体验
     </h1>
   
 
@@ -309,7 +309,7 @@
         
   <span class="article-tag">
     <i class="icon icon-tags"></i>
-	<a class="article-tag-link-link" href="/tags/golang%E8%AF%AD%E8%A8%80/" rel="tag">golang语言</a>
+	<a class="article-tag-link-link" href="/tags/golang%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" rel="tag">golang知识体系</a>
   </span>
 
 
@@ -332,7 +332,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="https://jxdw.github.io/2019/02/28/golang-1-12-experience/" title="【golang知识体系】golang 1.12初步体验" target="_blank" rel="external">https://jxdw.github.io/2019/02/28/golang-1-12-experience/</a>
+      <a href="https://jxdw.github.io/2019/02/28/golang-1-12-experience/" title="【golang标准库系列】golang 1.12初步体验" target="_blank" rel="external">https://jxdw.github.io/2019/02/28/golang-1-12-experience/</a>
     </li>
     
     <li class="post-copyright-license">

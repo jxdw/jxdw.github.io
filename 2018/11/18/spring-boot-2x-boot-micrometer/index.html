@@ -17,18 +17,18 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>【微服务架构知识体系】spring框架系列之spring boot micrometer监控 | 渐学顿悟</title>
+  <title>【java实现微服务架构系列】spring框架系列之spring boot micrometer监控 | 渐学顿悟</title>
   <meta name="description" content="关于spring boot 2.X系列spring.io在spring boot和springcloud推出之前，开源了很多的框架（见下文附录），但是除了spring framework自身，影响力都不够。直到spring boot、spring cloud系列框架推出，才成了spring框架的扩展中最有影响力的两个(或者说集大成者)。Spring Boot的设计目的是用来简化新Spring应用的">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【微服务架构知识体系】spring框架系列之spring boot micrometer监控">
+<meta property="og:title" content="【java实现微服务架构系列】spring框架系列之spring boot micrometer监控">
 <meta property="og:url" content="https://jxdw.github.io/2018/11/18/spring-boot-2x-boot-micrometer/index.html">
 <meta property="og:site_name" content="渐学顿悟">
 <meta property="og:description" content="关于spring boot 2.X系列spring.io在spring boot和springcloud推出之前，开源了很多的框架（见下文附录），但是除了spring framework自身，影响力都不够。直到spring boot、spring cloud系列框架推出，才成了spring框架的扩展中最有影响力的两个(或者说集大成者)。Spring Boot的设计目的是用来简化新Spring应用的">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2018-11-18T09:15:59.000Z">
-<meta property="article:modified_time" content="2020-10-10T15:12:57.064Z">
+<meta property="article:modified_time" content="2020-10-13T14:02:40.946Z">
 <meta property="article:author" content="渐学顿悟">
-<meta property="article:tag" content="微服务架构java解决方案">
+<meta property="article:tag" content="java知识体系">
 <meta name="twitter:card" content="summary">
   <!-- Canonical links -->
   <link rel="canonical" href="https://jxdw.github.io/2018/11/18/spring-boot-2x-boot-micrometer/index.html">
@@ -173,7 +173,7 @@
   <div class="widget">
     <h3 class="widget-title">文章标签</h3>
     <div class="widget-body">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/apollo-nacos%E6%8A%80%E6%9C%AF/" rel="tag">apollo/nacos技术</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker-kubernetes%E6%8A%80%E6%9C%AF/" rel="tag">docker/kubernetes技术</a><span class="tag-list-count">16</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/elastic-job%E6%8A%80%E6%9C%AF/" rel="tag">elastic-job技术</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es6%E8%AF%AD%E8%A8%80/" rel="tag">es6语言</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" rel="tag">golang知识体系</a><span class="tag-list-count">15</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java%E8%AF%AD%E8%A8%80/" rel="tag">java语言</a><span class="tag-list-count">16</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jenkins-jira%E6%8A%80%E6%9C%AF/" rel="tag">jenkins/jira技术</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql%E6%8A%80%E6%9C%AF/" rel="tag">mysql技术</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx-haproxy%E6%8A%80%E6%9C%AF/" rel="tag">nginx/haproxy技术</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/prometheus%E6%8A%80%E6%9C%AF/" rel="tag">prometheus技术</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rabbitmq%E6%8A%80%E6%9C%AF/" rel="tag">rabbitmq技术</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis%E6%8A%80%E6%9C%AF/" rel="tag">redis技术</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zipkin-jaeger%E6%8A%80%E6%9C%AF/" rel="tag">zipkin/jaeger技术</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84java%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" rel="tag">微服务架构java解决方案</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8A%80%E6%9C%AF%E6%9E%B6%E6%9E%84%E5%8E%9F%E5%9E%8B/" rel="tag">技术架构原型</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8E%E7%BD%91%E7%BB%9C/" rel="tag">操作系统与网络</a><span class="tag-list-count">14</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/centos-docker-k8s%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" rel="tag">centos/docker/k8s知识体系</a><span class="tag-list-count">34</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/elastic-job%E6%8A%80%E6%9C%AF/" rel="tag">elastic-job技术</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es6%E8%AF%AD%E8%A8%80/" rel="tag">es6语言</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" rel="tag">golang知识体系</a><span class="tag-list-count">16</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" rel="tag">java知识体系</a><span class="tag-list-count">26</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql%E6%8A%80%E6%9C%AF/" rel="tag">mysql技术</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx-haproxy%E6%8A%80%E6%9C%AF/" rel="tag">nginx/haproxy技术</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/prometheus%E6%8A%80%E6%9C%AF/" rel="tag">prometheus技术</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rabbitmq%E6%8A%80%E6%9C%AF/" rel="tag">rabbitmq技术</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis%E6%8A%80%E6%9C%AF/" rel="tag">redis技术</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zipkin-jaeger%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" rel="tag">zipkin/jaeger知识体系</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8A%80%E6%9C%AF%E6%9E%B6%E6%9E%84%E5%8E%9F%E5%9E%8B/" rel="tag">技术架构原型</a><span class="tag-list-count">6</span></li></ul>
     </div>
   </div>
 
@@ -202,7 +202,7 @@
                 
               </p>
               <p class="item-title">
-                <a href="/2020/09/25/nacos-go-client-config-example/" class="title">【配置中心知识体系】go语言服务使用nacos server作为配置中心</a>
+                <a href="/2020/09/25/nacos-go-client-config-example/" class="title">【中间件go client系列】go语言服务使用nacos server作为配置中心</a>
               </p>
               <p class="item-date">
                 <time datetime="2020-09-25T11:17:59.000Z" itemprop="datePublished">2020-09-25 19:17:59</time>
@@ -290,7 +290,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      【微服务架构知识体系】spring框架系列之spring boot micrometer监控
+      【java实现微服务架构系列】spring框架系列之spring boot micrometer监控
     </h1>
   
 
@@ -306,7 +306,7 @@
         
   <span class="article-tag">
     <i class="icon icon-tags"></i>
-	<a class="article-tag-link-link" href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84java%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" rel="tag">微服务架构java解决方案</a>
+	<a class="article-tag-link-link" href="/tags/java%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" rel="tag">java知识体系</a>
   </span>
 
 
@@ -328,7 +328,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="https://jxdw.github.io/2018/11/18/spring-boot-2x-boot-micrometer/" title="【微服务架构知识体系】spring框架系列之spring boot micrometer监控" target="_blank" rel="external">https://jxdw.github.io/2018/11/18/spring-boot-2x-boot-micrometer/</a>
+      <a href="https://jxdw.github.io/2018/11/18/spring-boot-2x-boot-micrometer/" title="【java实现微服务架构系列】spring框架系列之spring boot micrometer监控" target="_blank" rel="external">https://jxdw.github.io/2018/11/18/spring-boot-2x-boot-micrometer/</a>
     </li>
     
     <li class="post-copyright-license">

@@ -17,23 +17,25 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>【golang标准库系列】go语言标准库之net/http编程 | 渐学顿悟</title>
-  <meta name="description" content="参考资料https:&#x2F;&#x2F;time-track.cn&#x2F;go-http-server-learning.html  http编程基础类http包下的ListenAndServe、Server、conn、serverHandler、Handler接口 工作时序图">
+  <title>【zipkin/jaeger使用系列】zipkin的基本概念和初步体验 | 渐学顿悟</title>
+  <meta name="description" content="参考文档https:&#x2F;&#x2F;blog.csdn.net&#x2F;apei830&#x2F;article&#x2F;details&#x2F;78722168 概念与协议协议概念英文版(spring官网) 概念中文版 Span基本工作单元，一次链路调用（可以是RPC，DB等没有特定的限制）创建一个span，通过一个64位ID标识它，span通过还有其他的数据，例如描述信息，时间戳">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【golang标准库系列】go语言标准库之net&#x2F;http编程">
-<meta property="og:url" content="https://jxdw.github.io/2018/05/10/golang-build-web-application/index.html">
+<meta property="og:title" content="【zipkin&#x2F;jaeger使用系列】zipkin的基本概念和初步体验">
+<meta property="og:url" content="https://jxdw.github.io/2018/05/26/trace-zipkin-install/index.html">
 <meta property="og:site_name" content="渐学顿悟">
-<meta property="og:description" content="参考资料https:&#x2F;&#x2F;time-track.cn&#x2F;go-http-server-learning.html  http编程基础类http包下的ListenAndServe、Server、conn、serverHandler、Handler接口 工作时序图">
+<meta property="og:description" content="参考文档https:&#x2F;&#x2F;blog.csdn.net&#x2F;apei830&#x2F;article&#x2F;details&#x2F;78722168 概念与协议协议概念英文版(spring官网) 概念中文版 Span基本工作单元，一次链路调用（可以是RPC，DB等没有特定的限制）创建一个span，通过一个64位ID标识它，span通过还有其他的数据，例如描述信息，时间戳">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://jxdw.github.io/img/program/go/ServerCoding.png">
-<meta property="article:published_time" content="2018-05-10T11:23:20.000Z">
-<meta property="article:modified_time" content="2020-10-13T12:31:25.866Z">
+<meta property="og:image" content="https://jxdw.github.io/img//_terminology_english.png">
+<meta property="og:image" content="https://jxdw.github.io/img//_protocol.png">
+<meta property="og:image" content="https://jxdw.github.io/img//_architecture.png">
+<meta property="article:published_time" content="2018-05-26T03:02:34.000Z">
+<meta property="article:modified_time" content="2020-10-14T14:56:12.485Z">
 <meta property="article:author" content="渐学顿悟">
-<meta property="article:tag" content="golang知识体系">
+<meta property="article:tag" content="zipkin&#x2F;jaeger知识体系">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://jxdw.github.io/img/program/go/ServerCoding.png">
+<meta name="twitter:image" content="https://jxdw.github.io/img//_terminology_english.png">
   <!-- Canonical links -->
-  <link rel="canonical" href="https://jxdw.github.io/2018/05/10/golang-build-web-application/index.html">
+  <link rel="canonical" href="https://jxdw.github.io/2018/05/26/trace-zipkin-install/index.html">
   
     <link rel="alternate" href="/atom.xml" title="渐学顿悟" type="application/atom+xml">
   
@@ -285,14 +287,14 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-golang-build-web-application" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <article id="post-trace-zipkin-install" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
     <div class="article-header">
       
         
   
     <h1 class="article-title" itemprop="name">
-      【golang标准库系列】go语言标准库之net/http编程
+      【zipkin/jaeger使用系列】zipkin的基本概念和初步体验
     </h1>
   
 
@@ -300,30 +302,56 @@
       <div class="article-meta">
         <span class="article-date">
     <i class="icon icon-calendar-check"></i>
-	<a href="/2018/05/10/golang-build-web-application/" class="article-date">
-	  <time datetime="2018-05-10T11:23:20.000Z" itemprop="datePublished">2018-05-10 19:23:20</time>
+	<a href="/2018/05/26/trace-zipkin-install/" class="article-date">
+	  <time datetime="2018-05-26T03:02:34.000Z" itemprop="datePublished">2018-05-26 11:02:34</time>
 	</a>
 </span>
         
         
   <span class="article-tag">
     <i class="icon icon-tags"></i>
-	<a class="article-tag-link-link" href="/tags/golang%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" rel="tag">golang知识体系</a>
+	<a class="article-tag-link-link" href="/tags/zipkin-jaeger%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" rel="tag">zipkin/jaeger知识体系</a>
   </span>
 
 
         
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2018/05/10/golang-build-web-application/#comments" class="article-comment-link">评论</a></span>
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2018/05/26/trace-zipkin-install/#comments" class="article-comment-link">评论</a></span>
         
       </div>
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">https:&#x2F;&#x2F;time-track.cn&#x2F;go-http-server-learning.html</span><br></pre></td></tr></table></figure>
+        <h1 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">https:&#x2F;&#x2F;blog.csdn.net&#x2F;apei830&#x2F;article&#x2F;details&#x2F;78722168</span><br></pre></td></tr></table></figure>
+<h1 id="概念与协议协议"><a href="#概念与协议协议" class="headerlink" title="概念与协议协议"></a>概念与协议协议</h1><h2 id="概念英文版-spring官网"><a href="#概念英文版-spring官网" class="headerlink" title="概念英文版(spring官网)"></a>概念英文版(spring官网)</h2><p><img src="https://jxdw.github.io/img//_terminology_english.png"></p>
+<h2 id="概念中文版"><a href="#概念中文版" class="headerlink" title="概念中文版"></a>概念中文版</h2><ul>
+<li><p>Span<br>基本工作单元，一次链路调用（可以是RPC，DB等没有特定的限制）创建一个span，通过一个64位ID标识它，span通过还有其他的数据，例如描述信息，时间戳，key-value对的（Annotation）tag信息，parent-id等，其中parent-id可以表示span调用链路来源，通俗的理解span就是一次请求信息。</p>
+</li>
+<li><p>Trace<br>类似于树结构的Span集合，表示一条调用链路（一次端到端的完整请求），存在唯一标识，即TraceId。</p>
+</li>
+<li><p>Annotation<br>span的注解，用来记录请求特定事件相关信息（例如时间），通常包含四个注解信息：<br>cs:Client Start，表示客户端发起请求<br>sr:Server Receive，表示服务端收到请求<br>ss:Server Send，表示服务端完成处理，并将结果发送给客户端<br>cr:Client Received，表示客户端获取到服务端返回信息</p>
+</li>
+</ul>
+<p>BinaryAnnotation：提供一些额外信息，一般以key-value对出现</p>
+<h2 id="传输协议"><a href="#传输协议" class="headerlink" title="传输协议"></a>传输协议</h2><h3 id="http传输"><a href="#http传输" class="headerlink" title="http传输"></a>http传输</h3><p><img src="https://jxdw.github.io/img//_protocol.png"></p>
+<h3 id="传输的数据（V2版本）"><a href="#传输的数据（V2版本）" class="headerlink" title="传输的数据（V2版本）"></a>传输的数据（V2版本）</h3><p>存储到es的document的_source字段</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&quot;_source&quot;: &#123;</span><br><span class="line">	&quot;traceId&quot;: &quot;388c003cbf4d978e&quot;,</span><br><span class="line">	&quot;duration&quot;: 50735,</span><br><span class="line">	&quot;remoteEndpoint&quot;: &#123;</span><br><span class="line">		&quot;ipv4&quot;: &quot;192.168.128.57&quot;,</span><br><span class="line">		&quot;port&quot;: 12497</span><br><span class="line">	&#125;,</span><br><span class="line">	&quot;shared&quot;: true,</span><br><span class="line">	&quot;localEndpoint&quot;: &#123;</span><br><span class="line">		&quot;serviceName&quot;: &quot;serviceb&quot;,</span><br><span class="line">		&quot;ipv4&quot;: &quot;192.168.128.57&quot;</span><br><span class="line">	&#125;,</span><br><span class="line">	&quot;timestamp_millis&quot;: 1527308495000,</span><br><span class="line">	&quot;kind&quot;: &quot;SERVER&quot;,</span><br><span class="line">	&quot;name&quot;: &quot;get &#x2F;call&#x2F;&#123;id&#125;&quot;,</span><br><span class="line">	&quot;id&quot;: &quot;c7e7ea03cfaf7108&quot;,</span><br><span class="line">	&quot;parentId&quot;: &quot;388c003cbf4d978e&quot;,</span><br><span class="line">	&quot;timestamp&quot;: 1527308495000715,</span><br><span class="line">	&quot;tags&quot;: &#123;</span><br><span class="line">		&quot;http.method&quot;: &quot;GET&quot;,</span><br><span class="line">		&quot;http.path&quot;: &quot;&#x2F;call&#x2F;abcd&quot;,</span><br><span class="line">		&quot;mvc.controller.class&quot;: &quot;UserController&quot;,</span><br><span class="line">		&quot;mvc.controller.method&quot;: &quot;callHome&quot;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h1 id="http编程"><a href="#http编程" class="headerlink" title="http编程"></a>http编程</h1><h2 id="基础类"><a href="#基础类" class="headerlink" title="基础类"></a>基础类</h2><p>http包下的ListenAndServe、Server、conn、serverHandler、Handler接口</p>
-<h2 id="工作时序图"><a href="#工作时序图" class="headerlink" title="工作时序图"></a>工作时序图</h2><p><img src="https://jxdw.github.io/img/program/go/ServerCoding.png"></p>
+<h1 id="架构图"><a href="#架构图" class="headerlink" title="架构图"></a>架构图</h1><p><img src="https://jxdw.github.io/img//_architecture.png"></p>
+<p>主要包括四个模块 </p>
+<ul>
+<li>Collector <br>接收或收集各应用传输的数据 </li>
+<li>Storage<br> 存储接受或收集过来的数据，当前支持Memory，MySQL，Cassandra，ElasticSearch等，默认存储在内存中。 </li>
+<li>API（Query）<br> 负责查询Storage中存储的数据，提供简单的JSON API获取数据，主要提供给web UI使用 </li>
+<li>Web                 <br>提供简单的web界面</li>
+</ul>
+<h1 id="服务端安装配置"><a href="#服务端安装配置" class="headerlink" title="服务端安装配置"></a>服务端安装配置</h1><h2 id="mysql存储"><a href="#mysql存储" class="headerlink" title="mysql存储"></a>mysql存储</h2><h3 id="mysql脚本"><a href="#mysql脚本" class="headerlink" title="mysql脚本"></a>mysql脚本</h3><p>CREATE TABLE IF NOT EXISTS _spans (<br>  <code>trace_id_high</code> BIGINT NOT NULL DEFAULT 0 COMMENT ‘If non zero, this means the trace uses 128 bit traceIds instead of 64 bit’,<br>  <code>trace_id</code> BIGINT NOT NULL,<br>  <code>id</code> BIGINT NOT NULL,<br>  <code>name</code> VARCHAR(255) NOT NULL,<br>  <code>remote_service_name</code> VARCHAR(255),<br>  <code>parent_id</code> BIGINT,<br>  <code>debug</code> BIT(1),<br>  <code>start_ts</code> BIGINT COMMENT ‘Span.timestamp(): epoch micros used for endTs query and to implement TTL’,<br>  <code>duration</code> BIGINT COMMENT ‘Span.duration(): micros used for minDuration and maxDuration query’,<br>  PRIMARY KEY (<code>trace_id_high</code>, <code>trace_id</code>, <code>id</code>)<br>) ENGINE=InnoDB ROW_FORMAT=COMPRESSED CHARACTER SET=utf8 COLLATE utf8_general_ci;</p>
+<p>ALTER TABLE _spans ADD INDEX(<code>trace_id_high</code>, <code>trace_id</code>) COMMENT ‘for getTracesByIds’;<br>ALTER TABLE _spans ADD INDEX(<code>name</code>) COMMENT ‘for getTraces and getSpanNames’;<br>ALTER TABLE _spans ADD INDEX(<code>remote_service_name</code>) COMMENT ‘for getTraces and getRemoteServiceNames’;<br>ALTER TABLE _spans ADD INDEX(<code>start_ts</code>) COMMENT ‘for getTraces ordering and range’;</p>
+<p>CREATE TABLE IF NOT EXISTS _annotations (<br>  <code>trace_id_high</code> BIGINT NOT NULL DEFAULT 0 COMMENT ‘If non zero, this means the trace uses 128 bit traceIds instead of 64 bit’,<br>  <code>trace_id</code> BIGINT NOT NULL COMMENT ‘coincides with _spans.trace_id’,<br>  <code>span_id</code> BIGINT NOT NULL COMMENT ‘coincides with _spans.id’,<br>  <code>a_key</code> VARCHAR(255) NOT NULL COMMENT ‘BinaryAnnotation.key or Annotation.value if type == -1’,<br>  <code>a_value</code> BLOB COMMENT ‘BinaryAnnotation.value(), which must be smaller than 64KB’,<br>  <code>a_type</code> INT NOT NULL COMMENT ‘BinaryAnnotation.type() or -1 if Annotation’,<br>  <code>a_timestamp</code> BIGINT COMMENT ‘Used to implement TTL; Annotation.timestamp or _spans.timestamp’,<br>  <code>endpoint_ipv4</code> INT COMMENT ‘Null when Binary/Annotation.endpoint is null’,<br>  <code>endpoint_ipv6</code> BINARY(16) COMMENT ‘Null when Binary/Annotation.endpoint is null, or no IPv6 address’,<br>  <code>endpoint_port</code> SMALLINT COMMENT ‘Null when Binary/Annotation.endpoint is null’,<br>  <code>endpoint_service_name</code> VARCHAR(255) COMMENT ‘Null when Binary/Annotation.endpoint is null’<br>) ENGINE=InnoDB ROW_FORMAT=COMPRESSED CHARACTER SET=utf8 COLLATE utf8_general_ci;</p>
+<p>ALTER TABLE _annotations ADD UNIQUE KEY(<code>trace_id_high</code>, <code>trace_id</code>, <code>span_id</code>, <code>a_key</code>, <code>a_timestamp</code>) COMMENT ‘Ignore insert on duplicate’;<br>ALTER TABLE _annotations ADD INDEX(<code>trace_id_high</code>, <code>trace_id</code>, <code>span_id</code>) COMMENT ‘for joining with _spans’;<br>ALTER TABLE _annotations ADD INDEX(<code>trace_id_high</code>, <code>trace_id</code>) COMMENT ‘for getTraces/ByIds’;<br>ALTER TABLE _annotations ADD INDEX(<code>endpoint_service_name</code>) COMMENT ‘for getTraces and getServiceNames’;<br>ALTER TABLE _annotations ADD INDEX(<code>a_type</code>) COMMENT ‘for getTraces and autocomplete values’;<br>ALTER TABLE _annotations ADD INDEX(<code>a_key</code>) COMMENT ‘for getTraces and autocomplete values’;<br>ALTER TABLE _annotations ADD INDEX(<code>trace_id</code>, <code>span_id</code>, <code>a_key</code>) COMMENT ‘for dependencies job’;</p>
+<p>CREATE TABLE IF NOT EXISTS _dependencies (<br>  <code>day</code> DATE NOT NULL,<br>  <code>parent</code> VARCHAR(255) NOT NULL,<br>  <code>child</code> VARCHAR(255) NOT NULL,<br>  <code>call_count</code> BIGINT,<br>  <code>error_count</code> BIGINT,<br>  PRIMARY KEY (<code>day</code>, <code>parent</code>, <code>child</code>)<br>) ENGINE=InnoDB ROW_FORMAT=COMPRESSED CHARACTER SET=utf8 COLLATE utf8_general_ci;</p>
+<h3 id="启动脚本"><a href="#启动脚本" class="headerlink" title="启动脚本"></a>启动脚本</h3><p>RABBIT_URI=amqp://admin:<a href="mailto:&#x61;&#x64;&#x6d;&#x69;&#110;&#64;&#x31;&#x39;&#x32;&#x2e;&#49;&#54;&#56;&#46;&#49;&#55;&#50;&#x2e;&#x33;">&#x61;&#x64;&#x6d;&#x69;&#110;&#64;&#x31;&#x39;&#x32;&#x2e;&#49;&#54;&#56;&#46;&#49;&#55;&#50;&#x2e;&#x33;</a>:5672/sleuth STORAGE_TYPE=mysql MYSQL_DB= MYSQL_USER=root MYSQL_PASS=123456 MYSQL_TCP_PORT=3306 MYSQL_HOST=192.168.172.2 MYSQL_DB= MYSQL_USE_SSL=false java -jar .jar </p>
+<h2 id="elaticsearch存储"><a href="#elaticsearch存储" class="headerlink" title="elaticsearch存储"></a>elaticsearch存储</h2><h3 id="启动脚本-1"><a href="#启动脚本-1" class="headerlink" title="启动脚本"></a>启动脚本</h3><p>RABBIT_URI=amqp://admin:<a href="mailto:&#97;&#100;&#109;&#x69;&#x6e;&#64;&#x31;&#57;&#50;&#x2e;&#49;&#x36;&#x38;&#46;&#49;&#x37;&#x32;&#46;&#x33;">&#97;&#100;&#109;&#x69;&#x6e;&#64;&#x31;&#57;&#50;&#x2e;&#49;&#x36;&#x38;&#46;&#49;&#x37;&#x32;&#46;&#x33;</a>:5672/sleuth STORAGE_TYPE=elasticsearch ES_HOSTS=<a target="_blank" rel="noopener" href="http://192.168.172.8:9200/">http://192.168.172.8:9200</a>  ES_INDEX_REPLICAS=0 java -jar .jar –logging.level.=debug –logging.level.2=debug &amp; &gt; .log</p>
 
       
     </div>
@@ -333,7 +361,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="https://jxdw.github.io/2018/05/10/golang-build-web-application/" title="【golang标准库系列】go语言标准库之net/http编程" target="_blank" rel="external">https://jxdw.github.io/2018/05/10/golang-build-web-application/</a>
+      <a href="https://jxdw.github.io/2018/05/26/trace-zipkin-install/" title="【zipkin/jaeger使用系列】zipkin的基本概念和初步体验" target="_blank" rel="external">https://jxdw.github.io/2018/05/26/trace-zipkin-install/</a>
     </li>
     
     <li class="post-copyright-license">
@@ -380,12 +408,12 @@
   <ul class="pager pull-left">
     
     <li class="prev">
-      <a href="/2018/05/26/trace-zipkin-install/" title="【zipkin/jaeger使用系列】zipkin的基本概念和初步体验"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+      <a href="/2018/06/09/trace-zipkin_rpc_example/" title="【zipkin/jaeger使用系列】zipkin与thrift结合进行接口监控"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
     </li>
     
     
     <li class="next">
-      <a href="/2018/05/01/golang_simple_file_server/" title="【golang标准库系列】golang用18行代码实现文件服务器"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+      <a href="/2018/05/10/golang-build-web-application/" title="【golang标准库系列】go语言标准库之net/http编程"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
     </li>
     
     

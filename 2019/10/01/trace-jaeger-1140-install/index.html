@@ -17,16 +17,24 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>归档: 2018/5 | 渐学顿悟</title>
-  <meta property="og:type" content="website">
-<meta property="og:title" content="渐学顿悟">
-<meta property="og:url" content="https://jxdw.github.io/archives/2018/05/index.html">
+  <title>【zipkin/jaeger使用系列】跟踪平台jaeger安装、配置 | 渐学顿悟</title>
+  <meta name="description" content="Jaeger项目背景和整体架构项目背景Jaeger项目是一套受到Dapper与OpenZipkin启发构建而成的分布式跟踪平台，由Uber公司最初以开源方式公布，随后加入了云原生计算基金会。该项目主要用于:监控并诊断基于微服务架构的分布式系统，具体涵盖：  分布式上下文传播 分布式事务监控 根本原因分析 服务依赖关系分析 性能&#x2F;延迟优化  整体架构 下载安装和配置安装前置条件 已经安装elasti">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【zipkin&#x2F;jaeger使用系列】跟踪平台jaeger安装、配置">
+<meta property="og:url" content="https://jxdw.github.io/2019/10/01/trace-jaeger-1140-install/index.html">
 <meta property="og:site_name" content="渐学顿悟">
+<meta property="og:description" content="Jaeger项目背景和整体架构项目背景Jaeger项目是一套受到Dapper与OpenZipkin启发构建而成的分布式跟踪平台，由Uber公司最初以开源方式公布，随后加入了云原生计算基金会。该项目主要用于:监控并诊断基于微服务架构的分布式系统，具体涵盖：  分布式上下文传播 分布式事务监控 根本原因分析 服务依赖关系分析 性能&#x2F;延迟优化  整体架构 下载安装和配置安装前置条件 已经安装elasti">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jxdw.github.io/img/business/trace/jaeger-architecture.png">
+<meta property="og:image" content="https://jxdw.github.io/img/business/trace/jaeger-ui.png">
+<meta property="article:published_time" content="2019-10-01T11:00:00.000Z">
+<meta property="article:modified_time" content="2020-10-14T14:56:12.446Z">
 <meta property="article:author" content="渐学顿悟">
+<meta property="article:tag" content="zipkin&#x2F;jaeger知识体系">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jxdw.github.io/img/business/trace/jaeger-architecture.png">
   <!-- Canonical links -->
-  <link rel="canonical" href="https://jxdw.github.io/archives/2018/05/index.html">
+  <link rel="canonical" href="https://jxdw.github.io/2019/10/01/trace-jaeger-1140-install/index.html">
   
     <link rel="alternate" href="/atom.xml" title="渐学顿悟" type="application/atom+xml">
   
@@ -277,68 +285,145 @@
   
   
 <main class="main" role="main">
-  	<article class="content article article-archives article-type-list" itemscope="">
-	    <header class="article-header">
-	      <h1 itemprop="title">归档: 2018/5</h1>
-	      <p class="text-muted">共 3 篇文章</p>
-	    </header>
-	    <div class="article-body">
-	      
-  
-  
+  <div class="content">
+  <article id="post-trace-jaeger-1140-install" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
-    
+    <div class="article-header">
       
+        
+  
+    <h1 class="article-title" itemprop="name">
+      【zipkin/jaeger使用系列】跟踪平台jaeger安装、配置
+    </h1>
+  
+
       
-      <section class="panel panel-default b-no">
-        <div class="panel-heading" role="tab">
-          <h3 class="panel-title">
-            <a data-toggle="collapse" href="#collapse2018" aria-expanded="true">
-              <i class="icon icon-calendar-plus text-active"></i><i class="icon icon-calendar-minus text"></i>
-              2018
-            </a>
-            <!-- <a href="/archives/2018" class="archive-year">2018</a> -->
-          </h3>
-        </div>
-        <div id="collapse2018" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading2018">
-        <div class="panel-body">
-          <div class="collection">
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2019/10/01/trace-jaeger-1140-install/" class="article-date">
+	  <time datetime="2019-10-01T11:00:00.000Z" itemprop="datePublished">2019-10-01 19:00:00</time>
+	</a>
+</span>
+        
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/zipkin-jaeger%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" rel="tag">zipkin/jaeger知识体系</a>
+  </span>
+
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/10/01/trace-jaeger-1140-install/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h1 id="Jaeger项目背景和整体架构"><a href="#Jaeger项目背景和整体架构" class="headerlink" title="Jaeger项目背景和整体架构"></a>Jaeger项目背景和整体架构</h1><h2 id="项目背景"><a href="#项目背景" class="headerlink" title="项目背景"></a>项目背景</h2><p>Jaeger项目是一套受到Dapper与OpenZipkin启发构建而成的分布式跟踪平台，由Uber公司最初以开源方式公布，随后加入了云原生计算基金会。该项目主要用于:监控并诊断基于微服务架构的分布式系统，具体涵盖：</p>
+<ul>
+<li>分布式上下文传播</li>
+<li>分布式事务监控</li>
+<li>根本原因分析</li>
+<li>服务依赖关系分析</li>
+<li>性能/延迟优化</li>
+</ul>
+<h2 id="整体架构"><a href="#整体架构" class="headerlink" title="整体架构"></a>整体架构</h2><p><img src="https://jxdw.github.io/img/business/trace/jaeger-architecture.png"></p>
+<h1 id="下载安装和配置"><a href="#下载安装和配置" class="headerlink" title="下载安装和配置"></a>下载安装和配置</h1><h2 id="安装前置条件"><a href="#安装前置条件" class="headerlink" title="安装前置条件"></a>安装前置条件</h2><ul>
+<li>已经安装elasticsearch集群</li>
+<li>安装好prometheus监控</li>
+</ul>
+<h2 id="从github下载二进制包"><a href="#从github下载二进制包" class="headerlink" title="从github下载二进制包"></a>从github下载二进制包</h2><p>下载地址：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">https:&#x2F;&#x2F;github.com&#x2F;jaegertracing&#x2F;jaeger&#x2F;releases&#x2F;download&#x2F;v1.14.0&#x2F;jaeger-1.14.0-linux-amd64.tar.gz</span><br></pre></td></tr></table></figure>
+
+<h2 id="解压和配置"><a href="#解压和配置" class="headerlink" title="解压和配置"></a>解压和配置</h2><h3 id="编写collector启动脚本start-colloector-sh"><a href="#编写collector启动脚本start-colloector-sh" class="headerlink" title="编写collector启动脚本start-colloector.sh"></a>编写collector启动脚本start-colloector.sh</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">export SPAN_STORAGE_TYPE&#x3D;elasticsearch</span><br><span class="line">nohup .&#x2F;jaeger-collector  --es.server-urls http:&#x2F;&#x2F;elasticsearch节点1的ip和端口&#x2F;,http:&#x2F;&#x2F;elasticsearch节点2的ip和端口&#x2F;,http&#x3D;:&#x2F;&#x2F;elasticsearch节点3的ip和端口&#x2F;  --log-level&#x3D;debug &gt; collector.log  2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
+
+<h3 id="编写query启动脚本start-query-sh"><a href="#编写query启动脚本start-query-sh" class="headerlink" title="编写query启动脚本start-query.sh"></a>编写query启动脚本start-query.sh</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">export SPAN_STORAGE_TYPE&#x3D;elasticsearch</span><br><span class="line">nohup .&#x2F;jaeger-query --span-storage.type&#x3D;elasticsearch --es.server-urls&#x3D;http:&#x2F;&#x2F;elasticsearch节点1的ip和端口&#x2F;,http:&#x2F;&#x2F;elasticsearch节点2的ip和端口&#x2F;,http&#x3D;:&#x2F;&#x2F;elasticsearch节点3的ip和端口&#x2F;   &gt; query.log 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
+
+<h3 id="编写agent启动脚本start-agent-sh"><a href="#编写agent启动脚本start-agent-sh" class="headerlink" title="编写agent启动脚本start-agent.sh"></a>编写agent启动脚本start-agent.sh</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">export SPAN_STORAGE_TYPE&#x3D;elasticsearch</span><br><span class="line">nohup  .&#x2F;jaeger-agent  --collector.host-port&#x3D;192.168.172.9:14267 --discovery.min-peers&#x3D;1 --log-level&#x3D;debug &gt; agent.log 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
+
+<h3 id="配置prometheus"><a href="#配置prometheus" class="headerlink" title="配置prometheus"></a>配置prometheus</h3><p>配置监听14269端口</p>
+<h1 id="启动效果"><a href="#启动效果" class="headerlink" title="启动效果"></a>启动效果</h1><p><img src="https://jxdw.github.io/img/business/trace/jaeger-ui.png"></p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
     
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://jxdw.github.io/2019/10/01/trace-jaeger-1140-install/" title="【zipkin/jaeger使用系列】跟踪平台jaeger安装、配置" target="_blank" rel="external">https://jxdw.github.io/2019/10/01/trace-jaeger-1140-install/</a>
+    </li>
     
-<a href="/2018/05/26/trace-zipkin-install/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2018-05-26T03:02:34.000Z" itemprop="datePublished">2018-05-26 11:02:34</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> 【zipkin/jaeger使用系列】zipkin的基本概念和初步体验
-</a>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/jxdw" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://www.gravatar.com/avatar/80df4bfee856f0107ea8d54da41c3f31?s=128" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/jxdw" target="_blank"><span class="text-dark">渐学顿悟</span><small class="ml-1x">程序员(后端)</small></a></h3>
+        <div>一个没有技术慧根/悟性的人，只有需要渐学/刻意练习，方能顿悟，自勉。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
 
 
   
-    
-    
-    
-<a href="/2018/05/10/golang-build-web-application/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2018-05-10T11:23:20.000Z" itemprop="datePublished">2018-05-10 19:23:20</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> 【golang标准库系列】go语言标准库之net/http编程
-</a>
+</div>
 
-
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
   
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2019/10/07/prometheus_monitor_rabbitmq/" title="【prometheus知识体系】Prometheus监控rabbitmq3.8.0"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
     
     
+    <li class="next">
+      <a href="/2019/08/21/go_run_principle/" title="【golang底层实现系列】go语言运行时的工作过程"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
     
-<a href="/2018/05/01/golang_simple_file_server/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2018-05-01T11:17:59.000Z" itemprop="datePublished">2018-05-01 19:17:59</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> 【golang标准库系列】golang用18行代码实现文件服务器
-</a>
-
-
+    
+  </ul>
   
   
-    </div></div></div></section>
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
   
 
-	    </div>
-  	</article>
-  	 	
+
 </main>
 
   <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
@@ -395,6 +480,37 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 
 
 
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: true,
+    notify: false,
+    appId: 'wrre3Nrx21CqKiChLnKn034M-gzGzoHsz',
+    appKey: 'rkWWNONo7LAJhlS936vnywQ9',
+    placeholder: '请输入您的评论',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
 
 
 

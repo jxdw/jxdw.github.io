@@ -17,10 +17,10 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>【zipkin/jaeger使用系列】jaeger v1.14.0安装、配置 | 渐学顿悟</title>
+  <title>【zipkin/jaeger使用系列】跟踪平台jaeger安装、配置 | 渐学顿悟</title>
   <meta name="description" content="Jaeger项目背景和整体架构项目背景Jaeger项目是一套受到Dapper与OpenZipkin启发构建而成的分布式跟踪平台，由Uber公司最初以开源方式公布，随后加入了云原生计算基金会。该项目主要用于:监控并诊断基于微服务架构的分布式系统，具体涵盖：  分布式上下文传播 分布式事务监控 根本原因分析 服务依赖关系分析 性能&#x2F;延迟优化  整体架构 下载安装和配置安装前置条件 已经安装elasti">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【zipkin&#x2F;jaeger使用系列】jaeger v1.14.0安装、配置">
+<meta property="og:title" content="【zipkin&#x2F;jaeger使用系列】跟踪平台jaeger安装、配置">
 <meta property="og:url" content="https://jxdw.github.io/2019/10/01/trace-jaeger-1140-install/index.html">
 <meta property="og:site_name" content="渐学顿悟">
 <meta property="og:description" content="Jaeger项目背景和整体架构项目背景Jaeger项目是一套受到Dapper与OpenZipkin启发构建而成的分布式跟踪平台，由Uber公司最初以开源方式公布，随后加入了云原生计算基金会。该项目主要用于:监控并诊断基于微服务架构的分布式系统，具体涵盖：  分布式上下文传播 分布式事务监控 根本原因分析 服务依赖关系分析 性能&#x2F;延迟优化  整体架构 下载安装和配置安装前置条件 已经安装elasti">
@@ -28,7 +28,7 @@
 <meta property="og:image" content="https://jxdw.github.io/img/business/trace/jaeger-architecture.png">
 <meta property="og:image" content="https://jxdw.github.io/img/business/trace/jaeger-ui.png">
 <meta property="article:published_time" content="2019-10-01T11:00:00.000Z">
-<meta property="article:modified_time" content="2020-10-14T15:03:47.142Z">
+<meta property="article:modified_time" content="2020-10-14T14:56:12.446Z">
 <meta property="article:author" content="渐学顿悟">
 <meta property="article:tag" content="zipkin&#x2F;jaeger知识体系">
 <meta name="twitter:card" content="summary">
@@ -176,7 +176,7 @@
   <div class="widget">
     <h3 class="widget-title">文章标签</h3>
     <div class="widget-body">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/centos-docker-k8s%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" rel="tag">centos/docker/k8s知识体系</a><span class="tag-list-count">34</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/elastic-job%E6%8A%80%E6%9C%AF/" rel="tag">elastic-job技术</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es6%E8%AF%AD%E8%A8%80/" rel="tag">es6语言</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" rel="tag">golang知识体系</a><span class="tag-list-count">15</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" rel="tag">java知识体系</a><span class="tag-list-count">27</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql%E6%8A%80%E6%9C%AF/" rel="tag">mysql技术</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx-haproxy%E6%8A%80%E6%9C%AF/" rel="tag">nginx/haproxy技术</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/prometheus%E6%8A%80%E6%9C%AF/" rel="tag">prometheus技术</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rabbitmq%E6%8A%80%E6%9C%AF/" rel="tag">rabbitmq技术</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" rel="tag">redis知识体系</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zipkin-jaeger%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" rel="tag">zipkin/jaeger知识体系</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%84%9F%E6%82%9F/" rel="tag">感悟</a><span class="tag-list-count">6</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/centos-docker-k8s%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" rel="tag">centos/docker/k8s知识体系</a><span class="tag-list-count">34</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/elastic-job%E6%8A%80%E6%9C%AF/" rel="tag">elastic-job技术</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es6%E8%AF%AD%E8%A8%80/" rel="tag">es6语言</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" rel="tag">golang知识体系</a><span class="tag-list-count">15</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" rel="tag">java知识体系</a><span class="tag-list-count">27</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql%E6%8A%80%E6%9C%AF/" rel="tag">mysql技术</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx-haproxy%E6%8A%80%E6%9C%AF/" rel="tag">nginx/haproxy技术</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/prometheus%E6%8A%80%E6%9C%AF/" rel="tag">prometheus技术</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rabbitmq%E6%8A%80%E6%9C%AF/" rel="tag">rabbitmq技术</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" rel="tag">redis知识体系</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zipkin-jaeger%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" rel="tag">zipkin/jaeger知识体系</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%84%9F%E6%82%9F/" rel="tag">感悟</a><span class="tag-list-count">6</span></li></ul>
     </div>
   </div>
 
@@ -186,7 +186,7 @@
   <div class="widget">
     <h3 class="widget-title">文章归档</h3>
     <div class="widget-body">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/">2019</a><span class="archive-list-count">23</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018</a><span class="archive-list-count">41</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/">2017</a><span class="archive-list-count">33</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/">2016</a><span class="archive-list-count">13</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/">2019</a><span class="archive-list-count">22</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018</a><span class="archive-list-count">41</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/">2017</a><span class="archive-list-count">33</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/">2016</a><span class="archive-list-count">13</span></li></ul>
     </div>
   </div>
 
@@ -293,7 +293,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      【zipkin/jaeger使用系列】jaeger v1.14.0安装、配置
+      【zipkin/jaeger使用系列】跟踪平台jaeger安装、配置
     </h1>
   
 
@@ -354,7 +354,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="https://jxdw.github.io/2019/10/01/trace-jaeger-1140-install/" title="【zipkin/jaeger使用系列】jaeger v1.14.0安装、配置" target="_blank" rel="external">https://jxdw.github.io/2019/10/01/trace-jaeger-1140-install/</a>
+      <a href="https://jxdw.github.io/2019/10/01/trace-jaeger-1140-install/" title="【zipkin/jaeger使用系列】跟踪平台jaeger安装、配置" target="_blank" rel="external">https://jxdw.github.io/2019/10/01/trace-jaeger-1140-install/</a>
     </li>
     
     <li class="post-copyright-license">

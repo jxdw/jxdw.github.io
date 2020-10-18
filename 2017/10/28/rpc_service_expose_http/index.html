@@ -26,7 +26,7 @@
 <meta property="og:description" content="本文参考资料https:&#x2F;&#x2F;juejin.im&#x2F;post&#x2F;5908a811da2f60005d188aee 定义数据模型请求协议请求url：http:&#x2F;&#x2F;url&#x2F;接口&#x2F;方法请求参数：param:&amp;#123;json串&amp;#125;  服务端对请求的封装public class HttpRequest &amp;#123;    private String param">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2017-10-28T11:41:34.000Z">
-<meta property="article:modified_time" content="2020-10-13T14:09:22.780Z">
+<meta property="article:modified_time" content="2020-10-18T00:17:10.656Z">
 <meta property="article:author" content="渐学顿悟">
 <meta property="article:tag" content="java知识体系">
 <meta name="twitter:card" content="summary">
@@ -325,7 +325,7 @@
 
 <h2 id="服务端的通用应答"><a href="#服务端的通用应答" class="headerlink" title="服务端的通用应答"></a>服务端的通用应答</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class HttpResponse implements Serializable &#123;</span><br><span class="line">    private boolean success;</span><br><span class="line">    private String code;</span><br><span class="line">    private  String description;</span><br><span class="line">	set&#x2F;get方法</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h1 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h1><h2 id="application-yml配置"><a href="#application-yml配置" class="headerlink" title="application.yml配置"></a>application.yml配置</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">conf:</span><br><span class="line">  package: com.xiaogang.dubbo.service</span><br><span class="line">&#96;&#96;&#96;  </span><br><span class="line">## 配置类</span><br></pre></td></tr></table></figure>
+<h1 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h1><h2 id="application-yml配置"><a href="#application-yml配置" class="headerlink" title="application.yml配置"></a>application.yml配置</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">conf:</span><br><span class="line">  package: com.jxdw.dubbo.service</span><br><span class="line">&#96;&#96;&#96;  </span><br><span class="line">## 配置类</span><br></pre></td></tr></table></figure>
 <p>@Component<br>public class HttpProviderConf {</p>
 <pre><code>@Value(&quot;$&#123;conf.package&#125;&quot;)
 private String usePackageString;
@@ -340,7 +340,7 @@ public void setUserPackage(List&lt;String&gt; userPackage) &#123;
 &#125;</code></pre>
 <p>}</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">## 业务类</span><br></pre></td></tr></table></figure>
-<p>import com.alibaba.fastjson.JSON;<br>import com.xiaogang.config.HttpProviderConf;<br>import com.xiaogang.config.HttpRequest;<br>import com.xiaogang.config.HttpResponse;<br>import org.slf4j.Logger;<br>import org.slf4j.LoggerFactory;<br>import org.springframework.beans.BeansException;<br>import org.springframework.beans.factory.annotation.Autowired;<br>import org.springframework.context.ApplicationContext;<br>import org.springframework.context.ApplicationContextAware;<br>import org.springframework.stereotype.Controller;<br>import org.springframework.util.CollectionUtils;<br>import org.springframework.web.bind.annotation.PathVariable;<br>import org.springframework.web.bind.annotation.RequestMapping;<br>import org.springframework.web.bind.annotation.RequestMethod;<br>import org.springframework.web.bind.annotation.ResponseBody;</p>
+<p>import com.alibaba.fastjson.JSON;<br>import com.jxdw.config.HttpProviderConf;<br>import com.jxdw.config.HttpRequest;<br>import com.jxdw.config.HttpResponse;<br>import org.slf4j.Logger;<br>import org.slf4j.LoggerFactory;<br>import org.springframework.beans.BeansException;<br>import org.springframework.beans.factory.annotation.Autowired;<br>import org.springframework.context.ApplicationContext;<br>import org.springframework.context.ApplicationContextAware;<br>import org.springframework.stereotype.Controller;<br>import org.springframework.util.CollectionUtils;<br>import org.springframework.web.bind.annotation.PathVariable;<br>import org.springframework.web.bind.annotation.RequestMapping;<br>import org.springframework.web.bind.annotation.RequestMethod;<br>import org.springframework.web.bind.annotation.ResponseBody;</p>
 <p>import javax.servlet.http.HttpServletRequest;<br>import java.lang.reflect.InvocationTargetException;<br>import java.lang.reflect.Method;<br>import java.net.InetAddress;<br>import java.net.UnknownHostException;<br>import java.util.HashMap;<br>import java.util.Map;</p>
 <p>@Controller<br>@RequestMapping(“/ThriftAPI”)<br>public class ThriftServiceController implements ApplicationContextAware {</p>
 <pre><code>private final static Logger logger= LoggerFactory.getLogger(ThriftServiceController.class);

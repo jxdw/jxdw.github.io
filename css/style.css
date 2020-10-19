@@ -8355,18 +8355,18 @@ body.okayNav-loaded {
   }
 
   .sidebar {
-    width: 23%;
+    width: 20%;
   }
 
   .sidebar .slimContent {
-    padding-right: 30px;
-    padding-left: 30px;
+    padding-right: 15px;
+    padding-left: 15px;
   }
 
   .main {
-    width: 65%;
-    padding-right: 30px;
-    padding-left: 30px;
+    width: 68%;
+    padding-right: 15px;
+    padding-left: 15px;
   }
 
   .footer {
@@ -8390,14 +8390,14 @@ body.okayNav-loaded {
   }
 
   body.no-sidebar.main-left .main {
-    width: 83.33333333%;
-    margin-right: 16.66667%;
+    width: 88%;
+    margin-right: 12%;
   }
 
   body.no-sidebar.main-right .main,
   body.no-sidebar.main-center .main {
-    width: 83.33333333%;
-    margin-left: 16.66667%;
+    width: 88%;
+    margin-left: 12%;
   }
 
   .main-nav > li > a {

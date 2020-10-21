@@ -1,23 +1,27 @@
 <!DOCTYPE html>
-<html lang=ZH>
+<html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-  
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
-  <meta name="renderer" content="webkit">
-  <meta http-equiv="Cache-Control" content="no-transform" />
-  <meta http-equiv="Cache-Control" content="no-siteapp" />
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="format-detection" content="telephone=no,email=no,adress=no">
-  <!-- Color theme for statusbar -->
-  <meta name="theme-color" content="#000000" />
-  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
-  <meta http-equiv="window-target" content="_top" />
-  
-  
-  <title>标签: centos/docker/k8s知识体系 | 渐学顿悟</title>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.0/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"jxdw.github.io","root":"/","scheme":"Pisces","version":"8.0.1","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"width":240},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
+  </script>
+
   <meta property="og:type" content="website">
 <meta property="og:title" content="渐学顿悟">
 <meta property="og:url" content="https://jxdw.github.io/tags/centos-docker-k8s%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/index.html">
@@ -25,1178 +29,1000 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="article:author" content="渐学顿悟">
 <meta name="twitter:card" content="summary">
-  <!-- Canonical links -->
-  <link rel="canonical" href="https://jxdw.github.io/tags/centos-docker-k8s%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/index.html">
-  
-    <link rel="alternate" href="/atom.xml" title="渐学顿悟" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png" type="image/x-icon">
-  
-  
-<link rel="stylesheet" href="/css/style.css">
-
-  
-  
-  
-  
-<meta name="generator" content="Hexo 5.2.0"></head>
 
 
-<body class="main-center theme-purple" itemscope itemtype="http://schema.org/WebPage">
-  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-  <div class="slimContent">
-    <div class="navbar-header">
-      
-      
-      <div class="profile-block text-center">
-        <a id="avatar" href="https://github.com/jxdw" target="_blank">
-          <img class="img-circle img-rotate" src="https://www.gravatar.com/avatar/80df4bfee856f0107ea8d54da41c3f31?s=128" width="200" height="200">
-        </a>
-        <h2 id="name" class="hidden-xs hidden-sm">渐学顿悟</h2>
-        <h3 id="title" class="hidden-xs hidden-sm hidden-md">程序员(后端)</h3>
-        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Shenzhen, China</small>
-      </div>
-      
-      <div class="search" id="search-form-wrap">
+<link rel="canonical" href="https://jxdw.github.io/tags/centos-docker-k8s%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/">
 
-    <form class="search-form sidebar-form">
-        <div class="input-group">
-            <input type="text" class="search-form-input form-control" placeholder="搜索" />
-            <span class="input-group-btn">
-                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
-            </span>
-        </div>
-    </form>
-    <div class="ins-search">
-  <div class="ins-search-mask"></div>
-  <div class="ins-search-container">
-    <div class="ins-input-wrapper">
-      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
-      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>标签: centos/docker/k8s知识体系 | 渐学顿悟</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="渐学顿悟" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
-    <div class="ins-section-wrapper">
-      <div class="ins-section-container"></div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">渐学顿悟</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">记录技术的学习和实践过程</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
     </div>
   </div>
 </div>
 
 
-</div>
-      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-    </div>
-    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
-      <ul class="nav navbar-nav main-nav ">
-        
-        
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
         <li class="menu-item menu-item-home">
-          <a href="/.">
-            
-            <i class="icon icon-home-fill"></i>
-            
-            <span class="menu-title">首页</span>
-          </a>
-        </li>
-        
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/">
-            
-            <i class="icon icon-archives-fill"></i>
-            
-            <span class="menu-title">归档</span>
-          </a>
-        </li>
-        
-        
-        <li class="menu-item menu-item-links">
-          <a href="/links">
-            
-            <i class="icon icon-friendship"></i>
-            
-            <span class="menu-title">友链</span>
-          </a>
-        </li>
-        
-        
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
         <li class="menu-item menu-item-about">
-          <a href="/about">
-            
-            <i class="icon icon-cup-fill"></i>
-            
-            <span class="menu-title">关于</span>
-          </a>
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">12</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">122</span></a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
         </li>
-        
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
       </ul>
-      
-	
-    <ul class="social-links">
-    	
-        <li><a href="https://github.com/jxdw" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="渐学顿悟"
+      src="/favicon.png">
+  <p class="site-author-name" itemprop="name">渐学顿悟</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
         
-        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
-        
-    </ul>
-
-    </nav>
-  </div>
-</header>
-
-  
-    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
-  <div class="slimContent">
-    
-      <div class="widget">
-    <h3 class="widget-title">博客公告</h3>
-    <div class="widget-body">
-        <div id="board">
-            <div class="content">
-                <p>2020年，重新开始。欢迎交流与分享!</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-    
-      
-  <div class="widget">
-    <h3 class="widget-title">文章标签</h3>
-    <div class="widget-body">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/centos-docker-k8s%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" rel="tag">centos/docker/k8s知识体系</a><span class="tag-list-count">34</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/elastic-job%E6%8A%80%E6%9C%AF/" rel="tag">elastic-job技术</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es6%E8%AF%AD%E8%A8%80/" rel="tag">es6语言</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" rel="tag">go知识体系</a><span class="tag-list-count">15</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" rel="tag">java知识体系</a><span class="tag-list-count">27</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql%E6%8A%80%E6%9C%AF/" rel="tag">mysql技术</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx-haproxy%E6%8A%80%E6%9C%AF/" rel="tag">nginx/haproxy技术</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/prometheus%E6%8A%80%E6%9C%AF/" rel="tag">prometheus技术</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rabbitmq%E6%8A%80%E6%9C%AF/" rel="tag">rabbitmq技术</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" rel="tag">redis知识体系</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zipkin-jaeger%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" rel="tag">zipkin/jaeger知识体系</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%84%9F%E6%82%9F/" rel="tag">感悟</a><span class="tag-list-count">6</span></li></ul>
-    </div>
-  </div>
-
-
-    
-      
-  <div class="widget">
-    <h3 class="widget-title">文章归档</h3>
-    <div class="widget-body">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/">2019</a><span class="archive-list-count">23</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018</a><span class="archive-list-count">41</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/">2017</a><span class="archive-list-count">33</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/">2016</a><span class="archive-list-count">13</span></li></ul>
-    </div>
-  </div>
-
-
-    
-      
-  <div class="widget">
-    <h3 class="widget-title">最近文章</h3>
-    <div class="widget-body">
-      <ul class="recent-post-list list-unstyled no-thumbnail">
-        
-          <li>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                
-              </p>
-              <p class="item-title">
-                <a href="/2020/09/25/nacos-go-client-config-example/" class="title">【中间件client系列】go语言服务使用nacos server作为配置中心</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2020-09-25T11:17:59.000Z" itemprop="datePublished">2020-09-25 19:17:59</time>
-              </p>
-            </div>
-          </li>
-          
-          <li>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                
-              </p>
-              <p class="item-title">
-                <a href="/2020/07/20/golang-upload-file-to-alicloud/" class="title">【中间件client系列】阿里云oss的go client使用</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2020-07-20T12:17:59.000Z" itemprop="datePublished">2020-07-20 20:17:59</time>
-              </p>
-            </div>
-          </li>
-          
-          <li>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                
-              </p>
-              <p class="item-title">
-                <a href="/2020/07/14/es6_vue_study_day8/" class="title">【转载】vue学习之day8</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2020-07-14T13:41:16.000Z" itemprop="datePublished">2020-07-14 21:41:16</time>
-              </p>
-            </div>
-          </li>
-          
-          <li>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                
-              </p>
-              <p class="item-title">
-                <a href="/2020/07/13/es6_vue_study_day7/" class="title">【转载】vue学习之day7</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2020-07-13T13:25:16.000Z" itemprop="datePublished">2020-07-13 21:25:16</time>
-              </p>
-            </div>
-          </li>
-          
-          <li>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                
-              </p>
-              <p class="item-title">
-                <a href="/2020/07/12/es6_vue_study_day6/" class="title">【转载】vue学习之day6</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2020-07-12T13:21:16.000Z" itemprop="datePublished">2020-07-12 21:21:16</time>
-              </p>
-            </div>
-          </li>
-          
-      </ul>
-    </div>
-  </div>
-  
-
-    
-  </div>
-</aside>
-
-  
-  <main class="main" role="main">
-  <article class="content article article-tags post-type-list" itemscope="">
-    <header class="article-header">
-      <h1 itemprop="name" class="hidden-xs">标签: centos/docker/k8s知识体系</h1>
-      <p class="text-muted hidden-xs">共 34 篇文章</p>
-      <nav role="navigation" id="nav-main" class="okayNav">
-        <ul>
-          <li><a href="/tags">All</a></li>
-          
-          <li><a href="/tags/mysql技术/">mysql技术</a></li>
-          
-          <li><a href="/tags/nginx-haproxy技术/">nginx/haproxy技术</a></li>
-          
-          <li><a href="/tags/elastic-job技术/">elastic-job技术</a></li>
-          
-          <li><a href="/tags/rabbitmq技术/">rabbitmq技术</a></li>
-          
-          <li><a href="/tags/prometheus技术/">prometheus技术</a></li>
-          
-          <li><a href="/tags/es6语言/">es6语言</a></li>
-          
-          <li><a href="/tags/go知识体系/">go知识体系</a></li>
-          
-          <li><a href="/tags/zipkin-jaeger知识体系/">zipkin/jaeger知识体系</a></li>
-          
-          <li><a href="/tags/java知识体系/">java知识体系</a></li>
-          
-          <li><a href="/tags/centos-docker-k8s知识体系/">centos/docker/k8s知识体系</a></li>
-          
-          <li><a href="/tags/感悟/">感悟</a></li>
-          
-          <li><a href="/tags/redis知识体系/">redis知识体系</a></li>
-          
-        </ul>
-      </nav>
-    </header>
-    <!-- /header -->
-    <div class="article-body">
-      <div class="row">
-        
-<div class="col-md-6">
-    
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2019-06-30T11:00:00.000Z" itemprop="datePublished">2019-06-30 19:00:00</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2019/06/30/cicd-jira-crack-restfulapi/">【jenkins/jira知识体系】【转载】jira7.13版本破解与restful api</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/centos-docker-k8s%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" class="label label-default mb">centos/docker/k8s知识体系</a>
-     
-     
-   </div>
-   
-</article>
-
-
-</div>
-
-<div class="col-md-6">
-    
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2019-06-01T13:46:40.000Z" itemprop="datePublished">2019-06-01 21:46:40</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2019/06/01/centos7-share-a-photo/">【网络系列】【转载】TCP通信转UDP通信并加速</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/centos-docker-k8s%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" class="label label-default mb">centos/docker/k8s知识体系</a>
-     
-     
-   </div>
-   
-</article>
-
-
-</div>
-
-<div class="col-md-6">
-    
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2019-05-12T05:24:41.000Z" itemprop="datePublished">2019-05-12 13:24:41</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2019/05/12/centos8-base-rhel8-release/">【操作系统知识体系】RHEL8发布，坐等centos8</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/centos-docker-k8s%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" class="label label-default mb">centos/docker/k8s知识体系</a>
-     
-     
-   </div>
-   
-</article>
-
-
-</div>
-
-<div class="col-md-6">
-    
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2019-04-01T13:12:52.000Z" itemprop="datePublished">2019-04-01 21:12:52</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2019/04/01/centos7-kernel-upgrade/">【操作系统知识体系】centos7内核升级</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/centos-docker-k8s%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" class="label label-default mb">centos/docker/k8s知识体系</a>
-     
-     
-   </div>
-   
-</article>
-
-
-</div>
-
-<div class="col-md-6">
-    
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2019-03-31T14:54:07.000Z" itemprop="datePublished">2019-03-31 22:54:07</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2019/03/31/rhel8-beta-experience/">【操作系统知识体系】rhel8 beta尝鲜</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/centos-docker-k8s%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" class="label label-default mb">centos/docker/k8s知识体系</a>
-     
-     
-   </div>
-   
-</article>
-
-
-</div>
-
-<div class="col-md-6">
-    
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2019-02-07T02:51:23.000Z" itemprop="datePublished">2019-02-07 10:51:23</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2019/02/07/docker-1-17-install/">【容器知识体系】docker 1.17安装和初步使用</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/centos-docker-k8s%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" class="label label-default mb">centos/docker/k8s知识体系</a>
-     
-     
-   </div>
-   
-</article>
-
-
-</div>
-
-<div class="col-md-6">
-    
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2018-12-30T02:38:44.000Z" itemprop="datePublished">2018-12-30 10:38:44</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2018/12/30/container-kubernetes-jieduanxing-zongjie/">【容器知识体系】玩转kubernetes之kubernetes阶段性成果</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/centos-docker-k8s%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" class="label label-default mb">centos/docker/k8s知识体系</a>
-     
-     
-   </div>
-   
-</article>
-
-
-</div>
-
-<div class="col-md-6">
-    
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2018-12-28T06:04:49.000Z" itemprop="datePublished">2018-12-28 14:04:49</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2018/12/28/container-kubernetes-1-8-install/">【容器知识体系】玩转kubernetes之kubernetes1.8安装</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/centos-docker-k8s%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" class="label label-default mb">centos/docker/k8s知识体系</a>
-     
-     
-   </div>
-   
-</article>
-
-
-</div>
-
-<div class="col-md-6">
-    
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2018-12-27T04:51:23.000Z" itemprop="datePublished">2018-12-27 12:51:23</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2018/12/27/docker-1-12-management/">【容器知识体系】docker1.12管理技术之portainer</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/centos-docker-k8s%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" class="label label-default mb">centos/docker/k8s知识体系</a>
-     
-     
-   </div>
-   
-</article>
-
-
-</div>
-
-<div class="col-md-6">
-    
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2018-12-23T11:00:00.000Z" itemprop="datePublished">2018-12-23 19:00:00</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2018/12/23/jenkins-restful-api/">【jenkins/jira知识体系】(转载)jenkins restful api</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/centos-docker-k8s%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" class="label label-default mb">centos/docker/k8s知识体系</a>
-     
-     
-   </div>
-   
-</article>
-
-
-</div>
-
-<div class="col-md-6">
-    
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2018-12-22T02:41:23.000Z" itemprop="datePublished">2018-12-22 10:41:23</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2018/12/22/jenkins-yum-install/">【jenkins/jira使用系列】centos7下yum安装jenkins</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/centos-docker-k8s%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" class="label label-default mb">centos/docker/k8s知识体系</a>
-     
-     
-   </div>
-   
-</article>
-
-
-</div>
-
-<div class="col-md-6">
-    
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2018-12-15T04:51:23.000Z" itemprop="datePublished">2018-12-15 12:51:23</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2018/12/15/docker-1-12-swarm-ops/">【容器知识体系】docker1.12版本下swarm操作</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/centos-docker-k8s%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" class="label label-default mb">centos/docker/k8s知识体系</a>
-     
-     
-   </div>
-   
-</article>
-
-
-</div>
-
-<div class="col-md-6">
-    
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2018-12-05T13:58:54.000Z" itemprop="datePublished">2018-12-05 21:58:54</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2018/12/05/container-etcd-install/">【容器知识体系】etcd3安装和初步操作</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/centos-docker-k8s%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" class="label label-default mb">centos/docker/k8s知识体系</a>
-     
-     
-   </div>
-   
-</article>
-
-
-</div>
-
-<div class="col-md-6">
-    
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2018-10-31T14:49:09.000Z" itemprop="datePublished">2018-10-31 22:49:09</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2018/10/31/docker-registry-harbor-154-install/">【容器知识体系】镜像仓库harbor1.5.4版本安装和使用</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/centos-docker-k8s%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" class="label label-default mb">centos/docker/k8s知识体系</a>
-     
-     
-   </div>
-   
-</article>
-
-
-</div>
-
-<div class="col-md-6">
-    
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2018-10-09T13:26:11.000Z" itemprop="datePublished">2018-10-09 21:26:11</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2018/10/09/docker-network-basic/">【网络系列】docker扩展iptables实现网络隔离与通信</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/centos-docker-k8s%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" class="label label-default mb">centos/docker/k8s知识体系</a>
-     
-     
-   </div>
-   
-</article>
-
-
-</div>
-
-<div class="col-md-6">
-    
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2018-10-07T02:51:23.000Z" itemprop="datePublished">2018-10-07 10:51:23</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2018/10/07/docker-1-12-install/">【容器知识体系】docker1.12安装和初步使用</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/centos-docker-k8s%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" class="label label-default mb">centos/docker/k8s知识体系</a>
-     
-     
-   </div>
-   
-</article>
-
-
-</div>
-
-<div class="col-md-6">
-    
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2018-08-12T08:37:48.000Z" itemprop="datePublished">2018-08-12 16:37:48</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2018/08/12/centos7-install-nodejs/">【操作系统知识体系】安装nodejs并初步使用</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/centos-docker-k8s%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" class="label label-default mb">centos/docker/k8s知识体系</a>
-     
-     
-   </div>
-   
-</article>
-
-
-</div>
-
-<div class="col-md-6">
-    
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2018-04-29T14:22:20.000Z" itemprop="datePublished">2018-04-29 22:22:20</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2018/04/29/container-why-learn-kubernetes/">【容器知识体系】玩转kubernetes之为什么要学习kubernetes</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/centos-docker-k8s%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" class="label label-default mb">centos/docker/k8s知识体系</a>
-     
-     
-   </div>
-   
-</article>
-
-
-</div>
-
-<div class="col-md-6">
-    
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2018-02-05T11:54:55.000Z" itemprop="datePublished">2018-02-05 19:54:55</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2018/02/05/apollo-config-wrapper-install/">【配置中心知识体系】apollo配置中心wrapper启动</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/centos-docker-k8s%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" class="label label-default mb">centos/docker/k8s知识体系</a>
-     
-     
-   </div>
-   
-</article>
-
-
-</div>
-
-<div class="col-md-6">
-    
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2018-01-14T14:49:09.000Z" itemprop="datePublished">2018-01-14 22:49:09</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2018/01/14/docker-registry-harbor-05-install/">【容器知识体系】镜像仓库harbor0.5.0版本安装和使用</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/centos-docker-k8s%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" class="label label-default mb">centos/docker/k8s知识体系</a>
-     
-     
-   </div>
-   
-</article>
-
-
-</div>
-
-<div class="col-md-6">
-    
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2017-10-25T11:45:35.000Z" itemprop="datePublished">2017-10-25 19:45:35</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2017/10/25/centos7-binary-install-software/">【操作系统知识体系】centos7二进制安装go sdk和java sdk</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/centos-docker-k8s%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" class="label label-default mb">centos/docker/k8s知识体系</a>
-     
-     
-   </div>
-   
-</article>
-
-
-</div>
-
-<div class="col-md-6">
-    
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2017-08-30T04:31:17.000Z" itemprop="datePublished">2017-08-30 12:31:17</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2017/08/30/centos7-self-shell-reboot/">【操作系统知识体系】centos7下自定义脚本开机自启动</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/centos-docker-k8s%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" class="label label-default mb">centos/docker/k8s知识体系</a>
-     
-     
-   </div>
-   
-</article>
-
-
-</div>
-
-<div class="col-md-6">
-    
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2017-08-05T13:11:16.000Z" itemprop="datePublished">2017-08-05 21:11:16</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2017/08/05/centos7-install-software/">【操作系统知识体系】玩转centos7之程序安装与启动(rpm、yum、systemd)</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/centos-docker-k8s%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" class="label label-default mb">centos/docker/k8s知识体系</a>
-     
-     
-   </div>
-   
-</article>
-
-
-</div>
-
-<div class="col-md-6">
-    
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2017-08-05T08:52:46.000Z" itemprop="datePublished">2017-08-05 16:52:46</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2017/08/05/centos7-repo-introduce/">【操作系统知识体系】【转载】centos7源介绍与软件安装</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/centos-docker-k8s%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" class="label label-default mb">centos/docker/k8s知识体系</a>
-     
-     
-   </div>
-   
-</article>
-
-
-</div>
-
-<div class="col-md-6">
-    
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2017-08-05T06:09:32.000Z" itemprop="datePublished">2017-08-05 14:09:32</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2017/08/05/centos7-bootstrap/">【操作系统知识体系】【转载】centos7启动以及systemd详细说明</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/centos-docker-k8s%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" class="label label-default mb">centos/docker/k8s知识体系</a>
-     
-     
-   </div>
-   
-</article>
-
-
-</div>
-
-<div class="col-md-6">
-    
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2017-06-28T14:24:01.000Z" itemprop="datePublished">2017-06-28 22:24:01</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2017/06/28/docker-build-basic-image/">【容器知识体系】构建自定义基础镜像</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/centos-docker-k8s%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" class="label label-default mb">centos/docker/k8s知识体系</a>
-     
-     
-   </div>
-   
-</article>
-
-
-</div>
-
-<div class="col-md-6">
-    
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2017-03-25T02:40:46.000Z" itemprop="datePublished">2017-03-25 10:40:46</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2017/03/25/docker-import-and-export/">【容器知识体系】docker镜像导出与导入</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/centos-docker-k8s%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" class="label label-default mb">centos/docker/k8s知识体系</a>
-     
-     
-   </div>
-   
-</article>
-
-
-</div>
-
-<div class="col-md-6">
-    
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2017-03-15T11:11:16.000Z" itemprop="datePublished">2017-03-15 19:11:16</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2017/03/15/centos7_shh/">【操作系统知识体系】玩转centos7之ssh内网穿透</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/centos-docker-k8s%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" class="label label-default mb">centos/docker/k8s知识体系</a>
-     
-     
-   </div>
-   
-</article>
-
-
-</div>
-
-<div class="col-md-6">
-    
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2017-03-13T06:42:36.000Z" itemprop="datePublished">2017-03-13 14:42:36</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2017/03/13/docker-mysql-master-slave/">【mysql知识体系】docker1.10安装mysql5.6主从</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/centos-docker-k8s%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" class="label label-default mb">centos/docker/k8s知识体系</a>
-     
-     
-   </div>
-   
-</article>
-
-
-</div>
-
-<div class="col-md-6">
-    
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2017-02-14T05:13:58.000Z" itemprop="datePublished">2017-02-14 13:13:58</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2017/02/14/docker-network-introduce/">【网络系列】【转载】docker容器的网络模式</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/centos-docker-k8s%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" class="label label-default mb">centos/docker/k8s知识体系</a>
-     
-     
-   </div>
-   
-</article>
-
-
-</div>
-
-<div class="col-md-6">
-    
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2017-02-05T01:54:55.000Z" itemprop="datePublished">2017-02-05 09:54:55</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2017/02/05/docker-1-10-install/">【容器知识体系】docker1.10安装和初步使用</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/centos-docker-k8s%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" class="label label-default mb">centos/docker/k8s知识体系</a>
-     
-     
-   </div>
-   
-</article>
-
-
-</div>
-
-<div class="col-md-6">
-    
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2017-01-15T11:30:16.000Z" itemprop="datePublished">2017-01-15 19:30:16</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2017/01/15/centos7-file-transfer/">【操作系统知识体系】玩转centos7之局域网文件传输</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/centos-docker-k8s%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" class="label label-default mb">centos/docker/k8s知识体系</a>
-     
-     
-   </div>
-   
-</article>
-
-
-</div>
-
-<div class="col-md-6">
-    
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2017-01-15T11:11:16.000Z" itemprop="datePublished">2017-01-15 19:11:16</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2017/01/15/centos7-disk-ops/">【操作系统知识体系】玩转centos7之格盘和挂载</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/centos-docker-k8s%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" class="label label-default mb">centos/docker/k8s知识体系</a>
-     
-     
-   </div>
-   
-</article>
-
-
-</div>
-
-<div class="col-md-6">
-    
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2017-01-14T11:11:16.000Z" itemprop="datePublished">2017-01-14 19:11:16</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2017/01/14/centos7-directory-introduce/">【操作系统知识体系】玩转centos7之目录解读</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/centos-docker-k8s%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" class="label label-default mb">centos/docker/k8s知识体系</a>
-     
-     
-   </div>
-   
-</article>
-
-
-</div>
-
+          <span class="site-state-item-count">122</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
       </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </section>
     </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner tag posts-collapse">
+      
+
+      
+
+  
+  
+  
+  <div class="post-block">
+    <div class="post-content">
+      <div class="collection-title">
+        <h2 class="collection-header">centos/docker/k8s知识体系
+          <small>标签</small>
+        </h2>
+      </div>
+
+      
+    <div class="collection-year">
+      <span class="collection-header">2019</span>
+    </div>
+
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <div class="post-meta-container">
+        <time itemprop="dateCreated"
+              datetime="2019-06-30T19:00:00+08:00"
+              content="2019-06-30 19:00:00">
+          06-30
+        </time>
+      </div>
+
+      <div class="post-title">
+          <a class="post-title-link" href="/2019/06/30/cicd-jira-crack-restfulapi/" itemprop="url">
+            <span itemprop="name">【jenkins/jira知识体系】【转载】jira7.13版本破解与restful api</span>
+          </a>
+      </div>
+
+      
+    </header>
   </article>
-   
-</main>
 
-  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
-	
-	
-    <ul class="social-links">
-    	
-        <li><a href="https://github.com/jxdw" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
-        
-        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
-        
-    </ul>
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <div class="post-meta-container">
+        <time itemprop="dateCreated"
+              datetime="2019-06-01T21:46:40+08:00"
+              content="2019-06-01 21:46:40">
+          06-01
+        </time>
+      </div>
 
-    <div class="copyright">
-    	
-        &copy; 2020 渐学顿悟
-        
-        <div class="publishby">
-        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
-        </div>
+      <div class="post-title">
+          <a class="post-title-link" href="/2019/06/01/centos7-share-a-photo/" itemprop="url">
+            <span itemprop="name">【网络系列】【转载】TCP通信转UDP通信并加速</span>
+          </a>
+      </div>
+
+      
+    </header>
+  </article>
+
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <div class="post-meta-container">
+        <time itemprop="dateCreated"
+              datetime="2019-05-12T13:24:41+08:00"
+              content="2019-05-12 13:24:41">
+          05-12
+        </time>
+      </div>
+
+      <div class="post-title">
+          <a class="post-title-link" href="/2019/05/12/centos8-base-rhel8-release/" itemprop="url">
+            <span itemprop="name">【操作系统知识体系】RHEL8发布，坐等centos8</span>
+          </a>
+      </div>
+
+      
+    </header>
+  </article>
+
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <div class="post-meta-container">
+        <time itemprop="dateCreated"
+              datetime="2019-04-01T21:12:52+08:00"
+              content="2019-04-01 21:12:52">
+          04-01
+        </time>
+      </div>
+
+      <div class="post-title">
+          <a class="post-title-link" href="/2019/04/01/centos7-kernel-upgrade/" itemprop="url">
+            <span itemprop="name">【操作系统知识体系】centos7内核升级</span>
+          </a>
+      </div>
+
+      
+    </header>
+  </article>
+
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <div class="post-meta-container">
+        <time itemprop="dateCreated"
+              datetime="2019-03-31T22:54:07+08:00"
+              content="2019-03-31 22:54:07">
+          03-31
+        </time>
+      </div>
+
+      <div class="post-title">
+          <a class="post-title-link" href="/2019/03/31/rhel8-beta-experience/" itemprop="url">
+            <span itemprop="name">【操作系统知识体系】rhel8 beta尝鲜</span>
+          </a>
+      </div>
+
+      
+    </header>
+  </article>
+
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <div class="post-meta-container">
+        <time itemprop="dateCreated"
+              datetime="2019-02-07T10:51:23+08:00"
+              content="2019-02-07 10:51:23">
+          02-07
+        </time>
+      </div>
+
+      <div class="post-title">
+          <a class="post-title-link" href="/2019/02/07/docker-1-17-install/" itemprop="url">
+            <span itemprop="name">【容器知识体系】docker 1.17安装和初步使用</span>
+          </a>
+      </div>
+
+      
+    </header>
+  </article>
+    <div class="collection-year">
+      <span class="collection-header">2018</span>
     </div>
-</footer>
-  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <div class="post-meta-container">
+        <time itemprop="dateCreated"
+              datetime="2018-12-30T10:38:44+08:00"
+              content="2018-12-30 10:38:44">
+          12-30
+        </time>
+      </div>
+
+      <div class="post-title">
+          <a class="post-title-link" href="/2018/12/30/container-kubernetes-jieduanxing-zongjie/" itemprop="url">
+            <span itemprop="name">【容器知识体系】玩转kubernetes之kubernetes阶段性成果</span>
+          </a>
+      </div>
+
+      
+    </header>
+  </article>
+
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <div class="post-meta-container">
+        <time itemprop="dateCreated"
+              datetime="2018-12-28T14:04:49+08:00"
+              content="2018-12-28 14:04:49">
+          12-28
+        </time>
+      </div>
+
+      <div class="post-title">
+          <a class="post-title-link" href="/2018/12/28/container-kubernetes-1-8-install/" itemprop="url">
+            <span itemprop="name">【容器知识体系】玩转kubernetes之kubernetes1.8安装</span>
+          </a>
+      </div>
+
+      
+    </header>
+  </article>
+
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <div class="post-meta-container">
+        <time itemprop="dateCreated"
+              datetime="2018-12-27T12:51:23+08:00"
+              content="2018-12-27 12:51:23">
+          12-27
+        </time>
+      </div>
+
+      <div class="post-title">
+          <a class="post-title-link" href="/2018/12/27/docker-1-12-management/" itemprop="url">
+            <span itemprop="name">【容器知识体系】docker1.12管理技术之portainer</span>
+          </a>
+      </div>
+
+      
+    </header>
+  </article>
+
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <div class="post-meta-container">
+        <time itemprop="dateCreated"
+              datetime="2018-12-23T19:00:00+08:00"
+              content="2018-12-23 19:00:00">
+          12-23
+        </time>
+      </div>
+
+      <div class="post-title">
+          <a class="post-title-link" href="/2018/12/23/jenkins-restful-api/" itemprop="url">
+            <span itemprop="name">【jenkins/jira知识体系】(转载)jenkins restful api</span>
+          </a>
+      </div>
+
+      
+    </header>
+  </article>
+
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <div class="post-meta-container">
+        <time itemprop="dateCreated"
+              datetime="2018-12-22T10:41:23+08:00"
+              content="2018-12-22 10:41:23">
+          12-22
+        </time>
+      </div>
+
+      <div class="post-title">
+          <a class="post-title-link" href="/2018/12/22/jenkins-yum-install/" itemprop="url">
+            <span itemprop="name">【jenkins/jira使用系列】centos7下yum安装jenkins</span>
+          </a>
+      </div>
+
+      
+    </header>
+  </article>
+
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <div class="post-meta-container">
+        <time itemprop="dateCreated"
+              datetime="2018-12-15T12:51:23+08:00"
+              content="2018-12-15 12:51:23">
+          12-15
+        </time>
+      </div>
+
+      <div class="post-title">
+          <a class="post-title-link" href="/2018/12/15/docker-1-12-swarm-ops/" itemprop="url">
+            <span itemprop="name">【容器知识体系】docker1.12版本下swarm操作</span>
+          </a>
+      </div>
+
+      
+    </header>
+  </article>
+
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <div class="post-meta-container">
+        <time itemprop="dateCreated"
+              datetime="2018-12-05T21:58:54+08:00"
+              content="2018-12-05 21:58:54">
+          12-05
+        </time>
+      </div>
+
+      <div class="post-title">
+          <a class="post-title-link" href="/2018/12/05/container-etcd-install/" itemprop="url">
+            <span itemprop="name">【容器知识体系】etcd3安装和初步操作</span>
+          </a>
+      </div>
+
+      
+    </header>
+  </article>
+
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <div class="post-meta-container">
+        <time itemprop="dateCreated"
+              datetime="2018-10-31T22:49:09+08:00"
+              content="2018-10-31 22:49:09">
+          10-31
+        </time>
+      </div>
+
+      <div class="post-title">
+          <a class="post-title-link" href="/2018/10/31/docker-registry-harbor-154-install/" itemprop="url">
+            <span itemprop="name">【容器知识体系】镜像仓库harbor1.5.4版本安装和使用</span>
+          </a>
+      </div>
+
+      
+    </header>
+  </article>
+
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <div class="post-meta-container">
+        <time itemprop="dateCreated"
+              datetime="2018-10-09T21:26:11+08:00"
+              content="2018-10-09 21:26:11">
+          10-09
+        </time>
+      </div>
+
+      <div class="post-title">
+          <a class="post-title-link" href="/2018/10/09/docker-network-basic/" itemprop="url">
+            <span itemprop="name">【网络系列】docker扩展iptables实现网络隔离与通信</span>
+          </a>
+      </div>
+
+      
+    </header>
+  </article>
+
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <div class="post-meta-container">
+        <time itemprop="dateCreated"
+              datetime="2018-10-07T10:51:23+08:00"
+              content="2018-10-07 10:51:23">
+          10-07
+        </time>
+      </div>
+
+      <div class="post-title">
+          <a class="post-title-link" href="/2018/10/07/docker-1-12-install/" itemprop="url">
+            <span itemprop="name">【容器知识体系】docker1.12安装和初步使用</span>
+          </a>
+      </div>
+
+      
+    </header>
+  </article>
+
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <div class="post-meta-container">
+        <time itemprop="dateCreated"
+              datetime="2018-08-12T16:37:48+08:00"
+              content="2018-08-12 16:37:48">
+          08-12
+        </time>
+      </div>
+
+      <div class="post-title">
+          <a class="post-title-link" href="/2018/08/12/centos7-install-nodejs/" itemprop="url">
+            <span itemprop="name">【操作系统知识体系】安装nodejs并初步使用</span>
+          </a>
+      </div>
+
+      
+    </header>
+  </article>
+
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <div class="post-meta-container">
+        <time itemprop="dateCreated"
+              datetime="2018-04-29T22:22:20+08:00"
+              content="2018-04-29 22:22:20">
+          04-29
+        </time>
+      </div>
+
+      <div class="post-title">
+          <a class="post-title-link" href="/2018/04/29/container-why-learn-kubernetes/" itemprop="url">
+            <span itemprop="name">【容器知识体系】玩转kubernetes之为什么要学习kubernetes</span>
+          </a>
+      </div>
+
+      
+    </header>
+  </article>
+
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <div class="post-meta-container">
+        <time itemprop="dateCreated"
+              datetime="2018-02-05T19:54:55+08:00"
+              content="2018-02-05 19:54:55">
+          02-05
+        </time>
+      </div>
+
+      <div class="post-title">
+          <a class="post-title-link" href="/2018/02/05/apollo-config-wrapper-install/" itemprop="url">
+            <span itemprop="name">【配置中心知识体系】apollo配置中心wrapper启动</span>
+          </a>
+      </div>
+
+      
+    </header>
+  </article>
+
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <div class="post-meta-container">
+        <time itemprop="dateCreated"
+              datetime="2018-01-14T22:49:09+08:00"
+              content="2018-01-14 22:49:09">
+          01-14
+        </time>
+      </div>
+
+      <div class="post-title">
+          <a class="post-title-link" href="/2018/01/14/docker-registry-harbor-05-install/" itemprop="url">
+            <span itemprop="name">【容器知识体系】镜像仓库harbor0.5.0版本安装和使用</span>
+          </a>
+      </div>
+
+      
+    </header>
+  </article>
+    <div class="collection-year">
+      <span class="collection-header">2017</span>
+    </div>
+
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <div class="post-meta-container">
+        <time itemprop="dateCreated"
+              datetime="2017-10-25T19:45:35+08:00"
+              content="2017-10-25 19:45:35">
+          10-25
+        </time>
+      </div>
+
+      <div class="post-title">
+          <a class="post-title-link" href="/2017/10/25/centos7-binary-install-software/" itemprop="url">
+            <span itemprop="name">【操作系统知识体系】centos7二进制安装go sdk和java sdk</span>
+          </a>
+      </div>
+
+      
+    </header>
+  </article>
+
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <div class="post-meta-container">
+        <time itemprop="dateCreated"
+              datetime="2017-08-30T12:31:17+08:00"
+              content="2017-08-30 12:31:17">
+          08-30
+        </time>
+      </div>
+
+      <div class="post-title">
+          <a class="post-title-link" href="/2017/08/30/centos7-self-shell-reboot/" itemprop="url">
+            <span itemprop="name">【操作系统知识体系】centos7下自定义脚本开机自启动</span>
+          </a>
+      </div>
+
+      
+    </header>
+  </article>
+
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <div class="post-meta-container">
+        <time itemprop="dateCreated"
+              datetime="2017-08-05T21:11:16+08:00"
+              content="2017-08-05 21:11:16">
+          08-05
+        </time>
+      </div>
+
+      <div class="post-title">
+          <a class="post-title-link" href="/2017/08/05/centos7-install-software/" itemprop="url">
+            <span itemprop="name">【操作系统知识体系】玩转centos7之程序安装与启动(rpm、yum、systemd)</span>
+          </a>
+      </div>
+
+      
+    </header>
+  </article>
+
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <div class="post-meta-container">
+        <time itemprop="dateCreated"
+              datetime="2017-08-05T16:52:46+08:00"
+              content="2017-08-05 16:52:46">
+          08-05
+        </time>
+      </div>
+
+      <div class="post-title">
+          <a class="post-title-link" href="/2017/08/05/centos7-repo-introduce/" itemprop="url">
+            <span itemprop="name">【操作系统知识体系】【转载】centos7源介绍与软件安装</span>
+          </a>
+      </div>
+
+      
+    </header>
+  </article>
+
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <div class="post-meta-container">
+        <time itemprop="dateCreated"
+              datetime="2017-08-05T14:09:32+08:00"
+              content="2017-08-05 14:09:32">
+          08-05
+        </time>
+      </div>
+
+      <div class="post-title">
+          <a class="post-title-link" href="/2017/08/05/centos7-bootstrap/" itemprop="url">
+            <span itemprop="name">【操作系统知识体系】【转载】centos7启动以及systemd详细说明</span>
+          </a>
+      </div>
+
+      
+    </header>
+  </article>
+
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <div class="post-meta-container">
+        <time itemprop="dateCreated"
+              datetime="2017-06-28T22:24:01+08:00"
+              content="2017-06-28 22:24:01">
+          06-28
+        </time>
+      </div>
+
+      <div class="post-title">
+          <a class="post-title-link" href="/2017/06/28/docker-build-basic-image/" itemprop="url">
+            <span itemprop="name">【容器知识体系】构建自定义基础镜像</span>
+          </a>
+      </div>
+
+      
+    </header>
+  </article>
+
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <div class="post-meta-container">
+        <time itemprop="dateCreated"
+              datetime="2017-03-25T10:40:46+08:00"
+              content="2017-03-25 10:40:46">
+          03-25
+        </time>
+      </div>
+
+      <div class="post-title">
+          <a class="post-title-link" href="/2017/03/25/docker-import-and-export/" itemprop="url">
+            <span itemprop="name">【容器知识体系】docker镜像导出与导入</span>
+          </a>
+      </div>
+
+      
+    </header>
+  </article>
+
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <div class="post-meta-container">
+        <time itemprop="dateCreated"
+              datetime="2017-03-15T19:11:16+08:00"
+              content="2017-03-15 19:11:16">
+          03-15
+        </time>
+      </div>
+
+      <div class="post-title">
+          <a class="post-title-link" href="/2017/03/15/centos7_shh/" itemprop="url">
+            <span itemprop="name">【操作系统知识体系】玩转centos7之ssh内网穿透</span>
+          </a>
+      </div>
+
+      
+    </header>
+  </article>
+
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <div class="post-meta-container">
+        <time itemprop="dateCreated"
+              datetime="2017-03-13T14:42:36+08:00"
+              content="2017-03-13 14:42:36">
+          03-13
+        </time>
+      </div>
+
+      <div class="post-title">
+          <a class="post-title-link" href="/2017/03/13/docker-mysql-master-slave/" itemprop="url">
+            <span itemprop="name">【mysql知识体系】docker1.10安装mysql5.6主从</span>
+          </a>
+      </div>
+
+      
+    </header>
+  </article>
+
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <div class="post-meta-container">
+        <time itemprop="dateCreated"
+              datetime="2017-02-14T13:13:58+08:00"
+              content="2017-02-14 13:13:58">
+          02-14
+        </time>
+      </div>
+
+      <div class="post-title">
+          <a class="post-title-link" href="/2017/02/14/docker-network-introduce/" itemprop="url">
+            <span itemprop="name">【网络系列】【转载】docker容器的网络模式</span>
+          </a>
+      </div>
+
+      
+    </header>
+  </article>
+
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <div class="post-meta-container">
+        <time itemprop="dateCreated"
+              datetime="2017-02-05T09:54:55+08:00"
+              content="2017-02-05 09:54:55">
+          02-05
+        </time>
+      </div>
+
+      <div class="post-title">
+          <a class="post-title-link" href="/2017/02/05/docker-1-10-install/" itemprop="url">
+            <span itemprop="name">【容器知识体系】docker1.10安装和初步使用</span>
+          </a>
+      </div>
+
+      
+    </header>
+  </article>
+
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <div class="post-meta-container">
+        <time itemprop="dateCreated"
+              datetime="2017-01-15T19:30:16+08:00"
+              content="2017-01-15 19:30:16">
+          01-15
+        </time>
+      </div>
+
+      <div class="post-title">
+          <a class="post-title-link" href="/2017/01/15/centos7-file-transfer/" itemprop="url">
+            <span itemprop="name">【操作系统知识体系】玩转centos7之局域网文件传输</span>
+          </a>
+      </div>
+
+      
+    </header>
+  </article>
+
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <div class="post-meta-container">
+        <time itemprop="dateCreated"
+              datetime="2017-01-15T19:11:16+08:00"
+              content="2017-01-15 19:11:16">
+          01-15
+        </time>
+      </div>
+
+      <div class="post-title">
+          <a class="post-title-link" href="/2017/01/15/centos7-disk-ops/" itemprop="url">
+            <span itemprop="name">【操作系统知识体系】玩转centos7之格盘和挂载</span>
+          </a>
+      </div>
+
+      
+    </header>
+  </article>
+
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <div class="post-meta-container">
+        <time itemprop="dateCreated"
+              datetime="2017-01-14T19:11:16+08:00"
+              content="2017-01-14 19:11:16">
+          01-14
+        </time>
+      </div>
+
+      <div class="post-title">
+          <a class="post-title-link" href="/2017/01/14/centos7-directory-introduce/" itemprop="url">
+            <span itemprop="name">【操作系统知识体系】玩转centos7之目录解读</span>
+          </a>
+      </div>
+
+      
+    </header>
+  </article>
+
+    </div>
+  </div>
+  
+  
+  
+
+  
+
+
+
+      
+
 <script>
-window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
 </script>
 
-<script src="/js/plugin.min.js"></script>
+    </div>
+  </main>
 
+  <footer class="footer">
+    <div class="footer-inner">
+      
 
-<script src="/js/application.js"></script>
+      
 
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">渐学顿悟</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
 
-    <script>
-(function (window) {
-    var INSIGHT_CONFIG = {
-        TRANSLATION: {
-            POSTS: '文章',
-            PAGES: '页面',
-            CATEGORIES: '分类',
-            TAGS: '标签',
-            UNTITLED: '(未命名)',
-        },
-        ROOT_URL: '/',
-        CONTENT_URL: '/content.json',
-    };
-    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
-})(window);
-</script>
+    </div>
+  </footer>
 
-<script src="/js/insight.js"></script>
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.0/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
 
-
-
-
-
-
-
-
+  
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+  
 
 </body>
 </html>

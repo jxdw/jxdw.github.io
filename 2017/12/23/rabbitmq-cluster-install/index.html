@@ -1,23 +1,27 @@
 <!DOCTYPE html>
-<html lang=ZH>
+<html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-  
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
-  <meta name="renderer" content="webkit">
-  <meta http-equiv="Cache-Control" content="no-transform" />
-  <meta http-equiv="Cache-Control" content="no-siteapp" />
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="format-detection" content="telephone=no,email=no,adress=no">
-  <!-- Color theme for statusbar -->
-  <meta name="theme-color" content="#000000" />
-  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
-  <meta http-equiv="window-target" content="_top" />
-  
-  
-  <title>【rabbitmq知识体系】centos7下rabbitmq3.7.2集群配置 | 渐学顿悟</title>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.0/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"jxdw.github.io","root":"/","scheme":"Pisces","version":"8.0.1","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"width":240},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
+  </script>
+
   <meta name="description" content="参考资料和更新历史本文参考资料http:&#x2F;&#x2F;www.cnblogs.com&#x2F;luxiaoxun&#x2F;p&#x2F;3918054.htmlhttps:&#x2F;&#x2F;www.jianshu.com&#x2F;p&#x2F;518a504fe2cchttps:&#x2F;&#x2F;www.rabbitmq.com&#x2F;changelog.htmlh">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【rabbitmq知识体系】centos7下rabbitmq3.7.2集群配置">
@@ -40,294 +44,258 @@
 <meta property="article:tag" content="rabbitmq技术">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://jxdw.github.io/img/business/rabbitmq/rabbitmq_erlang.png">
-  <!-- Canonical links -->
-  <link rel="canonical" href="https://jxdw.github.io/2017/12/23/rabbitmq-cluster-install/index.html">
-  
-    <link rel="alternate" href="/atom.xml" title="渐学顿悟" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png" type="image/x-icon">
-  
-  
-<link rel="stylesheet" href="/css/style.css">
-
-  
-  
-  
-  
-<meta name="generator" content="Hexo 5.2.0"></head>
 
 
-<body class="main-center theme-purple" itemscope itemtype="http://schema.org/WebPage">
-  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-  <div class="slimContent">
-    <div class="navbar-header">
-      
-      
-      <div class="profile-block text-center">
-        <a id="avatar" href="https://github.com/jxdw" target="_blank">
-          <img class="img-circle img-rotate" src="https://www.gravatar.com/avatar/80df4bfee856f0107ea8d54da41c3f31?s=128" width="200" height="200">
-        </a>
-        <h2 id="name" class="hidden-xs hidden-sm">渐学顿悟</h2>
-        <h3 id="title" class="hidden-xs hidden-sm hidden-md">程序员(后端)</h3>
-        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Shenzhen, China</small>
-      </div>
-      
-      <div class="search" id="search-form-wrap">
+<link rel="canonical" href="https://jxdw.github.io/2017/12/23/rabbitmq-cluster-install/">
 
-    <form class="search-form sidebar-form">
-        <div class="input-group">
-            <input type="text" class="search-form-input form-control" placeholder="搜索" />
-            <span class="input-group-btn">
-                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
-            </span>
-        </div>
-    </form>
-    <div class="ins-search">
-  <div class="ins-search-mask"></div>
-  <div class="ins-search-container">
-    <div class="ins-input-wrapper">
-      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
-      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【rabbitmq知识体系】centos7下rabbitmq3.7.2集群配置 | 渐学顿悟</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="渐学顿悟" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
-    <div class="ins-section-wrapper">
-      <div class="ins-section-container"></div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">渐学顿悟</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">记录技术的学习和实践过程</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
     </div>
   </div>
 </div>
 
 
-</div>
-      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-    </div>
-    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
-      <ul class="nav navbar-nav main-nav ">
-        
-        
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
         <li class="menu-item menu-item-home">
-          <a href="/.">
-            
-            <i class="icon icon-home-fill"></i>
-            
-            <span class="menu-title">首页</span>
-          </a>
-        </li>
-        
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/">
-            
-            <i class="icon icon-archives-fill"></i>
-            
-            <span class="menu-title">归档</span>
-          </a>
-        </li>
-        
-        
-        <li class="menu-item menu-item-links">
-          <a href="/links">
-            
-            <i class="icon icon-friendship"></i>
-            
-            <span class="menu-title">友链</span>
-          </a>
-        </li>
-        
-        
-        <li class="menu-item menu-item-about">
-          <a href="/about">
-            
-            <i class="icon icon-cup-fill"></i>
-            
-            <span class="menu-title">关于</span>
-          </a>
-        </li>
-        
-      </ul>
-      
-	
-    <ul class="social-links">
-    	
-        <li><a href="https://github.com/jxdw" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
-        
-        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
-        
-    </ul>
 
-    </nav>
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">12</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">122</span></a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
   </div>
-</header>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99%E5%92%8C%E6%9B%B4%E6%96%B0%E5%8E%86%E5%8F%B2"><span class="nav-number">1.</span> <span class="nav-text">参考资料和更新历史</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%AC%E6%96%87%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">1.1.</span> <span class="nav-text">本文参考资料</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E7%AB%A0%E6%9B%B4%E6%96%B0%E5%8E%86%E5%8F%B2"><span class="nav-number">1.2.</span> <span class="nav-text">文章更新历史</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2%E8%A7%84%E5%88%92"><span class="nav-number">2.</span> <span class="nav-text">部署规划</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9B%86%E7%BE%A4%E6%89%80%E6%9C%89%E6%9C%BA%E5%99%A8%E5%A2%9E%E5%8A%A0hosts"><span class="nav-number">2.1.</span> <span class="nav-text">集群所有机器增加hosts</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%AE%E5%BD%95%E8%A7%84%E5%88%92"><span class="nav-number">2.2.</span> <span class="nav-text">目录规划</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85erlang%E4%B8%8Erabbit-server%E9%9B%86%E7%BE%A4"><span class="nav-number">3.</span> <span class="nav-text">安装erlang与rabbit-server集群</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0curl%E7%A8%8B%E5%BA%8F"><span class="nav-number">3.1.</span> <span class="nav-text">更新curl程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0erlang%E7%9A%84repo"><span class="nav-number">3.2.</span> <span class="nav-text">更新erlang的repo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85erlang"><span class="nav-number">3.3.</span> <span class="nav-text">安装erlang</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85rabbitmq-server"><span class="nav-number">3.4.</span> <span class="nav-text">安装rabbitmq-server</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9rabbitmq%E9%85%8D%E7%BD%AE"><span class="nav-number">3.5.</span> <span class="nav-text">修改rabbitmq配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E4%BD%8D%E7%BD%AE"><span class="nav-number">3.5.1.</span> <span class="nav-text">配置文件位置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rabbitmq-conf"><span class="nav-number">3.5.2.</span> <span class="nav-text">rabbitmq.conf</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rabbitmq-env-conf"><span class="nav-number">3.5.3.</span> <span class="nav-text">rabbitmq-env.conf</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8rabbitmq%E4%B8%BB%E8%8A%82%E7%82%B9%E5%92%8C%E6%8F%92%E4%BB%B6"><span class="nav-number">3.6.</span> <span class="nav-text">启动rabbitmq主节点和插件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E7%9B%AE%E5%BD%95%E5%8F%8A%E5%90%AF%E5%8A%A8rabbit-server"><span class="nav-number">3.6.1.</span> <span class="nav-text">创建目录及启动rabbit-server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%AF%E7%94%A8%E6%8F%92%E4%BB%B6%E6%8E%88%E6%9D%83%E7%99%BB%E5%BD%95"><span class="nav-number">3.6.2.</span> <span class="nav-text">启用插件授权登录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E7%9A%84%E6%8F%92%E4%BB%B6"><span class="nav-number">3.6.3.</span> <span class="nav-text">其他的插件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8C%E6%AD%A5cookie%E5%92%8C%E5%90%AF%E5%8A%A8%E4%BB%8E%E8%8A%82%E7%82%B9"><span class="nav-number">3.7.</span> <span class="nav-text">同步cookie和启动从节点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%8C%E6%AD%A5cookie%E5%88%B0%E4%BB%8E%E8%8A%82%E7%82%B9"><span class="nav-number">3.7.1.</span> <span class="nav-text">同步cookie到从节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8%E4%BB%8E%E8%8A%82%E7%82%B9"><span class="nav-number">3.7.2.</span> <span class="nav-text">启动从节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%8E%E8%8A%82%E7%82%B9%E5%8A%A0%E5%85%A5%E5%88%B0%E9%9B%86%E7%BE%A4"><span class="nav-number">3.7.3.</span> <span class="nav-text">从节点加入到集群</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%90%E4%B8%AA%E4%BB%8E%E8%8A%82%E7%82%B9%E9%87%8D%E5%90%AF"><span class="nav-number">3.7.4.</span> <span class="nav-text">某个从节点重启</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%95%9C%E5%83%8F%E9%98%9F%E5%88%97"><span class="nav-number">3.8.</span> <span class="nav-text">镜像队列</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="nav-number">4.</span> <span class="nav-text">负载均衡</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1-1"><span class="nav-number">4.1.</span> <span class="nav-text">负载均衡</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E7%BB%88%E6%95%88%E6%9E%9C"><span class="nav-number">4.2.</span> <span class="nav-text">最终效果</span></a></li></ol></li></ol></div>
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="渐学顿悟"
+      src="/favicon.png">
+  <p class="site-author-name" itemprop="name">渐学顿悟</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">122</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+      
+
+      
 
   
-    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
-  <div class="slimContent">
-    
-      <div class="widget">
-    <h3 class="widget-title">博客公告</h3>
-    <div class="widget-body">
-        <div id="board">
-            <div class="content">
-                <p>2020年，重新开始。欢迎交流与分享!</p>
-            </div>
-        </div>
-    </div>
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jxdw.github.io/2017/12/23/rabbitmq-cluster-install/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/favicon.png">
+      <meta itemprop="name" content="渐学顿悟">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="渐学顿悟">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【rabbitmq知识体系】centos7下rabbitmq3.7.2集群配置
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-12-23 19:30:54 19:30:54" itemprop="dateCreated datePublished" datetime="2017-12-23T19:30:54+08:00">2017-12-23 19:30:54</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-10-10 23:11:44 23:11:44" itemprop="dateModified" datetime="2020-10-10T23:11:44+08:00">2020-10-10 23:11:44</time>
+      </span>
+
+  
 </div>
 
-    
-      
-  <div class="widget">
-    <h3 class="widget-title">文章标签</h3>
-    <div class="widget-body">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/centos-docker-k8s%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" rel="tag">centos/docker/k8s知识体系</a><span class="tag-list-count">34</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/elastic-job%E6%8A%80%E6%9C%AF/" rel="tag">elastic-job技术</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es6%E8%AF%AD%E8%A8%80/" rel="tag">es6语言</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" rel="tag">go知识体系</a><span class="tag-list-count">15</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" rel="tag">java知识体系</a><span class="tag-list-count">27</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql%E6%8A%80%E6%9C%AF/" rel="tag">mysql技术</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx-haproxy%E6%8A%80%E6%9C%AF/" rel="tag">nginx/haproxy技术</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/prometheus%E6%8A%80%E6%9C%AF/" rel="tag">prometheus技术</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rabbitmq%E6%8A%80%E6%9C%AF/" rel="tag">rabbitmq技术</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" rel="tag">redis知识体系</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zipkin-jaeger%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" rel="tag">zipkin/jaeger知识体系</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%84%9F%E6%82%9F/" rel="tag">感悟</a><span class="tag-list-count">6</span></li></ul>
-    </div>
-  </div>
-
+        </div>
+      </header>
 
     
-      
-  <div class="widget">
-    <h3 class="widget-title">文章归档</h3>
-    <div class="widget-body">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/">2019</a><span class="archive-list-count">23</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018</a><span class="archive-list-count">41</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/">2017</a><span class="archive-list-count">33</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/">2016</a><span class="archive-list-count">13</span></li></ul>
-    </div>
-  </div>
-
-
     
-      
-  <div class="widget">
-    <h3 class="widget-title">最近文章</h3>
-    <div class="widget-body">
-      <ul class="recent-post-list list-unstyled no-thumbnail">
-        
-          <li>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                
-              </p>
-              <p class="item-title">
-                <a href="/2020/09/25/nacos-go-client-config-example/" class="title">【中间件client系列】go语言服务使用nacos server作为配置中心</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2020-09-25T11:17:59.000Z" itemprop="datePublished">2020-09-25 19:17:59</time>
-              </p>
-            </div>
-          </li>
-          
-          <li>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                
-              </p>
-              <p class="item-title">
-                <a href="/2020/07/20/golang-upload-file-to-alicloud/" class="title">【中间件client系列】阿里云oss的go client使用</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2020-07-20T12:17:59.000Z" itemprop="datePublished">2020-07-20 20:17:59</time>
-              </p>
-            </div>
-          </li>
-          
-          <li>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                
-              </p>
-              <p class="item-title">
-                <a href="/2020/07/14/es6_vue_study_day8/" class="title">【转载】vue学习之day8</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2020-07-14T13:41:16.000Z" itemprop="datePublished">2020-07-14 21:41:16</time>
-              </p>
-            </div>
-          </li>
-          
-          <li>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                
-              </p>
-              <p class="item-title">
-                <a href="/2020/07/13/es6_vue_study_day7/" class="title">【转载】vue学习之day7</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2020-07-13T13:25:16.000Z" itemprop="datePublished">2020-07-13 21:25:16</time>
-              </p>
-            </div>
-          </li>
-          
-          <li>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                
-              </p>
-              <p class="item-title">
-                <a href="/2020/07/12/es6_vue_study_day6/" class="title">【转载】vue学习之day6</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2020-07-12T13:21:16.000Z" itemprop="datePublished">2020-07-12 21:21:16</time>
-              </p>
-            </div>
-          </li>
-          
-      </ul>
-    </div>
-  </div>
-  
-
     
-  </div>
-</aside>
-
-  
-  
-<main class="main" role="main">
-  <div class="content">
-  <article id="post-rabbitmq-cluster-install" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
-    
-    <div class="article-header">
-      
-        
-  
-    <h1 class="article-title" itemprop="name">
-      【rabbitmq知识体系】centos7下rabbitmq3.7.2集群配置
-    </h1>
-  
-
-      
-      <div class="article-meta">
-        <span class="article-date">
-    <i class="icon icon-calendar-check"></i>
-	<a href="/2017/12/23/rabbitmq-cluster-install/" class="article-date">
-	  <time datetime="2017-12-23T11:30:54.000Z" itemprop="datePublished">2017-12-23 19:30:54</time>
-	</a>
-</span>
-        
-        
-  <span class="article-tag">
-    <i class="icon icon-tags"></i>
-	<a class="article-tag-link-link" href="/tags/rabbitmq%E6%8A%80%E6%9C%AF/" rel="tag">rabbitmq技术</a>
-  </span>
-
-
-        
-
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2017/12/23/rabbitmq-cluster-install/#comments" class="article-comment-link">评论</a></span>
-        
-      </div>
-    </div>
-    <div class="article-entry marked-body" itemprop="articleBody">
-      
+    <div class="post-body" itemprop="articleBody">
         <h1 id="参考资料和更新历史"><a href="#参考资料和更新历史" class="headerlink" title="参考资料和更新历史"></a>参考资料和更新历史</h1><h2 id="本文参考资料"><a href="#本文参考资料" class="headerlink" title="本文参考资料"></a>本文参考资料</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;www.cnblogs.com&#x2F;luxiaoxun&#x2F;p&#x2F;3918054.html</span><br><span class="line">https:&#x2F;&#x2F;www.jianshu.com&#x2F;p&#x2F;518a504fe2cc</span><br><span class="line">https:&#x2F;&#x2F;www.rabbitmq.com&#x2F;changelog.html</span><br><span class="line">http:&#x2F;&#x2F;blog.didispace.com&#x2F;spring-boot-rabbitmq&#x2F;</span><br><span class="line">https:&#x2F;&#x2F;blog.csdn.net&#x2F;zyz511919766&#x2F;article&#x2F;details&#x2F;41896747</span><br><span class="line">https:&#x2F;&#x2F;www.rabbitmq.com&#x2F;configure.html</span><br><span class="line">https:&#x2F;&#x2F;www.jianshu.com&#x2F;p&#x2F;b6bdd6f56f9c</span><br></pre></td></tr></table></figure>
 
 <h2 id="文章更新历史"><a href="#文章更新历史" class="headerlink" title="文章更新历史"></a>文章更新历史</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">2017-12-23 19:30:54 初稿</span><br><span class="line">2019-04-29 20:30:54 因为erlang的rpm包被移走了，需要更新repo文件</span><br></pre></td></tr></table></figure>
@@ -363,177 +331,123 @@
 <h2 id="镜像队列"><a href="#镜像队列" class="headerlink" title="镜像队列"></a>镜像队列</h2><h1 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h1><h2 id="负载均衡-1"><a href="#负载均衡-1" class="headerlink" title="负载均衡"></a>负载均衡</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#---------------------------------------------------------------------</span><br><span class="line"># Example configuration for a possible web application.  See the</span><br><span class="line"># full configuration options online.</span><br><span class="line">#</span><br><span class="line">#   http:&#x2F;&#x2F;haproxy.1wt.eu&#x2F;download&#x2F;1.4&#x2F;doc&#x2F;configuration.txt</span><br><span class="line">#</span><br><span class="line">#---------------------------------------------------------------------</span><br><span class="line"></span><br><span class="line">#---------------------------------------------------------------------</span><br><span class="line"># Global settings</span><br><span class="line">#---------------------------------------------------------------------</span><br><span class="line">global</span><br><span class="line">    # to have these messages end up in &#x2F;var&#x2F;log&#x2F;haproxy.log you will</span><br><span class="line">    # need to:</span><br><span class="line">    #</span><br><span class="line">    # 1) configure syslog to accept network log events.  This is done</span><br><span class="line">    #    by adding the &#39;-r&#39; option to the SYSLOGD_OPTIONS in</span><br><span class="line">    #    &#x2F;etc&#x2F;sysconfig&#x2F;syslog</span><br><span class="line">    #</span><br><span class="line">    # 2) configure local2 events to go to the &#x2F;var&#x2F;log&#x2F;haproxy.log</span><br><span class="line">    #   file. A line like the following can be added to</span><br><span class="line">    #   &#x2F;etc&#x2F;sysconfig&#x2F;syslog</span><br><span class="line">    #</span><br><span class="line">    #    local2.*                       &#x2F;var&#x2F;log&#x2F;haproxy.log</span><br><span class="line">    #</span><br><span class="line">    log         127.0.0.1 local0 info</span><br><span class="line">    chroot      &#x2F;var&#x2F;lib&#x2F;haproxy</span><br><span class="line">    pidfile     &#x2F;var&#x2F;run&#x2F;haproxy.pid</span><br><span class="line">    maxconn     4000</span><br><span class="line">    user        haproxy</span><br><span class="line">    group       haproxy</span><br><span class="line">    daemon</span><br><span class="line"></span><br><span class="line">    # turn on stats unix socket</span><br><span class="line">    stats socket &#x2F;var&#x2F;lib&#x2F;haproxy&#x2F;stats</span><br><span class="line"></span><br><span class="line">#---------------------------------------------------------------------</span><br><span class="line"># common defaults that all the &#39;listen&#39; and &#39;backend&#39; sections will</span><br><span class="line"># use if not designated in their block</span><br><span class="line">#---------------------------------------------------------------------</span><br><span class="line">defaults</span><br><span class="line">    mode                    http</span><br><span class="line">    log                     global</span><br><span class="line">    option                  httplog</span><br><span class="line">    option                  dontlognull</span><br><span class="line">    option http-server-close</span><br><span class="line">    option forwardfor       except 127.0.0.0&#x2F;8</span><br><span class="line">    option                  redispatch</span><br><span class="line">    retries                 3</span><br><span class="line">    timeout http-request    10s</span><br><span class="line">    timeout queue           1m</span><br><span class="line">    timeout connect         10s</span><br><span class="line">    timeout client          1m</span><br><span class="line">    timeout server          1m</span><br><span class="line">    timeout http-keep-alive 10s</span><br><span class="line">    timeout check           10s</span><br><span class="line">    maxconn                 3000</span><br><span class="line"></span><br><span class="line">listen status</span><br><span class="line">    bind 10.2.1.30:18080 #监听的地址和端口，默认端口1080</span><br><span class="line">    mode http #模式</span><br><span class="line">    stats enable #启用状态监控</span><br><span class="line">    stats hide-version #隐藏软件版本号</span><br><span class="line">    stats auth admin:admin #登陆用户名和密码</span><br><span class="line">    stats realm HAproxy\ stats #提示信息，空格之前加\</span><br><span class="line">    stats admin if TRUE #当通过认证才可管理</span><br><span class="line">    stats uri &#x2F;stats #访问路径，在域名后面添加&#x2F;stats可以查看haproxy监控状态,默认为&#x2F;haproxy?stats</span><br><span class="line">    stats refresh 5 #页面自动刷新间隔,每隔5s刷新</span><br><span class="line"></span><br><span class="line">frontend rabbitmq_broker</span><br><span class="line">    bind 10.2.1.30:5672</span><br><span class="line">    default_backend rabbitmq_broker_backend</span><br><span class="line"></span><br><span class="line">backend rabbitmq_broker_backend</span><br><span class="line">	balance roundrobin</span><br><span class="line">	server lxg53 10.2.1.53:5672 check</span><br><span class="line">	server lxg54 10.2.1.54:5672 check</span><br><span class="line">    server lxg55 10.2.1.55:5672 check</span><br><span class="line"></span><br><span class="line">frontend rabbitmq_management</span><br><span class="line">    bind 10.2.1.30:15672</span><br><span class="line">    default_backend rabbitmq_management_backend</span><br><span class="line"></span><br><span class="line">backend rabbitmq_management_backend</span><br><span class="line">        balance roundrobin</span><br><span class="line">        server lxg53 10.2.1.53:15672 check</span><br><span class="line">        server lxg54 10.2.1.54:15672 check</span><br><span class="line">        server lxg55 10.2.1.55:15672 check</span><br><span class="line">	</span><br><span class="line">#---------------------------------------------------------------------</span><br><span class="line"># main frontend which proxys to the backends</span><br><span class="line">#---------------------------------------------------------------------</span><br><span class="line">#frontend  main *:5000</span><br><span class="line">#    acl url_static       path_beg       -i &#x2F;static &#x2F;images &#x2F;javascript &#x2F;stylesheets</span><br><span class="line">#    acl url_static       path_end       -i .jpg .gif .png .css .js</span><br><span class="line"></span><br><span class="line">#    use_backend static          if url_static</span><br><span class="line">#    default_backend             app</span><br><span class="line"></span><br><span class="line">#---------------------------------------------------------------------</span><br><span class="line"># static backend for serving up images, stylesheets and such</span><br><span class="line">#---------------------------------------------------------------------</span><br><span class="line">#backend static</span><br><span class="line">#    balance     roundrobin</span><br><span class="line">#    server      static 127.0.0.1:4331 check</span><br><span class="line"></span><br><span class="line">#---------------------------------------------------------------------</span><br><span class="line"># round robin balancing between the various backends</span><br><span class="line">#---------------------------------------------------------------------</span><br><span class="line">#backend app</span><br><span class="line">#    balance     roundrobin</span><br><span class="line">#    server  app1 127.0.0.1:5001 check</span><br><span class="line">#    server  app2 127.0.0.1:5002 check</span><br><span class="line">#    server  app3 127.0.0.1:5003 check</span><br><span class="line">#    server  app4 127.0.0.1:5004 check</span><br></pre></td></tr></table></figure>
 <h2 id="最终效果"><a href="#最终效果" class="headerlink" title="最终效果"></a>最终效果</h2><p><img src="https://jxdw.github.io/img/business/rabbitmq/rabbit_cluster.png"></p>
 
-      
     </div>
-    <div class="article-footer">
-      <blockquote class="mt-2x">
-  <ul class="post-copyright list-unstyled">
+
     
-    <li class="post-copyright-link hidden-xs">
-      <strong>本文链接：</strong>
-      <a href="https://jxdw.github.io/2017/12/23/rabbitmq-cluster-install/" title="【rabbitmq知识体系】centos7下rabbitmq3.7.2集群配置" target="_blank" rel="external">https://jxdw.github.io/2017/12/23/rabbitmq-cluster-install/</a>
-    </li>
     
-    <li class="post-copyright-license">
-      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
-    </li>
-  </ul>
-</blockquote>
+    
 
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/rabbitmq%E6%8A%80%E6%9C%AF/" rel="tag"># rabbitmq技术</a>
+          </div>
 
-<div class="panel panel-default panel-badger">
-  <div class="panel-body">
-    <figure class="media">
-      <div class="media-left">
-        <a href="https://github.com/jxdw" target="_blank" class="img-burn thumb-sm visible-lg">
-          <img src="https://www.gravatar.com/avatar/80df4bfee856f0107ea8d54da41c3f31?s=128" class="img-rounded w-full" alt="">
-        </a>
-      </div>
-      <div class="media-body">
-        <h3 class="media-heading"><a href="https://github.com/jxdw" target="_blank"><span class="text-dark">渐学顿悟</span><small class="ml-1x">程序员(后端)</small></a></h3>
-        <div>一个没有技术慧根/悟性的人，只有需要渐学/刻意练习，方能顿悟，自勉。</div>
-      </div>
-    </figure>
-  </div>
-</div>
+        
 
-
-    </div>
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2017/12/22/rabbitmqctl-handbook/" rel="prev" title="【rabbitmq知识体系】(转载)rabbitmq手册之rabbitmqctl">
+                  <i class="fa fa-chevron-left"></i> 【rabbitmq知识体系】(转载)rabbitmq手册之rabbitmqctl
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2017/12/23/rabbitmq-cluster-install_2/" rel="next" title="【rabbitmq知识体系】centos7下rabbitmq3.7.2集群配置(续)">
+                  【rabbitmq知识体系】centos7下rabbitmq3.7.2集群配置(续) <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
   </article>
-  
-    
-  <section id="comments">
-  	
-      <div id="vcomments"></div>
-    
-  </section>
-
-
-  
 </div>
 
-  <nav class="bar bar-footer clearfix" data-stick-bottom>
-  <div class="bar-inner">
-  
-  <ul class="pager pull-left">
-    
-    <li class="prev">
-      <a href="/2017/12/23/rabbitmq-cluster-install_2/" title="【rabbitmq知识体系】centos7下rabbitmq3.7.2集群配置(续)"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
-    </li>
-    
-    
-    <li class="next">
-      <a href="/2017/12/22/rabbitmqctl-handbook/" title="【rabbitmq知识体系】(转载)rabbitmq手册之rabbitmqctl"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
-    </li>
-    
-    
-  </ul>
-  
-  
-  
-  <div class="bar-right">
-    
-    <div class="share-component" data-sites="weibo,qq,wechat" data-mobile-sites="weibo,qq,qzone"></div>
-    
-  </div>
-  </div>
-</nav>
-  
 
 
-</main>
 
-  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
-	
-	
-    <ul class="social-links">
-    	
-        <li><a href="https://github.com/jxdw" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
-        
-        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
-        
-    </ul>
 
-    <div class="copyright">
-    	
-        &copy; 2020 渐学顿悟
-        
-        <div class="publishby">
-        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
-        </div>
-    </div>
-</footer>
-  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+
+      
+
 <script>
-window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
 </script>
 
-<script src="/js/plugin.min.js"></script>
+    </div>
+  </main>
 
+  <footer class="footer">
+    <div class="footer-inner">
+      
 
-<script src="/js/application.js"></script>
+      
 
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">渐学顿悟</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
 
-    <script>
-(function (window) {
-    var INSIGHT_CONFIG = {
-        TRANSLATION: {
-            POSTS: '文章',
-            PAGES: '页面',
-            CATEGORIES: '分类',
-            TAGS: '标签',
-            UNTITLED: '(未命名)',
-        },
-        ROOT_URL: '/',
-        CONTENT_URL: '/content.json',
-    };
-    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
-})(window);
-</script>
+    </div>
+  </footer>
 
-<script src="/js/insight.js"></script>
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.0/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
 
-
-
-
-
-
-   
-
-
-
-
-   
-    
-  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/valine"></script>
-  <script type="text/javascript">
-  var GUEST = ['nick', 'mail', 'link'];
-  var meta = 'nick,mail,link';
-  meta = meta.split(',').filter(function(item) {
-    return GUEST.indexOf(item) > -1;
-  });
-  new Valine({
-    el: '#vcomments',
-    verify: true,
-    notify: false,
-    appId: 'wrre3Nrx21CqKiChLnKn034M-gzGzoHsz',
-    appKey: 'rkWWNONo7LAJhlS936vnywQ9',
-    placeholder: '请输入您的评论',
-    avatar: 'mm',
-    meta: meta,
-    pageSize: '10' || 10,
-    visitor: false
-  });
-  </script>
-
-     
+  
 
 
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+  
 
 </body>
 </html>

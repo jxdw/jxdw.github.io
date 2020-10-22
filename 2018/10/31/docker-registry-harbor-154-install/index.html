@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.0/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"jxdw.github.io","root":"/","scheme":"Pisces","version":"8.0.1","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"width":240},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
+  </script>
+
+  <meta name="description" content="本文背景本文参考资料https:&#x2F;&#x2F;www.cnblogs.com&#x2F;huangjc&#x2F;p&#x2F;6266564.html 下载、配置和安装下载harbor1.5.4版本离线版https:&#x2F;&#x2F;storage.googleapis.com&#x2F;harbor-releases&#x2F;harbor-offline-installer-v1.5.4.tgz">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【docker使用系列】镜像仓库harbor1.5.4版本安装和使用">
+<meta property="og:url" content="https://jxdw.github.io/2018/10/31/docker-registry-harbor-154-install/index.html">
+<meta property="og:site_name" content="渐学顿悟">
+<meta property="og:description" content="本文背景本文参考资料https:&#x2F;&#x2F;www.cnblogs.com&#x2F;huangjc&#x2F;p&#x2F;6266564.html 下载、配置和安装下载harbor1.5.4版本离线版https:&#x2F;&#x2F;storage.googleapis.com&#x2F;harbor-releases&#x2F;harbor-offline-installer-v1.5.4.tgz">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jxdw.github.io/img/devops/docker/docker_harbor_154_install_result.png">
+<meta property="og:image" content="https://jxdw.github.io/img/devops/docker/docker_harbor_project_management.png">
+<meta property="og:image" content="https://jxdw.github.io/img/devops/docker/docker_harbor_registory_management.png">
+<meta property="og:image" content="https://jxdw.github.io/img/devops/docker/docker_harbor_replication_management.png">
+<meta property="og:image" content="https://jxdw.github.io/img/devops/docker/docker_harbor_10_project_management.png">
+<meta property="og:image" content="https://jxdw.github.io/img/devops/docker/harbor-restfulapi.png">
+<meta property="article:published_time" content="2018-10-31T14:49:09.000Z">
+<meta property="article:modified_time" content="2020-10-22T12:23:22.629Z">
+<meta property="article:author" content="渐学顿悟">
+<meta property="article:tag" content="harbor知识体系">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jxdw.github.io/img/devops/docker/docker_harbor_154_install_result.png">
+
+
+<link rel="canonical" href="https://jxdw.github.io/2018/10/31/docker-registry-harbor-154-install/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【docker使用系列】镜像仓库harbor1.5.4版本安装和使用 | 渐学顿悟</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="渐学顿悟" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">渐学顿悟</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">记录编程语言与中间件的学习过程</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="渐学顿悟"
+      src="/favicon.png">
+  <p class="site-author-name" itemprop="name">渐学顿悟</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">122</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+      
+
+      
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jxdw.github.io/2018/10/31/docker-registry-harbor-154-install/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/favicon.png">
+      <meta itemprop="name" content="渐学顿悟">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="渐学顿悟">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【docker使用系列】镜像仓库harbor1.5.4版本安装和使用
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-10-31 22:49:09 22:49:09" itemprop="dateCreated datePublished" datetime="2018-10-31T22:49:09+08:00">2018-10-31 22:49:09</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-10-22 20:23:22 20:23:22" itemprop="dateModified" datetime="2020-10-22T20:23:22+08:00">2020-10-22 20:23:22</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%B7%A5%E5%85%B7%E8%BD%AF%E4%BB%B6-%E6%9E%B6%E6%9E%84%E7%9F%A5%E8%AF%86%E9%9B%86%E5%90%88/" itemprop="url" rel="index"><span itemprop="name">工具软件/架构知识集合</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2018/10/31/docker-registry-harbor-154-install/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2018/10/31/docker-registry-harbor-154-install/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="本文背景"><a href="#本文背景" class="headerlink" title="本文背景"></a>本文背景</h1><h2 id="本文参考资料"><a href="#本文参考资料" class="headerlink" title="本文参考资料"></a>本文参考资料</h2><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/huangjc/p/6266564.html">https://www.cnblogs.com/huangjc/p/6266564.html</a></p>
+<h1 id="下载、配置和安装"><a href="#下载、配置和安装" class="headerlink" title="下载、配置和安装"></a>下载、配置和安装</h1><h2 id="下载harbor1-5-4版本离线版"><a href="#下载harbor1-5-4版本离线版" class="headerlink" title="下载harbor1.5.4版本离线版"></a>下载harbor1.5.4版本离线版</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">https:&#x2F;&#x2F;storage.googleapis.com&#x2F;harbor-releases&#x2F;harbor-offline-installer-v1.5.4.tgz</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<h2 id="下载docker-copose-1-12-0版本"><a href="#下载docker-copose-1-12-0版本" class="headerlink" title="下载docker-copose 1.12.0版本"></a>下载docker-copose 1.12.0版本</h2><p>下载docker-copose 1.12.0版本的二进制文件</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">curl -L https:&#x2F;&#x2F;github.com&#x2F;docker&#x2F;compose&#x2F;releases&#x2F;download&#x2F;1.12.0&#x2F;docker-compose-&#96;uname -s&#96;-&#96;uname -m&#96; &gt; &#x2F;usr&#x2F;local&#x2F;bin&#x2F;docker-compose</span><br><span class="line">chmod +x &#x2F;usr&#x2F;local&#x2F;bin&#x2F;docker-compose</span><br></pre></td></tr></table></figure>
+
+<h2 id="修改harbor配置harbor-cfg"><a href="#修改harbor配置harbor-cfg" class="headerlink" title="修改harbor配置harbor.cfg"></a>修改harbor配置harbor.cfg</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">## Configuration file of Harbor</span><br><span class="line"></span><br><span class="line">#This attribute is for migrator to detect the version of the .cfg file, DO NOT MODIFY!</span><br><span class="line">_version &#x3D; 1.5.0</span><br><span class="line">#The IP address or hostname to access admin UI and registry service.</span><br><span class="line">#DO NOT use localhost or 127.0.0.1, because Harbor needs to be accessed by external clients.</span><br><span class="line">hostname &#x3D; 192.168.172.10</span><br><span class="line"></span><br><span class="line">#The protocol for accessing the UI and token&#x2F;notification service, by default it is http.</span><br><span class="line">#It can be set to https if ssl is enabled on nginx.</span><br><span class="line">ui_url_protocol &#x3D; http</span><br><span class="line"></span><br><span class="line">#Maximum number of job workers in job service</span><br><span class="line">max_job_workers &#x3D; 50</span><br><span class="line"></span><br><span class="line">#Determine whether or not to generate certificate for the registry&#39;s token.</span><br><span class="line">#If the value is on, the prepare script creates new root cert and private key</span><br><span class="line">#for generating token to access the registry. If the value is off the default key&#x2F;cert will be used.</span><br><span class="line">#This flag also controls the creation of the notary signer&#39;s cert.</span><br><span class="line">customize_crt &#x3D; on</span><br><span class="line"></span><br><span class="line">#The path of cert and key files for nginx, they are applied only the protocol is set to https</span><br><span class="line">#ssl_cert &#x3D; &#x2F;data&#x2F;cert&#x2F;server.crt</span><br><span class="line">#ssl_cert_key &#x3D; &#x2F;data&#x2F;cert&#x2F;server.key</span><br><span class="line"></span><br><span class="line">#The path of secretkey storage</span><br><span class="line">secretkey_path &#x3D; &#x2F;data&#x2F;harbor-adminserver</span><br><span class="line"></span><br><span class="line">#Admiral&#39;s url, comment this attribute, or set its value to NA when Harbor is standalone</span><br><span class="line">admiral_url &#x3D; NA</span><br><span class="line"></span><br><span class="line">#Log files are rotated log_rotate_count times before being removed. If count is 0, old versions are removed rather than rotated.</span><br><span class="line">log_rotate_count &#x3D; 50</span><br><span class="line">#Log files are rotated only if they grow bigger than log_rotate_size bytes. If size is followed by k, the size is assumed to be in kilobytes.</span><br><span class="line">#If the M is used, the size is in megabytes, and if G is used, the size is in gigabytes. So size 100, size 100k, size 100M and size 100G</span><br><span class="line">#are all valid.</span><br><span class="line">log_rotate_size &#x3D; 200M</span><br><span class="line"></span><br><span class="line">#Config http proxy for Clair, e.g. http:&#x2F;&#x2F;my.proxy.com:3128</span><br><span class="line">#Clair doesn&#39;t need to connect to harbor ui container via http proxy.</span><br><span class="line">http_proxy &#x3D;</span><br><span class="line">https_proxy &#x3D;</span><br><span class="line">no_proxy &#x3D; 127.0.0.1,localhost,ui</span><br><span class="line"></span><br><span class="line">#NOTES: The properties between BEGIN INITIAL PROPERTIES and END INITIAL PROPERTIES</span><br><span class="line">#only take effect in the first boot, the subsequent changes of these properties</span><br><span class="line">#should be performed on web ui</span><br><span class="line"></span><br><span class="line">#************************BEGIN INITIAL PROPERTIES************************</span><br><span class="line"></span><br><span class="line">#Email account settings for sending out password resetting emails.</span><br><span class="line"></span><br><span class="line">#Email server uses the given username and password to authenticate on TLS connections to host and act as identity.</span><br><span class="line">#Identity left blank to act as username.</span><br><span class="line">email_identity &#x3D;</span><br><span class="line"></span><br><span class="line">email_server &#x3D; smtp.mydomain.com</span><br><span class="line">email_server_port &#x3D; 25</span><br><span class="line">email_username &#x3D; sample_admin@mydomain.com</span><br><span class="line">email_password &#x3D; abc</span><br><span class="line">email_from &#x3D; admin &lt;sample_admin@mydomain.com&gt;</span><br><span class="line">email_ssl &#x3D; false</span><br><span class="line">email_insecure &#x3D; false</span><br><span class="line"></span><br><span class="line">##The initial password of Harbor admin, only works for the first time when Harbor starts.</span><br><span class="line">#It has no effect after the first launch of Harbor.</span><br><span class="line">#Change the admin password from UI after launching Harbor.</span><br><span class="line">harbor_admin_password &#x3D; Harbor12345</span><br><span class="line"></span><br><span class="line">##By default the auth mode is db_auth, i.e. the credentials are stored in a local database.</span><br><span class="line">#Set it to ldap_auth if you want to verify a user&#39;s credentials against an LDAP server.</span><br><span class="line">auth_mode &#x3D; db_auth</span><br><span class="line"></span><br><span class="line">#The url for an ldap endpoint.</span><br><span class="line">ldap_url &#x3D; ldaps:&#x2F;&#x2F;ldap.mydomain.com</span><br><span class="line"></span><br><span class="line">#A user&#39;s DN who has the permission to search the LDAP&#x2F;AD server.</span><br><span class="line">#If your LDAP&#x2F;AD server does not support anonymous search, you should configure this DN and ldap_search_pwd.</span><br><span class="line">#ldap_searchdn &#x3D; uid&#x3D;searchuser,ou&#x3D;people,dc&#x3D;mydomain,dc&#x3D;com</span><br><span class="line"></span><br><span class="line">#the password of the ldap_searchdn</span><br><span class="line">#ldap_search_pwd &#x3D; password</span><br><span class="line"></span><br><span class="line">#The base DN from which to look up a user in LDAP&#x2F;AD</span><br><span class="line">ldap_basedn &#x3D; ou&#x3D;people,dc&#x3D;mydomain,dc&#x3D;com</span><br><span class="line"></span><br><span class="line">#Search filter for LDAP&#x2F;AD, make sure the syntax of the filter is correct.</span><br><span class="line">#ldap_filter &#x3D; (objectClass&#x3D;person)</span><br><span class="line"></span><br><span class="line"># The attribute used in a search to match a user, it could be uid, cn, email, sAMAccountName or other attributes depending on your LDAP&#x2F;AD</span><br><span class="line">ldap_uid &#x3D; uid</span><br><span class="line"></span><br><span class="line">#the scope to search for users, 0-LDAP_SCOPE_BASE, 1-LDAP_SCOPE_ONELEVEL, 2-LDAP_SCOPE_SUBTREE</span><br><span class="line">ldap_scope &#x3D; 2</span><br><span class="line"></span><br><span class="line">#Timeout (in seconds)  when connecting to an LDAP Server. The default value (and most reasonable) is 5 seconds.</span><br><span class="line">ldap_timeout &#x3D; 5</span><br><span class="line"></span><br><span class="line">#Verify certificate from LDAP server</span><br><span class="line">ldap_verify_cert &#x3D; true</span><br><span class="line"></span><br><span class="line">#The base dn from which to lookup a group in LDAP&#x2F;AD</span><br><span class="line">ldap_group_basedn &#x3D; ou&#x3D;group,dc&#x3D;mydomain,dc&#x3D;com</span><br><span class="line"></span><br><span class="line">#filter to search LDAP&#x2F;AD group</span><br><span class="line">ldap_group_filter &#x3D; objectclass&#x3D;group</span><br><span class="line"></span><br><span class="line">#The attribute used to name a LDAP&#x2F;AD group, it could be cn, name</span><br><span class="line">ldap_group_gid &#x3D; cn</span><br><span class="line"></span><br><span class="line">#The scope to search for ldap groups. 0-LDAP_SCOPE_BASE, 1-LDAP_SCOPE_ONELEVEL, 2-LDAP_SCOPE_SUBTREE</span><br><span class="line">ldap_group_scope &#x3D; 2</span><br><span class="line"></span><br><span class="line">#Turn on or off the self-registration feature</span><br><span class="line">self_registration &#x3D; on</span><br><span class="line"></span><br><span class="line">#The expiration time (in minute) of token created by token service, default is 30 minutes</span><br><span class="line">token_expiration &#x3D; 30</span><br><span class="line"></span><br><span class="line">#The flag to control what users have permission to create projects</span><br><span class="line">#The default value &quot;everyone&quot; allows everyone to creates a project.</span><br><span class="line">#Set to &quot;adminonly&quot; so that only admin user can create project.</span><br><span class="line">project_creation_restriction &#x3D; everyone</span><br><span class="line"></span><br><span class="line">#************************END INITIAL PROPERTIES************************</span><br><span class="line"></span><br><span class="line">#######Harbor DB configuration section#######</span><br><span class="line"></span><br><span class="line">#The address of the Harbor database. Only need to change when using external db.</span><br><span class="line">db_host &#x3D; 192.168.172.10</span><br><span class="line"></span><br><span class="line">#The password for the root user of Harbor DB. Change this before any production use.</span><br><span class="line">db_password &#x3D; root123456</span><br><span class="line"></span><br><span class="line">#The port of Harbor database host</span><br><span class="line">db_port &#x3D; 3306</span><br><span class="line"></span><br><span class="line">#The user name of Harbor database</span><br><span class="line">db_user &#x3D; root</span><br><span class="line"></span><br><span class="line">##### End of Harbor DB configuration#######</span><br><span class="line"></span><br><span class="line">#The redis server address. Only needed in HA installation.</span><br><span class="line">#address:port[,weight,password,db_index]</span><br><span class="line">redis_url &#x3D; redis:6379</span><br><span class="line"></span><br><span class="line">##########Clair DB configuration############</span><br><span class="line"></span><br><span class="line">#Clair DB host address. Only change it when using an exteral DB.</span><br><span class="line">clair_db_host &#x3D; postgres</span><br><span class="line"></span><br><span class="line">#The password of the Clair&#39;s postgres database. Only effective when Harbor is deployed with Clair.</span><br><span class="line">#Please update it before deployment. Subsequent update will cause Clair&#39;s API server and Harbor unable to access Clair&#39;s database.</span><br><span class="line">clair_db_password &#x3D; password</span><br><span class="line"></span><br><span class="line">#Clair DB connect port</span><br><span class="line">clair_db_port &#x3D; 5432</span><br><span class="line"></span><br><span class="line">#Clair DB username</span><br><span class="line">clair_db_username &#x3D; postgres</span><br><span class="line"></span><br><span class="line">#Clair default database</span><br><span class="line">clair_db &#x3D; postgres</span><br><span class="line"></span><br><span class="line">##########End of Clair DB configuration############</span><br><span class="line"></span><br><span class="line">#The following attributes only need to be set when auth mode is uaa_auth</span><br><span class="line">uaa_endpoint &#x3D; uaa.mydomain.org</span><br><span class="line">uaa_clientid &#x3D; id</span><br><span class="line">uaa_clientsecret &#x3D; secret</span><br><span class="line">uaa_verify_cert &#x3D; true</span><br><span class="line">uaa_ca_cert &#x3D; &#x2F;path&#x2F;to&#x2F;ca.pem</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">### Docker Registry setting ###</span><br><span class="line">#registry_storage_provider can be: filesystem, s3, gcs, azure, etc.</span><br><span class="line">registry_storage_provider_name &#x3D; filesystem</span><br><span class="line">#registry_storage_provider_config is a comma separated &quot;key: value&quot; pairs, e.g. &quot;key1: value, key2: value2&quot;.</span><br><span class="line">#Refer to https:&#x2F;&#x2F;docs.docker.com&#x2F;registry&#x2F;configuration&#x2F;#storage for all available configuration.</span><br><span class="line">registry_storage_provider_config &#x3D;</span><br><span class="line"></span><br><span class="line">#If reload_config&#x3D;true, all settings which present in harbor.cfg take effect after prepare and restart harbor, it overwrites exsiting settings.</span><br><span class="line">#reload_config&#x3D;true</span><br><span class="line">#Regular expression to match skipped environment variables</span><br><span class="line">#skip_reload_env_pattern&#x3D;(^EMAIL.*)|(^LDAP.*)</span><br></pre></td></tr></table></figure>
+
+<h2 id="修改docker-compose-yml文件"><a href="#修改docker-compose-yml文件" class="headerlink" title="修改docker-compose.yml文件"></a>修改docker-compose.yml文件</h2><p>暴露registry端口，否则有时会报连接被拒绝</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">version: &#39;2&#39;</span><br><span class="line">services:</span><br><span class="line">  log:</span><br><span class="line">    image: vmware&#x2F;harbor-log:v1.5.4</span><br><span class="line">    container_name: harbor-log</span><br><span class="line">    restart: always</span><br><span class="line">    volumes:</span><br><span class="line">      - &#x2F;data&#x2F;harbor-log&#x2F;logs&#x2F;:&#x2F;var&#x2F;log&#x2F;docker&#x2F;:z</span><br><span class="line">      - .&#x2F;common&#x2F;config&#x2F;log&#x2F;:&#x2F;etc&#x2F;logrotate.d&#x2F;:z</span><br><span class="line">    ports:</span><br><span class="line">      - 127.0.0.1:1514:10514</span><br><span class="line">    networks:</span><br><span class="line">      - harbor</span><br><span class="line">    dns_search: .</span><br><span class="line">  registry:</span><br><span class="line">    image: vmware&#x2F;registry-photon:v2.6.2-v1.5.4</span><br><span class="line">    container_name: harbor-registry</span><br><span class="line">    restart: always</span><br><span class="line">    volumes:</span><br><span class="line">      - &#x2F;data&#x2F;harbor-registry:&#x2F;storage:z</span><br><span class="line">      - .&#x2F;common&#x2F;config&#x2F;registry&#x2F;:&#x2F;etc&#x2F;registry&#x2F;:z</span><br><span class="line">    networks:</span><br><span class="line">      - harbor</span><br><span class="line">    ports:</span><br><span class="line">      - 5000:5000</span><br><span class="line">    dns_search: .</span><br><span class="line">    environment:</span><br><span class="line">      - GODEBUG&#x3D;netdns&#x3D;cgo</span><br><span class="line">    command:</span><br><span class="line">      [&quot;serve&quot;, &quot;&#x2F;etc&#x2F;registry&#x2F;config.yml&quot;]</span><br><span class="line">    depends_on:</span><br><span class="line">      - log</span><br><span class="line">    logging:</span><br><span class="line">      driver: &quot;json-file&quot;</span><br><span class="line">      #options:</span><br><span class="line">        #syslog-address: &quot;tcp:&#x2F;&#x2F;127.0.0.1:1514&quot;</span><br><span class="line">        #tag: &quot;registry&quot;</span><br><span class="line">  mysql:</span><br><span class="line">    image: vmware&#x2F;harbor-db:v1.5.4</span><br><span class="line">    container_name: harbor-db</span><br><span class="line">    restart: always</span><br><span class="line">    volumes:</span><br><span class="line">      - &#x2F;data&#x2F;harbor-mysql:&#x2F;var&#x2F;lib&#x2F;mysql:z</span><br><span class="line">    networks:</span><br><span class="line">      - harbor</span><br><span class="line">    ports:</span><br><span class="line">      - 3306:3306</span><br><span class="line">    dns_search: .</span><br><span class="line">    env_file:</span><br><span class="line">      - .&#x2F;common&#x2F;config&#x2F;db&#x2F;env</span><br><span class="line">    depends_on:</span><br><span class="line">      - log</span><br><span class="line">    logging:</span><br><span class="line">      driver: &quot;json-file&quot;</span><br><span class="line">      #options:</span><br><span class="line">       #syslog-address: &quot;tcp:&#x2F;&#x2F;127.0.0.1:1514&quot;</span><br><span class="line">       #tag: &quot;mysql&quot;</span><br><span class="line">  adminserver:</span><br><span class="line">    image: vmware&#x2F;harbor-adminserver:v1.5.4</span><br><span class="line">    container_name: harbor-adminserver</span><br><span class="line">    env_file:</span><br><span class="line">      - .&#x2F;common&#x2F;config&#x2F;adminserver&#x2F;env</span><br><span class="line">    restart: always</span><br><span class="line">    volumes:</span><br><span class="line">      - &#x2F;data&#x2F;harbor-adminserver&#x2F;config&#x2F;:&#x2F;etc&#x2F;adminserver&#x2F;config&#x2F;:z</span><br><span class="line">      - &#x2F;data&#x2F;harbor-adminserver&#x2F;secretkey:&#x2F;etc&#x2F;adminserver&#x2F;key:z</span><br><span class="line">      - &#x2F;data&#x2F;harbor-adminserver&#x2F;data&#x2F;:&#x2F;data&#x2F;:z</span><br><span class="line">    networks:</span><br><span class="line">      - harbor</span><br><span class="line">    dns_search: .</span><br><span class="line">    depends_on:</span><br><span class="line">      - log</span><br><span class="line">    logging:</span><br><span class="line">      driver: &quot;json-file&quot;</span><br><span class="line">      #options:</span><br><span class="line">        #syslog-address: &quot;tcp:&#x2F;&#x2F;127.0.0.1:1514&quot;</span><br><span class="line">        #tag: &quot;adminserver&quot;</span><br><span class="line">  ui:</span><br><span class="line">    image: vmware&#x2F;harbor-ui:v1.5.4</span><br><span class="line">    container_name: harbor-ui</span><br><span class="line">    env_file:</span><br><span class="line">      - .&#x2F;common&#x2F;config&#x2F;ui&#x2F;env</span><br><span class="line">    restart: always</span><br><span class="line">    volumes:</span><br><span class="line">      - .&#x2F;common&#x2F;config&#x2F;ui&#x2F;app.conf:&#x2F;etc&#x2F;ui&#x2F;app.conf:z</span><br><span class="line">      - .&#x2F;common&#x2F;config&#x2F;ui&#x2F;private_key.pem:&#x2F;etc&#x2F;ui&#x2F;private_key.pem:z</span><br><span class="line">      - .&#x2F;common&#x2F;config&#x2F;ui&#x2F;certificates&#x2F;:&#x2F;etc&#x2F;ui&#x2F;certificates&#x2F;:z</span><br><span class="line">      - &#x2F;data&#x2F;harbor-ui&#x2F;secretkey:&#x2F;etc&#x2F;ui&#x2F;key:z</span><br><span class="line">      - &#x2F;data&#x2F;harbor-ui&#x2F;ca_download&#x2F;:&#x2F;etc&#x2F;ui&#x2F;ca&#x2F;:z</span><br><span class="line">      - &#x2F;data&#x2F;harbor-ui&#x2F;psc&#x2F;:&#x2F;etc&#x2F;ui&#x2F;token&#x2F;:z</span><br><span class="line">    networks:</span><br><span class="line">      - harbor</span><br><span class="line">    dns_search: .</span><br><span class="line">    depends_on:</span><br><span class="line">      - log</span><br><span class="line">      - adminserver</span><br><span class="line">      - registry</span><br><span class="line">    logging:</span><br><span class="line">      driver: &quot;json-file&quot;</span><br><span class="line">      #options:</span><br><span class="line">        #syslog-address: &quot;tcp:&#x2F;&#x2F;127.0.0.1:1514&quot;</span><br><span class="line">        #tag: &quot;ui&quot;</span><br><span class="line">  jobservice:</span><br><span class="line">    image: vmware&#x2F;harbor-jobservice:v1.5.4</span><br><span class="line">    container_name: harbor-jobservice</span><br><span class="line">    env_file:</span><br><span class="line">      - .&#x2F;common&#x2F;config&#x2F;jobservice&#x2F;env</span><br><span class="line">    restart: always</span><br><span class="line">    volumes:</span><br><span class="line">      - &#x2F;data&#x2F;harbor-job&#x2F;logs:&#x2F;var&#x2F;log&#x2F;jobs:z</span><br><span class="line">      - .&#x2F;common&#x2F;config&#x2F;jobservice&#x2F;config.yml:&#x2F;etc&#x2F;jobservice&#x2F;config.yml:z</span><br><span class="line">    networks:</span><br><span class="line">      - harbor</span><br><span class="line">    dns_search: .</span><br><span class="line">    depends_on:</span><br><span class="line">      - redis</span><br><span class="line">      - ui</span><br><span class="line">      - adminserver</span><br><span class="line">    logging:</span><br><span class="line">      driver: &quot;json-file&quot;</span><br><span class="line">      #options:</span><br><span class="line">        #syslog-address: &quot;tcp:&#x2F;&#x2F;127.0.0.1:1514&quot;</span><br><span class="line">        #tag: &quot;jobservice&quot;</span><br><span class="line">  redis:</span><br><span class="line">    image: vmware&#x2F;redis-photon:v1.5.4</span><br><span class="line">    container_name: harbor-redis</span><br><span class="line">    restart: always</span><br><span class="line">    volumes:</span><br><span class="line">      - &#x2F;data&#x2F;harbor-redis:&#x2F;data</span><br><span class="line">    networks:</span><br><span class="line">      - harbor</span><br><span class="line">    dns_search: .</span><br><span class="line">    depends_on:</span><br><span class="line">      - log</span><br><span class="line">    logging:</span><br><span class="line">      driver: &quot;json-file&quot;</span><br><span class="line">      #options:</span><br><span class="line">        #syslog-address: &quot;tcp:&#x2F;&#x2F;127.0.0.1:1514&quot;</span><br><span class="line">        #tag: &quot;redis&quot;</span><br><span class="line">  proxy:</span><br><span class="line">    image: vmware&#x2F;nginx-photon:v1.5.4</span><br><span class="line">    container_name: harbor-nginx</span><br><span class="line">    restart: always</span><br><span class="line">    volumes:</span><br><span class="line">      - .&#x2F;common&#x2F;config&#x2F;nginx:&#x2F;etc&#x2F;nginx:z</span><br><span class="line">    networks:</span><br><span class="line">      - harbor</span><br><span class="line">    dns_search: .</span><br><span class="line">    ports:</span><br><span class="line">      - 80:80</span><br><span class="line">      - 443:443</span><br><span class="line">      - 4443:4443</span><br><span class="line">    depends_on:</span><br><span class="line">      - mysql</span><br><span class="line">      - registry</span><br><span class="line">      - ui</span><br><span class="line">      - log</span><br><span class="line">    logging:</span><br><span class="line">      driver: &quot;json-file&quot;</span><br><span class="line">      #options:</span><br><span class="line">        #syslog-address: &quot;tcp:&#x2F;&#x2F;127.0.0.1:1514&quot;</span><br><span class="line">        #tag: &quot;proxy&quot;</span><br><span class="line">networks:</span><br><span class="line">  harbor:</span><br><span class="line">    external: false</span><br></pre></td></tr></table></figure>
+
+<h2 id="执行-prepare命令"><a href="#执行-prepare命令" class="headerlink" title="执行./prepare命令"></a>执行./prepare命令</h2><p>执行./prepare后，然后执行</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cp  &#x2F;data&#x2F;harbor-adminserver&#x2F;secretkey  &#x2F;data&#x2F;harbor-ui&#x2F;secretkey</span><br></pre></td></tr></table></figure>
+
+<h2 id="执行-install-sh脚本"><a href="#执行-install-sh脚本" class="headerlink" title="执行./install.sh脚本"></a>执行./install.sh脚本</h2><p><img src="https://jxdw.github.io/img/devops/docker/docker_harbor_154_install_result.png"></p>
+<h2 id="登录查看效果"><a href="#登录查看效果" class="headerlink" title="登录查看效果"></a>登录查看效果</h2><p><img src="https://jxdw.github.io/img/devops/docker/docker_harbor_project_management.png"><br><img src="https://jxdw.github.io/img/devops/docker/docker_harbor_registory_management.png"><br><img src="https://jxdw.github.io/img/devops/docker/docker_harbor_replication_management.png"></p>
+<h2 id="docker登录和打标签"><a href="#docker登录和打标签" class="headerlink" title="docker登录和打标签"></a>docker登录和打标签</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker login 192.168.172.9:5000</span><br><span class="line">docker tag vmware&#x2F;harbor-migrator:v1.5.0 192.168.172.9:5000&#x2F;harbor&#x2F;harbor-migrator:v1.5.0</span><br><span class="line">docker push 192.168.172.9:5000&#x2F;harbor&#x2F;harbor-migrator:v1.5.0</span><br></pre></td></tr></table></figure>
+
+<h2 id="复制效果"><a href="#复制效果" class="headerlink" title="复制效果"></a>复制效果</h2><p><img src="https://jxdw.github.io/img/devops/docker/docker_harbor_10_project_management.png"></p>
+<h1 id="restful-api效果"><a href="#restful-api效果" class="headerlink" title="restful api效果"></a>restful api效果</h1><p><img src="https://jxdw.github.io/img/devops/docker/harbor-restfulapi.png"></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/harbor%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" rel="tag"># harbor知识体系</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2018/10/09/cloud_native_concept/" rel="prev" title="【转载】什么是云原生">
+                  <i class="fa fa-chevron-left"></i> 【转载】什么是云原生
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018/11/18/spring-boot-2x-boot-micrometer/" rel="next" title="【java实现微服务架构系列】spring框架系列之spring boot micrometer监控">
+                  【java实现微服务架构系列】spring框架系列之spring boot micrometer监控 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+      
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      
+
+      
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">渐学顿悟</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.0/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+NexT.utils.loadComments('#valine-comments', () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', () => {
+    new Valine(Object.assign({"enable":true,"appId":"wrre3Nrx21CqKiChLnKn034M-gzGzoHsz","appKey":"rkWWNONo7LAJhlS936vnywQ9","serverURLs":null,"placeholder":"请输入您的评论","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"lang":null,"visitor":false,"comment_count":true,"recordIP":false,"enableQQ":false,"requiredFields":["nick","mail"]}, {
+      el: '#valine-comments',
+      path: "/2018/10/31/docker-registry-harbor-154-install/",
+      serverURLs: "https://wrre3nrx.api.lncld.net"
+    }));
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

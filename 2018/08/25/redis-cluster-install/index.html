@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.0/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"jxdw.github.io","root":"/","scheme":"Pisces","version":"8.0.1","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"width":240},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
+  </script>
+
+  <meta name="description" content="本文参考资料https:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_37595946&#x2F;article&#x2F;details&#x2F;77800147https:&#x2F;&#x2F;blog.csdn.net&#x2F;ahzxj2012&#x2F;article&#x2F;details&#x2F;73468119https:&#x2F;&#x2F;ww">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【redis使用系列】单节点安装redis 3.2版本集群">
+<meta property="og:url" content="https://jxdw.github.io/2018/08/25/redis-cluster-install/index.html">
+<meta property="og:site_name" content="渐学顿悟">
+<meta property="og:description" content="本文参考资料https:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_37595946&#x2F;article&#x2F;details&#x2F;77800147https:&#x2F;&#x2F;blog.csdn.net&#x2F;ahzxj2012&#x2F;article&#x2F;details&#x2F;73468119https:&#x2F;&#x2F;ww">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jxdw.github.io/img/business/redis/redis3.2_clusterinfo.png">
+<meta property="article:published_time" content="2018-08-25T06:09:47.000Z">
+<meta property="article:modified_time" content="2020-10-22T12:35:55.249Z">
+<meta property="article:author" content="渐学顿悟">
+<meta property="article:tag" content="redis知识体系">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jxdw.github.io/img/business/redis/redis3.2_clusterinfo.png">
+
+
+<link rel="canonical" href="https://jxdw.github.io/2018/08/25/redis-cluster-install/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【redis使用系列】单节点安装redis 3.2版本集群 | 渐学顿悟</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="渐学顿悟" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">渐学顿悟</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">记录编程语言与中间件的学习过程</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="渐学顿悟"
+      src="/favicon.png">
+  <p class="site-author-name" itemprop="name">渐学顿悟</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">122</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+      
+
+      
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jxdw.github.io/2018/08/25/redis-cluster-install/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/favicon.png">
+      <meta itemprop="name" content="渐学顿悟">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="渐学顿悟">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【redis使用系列】单节点安装redis 3.2版本集群
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-08-25 14:09:47 14:09:47" itemprop="dateCreated datePublished" datetime="2018-08-25T14:09:47+08:00">2018-08-25 14:09:47</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-10-22 20:35:55 20:35:55" itemprop="dateModified" datetime="2020-10-22T20:35:55+08:00">2020-10-22 20:35:55</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E4%B8%9A%E5%8A%A1%E5%BC%80%E5%8F%91%E6%89%80%E9%9C%80%E4%B8%AD%E9%97%B4%E4%BB%B6/" itemprop="url" rel="index"><span itemprop="name">业务开发所需中间件</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2018/08/25/redis-cluster-install/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2018/08/25/redis-cluster-install/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="本文参考资料"><a href="#本文参考资料" class="headerlink" title="本文参考资料"></a>本文参考资料</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">https:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_37595946&#x2F;article&#x2F;details&#x2F;77800147</span><br><span class="line">https:&#x2F;&#x2F;blog.csdn.net&#x2F;ahzxj2012&#x2F;article&#x2F;details&#x2F;73468119</span><br><span class="line">https:&#x2F;&#x2F;www.jianshu.com&#x2F;p&#x2F;854d702e6153</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+<h1 id="背景交代"><a href="#背景交代" class="headerlink" title="背景交代"></a>背景交代</h1><p>公司有些没权限的机器又抽风，于是想把部分服务放到有权限的机器上。比如redis cluster。</p>
+<h1 id="安装规划"><a href="#安装规划" class="headerlink" title="安装规划"></a>安装规划</h1><p>采用docker安装redis node。<br>由redis-trib.rb构建集群。</p>
+<h1 id="安装过程"><a href="#安装过程" class="headerlink" title="安装过程"></a>安装过程</h1><h2 id="docker安装redisnode"><a href="#docker安装redisnode" class="headerlink" title="docker安装redisnode"></a>docker安装redisnode</h2><h3 id="准备配置文件"><a href="#准备配置文件" class="headerlink" title="准备配置文件"></a>准备配置文件</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">port 6381</span><br><span class="line">bind 10.2.1.31</span><br><span class="line">cluster-enabled yes</span><br><span class="line">cluster-config-file nodes.conf</span><br><span class="line">cluster-node-timeout 5000</span><br><span class="line">appendonly yes</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="拉取镜像并启动"><a href="#拉取镜像并启动" class="headerlink" title="拉取镜像并启动"></a>拉取镜像并启动</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker pull redis:3.2.0</span><br><span class="line">docker run --net&#x3D;host -m 100m --name&#x3D;redis1  -v &#96;pwd&#96;&#x2F;redis1.conf:&#x2F;usr&#x2F;local&#x2F;etc&#x2F;redis&#x2F;redis.conf -d redis:3.2.0 redis-server &#x2F;usr&#x2F;local&#x2F;etc&#x2F;redis&#x2F;redis.conf</span><br><span class="line">docker run --net&#x3D;host -m 100m --name&#x3D;redis2  -v &#96;pwd&#96;&#x2F;redis2.conf:&#x2F;usr&#x2F;local&#x2F;etc&#x2F;redis&#x2F;redis.conf -d redis:3.2.0 redis-server &#x2F;usr&#x2F;local&#x2F;etc&#x2F;redis&#x2F;redis.conf</span><br><span class="line">docker run --net&#x3D;host -m 100m --name&#x3D;redis3  -v &#96;pwd&#96;&#x2F;redis3.conf:&#x2F;usr&#x2F;local&#x2F;etc&#x2F;redis&#x2F;redis.conf -d redis:3.2.0 redis-server &#x2F;usr&#x2F;local&#x2F;etc&#x2F;redis&#x2F;redis.conf</span><br><span class="line">docker run --net&#x3D;host -m 100m --name&#x3D;redis4  -v &#96;pwd&#96;&#x2F;redis4.conf:&#x2F;usr&#x2F;local&#x2F;etc&#x2F;redis&#x2F;redis.conf -d redis:3.2.0 redis-server &#x2F;usr&#x2F;local&#x2F;etc&#x2F;redis&#x2F;redis.conf</span><br><span class="line">docker run --net&#x3D;host -m 100m --name&#x3D;redis5  -v &#96;pwd&#96;&#x2F;redis5.conf:&#x2F;usr&#x2F;local&#x2F;etc&#x2F;redis&#x2F;redis.conf -d redis:3.2.0 redis-server &#x2F;usr&#x2F;local&#x2F;etc&#x2F;redis&#x2F;redis.conf</span><br><span class="line">docker run --net&#x3D;host -m 100m --name&#x3D;redis6  -v &#96;pwd&#96;&#x2F;redis6.conf:&#x2F;usr&#x2F;local&#x2F;etc&#x2F;redis&#x2F;redis.conf -d redis:3.2.0 redis-server &#x2F;usr&#x2F;local&#x2F;etc&#x2F;redis&#x2F;redis.conf</span><br></pre></td></tr></table></figure>
+
+<h2 id="下载redis源码并解压"><a href="#下载redis源码并解压" class="headerlink" title="下载redis源码并解压"></a>下载redis源码并解压</h2><p>执行下面的命令前，请确保ruby版本已经升级到2.2.0。<br>ps:yum install ruby时，centos只会安装ruby2.0版本。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget http:&#x2F;&#x2F;download.redis.io&#x2F;releases&#x2F;redis-3.2.1.tar.gz</span><br><span class="line">tar xvf redis-3.2.1.tar.gz</span><br><span class="line">mv redis-3.2.1 redis</span><br><span class="line">ruby redis&#x2F;src&#x2F;redis-trib.rb create --replicas 1 10.2.1.31:6381 10.2.1.31:6382 10.2.1.31:6383 10.2.1.31:6384 10.2.1.31:6385 10.2.1.31:6386</span><br></pre></td></tr></table></figure>
+
+<p>顺利的话，能看到如下信息：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt; Creating cluster</span><br><span class="line">&gt;&gt;&gt; Performing hash slots allocation on 6 nodes...</span><br><span class="line">Using 3 masters:</span><br><span class="line">10.2.1.31:6381</span><br><span class="line">10.2.1.31:6382</span><br><span class="line">10.2.1.31:6383</span><br><span class="line">Adding replica 10.2.1.31:6384 to 10.2.1.31:6381</span><br><span class="line">Adding replica 10.2.1.31:6385 to 10.2.1.31:6382</span><br><span class="line">Adding replica 10.2.1.31:6386 to 10.2.1.31:6383</span><br><span class="line">M: cb4258f0a219065492d519ebf4417833c397718a 10.2.1.31:6381</span><br><span class="line">   slots:0-5460 (5461 slots) master</span><br><span class="line">M: 5e1c70538ec4ddd28b0dbc79bce491ac1d25e452 10.2.1.31:6382</span><br><span class="line">   slots:5461-10922 (5462 slots) master</span><br><span class="line">M: 31c913e81bbb994e843d8874d8063debd2e82363 10.2.1.31:6383</span><br><span class="line">   slots:10923-16383 (5461 slots) master</span><br><span class="line">S: 34750039ae8d7010a06a7691b95ae81f48e44cb9 10.2.1.31:6384</span><br><span class="line">   replicates cb4258f0a219065492d519ebf4417833c397718a</span><br><span class="line">S: 48f5de18c92ebdc277c4eaee9d73ea6f1cc91c8e 10.2.1.31:6385</span><br><span class="line">   replicates 5e1c70538ec4ddd28b0dbc79bce491ac1d25e452</span><br><span class="line">S: 1a349016ed6f326bb4118ec94951301eb3ca7815 10.2.1.31:6386</span><br><span class="line">   replicates 31c913e81bbb994e843d8874d8063debd2e82363</span><br><span class="line">Can I set the above configuration? (type &#39;yes&#39; to accept): yes</span><br><span class="line">&gt;&gt;&gt; Nodes configuration updated</span><br><span class="line">&gt;&gt;&gt; Assign a different config epoch to each node</span><br><span class="line">&gt;&gt;&gt; Sending CLUSTER MEET messages to join the cluster</span><br><span class="line">Waiting for the cluster to join...</span><br><span class="line">&gt;&gt;&gt; Performing Cluster Check (using node 10.2.1.31:6381)</span><br><span class="line">M: cb4258f0a219065492d519ebf4417833c397718a 10.2.1.31:6381</span><br><span class="line">   slots:0-5460 (5461 slots) master</span><br><span class="line">M: 5e1c70538ec4ddd28b0dbc79bce491ac1d25e452 10.2.1.31:6382</span><br><span class="line">   slots:5461-10922 (5462 slots) master</span><br><span class="line">M: 31c913e81bbb994e843d8874d8063debd2e82363 10.2.1.31:6383</span><br><span class="line">   slots:10923-16383 (5461 slots) master</span><br><span class="line">M: 34750039ae8d7010a06a7691b95ae81f48e44cb9 10.2.1.31:6384</span><br><span class="line">   slots: (0 slots) master</span><br><span class="line">   replicates cb4258f0a219065492d519ebf4417833c397718a</span><br><span class="line">M: 48f5de18c92ebdc277c4eaee9d73ea6f1cc91c8e 10.2.1.31:6385</span><br><span class="line">   slots: (0 slots) master</span><br><span class="line">   replicates 5e1c70538ec4ddd28b0dbc79bce491ac1d25e452</span><br><span class="line">M: 1a349016ed6f326bb4118ec94951301eb3ca7815 10.2.1.31:6386</span><br><span class="line">   slots: (0 slots) master</span><br><span class="line">   replicates 31c913e81bbb994e843d8874d8063debd2e82363</span><br><span class="line">[OK] All nodes agree about slots configuration.</span><br><span class="line">&gt;&gt;&gt; Check for open slots...</span><br><span class="line">&gt;&gt;&gt; Check slots coverage...</span><br><span class="line">[OK] All 16384 slots covered.</span><br></pre></td></tr></table></figure>
+<p>但是一般没有那么顺利。</p>
+<h2 id="常见错误以及处理"><a href="#常见错误以及处理" class="headerlink" title="常见错误以及处理"></a>常见错误以及处理</h2><h3 id="出现”kernel-require-rb-55-in-require’-cannot-load-suc”"><a href="#出现”kernel-require-rb-55-in-require’-cannot-load-suc”" class="headerlink" title="出现”kernel_require.rb:55:in `require’: cannot load suc”"></a>出现”kernel_require.rb:55:in `require’: cannot load suc”</h3><p>解决办法：gem install redis</p>
+<h3 id="出现”报错redis-requires-Ruby-version-2-2-2”"><a href="#出现”报错redis-requires-Ruby-version-2-2-2”" class="headerlink" title="出现”报错redis requires Ruby version -= 2.2.2”"></a>出现”报错redis requires Ruby version -= 2.2.2”</h3><p>解决办法：升级ruby版本。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">curl -L get.rvm.io | bash -s stable</span><br><span class="line">source &#x2F;usr&#x2F;local&#x2F;rvm&#x2F;scripts&#x2F;rvm</span><br><span class="line">rvm list known</span><br><span class="line">rvm install  2.4.0</span><br><span class="line">rvm remove 2.0.0</span><br><span class="line">ruby  --version</span><br><span class="line">gem install redis</span><br></pre></td></tr></table></figure>
+
+<p>然后执行:ruby redis/src/redis-trib.rb create –replicas 1 10.2.1.31:6381 10.2.1.31:6382 10.2.1.31:6383 10.2.1.31:6384 10.2.1.31:6385 10.2.1.31:6386<br>就可以看到上面的提示信息了。</p>
+<h3 id="ruby版本失效"><a href="#ruby版本失效" class="headerlink" title="ruby版本失效"></a>ruby版本失效</h3><p>解决办法：<br>rvm use ruby-2.4.0</p>
+<h1 id="体验"><a href="#体验" class="headerlink" title="体验"></a>体验</h1><p><img src="https://jxdw.github.io/img/business/redis/redis3.2_clusterinfo.png"></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/redis%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" rel="tag"># redis知识体系</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2018/08/20/go-post-json-file-to-http-server/" rel="prev" title="【go标准库系列】go语言模拟curl将json发送到httpserver">
+                  <i class="fa fa-chevron-left"></i> 【go标准库系列】go语言模拟curl将json发送到httpserver
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018/09/11/golang-reflect-learn/" rel="next" title="【go标准库系列】go语言标准库reflect反射学习">
+                  【go标准库系列】go语言标准库reflect反射学习 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+      
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      
+
+      
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">渐学顿悟</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.0/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+NexT.utils.loadComments('#valine-comments', () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', () => {
+    new Valine(Object.assign({"enable":true,"appId":"wrre3Nrx21CqKiChLnKn034M-gzGzoHsz","appKey":"rkWWNONo7LAJhlS936vnywQ9","serverURLs":null,"placeholder":"请输入您的评论","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"lang":null,"visitor":false,"comment_count":true,"recordIP":false,"enableQQ":false,"requiredFields":["nick","mail"]}, {
+      el: '#valine-comments',
+      path: "/2018/08/25/redis-cluster-install/",
+      serverURLs: "https://wrre3nrx.api.lncld.net"
+    }));
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

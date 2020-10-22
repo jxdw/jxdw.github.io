@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.0/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"jxdw.github.io","root":"/","scheme":"Pisces","version":"8.0.1","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"width":240},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
+  </script>
+
+  <meta name="description" content="背景资料本文主要参考资料(建议收藏)https:&#x2F;&#x2F;jimmysong.io&#x2F;kubernetes-handbook&#x2F;https:&#x2F;&#x2F;anjia0532.github.io&#x2F;2017&#x2F;11&#x2F;15&#x2F;gcr-io-image-mirror&#x2F;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【docker使用系列】玩转kubernetes之kubernetes1.8安装">
+<meta property="og:url" content="https://jxdw.github.io/2018/12/28/container-kubernetes-1-8-install/index.html">
+<meta property="og:site_name" content="渐学顿悟">
+<meta property="og:description" content="背景资料本文主要参考资料(建议收藏)https:&#x2F;&#x2F;jimmysong.io&#x2F;kubernetes-handbook&#x2F;https:&#x2F;&#x2F;anjia0532.github.io&#x2F;2017&#x2F;11&#x2F;15&#x2F;gcr-io-image-mirror&#x2F;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jxdw.github.io/img/devops/docker/falnneldconfig.png">
+<meta property="og:image" content="https://jxdw.github.io/img/devops/k8s/kubernetets1.8.5.png">
+<meta property="og:image" content="https://jxdw.github.io/img/devops/k8s/k8s_etcd.png">
+<meta property="article:published_time" content="2018-12-28T06:04:49.000Z">
+<meta property="article:modified_time" content="2020-10-22T12:21:18.960Z">
+<meta property="article:author" content="渐学顿悟">
+<meta property="article:tag" content="docker&#x2F;k8s知识体系">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jxdw.github.io/img/devops/docker/falnneldconfig.png">
+
+
+<link rel="canonical" href="https://jxdw.github.io/2018/12/28/container-kubernetes-1-8-install/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【docker使用系列】玩转kubernetes之kubernetes1.8安装 | 渐学顿悟</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="渐学顿悟" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">渐学顿悟</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">记录编程语言与中间件的学习过程</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="渐学顿悟"
+      src="/favicon.png">
+  <p class="site-author-name" itemprop="name">渐学顿悟</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">122</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+      
+
+      
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jxdw.github.io/2018/12/28/container-kubernetes-1-8-install/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/favicon.png">
+      <meta itemprop="name" content="渐学顿悟">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="渐学顿悟">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【docker使用系列】玩转kubernetes之kubernetes1.8安装
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-12-28 14:04:49 14:04:49" itemprop="dateCreated datePublished" datetime="2018-12-28T14:04:49+08:00">2018-12-28 14:04:49</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-10-22 20:21:18 20:21:18" itemprop="dateModified" datetime="2020-10-22T20:21:18+08:00">2020-10-22 20:21:18</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%B7%A5%E5%85%B7%E8%BD%AF%E4%BB%B6-%E6%9E%B6%E6%9E%84%E7%9F%A5%E8%AF%86%E9%9B%86%E5%90%88/" itemprop="url" rel="index"><span itemprop="name">工具软件/架构知识集合</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2018/12/28/container-kubernetes-1-8-install/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2018/12/28/container-kubernetes-1-8-install/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="背景资料"><a href="#背景资料" class="headerlink" title="背景资料"></a>背景资料</h1><h2 id="本文主要参考资料-建议收藏"><a href="#本文主要参考资料-建议收藏" class="headerlink" title="本文主要参考资料(建议收藏)"></a>本文主要参考资料(建议收藏)</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">https:&#x2F;&#x2F;jimmysong.io&#x2F;kubernetes-handbook&#x2F;</span><br><span class="line">https:&#x2F;&#x2F;anjia0532.github.io&#x2F;2017&#x2F;11&#x2F;15&#x2F;gcr-io-image-mirror&#x2F;</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<h2 id="本文的收获"><a href="#本文的收获" class="headerlink" title="本文的收获"></a>本文的收获</h2><p>实践“纸上读来终觉浅，绝知此事要躬行”，上手操作<Kubernetes Handbook>第5章</p>
+<h1 id="安装之前三件事"><a href="#安装之前三件事" class="headerlink" title="安装之前三件事"></a>安装之前三件事</h1><h2 id="熟悉kubernetes基本架构和工作原理"><a href="#熟悉kubernetes基本架构和工作原理" class="headerlink" title="熟悉kubernetes基本架构和工作原理"></a>熟悉kubernetes基本架构和工作原理</h2><p>建议好好看《Kubernetes Handbook》1-4章或者《kubernetes in action》(中文版已经出版).了解整体架构、以及基本概念模型：</p>
+<ul>
+<li>cluster与node</li>
+<li>rabc：</li>
+<li>pod：简单的理解就是一组容器，基础容器是</li>
+<li>deployment(pod升级版)：</li>
+<li>service：</li>
+<li>configmap：</li>
+</ul>
+<h2 id="本文使用版本"><a href="#本文使用版本" class="headerlink" title="本文使用版本"></a>本文使用版本</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">centos:CentOS Linux release 7.3.1611 (Core) </span><br><span class="line">kubernetes:1.8.5</span><br><span class="line">flannel:0.7.1</span><br><span class="line">docker:1.12.6</span><br><span class="line">harbor:1.5.4(依赖的docker为1.12.6、docker-compose为1.12.0)</span><br><span class="line">etcd:3.3.5</span><br><span class="line">cfssl_linux-amd64</span><br><span class="line">cfssljson_linux-amd64</span><br><span class="line">cfssl-certinfo_linux-amd64</span><br></pre></td></tr></table></figure>
+
+<h2 id="ip和服务部署规划"><a href="#ip和服务部署规划" class="headerlink" title="ip和服务部署规划"></a>ip和服务部署规划</h2><p>因为测试环境资源有限，尽量的合理利用资源。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">10.2.1.30(centos7): harbor0.5(docker1.10.3、 docker-compose1.10)、etcd3.3.5</span><br><span class="line">10.2.1.33(centos7): etcd3.3.5</span><br><span class="line">10.2.1.31(centos7): etcd3.3.5</span><br><span class="line">10.2.1.37(centos7): docker1.12.6、flanneld0.7.1、kubernetes master(kube-apiserver 1.8.5、kube-scheduler1.8.5、kube-controller-manager1.8.5)、kubernetes node(kubelet1.8.5、kube-proxy1.8.5)</span><br><span class="line">10.2.1.38(centos7): docker1.12.6、flanneld0.7.1、kubernetes node(kubelet1.8.5、kube-proxy1.8.5)</span><br><span class="line">10.2.1.39(centos7): docker1.12.6、flanneld0.7.1、kubernetes node(kubelet1.8.5、kube-proxy1.8.5)</span><br></pre></td></tr></table></figure>
+
+<h1 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤"></a>安装步骤</h1><h2 id="安装etcd集群"><a href="#安装etcd集群" class="headerlink" title="安装etcd集群"></a>安装etcd集群</h2><p>可以安装一个etcd集群，也可以用一个已有集群。<font color="red">本文安装的etcd没有采用Kubernetes Handbook的证书，觉得麻烦</font><br>并创建key-value。</p>
+<h2 id="启动harbor服务"><a href="#启动harbor服务" class="headerlink" title="启动harbor服务"></a>启动harbor服务</h2><p>安装和启动harbor服务。并将一些镜像从anjia0532上pull下来，push到私有仓库。供后续步骤使用</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">k8s-dns-kube-dns-amd64:1.14.1</span><br><span class="line">k8s-dns-dnsmasq-nanny-amd64:1.14.1</span><br><span class="line">k8s-dns-sidecar-amd64:1.14.1</span><br><span class="line"></span><br><span class="line">heapster-amd64:v1.3.0</span><br><span class="line">heapster-grafana-amd64:v4.0.2</span><br><span class="line">heapster-influxdb-amd64:v1.1.1</span><br><span class="line">fluentd-elasticsearch:1.22</span><br><span class="line">kibana:4.6.1</span><br><span class="line"></span><br><span class="line">kubernetes-dashboard-amd64:v1.6.3</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装docker1-12-6"><a href="#安装docker1-12-6" class="headerlink" title="安装docker1.12.6"></a>安装docker1.12.6</h2><p>可以参考之前的文章，不再赘述，记得要配置私有仓库，否则，很多功能不好实现。</p>
+<h2 id="安装flanneld0-7-1"><a href="#安装flanneld0-7-1" class="headerlink" title="安装flanneld0.7.1"></a>安装flanneld0.7.1</h2><p>参考 <a target="_blank" rel="noopener" href="https://jimmysong.io/kubernetes-handbook/practice/flannel-installation.html">https://jimmysong.io/kubernetes-handbook/practice/flannel-installation.html</a> 安装flanneld。<br><font color="red">注意：/etc/sysconfig/flanneld配置文件</font></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># Flanneld configuration options  </span><br><span class="line"></span><br><span class="line"># etcd url location.  Point this to the server where etcd runs</span><br><span class="line">FLANNEL_ETCD_ENDPOINTS&#x3D;&quot;http:&#x2F;&#x2F;10.2.1.30:2379,http:&#x2F;&#x2F;10.2.1.31:2379,http:&#x2F;&#x2F;10.2.1.33:2379&quot;</span><br><span class="line"></span><br><span class="line"># etcd config key.  This is the configuration key that flannel queries</span><br><span class="line"># For address range assignment</span><br><span class="line">FLANNEL_ETCD_PREFIX&#x3D;&quot;&#x2F;kube-centos&#x2F;network&quot;</span><br><span class="line"></span><br><span class="line"># Any additional options that you want to pass</span><br><span class="line">FLANNEL_OPTIONS&#x3D;&quot;--iface&#x3D;ens192&quot;</span><br></pre></td></tr></table></figure>
+<p>并在etcd创建kubernetes集群的flanneld网络config<br><img src="https://jxdw.github.io/img/devops/docker/falnneldconfig.png"></p>
+<h2 id="准备证书"><a href="#准备证书" class="headerlink" title="准备证书"></a>准备证书</h2><h3 id="安装CSL文件"><a href="#安装CSL文件" class="headerlink" title="安装CSL文件"></a>安装CSL文件</h3><h3 id="创建CA证书"><a href="#创建CA证书" class="headerlink" title="创建CA证书"></a>创建CA证书</h3><p>参考 <a target="_blank" rel="noopener" href="https://jimmysong.io/kubernetes-handbook/practice/create-tls-and-secret-key.html">https://jimmysong.io/kubernetes-handbook/practice/create-tls-and-secret-key.html</a> 创建证书，并分发到所有kubernetes node。</p>
+<h2 id="安装kubernetes-master"><a href="#安装kubernetes-master" class="headerlink" title="安装kubernetes master"></a>安装kubernetes master</h2><h3 id="准备-etc-kubernetes-config配置文件"><a href="#准备-etc-kubernetes-config配置文件" class="headerlink" title="准备/etc/kubernetes/config配置文件"></a>准备/etc/kubernetes/config配置文件</h3><p><font color="red">该配置文件同时被kube-apiserver、kube-controller-manager、kube-scheduler、kubelet、kube-proxy使用。</font></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">###</span><br><span class="line"># kubernetes system config</span><br><span class="line">#</span><br><span class="line"># The following values are used to configure various aspects of all</span><br><span class="line"># kubernetes services, including</span><br><span class="line">#</span><br><span class="line">#   kube-apiserver.service</span><br><span class="line">#   kube-controller-manager.service</span><br><span class="line">#   kube-scheduler.service</span><br><span class="line">#   kubelet.service</span><br><span class="line">#   kube-proxy.service</span><br><span class="line"># logging to stderr means we get it in the systemd journal</span><br><span class="line">KUBE_LOGTOSTDERR&#x3D;&quot;--logtostderr&#x3D;true&quot;</span><br><span class="line"></span><br><span class="line"># journal message level, 0 is debug</span><br><span class="line">KUBE_LOG_LEVEL&#x3D;&quot;--v&#x3D;0&quot;</span><br><span class="line"></span><br><span class="line"># Should this cluster be allowed to run privileged docker containers</span><br><span class="line">KUBE_ALLOW_PRIV&#x3D;&quot;--allow-privileged&#x3D;false&quot;</span><br><span class="line"></span><br><span class="line"># How the controller-manager, scheduler, and proxy find the apiserver</span><br><span class="line">KUBE_MASTER&#x3D;&quot;--master&#x3D;http:&#x2F;&#x2F;10.2.1.37:8080&quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="准备-etc-kubernetes-apiserver文件"><a href="#准备-etc-kubernetes-apiserver文件" class="headerlink" title="准备/etc/kubernetes/apiserver文件"></a>准备/etc/kubernetes/apiserver文件</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">###</span><br><span class="line">## kubernetes system config</span><br><span class="line">##</span><br><span class="line"></span><br><span class="line">## The following values are used to configure the kube-apiserver</span><br><span class="line">## The address on the local server to listen to.</span><br><span class="line">#KUBE_API_ADDRESS&#x3D;&quot;--address&#x3D;bc.authorization.k8s.io&#x2F;v10.2.1.30&quot;</span><br><span class="line">KUBE_API_ADDRESS&#x3D;&quot;--advertise-address&#x3D;10.2.1.37 --bind-address&#x3D;10.2.1.37 --insecure-bind-address&#x3D;10.2.1.37&quot;</span><br><span class="line"></span><br><span class="line">## The port on the local server to listen on.</span><br><span class="line">KUBE_API_PORT&#x3D;&quot;--port&#x3D;8080&quot;</span><br><span class="line"></span><br><span class="line">## Port minions listen on</span><br><span class="line">KUBELET_PORT&#x3D;&quot;--kubelet-port&#x3D;10250&quot;</span><br><span class="line"></span><br><span class="line">## Comma separated list of nodes in the etcd cluster</span><br><span class="line">KUBE_ETCD_SERVERS&#x3D;&quot;--etcd-servers&#x3D;http:&#x2F;&#x2F;10.2.1.30:2379,http:&#x2F;&#x2F;10.2.1.31:2379,http:&#x2F;&#x2F;10.2.1.33:2379&quot;</span><br><span class="line"></span><br><span class="line">## Address range to use for services</span><br><span class="line">#KUBE_SERVICE_ADDREKUBELET_POD_INFRA_CONTAINERSSES&#x3D;&quot;--service-cluster-ip-range&#x3D;172.17.0.0&#x2F;16&quot;</span><br><span class="line"></span><br><span class="line">#KUBE_ANONYMOUS_AUTH&#x3D;&quot;--anonymous-auth&#x3D;false&quot;</span><br><span class="line">KUBE_SERVICE_ADDRESSES&#x3D;&quot;--service-cluster-ip-range&#x3D;172.19.0.0&#x2F;16&quot;</span><br><span class="line"></span><br><span class="line">## default admission control policies</span><br><span class="line">#KUBE_ADMISSION_CONTROL&#x3D;&quot;--admission-control&#x3D;NamespaceLifecycle,NamespaceExists,LimitRanger,SecurityContextDeny,ServiceAccount,ResourceQuota&quot;</span><br><span class="line">KUBE_ADMISSION_CONTROL&#x3D;&quot;--admission-control&#x3D;ServiceAccount,NamespaceLifecycle,NamespaceExists,LimitRanger,ResourceQuota&quot;</span><br><span class="line">KUBE_API_ARGS&#x3D;&quot;--authorization-mode&#x3D;RBAC --runtime-config&#x3D;rbac.authorization.k8s.io&#x2F;v1beta1 --kubelet-https&#x3D;true --experimental-bootstrap-token-auth --token-auth-file&#x3D;&#x2F;etc&#x2F;kubernetes&#x2F;token.csv --service-node-port-range&#x3D;30000-32767 --tls-cert-file&#x3D;&#x2F;etc&#x2F;kubernetes&#x2F;ssl&#x2F;kubernetes.pem --tls-private-key-file&#x3D;&#x2F;etc&#x2F;kubernetes&#x2F;ssl&#x2F;kubernetes-key.pem --client-ca-file&#x3D;&#x2F;etc&#x2F;kubernetes&#x2F;ssl&#x2F;ca.pem --service-account-key-file&#x3D;&#x2F;etc&#x2F;kubernetes&#x2F;ssl&#x2F;ca-key.pem  --enable-swagger-ui&#x3D;true --apiserver-count&#x3D;3 --audit-log-maxage&#x3D;30 --audit-log-maxbackup&#x3D;3 --audit-log-maxsize&#x3D;100 --audit-log-path&#x3D;&#x2F;var&#x2F;lib&#x2F;audit.log --event-ttl&#x3D;1h&quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="配置kube-apiserver的systemd"><a href="#配置kube-apiserver的systemd" class="headerlink" title="配置kube-apiserver的systemd"></a>配置kube-apiserver的systemd</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description&#x3D;Kubernetes API Service</span><br><span class="line">Documentation&#x3D;https:&#x2F;&#x2F;github.com&#x2F;GoogleCloudPlatform&#x2F;kubernetes</span><br><span class="line">After&#x3D;network.target</span><br><span class="line">#After&#x3D;etcd.service</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">EnvironmentFile&#x3D;-&#x2F;etc&#x2F;kubernetes&#x2F;config</span><br><span class="line">EnvironmentFile&#x3D;-&#x2F;etc&#x2F;kubernetes&#x2F;apiserver</span><br><span class="line">ExecStart&#x3D;&#x2F;usr&#x2F;bin&#x2F;kube-apiserver \</span><br><span class="line">	    $KUBE_LOGTOSTDERR \</span><br><span class="line">	    $KUBE_LOG_LEVEL \</span><br><span class="line">	    $KUBE_ETCD_SERVERS \</span><br><span class="line">	    $KUBE_API_ADDRESS \</span><br><span class="line">	    $KUBE_API_PORT \</span><br><span class="line">            $KUBELET_PORT \</span><br><span class="line">	    $KUBE_ALLOW_PRIV \</span><br><span class="line">	    $KUBE_SERVICE_ADDRESSES \</span><br><span class="line">	    $KUBE_ADMISSION_CONTROL \</span><br><span class="line">            $KUBE_ANONYMOUS_AUTH \</span><br><span class="line">	    $KUBE_API_ARGS</span><br><span class="line">Restart&#x3D;on-failure</span><br><span class="line">Type&#x3D;notify</span><br><span class="line">LimitNOFILE&#x3D;65536</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy&#x3D;multi-user.target</span><br></pre></td></tr></table></figure>
+<h3 id="启动kube-apiserver"><a href="#启动kube-apiserver" class="headerlink" title="启动kube-apiserver"></a>启动kube-apiserver</h3><p>systemctl daemon-reload<br>systemctl enable kube-apiserver<br>systemctl start kube-apiserver</p>
+<h3 id="启动kube-controller-manager"><a href="#启动kube-controller-manager" class="headerlink" title="启动kube-controller-manager"></a>启动kube-controller-manager</h3><h3 id="启动kube-scheduler"><a href="#启动kube-scheduler" class="headerlink" title="启动kube-scheduler"></a>启动kube-scheduler</h3><h2 id="安装kubernetes-node"><a href="#安装kubernetes-node" class="headerlink" title="安装kubernetes node"></a>安装kubernetes node</h2><h3 id="启动kube-proxy"><a href="#启动kube-proxy" class="headerlink" title="启动kube-proxy"></a>启动kube-proxy</h3><h3 id="启动kubelet"><a href="#启动kubelet" class="headerlink" title="启动kubelet"></a>启动kubelet</h3><h2 id="安装K8S插件"><a href="#安装K8S插件" class="headerlink" title="安装K8S插件"></a>安装K8S插件</h2><h1 id="最终的效果"><a href="#最终的效果" class="headerlink" title="最终的效果"></a>最终的效果</h1><h2 id="dashboard效果"><a href="#dashboard效果" class="headerlink" title="dashboard效果"></a>dashboard效果</h2><p><img src="https://jxdw.github.io/img/devops/k8s/kubernetets1.8.5.png"></p>
+<h2 id="etcd数据库中的数据"><a href="#etcd数据库中的数据" class="headerlink" title="etcd数据库中的数据"></a>etcd数据库中的数据</h2><p><img src="https://jxdw.github.io/img/devops/k8s/k8s_etcd.png"></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/docker-k8s%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" rel="tag"># docker/k8s知识体系</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2018/12/27/docker-1-12-management/" rel="prev" title="【docker使用系列】docker1.12管理技术之portainer">
+                  <i class="fa fa-chevron-left"></i> 【docker使用系列】docker1.12管理技术之portainer
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018/12/30/container-kubernetes-jieduanxing-zongjie/" rel="next" title="【docker使用系列】玩转kubernetes之kubernetes阶段性成果">
+                  【docker使用系列】玩转kubernetes之kubernetes阶段性成果 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+      
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      
+
+      
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">渐学顿悟</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.0/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+NexT.utils.loadComments('#valine-comments', () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', () => {
+    new Valine(Object.assign({"enable":true,"appId":"wrre3Nrx21CqKiChLnKn034M-gzGzoHsz","appKey":"rkWWNONo7LAJhlS936vnywQ9","serverURLs":null,"placeholder":"请输入您的评论","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"lang":null,"visitor":false,"comment_count":true,"recordIP":false,"enableQQ":false,"requiredFields":["nick","mail"]}, {
+      el: '#valine-comments',
+      path: "/2018/12/28/container-kubernetes-1-8-install/",
+      serverURLs: "https://wrre3nrx.api.lncld.net"
+    }));
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

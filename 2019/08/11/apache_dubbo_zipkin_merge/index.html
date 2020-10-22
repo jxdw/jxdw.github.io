@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.0/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"jxdw.github.io","root":"/","scheme":"Pisces","version":"8.0.1","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"width":240},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
+  </script>
+
+  <meta name="description" content="本文背景因为:1.dubbo已经从apache毕业，而zipkin官方的brave-instrumentation-dubbo-rpc的5.6版本支持的dubbo版本是2.6.6版本、且对2.7.3版本支持不太友好(2.6.6这个版本是未毕业前的版本，不太喜欢），只能把brave-instrumentation-dubbo-rpc抠出来，用以支撑2.7.3版本。2.dubbo官方提供的例子还是xm">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【zipkin&#x2F;jaeger使用系列】dubbo v2.7.3使用zipkin进行链路监控">
+<meta property="og:url" content="https://jxdw.github.io/2019/08/11/apache_dubbo_zipkin_merge/index.html">
+<meta property="og:site_name" content="渐学顿悟">
+<meta property="og:description" content="本文背景因为:1.dubbo已经从apache毕业，而zipkin官方的brave-instrumentation-dubbo-rpc的5.6版本支持的dubbo版本是2.6.6版本、且对2.7.3版本支持不太友好(2.6.6这个版本是未毕业前的版本，不太喜欢），只能把brave-instrumentation-dubbo-rpc抠出来，用以支撑2.7.3版本。2.dubbo官方提供的例子还是xm">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jxdw.github.io/img/devops/zipkin_pom.png">
+<meta property="og:image" content="https://jxdw.github.io/img/cloudnative/devops/dubbo_user_info_zipkin.png">
+<meta property="article:published_time" content="2019-08-11T03:02:34.000Z">
+<meta property="article:modified_time" content="2020-10-22T13:16:14.532Z">
+<meta property="article:author" content="渐学顿悟">
+<meta property="article:tag" content="zipkin&#x2F;jaeger知识体系">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jxdw.github.io/img/devops/zipkin_pom.png">
+
+
+<link rel="canonical" href="https://jxdw.github.io/2019/08/11/apache_dubbo_zipkin_merge/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【zipkin/jaeger使用系列】dubbo v2.7.3使用zipkin进行链路监控 | 渐学顿悟</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="渐学顿悟" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">渐学顿悟</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">记录编程语言与中间件的学习过程</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="渐学顿悟"
+      src="/favicon.png">
+  <p class="site-author-name" itemprop="name">渐学顿悟</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">122</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+      
+
+      
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jxdw.github.io/2019/08/11/apache_dubbo_zipkin_merge/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/favicon.png">
+      <meta itemprop="name" content="渐学顿悟">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="渐学顿悟">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【zipkin/jaeger使用系列】dubbo v2.7.3使用zipkin进行链路监控
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-08-11 11:02:34 11:02:34" itemprop="dateCreated datePublished" datetime="2019-08-11T11:02:34+08:00">2019-08-11 11:02:34</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-10-22 21:16:14 21:16:14" itemprop="dateModified" datetime="2020-10-22T21:16:14+08:00">2020-10-22 21:16:14</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E4%B8%9A%E5%8A%A1%E5%BC%80%E5%8F%91%E6%89%80%E9%9C%80%E4%B8%AD%E9%97%B4%E4%BB%B6/" itemprop="url" rel="index"><span itemprop="name">业务开发所需中间件</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2019/08/11/apache_dubbo_zipkin_merge/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/08/11/apache_dubbo_zipkin_merge/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="本文背景"><a href="#本文背景" class="headerlink" title="本文背景"></a>本文背景</h1><p>因为:<br>1.dubbo已经从apache毕业，而zipkin官方的brave-instrumentation-dubbo-rpc的5.6版本支持的dubbo版本是2.6.6版本、且对2.7.3版本支持不太友好(2.6.6这个版本是未毕业前的版本，不太喜欢），只能把brave-instrumentation-dubbo-rpc抠出来，用以支撑2.7.3版本。<br><br>2.dubbo官方提供的例子还是xml配置版本，现在都9102年了，谁还用XML配置版本。<br><br>因为以上两点，有了此文。</p>
+<a id="more"></a>
+
+<h1 id="provider方工程代码"><a href="#provider方工程代码" class="headerlink" title="provider方工程代码"></a>provider方工程代码</h1><h2 id="添加pom依赖"><a href="#添加pom依赖" class="headerlink" title="添加pom依赖"></a>添加pom依赖</h2><p>1.brave对dubbo的集成:brave-instrumentation-dubbo-rpc<br>2.brave的spring bean支持:brave-spring-beans<br>3.在SLF4J的MDC(Mapped Diagnostic Context) 中支持 traceId 和 spanId<br>4.使用okhttp3作为 reporter:zipkin-sender-okhttp3<br>当然，最好是同时添加bom，做好版本控制。<br><img src="https://jxdw.github.io/img/devops/zipkin_pom.png"></p>
+<h2 id="将TracingFilter扣出来进行改造"><a href="#将TracingFilter扣出来进行改造" class="headerlink" title="将TracingFilter扣出来进行改造"></a>将TracingFilter扣出来进行改造</h2><p>将brave-instrumentation-dubbo-rpc的5.6.6版本的TracingFilter抠出来进行改造，即实现org.apache.dubbo.rpc.Fiter的invoke方法。<br>brave-instrumentation-dubbo-rpc的5.6.6版本的TracingFilter实现的是com.alibaba.dubbo.rpc.Fiter。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">package com.youxia.userinfo.config;</span><br><span class="line"></span><br><span class="line">import brave.Span;</span><br><span class="line">import brave.Tracer;</span><br><span class="line">import brave.Tracing;</span><br><span class="line">import brave.internal.Platform;</span><br><span class="line">import brave.propagation.Propagation;</span><br><span class="line">import brave.propagation.TraceContext;</span><br><span class="line">import brave.propagation.TraceContextOrSamplingFlags;</span><br><span class="line"></span><br><span class="line">import com.alibaba.dubbo.common.Constants;</span><br><span class="line">import com.alibaba.dubbo.remoting.exchange.ResponseCallback;</span><br><span class="line">import com.alibaba.dubbo.rpc.protocol.dubbo.FutureAdapter;</span><br><span class="line">import org.apache.dubbo.common.extension.Activate;</span><br><span class="line">import org.apache.dubbo.rpc.*;</span><br><span class="line"></span><br><span class="line">import org.apache.dubbo.rpc.support.RpcUtils;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">import java.net.InetSocketAddress;</span><br><span class="line">import java.util.Map;</span><br><span class="line">import java.util.concurrent.Future;</span><br><span class="line"></span><br><span class="line">@Activate(group &#x3D; &#123;Constants.PROVIDER, Constants.CONSUMER&#125;, value &#x3D; &quot;tracing&quot;)</span><br><span class="line">public final class TracingFilter implements Filter &#123;</span><br><span class="line"></span><br><span class="line">    Tracer tracer;</span><br><span class="line">    TraceContext.Extractor&lt;Map&lt;String, String&gt;&gt; extractor;</span><br><span class="line">    TraceContext.Injector&lt;Map&lt;String, String&gt;&gt; injector;</span><br><span class="line">    volatile boolean isInit &#x3D; false;</span><br><span class="line"></span><br><span class="line">    public void setTracing(Tracing tracing) &#123;</span><br><span class="line">        tracer &#x3D; tracing.tracer();</span><br><span class="line">        extractor &#x3D; tracing.propagation().extractor(GETTER);</span><br><span class="line">        injector &#x3D; tracing.propagation().injector(SETTER);</span><br><span class="line">        isInit &#x3D; true;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    static void parseRemoteAddress(RpcContext rpcContext, Span span) &#123;</span><br><span class="line">        InetSocketAddress remoteAddress &#x3D; rpcContext.getRemoteAddress();</span><br><span class="line">        if (remoteAddress &#x3D;&#x3D; null) return;</span><br><span class="line">        span.remoteIpAndPort(Platform.get().getHostString(remoteAddress), remoteAddress.getPort());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    static void onError(Throwable error, Span span) &#123;</span><br><span class="line">        span.error(error);</span><br><span class="line">        if (error instanceof RpcException) &#123;</span><br><span class="line">            span.tag(&quot;userinfo.error_code&quot;, Integer.toString(((RpcException) error).getCode()));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    static final Propagation.Getter&lt;Map&lt;String, String&gt;, String&gt; GETTER &#x3D;</span><br><span class="line">            new Propagation.Getter&lt;Map&lt;String, String&gt;, String&gt;() &#123;</span><br><span class="line">                @Override</span><br><span class="line">                public String get(Map&lt;String, String&gt; carrier, String key) &#123;</span><br><span class="line">                    return carrier.get(key);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                @Override</span><br><span class="line">                public String toString() &#123;</span><br><span class="line">                    return &quot;Map::get&quot;;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;;</span><br><span class="line"></span><br><span class="line">    static final Propagation.Setter&lt;Map&lt;String, String&gt;, String&gt; SETTER &#x3D;</span><br><span class="line">            new Propagation.Setter&lt;Map&lt;String, String&gt;, String&gt;() &#123;</span><br><span class="line">                @Override</span><br><span class="line">                public void put(Map&lt;String, String&gt; carrier, String key, String value) &#123;</span><br><span class="line">                    carrier.put(key, value);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                @Override</span><br><span class="line">                public String toString() &#123;</span><br><span class="line">                    return &quot;Map::set&quot;;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public Result invoke(Invoker&lt;?&gt; invoker, Invocation invocation) throws RpcException &#123;</span><br><span class="line">        if (isInit &#x3D;&#x3D; false) return invoker.invoke(invocation);</span><br><span class="line"></span><br><span class="line">        RpcContext rpcContext &#x3D; RpcContext.getContext();</span><br><span class="line">        Span.Kind kind &#x3D; rpcContext.isProviderSide() ? Span.Kind.SERVER : Span.Kind.CLIENT;</span><br><span class="line">        final Span span;</span><br><span class="line">        if (kind.equals(Span.Kind.CLIENT)) &#123;</span><br><span class="line">            span &#x3D; tracer.nextSpan();</span><br><span class="line">            injector.inject(span.context(), invocation.getAttachments());</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            TraceContextOrSamplingFlags extracted &#x3D; extractor.extract(invocation.getAttachments());</span><br><span class="line">            span &#x3D; extracted.context() !&#x3D; null</span><br><span class="line">                    ? tracer.joinSpan(extracted.context())</span><br><span class="line">                    : tracer.nextSpan(extracted);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        if (!span.isNoop()) &#123;</span><br><span class="line">            span.kind(kind);</span><br><span class="line">            String service &#x3D; invoker.getInterface().getSimpleName();</span><br><span class="line">            String method &#x3D;RpcUtils.getMethodName(invocation);</span><br><span class="line">            span.name(service + &quot;&#x2F;&quot; + method);</span><br><span class="line">            parseRemoteAddress(rpcContext, span);</span><br><span class="line">            span.start();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        boolean isOneway &#x3D; false, deferFinish &#x3D; false;</span><br><span class="line">        try (Tracer.SpanInScope scope &#x3D; tracer.withSpanInScope(span)) &#123;</span><br><span class="line">            Result result &#x3D; invoker.invoke(invocation);</span><br><span class="line">            if (result.hasException()) &#123;</span><br><span class="line">                onError(result.getException(), span);</span><br><span class="line">            &#125;</span><br><span class="line">            isOneway &#x3D; RpcUtils.isOneway(invoker.getUrl(), invocation);</span><br><span class="line">            Future&lt;Object&gt; future &#x3D; rpcContext.getFuture(); &#x2F;&#x2F; the case on async client invocation</span><br><span class="line">            if (future instanceof FutureAdapter) &#123;</span><br><span class="line">                deferFinish &#x3D; true;</span><br><span class="line">                ((FutureAdapter) future).getFuture().setCallback(new TracingFilter.FinishSpanCallback(span));</span><br><span class="line">            &#125;</span><br><span class="line">            return result;</span><br><span class="line">        &#125; catch (Error | RuntimeException e) &#123;</span><br><span class="line">            onError(e, span);</span><br><span class="line">            throw e;</span><br><span class="line">        &#125; finally &#123;</span><br><span class="line">            if (isOneway) &#123;</span><br><span class="line">                span.flush();</span><br><span class="line">            &#125; else if (!deferFinish) &#123;</span><br><span class="line">                span.finish();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    static final class FinishSpanCallback implements ResponseCallback &#123;</span><br><span class="line">        final Span span;</span><br><span class="line"></span><br><span class="line">        FinishSpanCallback(Span span) &#123;</span><br><span class="line">            this.span &#x3D; span;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        @Override public void done(Object response) &#123;</span><br><span class="line">            span.finish();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        @Override public void caught(Throwable exception) &#123;</span><br><span class="line">            onError(exception, span);</span><br><span class="line">            span.finish();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="在resource目录增加-META-INF-dubbo-org-apache-dubbo-rpc-Filter文件"><a href="#在resource目录增加-META-INF-dubbo-org-apache-dubbo-rpc-Filter文件" class="headerlink" title="在resource目录增加/META-INF/dubbo/org.apache.dubbo.rpc.Filter文件"></a>在resource目录增加/META-INF/dubbo/org.apache.dubbo.rpc.Filter文件</h2><p>org.apache.dubbo.rpc.Filter文件的内容如下:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">tracing&#x3D;com.youxia.userinfo.config.TracingFilter</span><br></pre></td></tr></table></figure>
+
+<h2 id="配置zipkin客户端"><a href="#配置zipkin客户端" class="headerlink" title="配置zipkin客户端"></a>配置zipkin客户端</h2><p>ZipkinConfig内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">package com.youxia.userinfo.config;</span><br><span class="line"></span><br><span class="line">import brave.context.slf4j.MDCScopeDecorator;</span><br><span class="line">import brave.propagation.CurrentTraceContext;</span><br><span class="line">import brave.spring.beans.CurrentTraceContextFactoryBean;</span><br><span class="line">import brave.spring.beans.TracingFactoryBean;</span><br><span class="line">import org.springframework.beans.factory.annotation.Qualifier;</span><br><span class="line">import org.springframework.beans.factory.annotation.Value;</span><br><span class="line">import org.springframework.context.annotation.Bean;</span><br><span class="line">import org.springframework.context.annotation.Configuration;</span><br><span class="line">import zipkin2.codec.SpanBytesEncoder;</span><br><span class="line">import zipkin2.reporter.AsyncReporter;</span><br><span class="line">import zipkin2.reporter.Sender;</span><br><span class="line">import zipkin2.reporter.beans.AsyncReporterFactoryBean;</span><br><span class="line">import zipkin2.reporter.okhttp3.OkHttpSender;</span><br><span class="line"></span><br><span class="line">import java.util.Arrays;</span><br><span class="line">import java.util.concurrent.TimeUnit;</span><br><span class="line"></span><br><span class="line">@Configuration</span><br><span class="line">public class ZipkinConfig &#123;</span><br><span class="line"></span><br><span class="line">    @Value(&quot;$&#123;zipkin.server.url&#125;&quot;)</span><br><span class="line">    private String ZipkinServerUrl;</span><br><span class="line"></span><br><span class="line">    @Bean(&quot;okHttpSender&quot;)</span><br><span class="line">    public Sender okHttpSender() &#123;</span><br><span class="line">        Sender sender&#x3D; OkHttpSender.create(ZipkinServerUrl);</span><br><span class="line">        return sender;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Bean(&quot;reporter&quot;)</span><br><span class="line">    public AsyncReporter getAsyncReporter()&#123;</span><br><span class="line">        AsyncReporter asyncReporter&#x3D;AsyncReporter.builder(okHttpSender()).closeTimeout(50000, TimeUnit.MILLISECONDS).build(SpanBytesEncoder.JSON_V2);</span><br><span class="line">        return asyncReporter;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Bean</span><br><span class="line">    public AsyncReporterFactoryBean reporter(@Qualifier(&quot;okHttpSender&quot;)OkHttpSender sender)&#123;</span><br><span class="line">        AsyncReporterFactoryBean asyncReporterFactoryBean &#x3D; new AsyncReporterFactoryBean();</span><br><span class="line">        asyncReporterFactoryBean.setSender(sender);</span><br><span class="line">        asyncReporterFactoryBean.setCloseTimeout(3000);</span><br><span class="line">        return asyncReporterFactoryBean;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Bean</span><br><span class="line">    public TracingFactoryBean getTracingBean(@Qualifier(&quot;reporter&quot;) AsyncReporter reporter)&#123;</span><br><span class="line">        TracingFactoryBean tracingFactoryBean&#x3D;new TracingFactoryBean();</span><br><span class="line">        tracingFactoryBean.setLocalServiceName(&quot;userinfo-service&quot;);</span><br><span class="line">        CurrentTraceContextFactoryBean currentTraceContextFactoryBean &#x3D; new CurrentTraceContextFactoryBean();</span><br><span class="line">        CurrentTraceContext.ScopeDecorator scopeDecorator &#x3D; MDCScopeDecorator.create();</span><br><span class="line">        currentTraceContextFactoryBean.setScopeDecorators(Arrays.asList(scopeDecorator));</span><br><span class="line">        tracingFactoryBean.setCurrentTraceContext(currentTraceContextFactoryBean.getObject());</span><br><span class="line">        tracingFactoryBean.setSpanReporter(reporter);</span><br><span class="line">        return tracingFactoryBean;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="dubbo注解文件添加filter"><a href="#dubbo注解文件添加filter" class="headerlink" title="dubbo注解文件添加filter"></a>dubbo注解文件添加filter</h2><p>业务实现类添加filter：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">package com.youxia.userinfo.service.impl;</span><br><span class="line"></span><br><span class="line">import com.alibaba.dubbo.config.annotation.Service;</span><br><span class="line">import com.youxia.userinfo.domain.User;</span><br><span class="line">import com.youxia.userinfo.service.UserService;</span><br><span class="line"></span><br><span class="line">@Service(filter &#x3D; &#123;&quot;tracing&quot;&#125;)</span><br><span class="line">public class UserServiceImpl implements UserService &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public User saveUser(User user) &#123;</span><br><span class="line">        user.setUserId(1);</span><br><span class="line">        user.setUserName(user.getUserName());</span><br><span class="line">        System.out.println(user.toString());</span><br><span class="line">        return  user;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="provider配置文件"><a href="#provider配置文件" class="headerlink" title="provider配置文件"></a>provider配置文件</h2><p>完整的application.properties:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">spring.application.name&#x3D;UserInfoService</span><br><span class="line">server.address&#x3D;10.3.20.57</span><br><span class="line">server.port&#x3D;28081</span><br><span class="line"></span><br><span class="line">dubbo.registry.address&#x3D;redis:&#x2F;&#x2F;192.168.172.4:6380</span><br><span class="line">dubbo.protocol.name&#x3D;dubbo</span><br><span class="line">dubbo.protocol.port&#x3D;28080</span><br><span class="line">dubbo.scan.base-packages&#x3D;com.youxia.userinfo.service</span><br><span class="line">dubbo.application.qos.enable&#x3D;true</span><br><span class="line"></span><br><span class="line">zipkin.server.url&#x3D;http:&#x2F;&#x2F;192.168.172.6:9411&#x2F;api&#x2F;v2&#x2F;spans</span><br></pre></td></tr></table></figure>
+
+<h1 id="consumer工程代码"><a href="#consumer工程代码" class="headerlink" title="consumer工程代码"></a>consumer工程代码</h1><h2 id="业务逻辑处理类代码"><a href="#业务逻辑处理类代码" class="headerlink" title="业务逻辑处理类代码"></a>业务逻辑处理类代码</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">package com.youxia.service.user;</span><br><span class="line"></span><br><span class="line">import com.youxia.userinfo.domain.User;</span><br><span class="line">import com.youxia.userinfo.service.UserService;</span><br><span class="line">import org.apache.dubbo.config.annotation.Reference;</span><br><span class="line">import org.slf4j.Logger;</span><br><span class="line">import org.slf4j.LoggerFactory;</span><br><span class="line">import org.springframework.stereotype.Service;</span><br><span class="line"></span><br><span class="line">@Service</span><br><span class="line">public class UserServiceImpl &#123;</span><br><span class="line">    private static final Logger LOGGER &#x3D; LoggerFactory.getLogger(UserServiceImpl.class);</span><br><span class="line"></span><br><span class="line">    @Reference</span><br><span class="line">    private UserService userService;</span><br><span class="line"></span><br><span class="line">    public User sayHello(User user) &#123;</span><br><span class="line">        return userService.saveUser(user);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="application-properties文件内容"><a href="#application-properties文件内容" class="headerlink" title="application.properties文件内容"></a>application.properties文件内容</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">server.port&#x3D;28082</span><br><span class="line">server.address&#x3D;10.3.20.57</span><br><span class="line">dubbo.registry.protocol&#x3D;redis</span><br><span class="line">dubbo.registry.address&#x3D;redis:&#x2F;&#x2F;192.168.172.4:6380</span><br><span class="line">dubbo.application.name&#x3D;dubbo-demo-service</span><br><span class="line">dubbo.scan.base-packages&#x3D;com.youxia.service.user</span><br></pre></td></tr></table></figure>
+
+<h1 id="最终效果"><a href="#最终效果" class="headerlink" title="最终效果"></a>最终效果</h1><p><img src="https://jxdw.github.io/img/cloudnative/devops/dubbo_user_info_zipkin.png"></p>
+<h1 id="完整代码地址"><a href="#完整代码地址" class="headerlink" title="完整代码地址"></a>完整代码地址</h1><p><a target="_blank" rel="noopener" href="https://github.com/youxia999/spring_boot_service/apache_dubbo_zipkin_project.git">https://github.com/youxia999/spring_boot_service/apache_dubbo_zipkin_project.git</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/zipkin-jaeger%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" rel="tag"># zipkin/jaeger知识体系</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/07/02/golang_viper_config_use/" rel="prev" title="【go框架系列】viper框架的使用">
+                  <i class="fa fa-chevron-left"></i> 【go框架系列】viper框架的使用
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/08/21/redis_golang_client_insert_billion_data/" rel="next" title="【redis使用系列】redis的go client写入百万个测试数据">
+                  【redis使用系列】redis的go client写入百万个测试数据 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+      
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      
+
+      
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">渐学顿悟</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.0/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+NexT.utils.loadComments('#valine-comments', () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', () => {
+    new Valine(Object.assign({"enable":true,"appId":"wrre3Nrx21CqKiChLnKn034M-gzGzoHsz","appKey":"rkWWNONo7LAJhlS936vnywQ9","serverURLs":null,"placeholder":"请输入您的评论","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"lang":null,"visitor":false,"comment_count":true,"recordIP":false,"enableQQ":false,"requiredFields":["nick","mail"]}, {
+      el: '#valine-comments',
+      path: "/2019/08/11/apache_dubbo_zipkin_merge/",
+      serverURLs: "https://wrre3nrx.api.lncld.net"
+    }));
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

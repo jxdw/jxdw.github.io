@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.0/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"jxdw.github.io","root":"/","scheme":"Pisces","version":"8.0.1","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"width":240},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
+  </script>
+
+  <meta name="description" content="本文参考资料https:&#x2F;&#x2F;blog.csdn.net&#x2F;vkingnew&#x2F;article&#x2F;details&#x2F;85220187https:&#x2F;&#x2F;www.mayi888.com&#x2F;archives&#x2F;59253https:&#x2F;&#x2F;www.percona.com&#x2F;doc&#x2F;per">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【mysql知识体系】Percona Server8.0安装和初步使用">
+<meta property="og:url" content="https://jxdw.github.io/2019/03/04/percona-server-for-mysql-8-0-install/index.html">
+<meta property="og:site_name" content="渐学顿悟">
+<meta property="og:description" content="本文参考资料https:&#x2F;&#x2F;blog.csdn.net&#x2F;vkingnew&#x2F;article&#x2F;details&#x2F;85220187https:&#x2F;&#x2F;www.mayi888.com&#x2F;archives&#x2F;59253https:&#x2F;&#x2F;www.percona.com&#x2F;doc&#x2F;per">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jxdw.github.io/img/business/mysql/percona.png">
+<meta property="article:published_time" content="2019-03-04T02:43:32.000Z">
+<meta property="article:modified_time" content="2020-10-22T12:34:39.848Z">
+<meta property="article:author" content="渐学顿悟">
+<meta property="article:tag" content="mysql知识体系">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jxdw.github.io/img/business/mysql/percona.png">
+
+
+<link rel="canonical" href="https://jxdw.github.io/2019/03/04/percona-server-for-mysql-8-0-install/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【mysql知识体系】Percona Server8.0安装和初步使用 | 渐学顿悟</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="渐学顿悟" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">渐学顿悟</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">记录编程语言与中间件的学习过程</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="渐学顿悟"
+      src="/favicon.png">
+  <p class="site-author-name" itemprop="name">渐学顿悟</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">122</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+      
+
+      
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jxdw.github.io/2019/03/04/percona-server-for-mysql-8-0-install/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/favicon.png">
+      <meta itemprop="name" content="渐学顿悟">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="渐学顿悟">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【mysql知识体系】Percona Server8.0安装和初步使用
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-03-04 10:43:32 10:43:32" itemprop="dateCreated datePublished" datetime="2019-03-04T10:43:32+08:00">2019-03-04 10:43:32</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-10-22 20:34:39 20:34:39" itemprop="dateModified" datetime="2020-10-22T20:34:39+08:00">2020-10-22 20:34:39</time>
+      </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2019/03/04/percona-server-for-mysql-8-0-install/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/03/04/percona-server-for-mysql-8-0-install/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="本文参考资料"><a href="#本文参考资料" class="headerlink" title="本文参考资料"></a>本文参考资料</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">https:&#x2F;&#x2F;blog.csdn.net&#x2F;vkingnew&#x2F;article&#x2F;details&#x2F;85220187</span><br><span class="line">https:&#x2F;&#x2F;www.mayi888.com&#x2F;archives&#x2F;59253</span><br><span class="line">https:&#x2F;&#x2F;www.percona.com&#x2F;doc&#x2F;percona-server&#x2F;LATEST&#x2F;installation&#x2F;yum_repo.html</span><br><span class="line">https:&#x2F;&#x2F;blog.csdn.net&#x2F;myNameIssls&#x2F;article&#x2F;details&#x2F;84031426</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<h1 id="安装过程"><a href="#安装过程" class="headerlink" title="安装过程"></a>安装过程</h1><p>参考 <a href="https://jxdw.github.io/2017/06/21/mysql5-7-install/">https://jxdw.github.io/2017/06/21/mysql5-7-install/</a> ，安装软件。</p>
+<h2 id="安装需要的软件"><a href="#安装需要的软件" class="headerlink" title="安装需要的软件"></a>安装需要的软件</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget https:&#x2F;&#x2F;repo.percona.com&#x2F;release&#x2F;7Server&#x2F;RPMS&#x2F;x86_64&#x2F;jemalloc-3.6.0-1.el7.x86_64.rpm</span><br><span class="line">rpm -ivh jemalloc-3.6.0-1.el7.x86_64.rpm</span><br></pre></td></tr></table></figure>
+
+<h2 id="删除废弃的软件包"><a href="#删除废弃的软件包" class="headerlink" title="删除废弃的软件包"></a>删除废弃的软件包</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">rpm -e --nodeps  mariadb-libs</span><br></pre></td></tr></table></figure>
+
+<h2 id="按照需要的软件："><a href="#按照需要的软件：" class="headerlink" title="按照需要的软件："></a>按照需要的软件：</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">yum -y install net-tools libaio perl openssl openssl-devel perl-Data-Dumper  perl-JSON</span><br><span class="line">wget https:&#x2F;&#x2F;www.percona.com&#x2F;downloads&#x2F;Percona-Server-8.0&#x2F;Percona-Server-8.0.13-3&#x2F;binary&#x2F;redhat&#x2F;7&#x2F;x86_64&#x2F;Percona-Server-8.0.13-3-ra920dd6-el7-x86_64-bundle.tar</span><br></pre></td></tr></table></figure>
+
+<h2 id="解压，查看软件包列表："><a href="#解压，查看软件包列表：" class="headerlink" title="解压，查看软件包列表："></a>解压，查看软件包列表：</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ll percona*.rpm</span><br></pre></td></tr></table></figure>
+<h2 id="安装过程："><a href="#安装过程：" class="headerlink" title="安装过程："></a>安装过程：</h2><p>rpm -ivh percona-*.rpm</p>
+<h2 id="创建目录"><a href="#创建目录" class="headerlink" title="创建目录"></a>创建目录</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mkdir -p &#x2F;data&#x2F;mysql&#x2F;&#123;log,binlogs,run,data&#125;</span><br><span class="line">touch &#x2F;data&#x2F;mysql&#x2F;run&#x2F;mysqld.pid</span><br><span class="line">chown -R mysql:mysql &#x2F;data&#x2F;mysql</span><br></pre></td></tr></table></figure>
+<h2 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mysqld --initialize-insecure --user&#x3D;mysql --basedir&#x3D;&#x2F;data&#x2F;mysql --datadir&#x3D;&#x2F;data&#x2F;mysql&#x2F;data</span><br></pre></td></tr></table></figure>
+
+<h2 id="配置文件-etc-my-cnf"><a href="#配置文件-etc-my-cnf" class="headerlink" title="配置文件/etc/my.cnf"></a>配置文件/etc/my.cnf</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># Percona Server template configuration</span><br><span class="line">#</span><br><span class="line"># For advice on how to change settings please see</span><br><span class="line"># http:&#x2F;&#x2F;dev.mysql.com&#x2F;doc&#x2F;refman&#x2F;8.0&#x2F;en&#x2F;server-configuration-defaults.html</span><br><span class="line"></span><br><span class="line">[mysqld]</span><br><span class="line">#</span><br><span class="line"># Remove leading # and set to the amount of RAM for the most important data</span><br><span class="line"># cache in MySQL. Start at 70% of total RAM for dedicated server, else 10%.</span><br><span class="line"># innodb_buffer_pool_size &#x3D; 128M</span><br><span class="line">#</span><br><span class="line"># Remove the leading &quot;# &quot; to disable binary logging</span><br><span class="line"># Binary logging captures changes between backups and is enabled by</span><br><span class="line"># default. It&#39;s default setting is log_bin&#x3D;binlog</span><br><span class="line"># disable_log_bin</span><br><span class="line">#</span><br><span class="line"># Remove leading # to set options mainly useful for reporting servers.</span><br><span class="line"># The server defaults are faster for transactions and fast SELECTs.</span><br><span class="line"># Adjust sizes as needed, experiment to find the optimal values.</span><br><span class="line"># join_buffer_size &#x3D; 128M</span><br><span class="line"># sort_buffer_size &#x3D; 2M</span><br><span class="line"># read_rnd_buffer_size &#x3D; 2M</span><br><span class="line">#</span><br><span class="line"># Remove leading # to revert to previous value for default_authentication_plugin,</span><br><span class="line"># this will increase compatibility with older clients. For background, see:</span><br><span class="line"># https:&#x2F;&#x2F;dev.mysql.com&#x2F;doc&#x2F;refman&#x2F;8.0&#x2F;en&#x2F;server-system-variables.html#sysvar_default_authentication_plugin</span><br><span class="line"># default-authentication-plugin&#x3D;mysql_native_password</span><br><span class="line">port &#x3D; 3306</span><br><span class="line">#basedir &#x3D; &#x2F;data&#x2F;mysql这里注释掉，如果不注释掉，percona会报错：</span><br><span class="line">datadir &#x3D; &#x2F;data&#x2F;mysql&#x2F;data</span><br><span class="line">socket &#x3D; &#x2F;data&#x2F;mysql&#x2F;mysql.sock</span><br><span class="line">log-error &#x3D; &#x2F;data&#x2F;mysql&#x2F;log&#x2F;mysqld.log</span><br><span class="line">pid-file &#x3D; &#x2F;data&#x2F;mysql&#x2F;run&#x2F;mysqld.pid</span><br><span class="line">log-bin &#x3D; &#x2F;data&#x2F;mysql&#x2F;binlogs&#x2F;mysql-bin</span><br><span class="line">slow_query_log &#x3D; 1</span><br><span class="line">slow_query_log_file &#x3D; &#x2F;data&#x2F;mysql&#x2F;log&#x2F;mysql_slow_query.log</span><br><span class="line">long_query_time &#x3D; 5</span><br><span class="line">symbolic-links&#x3D;0</span><br><span class="line">character_set_server&#x3D;utf8mb4</span><br><span class="line">collation_server&#x3D;utf8mb4_unicode_ci</span><br><span class="line">skip-character-set-client-handshake</span><br><span class="line">innodb_undo_log_truncate&#x3D;off</span><br><span class="line">#允许时间字段为&quot;0000-00-00 00:00:00&quot;</span><br><span class="line">sql_mode&#x3D;&#39;STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION&#39;</span><br><span class="line">#打开函数功能</span><br><span class="line">log_bin_trust_function_creators&#x3D;1</span><br><span class="line"># general</span><br><span class="line">table_open_cache &#x3D; 200000</span><br><span class="line">table_open_cache_instances&#x3D;64</span><br><span class="line">back_log&#x3D;3500</span><br><span class="line">max_connections&#x3D;110000</span><br><span class="line"># files</span><br><span class="line">innodb_file_per_table</span><br><span class="line">innodb_log_file_size&#x3D;1G</span><br><span class="line">innodb_log_files_in_group&#x3D;2</span><br><span class="line">innodb_open_files&#x3D;4000</span><br><span class="line"># buffers</span><br><span class="line">innodb_buffer_pool_size&#x3D; 2G</span><br><span class="line">innodb_buffer_pool_instances&#x3D;8</span><br><span class="line">innodb_log_buffer_size&#x3D;256M</span><br><span class="line"># tune</span><br><span class="line">innodb_doublewrite&#x3D; 1</span><br><span class="line">innodb_thread_concurrency&#x3D;0</span><br><span class="line">innodb_flush_log_at_trx_commit&#x3D; 0</span><br><span class="line">innodb_flush_method&#x3D;O_DIRECT_NO_FSYNC</span><br><span class="line">innodb_max_dirty_pages_pct&#x3D;90</span><br><span class="line">innodb_max_dirty_pages_pct_lwm&#x3D;10</span><br><span class="line">innodb_lru_scan_depth&#x3D;2048</span><br><span class="line">innodb_page_cleaners&#x3D;4</span><br><span class="line">join_buffer_size&#x3D;256K</span><br><span class="line">sort_buffer_size&#x3D;256K</span><br><span class="line">innodb_use_native_aio&#x3D;1</span><br><span class="line">innodb_stats_persistent &#x3D; 1</span><br><span class="line">innodb_spin_wait_delay&#x3D;96</span><br><span class="line">innodb_adaptive_flushing &#x3D; 1</span><br><span class="line">innodb_flush_neighbors &#x3D; 0</span><br><span class="line">innodb_read_io_threads &#x3D; 16</span><br><span class="line">innodb_write_io_threads &#x3D; 16</span><br><span class="line">innodb_io_capacity&#x3D;1500</span><br><span class="line">innodb_io_capacity_max&#x3D;2500</span><br><span class="line">innodb_purge_threads&#x3D;4</span><br><span class="line">innodb_adaptive_hash_index&#x3D;0</span><br><span class="line">max_prepared_stmt_count&#x3D;1000000</span><br><span class="line">innodb_monitor_enable &#x3D; ‘%’</span><br><span class="line">performance_schema &#x3D; ON</span><br></pre></td></tr></table></figure>
+
+<h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><p>systemctl start mysqld.service<br>systemctl status mysqld.service</p>
+<h2 id="初始化密码和权限"><a href="#初始化密码和权限" class="headerlink" title="初始化密码和权限"></a>初始化密码和权限</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mysql -h 127.0.0.1 -u root</span><br><span class="line">alter user &#39;root&#39;@&#39;localhost&#39; identified with mysql_native_password by &#39;123456&#39;; --查询了资料，percona 8.0的密码插件已变成caching_sha2_password</span><br><span class="line">UPDATE user SET Host &#x3D; &#39;%&#39; WHERE User &#x3D; &#39;root&#39;;</span><br><span class="line">flush privileges;</span><br></pre></td></tr></table></figure>
+
+<h1 id="体验"><a href="#体验" class="headerlink" title="体验"></a>体验</h1><p><img src="https://jxdw.github.io/img/business/mysql/percona.png"></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/mysql%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" rel="tag"># mysql知识体系</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/02/28/golang-1-12-experience/" rel="prev" title="【go标准库系列】go 1.12初步体验">
+                  <i class="fa fa-chevron-left"></i> 【go标准库系列】go 1.12初步体验
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/03/24/golang-gin-source-code-v1/" rel="next" title="【Go框架系列】gin源码分析第一版">
+                  【Go框架系列】gin源码分析第一版 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+      
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      
+
+      
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">渐学顿悟</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.0/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+NexT.utils.loadComments('#valine-comments', () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', () => {
+    new Valine(Object.assign({"enable":true,"appId":"wrre3Nrx21CqKiChLnKn034M-gzGzoHsz","appKey":"rkWWNONo7LAJhlS936vnywQ9","serverURLs":null,"placeholder":"请输入您的评论","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"lang":null,"visitor":false,"comment_count":true,"recordIP":false,"enableQQ":false,"requiredFields":["nick","mail"]}, {
+      el: '#valine-comments',
+      path: "/2019/03/04/percona-server-for-mysql-8-0-install/",
+      serverURLs: "https://wrre3nrx.api.lncld.net"
+    }));
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

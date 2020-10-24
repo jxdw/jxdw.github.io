@@ -6,7 +6,7 @@
   <link href="https://jxdw.github.io/atom.xml" rel="self"/>
   
   <link href="https://jxdw.github.io/"/>
-  <updated>2020-10-24T09:59:53.283Z</updated>
+  <updated>2020-10-22T14:29:22.400Z</updated>
   <id>https://jxdw.github.io/</id>
   
   <author>
@@ -15,19 +15,6 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title></title>
-    <link href="https://jxdw.github.io/2020/10/24/centos7_learn_resource/"/>
-    <id>https://jxdw.github.io/2020/10/24/centos7_learn_resource/</id>
-    <published>2020-10-24T09:59:53.283Z</published>
-    <updated>2020-10-24T09:59:53.283Z</updated>
-    
-    
-    
-    
-    
-  </entry>
   
   <entry>
     <title>【中间件client系列】go语言服务使用nacos server作为配置中心</title>
@@ -360,6 +347,30 @@
     
     
     <category term="编程语言" scheme="https://jxdw.github.io/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【不定期更新】centos学习资源汇总</title>
+    <link href="https://jxdw.github.io/2019/12/06/centos7_learn_resource/"/>
+    <id>https://jxdw.github.io/2019/12/06/centos7_learn_resource/</id>
+    <published>2019-12-06T02:35:47.000Z</published>
+    <updated>2020-10-24T13:44:36.278Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="官方站点"><a href="#官方站点" class="headerlink" title="官方站点"></a>官方站点</h1><p>官方站点<a href="http://www.centos.org肯定是要知道的,所有第一手的release/">www.centos.org肯定是要知道的，所有第一手的release</a> notes都是在这个网站的。</p><h1 id="开源中国"><a href="#开源中国" class="headerlink" title="开源中国"></a>开源中国</h1><p>很多时候，没有那么多精力关注官方站点，开源中国oschina.net是不二之选。他们的编辑（或者爬虫），会去各个技术网站拉取信息。</p><h1 id="菜鸟入门必选runoob"><a href="#菜鸟入门必选runoob" class="headerlink" title="菜鸟入门必选runoob"></a>菜鸟入门必选runoob</h1><p>很多国内的程序员在学习某们技术的时候，可能最先被引导去<a href="https://www.runoob.com/%E3%80%82">https://www.runoob.com/。</a><br>其实，入门之后，就是需要搭梯子，去看看英文站点了。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;官方站点&quot;&gt;&lt;a href=&quot;#官方站点&quot; class=&quot;headerlink&quot; title=&quot;官方站点&quot;&gt;&lt;/a&gt;官方站点&lt;/h1&gt;&lt;p&gt;官方站点&lt;a href=&quot;http://www.centos.org肯定是要知道的,所有第一手的release/&quot;&gt;www.</summary>
+      
+    
+    
+    
+    <category term="centos知识体系" scheme="https://jxdw.github.io/categories/centos%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/"/>
+    
+    
+    <category term="工具软件集合" scheme="https://jxdw.github.io/tags/%E5%B7%A5%E5%85%B7%E8%BD%AF%E4%BB%B6%E9%9B%86%E5%90%88/"/>
     
   </entry>
   

@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
 <meta name="generator" content="Hexo 5.2.0">
+
+
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon.png">
@@ -14,12 +16,12 @@
 
 
 
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.0/css/all.min.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
 
 <script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"jxdw.github.io","root":"/","scheme":"Pisces","version":"8.0.1","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"width":240},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
+    var CONFIG = {"hostname":"jxdw.github.io","root":"/","scheme":"Pisces","version":"8.0.2","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"width":240},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
   </script>
 
   <meta name="description" content="vue.js介绍前端工程师的主要工作Node（后端）中的 MVC 与 前端中的 MVVM 之间的区别 MVC 是后端的分层开发概念； 为什么有了MVC还要有MVVM MVC主要是后端工程师关注。   MVVM是前端视图层的概念，主要关注于 视图层分离，也就是说：MVVM把前端的视图层，分为了 三部分 Model, View , VM ViewModel  前端的主要工作主要负责MVVM中的V、VM">
@@ -30,7 +32,7 @@
 <meta property="og:description" content="vue.js介绍前端工程师的主要工作Node（后端）中的 MVC 与 前端中的 MVVM 之间的区别 MVC 是后端的分层开发概念； 为什么有了MVC还要有MVVM MVC主要是后端工程师关注。   MVVM是前端视图层的概念，主要关注于 视图层分离，也就是说：MVVM把前端的视图层，分为了 三部分 Model, View , VM ViewModel  前端的主要工作主要负责MVVM中的V、VM">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-07-07T13:11:16.000Z">
-<meta property="article:modified_time" content="2020-10-22T14:30:41.169Z">
+<meta property="article:modified_time" content="2020-11-13T14:29:54.983Z">
 <meta property="article:author" content="渐学顿悟">
 <meta property="article:tag" content="编程语言">
 <meta name="twitter:card" content="summary">
@@ -92,7 +94,6 @@
   </style>
 </noscript>
 
-<link rel="alternate" href="/atom.xml" title="渐学顿悟" type="application/atom+xml">
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
@@ -138,19 +139,94 @@
     <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
 
   </li>
-        <li class="menu-item menu-item-tags">
+        <li class="menu-item menu-item-go">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+    <a href="/categories/go%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" rel="section"><i class="fab fa-goodreads-g fa-fw"></i>go语言</a>
 
   </li>
-        <li class="menu-item menu-item-archives">
+        <li class="menu-item menu-item-java">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+    <a href="/categories/java%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" rel="section"><i class="fab fa-java fa-fw"></i>java语言</a>
+
+  </li>
+        <li class="menu-item menu-item-es6">
+
+    <a href="/categories/es6%E8%AF%AD%E8%A8%80/" rel="section"><i class="fab fa-js fa-fw"></i>js语言</a>
+
+  </li>
+        <li class="menu-item menu-item-centos">
+
+    <a href="/categories/centos%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" rel="section"><i class="fab fa-centos fa-fw"></i>centos技术</a>
+
+  </li>
+        <li class="menu-item menu-item-jenkins">
+
+    <a href="/categories/jenkins%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" rel="section"><i class="fab fa-jenkins fa-fw"></i>jenkins技术</a>
+
+  </li>
+        <li class="menu-item menu-item-mysql">
+
+    <a href="/categories/mysql%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" rel="section"><i class="fas fa-database fa-fw"></i>mysql技术</a>
+
+  </li>
+        <li class="menu-item menu-item-redis">
+
+    <a href="/categories/redis%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" rel="section"><i class="fas fa-coins fa-fw"></i>redis技术</a>
+
+  </li>
+        <li class="menu-item menu-item-network">
+
+    <a href="/categories/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" rel="section"><i class="fas fa-network-wired fa-fw"></i>网络协议知识</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/categories/%E5%B7%A5%E5%85%B7%E8%BD%AF%E4%BB%B6/" rel="section"><i class="fas fa-tools fa-fw"></i>工具软件</a>
+
+  </li>
+        <li class="menu-item menu-item-rabbitmq">
+
+    <a href="/categories/rabbitmq-kafka%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" rel="section"><i class="fas fa-envelope fa-fw"></i>rabbitmq-kafka技术</a>
+
+  </li>
+        <li class="menu-item menu-item-docker">
+
+    <a href="/categories/docker-k8s%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" rel="section"><i class="fab fa-docker fa-fw"></i>docker-k8s技术</a>
+
+  </li>
+        <li class="menu-item menu-item-webserver">
+
+    <a href="/categories/nginx-haproxy%E7%9F%A5%E8%AF%86%E7%B3%BB%E5%88%97/" rel="section"><i class="fas fa-server fa-fw"></i>nginx-haproxy技术</a>
+
+  </li>
+        <li class="menu-item menu-item-harbor">
+
+    <a href="/categories/harbor%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" rel="section"><i class="fab fa-watchman-monitoring fa-fw"></i>harbor技术</a>
+
+  </li>
+        <li class="menu-item menu-item-job">
+
+    <a href="/categories/job%E8%B0%83%E5%BA%A6%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" rel="section"><i class="fas fa-clipboard-check fa-fw"></i>job调度技术</a>
+
+  </li>
+        <li class="menu-item menu-item-tracer">
+
+    <a href="/categories/zipkin-jaeger%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB" rel="section"><i class="fab fa-diaspora fa-fw"></i>zipkin-jaeger技术</a>
+
+  </li>
+        <li class="menu-item menu-item-prometheus">
+
+    <a href="/categories/prometheus%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" rel="section"><i class="fab fa-product-hunt fa-fw"></i>prometheus技术</a>
+
+  </li>
+        <li class="menu-item menu-item-config">
+
+    <a href="/categories/nacos-apollo%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB" rel="section"><i class="fab fa-dev fa-fw"></i>apollo配置技术</a>
+
+  </li>
+        <li class="menu-item menu-item-comprehension">
+
+    <a href="/categories/%E6%84%9F%E6%82%9F/" rel="section"><i class="fab fa-weebly fa-fw"></i>感悟</a>
 
   </li>
   </ul>
@@ -180,13 +256,14 @@
         </li>
       </ul>
 
-      <!--noindex-->
-      <section class="post-toc-wrap sidebar-panel">
-      </section>
-      <!--/noindex-->
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <section class="post-toc-wrap sidebar-panel">
+        </section>
+        <!--/noindex-->
 
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <section class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <img class="site-author-image" itemprop="image" alt="渐学顿悟"
       src="/favicon.png">
   <p class="site-author-name" itemprop="name">渐学顿悟</p>
@@ -195,21 +272,18 @@
 <div class="site-state-wrap site-overview-item animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
+          <a href="/archives">
           <span class="site-state-item-count">127</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-          
         <span class="site-state-item-count">18</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-          
         <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
@@ -221,7 +295,8 @@
 
 
 
-      </section>
+        </section>
+      </div>
     </div>
   </aside>
   <div class="sidebar-dimmer"></div>
@@ -285,7 +360,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2020-10-22 22:30:41 22:30:41" itemprop="dateModified" datetime="2020-10-22T22:30:41+08:00">2020-10-22 22:30:41</time>
+        <time title="修改时间：2020-11-13 22:29:54 22:29:54" itemprop="dateModified" datetime="2020-11-13T22:29:54+08:00">2020-11-13 22:29:54</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -331,12 +406,14 @@
 </ul>
 <h3 id="前端的主要工作"><a href="#前端的主要工作" class="headerlink" title="前端的主要工作"></a>前端的主要工作</h3><p>主要负责MVVM中的V、VM这一层；主要工作就是和界面打交道，来制作前端页面效果；</p>
 <h2 id="框架与Vue-js"><a href="#框架与Vue-js" class="headerlink" title="框架与Vue.js"></a>框架与Vue.js</h2><h3 id="框架和库的区别"><a href="#框架和库的区别" class="headerlink" title="框架和库的区别"></a>框架和库的区别</h3><ul>
-<li><p>框架：是一套完整的解决方案；对项目的侵入性较大，项目如果需要更换框架，则需要重新架构整个项目。</p>
+<li>框架：是一套完整的解决方案；对项目的侵入性较大，项目如果需要更换框架，则需要重新架构整个项目。</li>
+</ul>
 <ul>
 <li>node 中的 express；</li>
 </ul>
-</li>
-<li><p>库（插件）：提供某一个小功能，对项目的侵入性较小，如果某个库无法完成某些需求，可以很容易切换到其它库实现需求。</p>
+<ul>
+<li>库（插件）：提供某一个小功能，对项目的侵入性较小，如果某个库无法完成某些需求，可以很容易切换到其它库实现需求。</li>
+</ul>
 <ul>
 <li><ol>
 <li>从Jquery 切换到 Zepto</li>
@@ -347,10 +424,10 @@
 </ol>
 </li>
 </ul>
-</li>
-</ul>
 <h3 id="为什么要学习流行框架"><a href="#为什么要学习流行框架" class="headerlink" title="为什么要学习流行框架"></a>为什么要学习流行框架</h3><ul>
-<li>企业为了提高开发效率：在企业中，时间就是效率，效率就是金钱；<ul>
+<li>企业为了提高开发效率：在企业中，时间就是效率，效率就是金钱；</li>
+</ul>
+<ul>
 <li>企业中，使用框架，能够提高开发的效率；</li>
 <li>提高开发效率的发展历程：<ul>
 <li>原生JS </li>
@@ -360,8 +437,10 @@
 </ul>
 </li>
 </ul>
-</li>
-<li>增强自己就业时候的竞争力<ul>
+<ul>
+<li>增强自己就业时候的竞争力</li>
+</ul>
+<ul>
 <li>人无我有，人有我优</li>
 <li>你平时不忙的时候，都在干嘛？<a id="more"></a>  
 <h3 id="什么是Vue-js"><a href="#什么是Vue-js" class="headerlink" title="什么是Vue.js"></a>什么是Vue.js</h3></li>
@@ -372,8 +451,6 @@
 <li>Vue.js 是一套构建用户界面的框架，<strong>只关注视图层</strong>，它不仅易于上手，还便于与第三方库或既有项目整合。（Vue有配套的第三方类库，可以整合起来做大型项目的开发）</li>
 <li>在Vue中，一个核心的概念，就是让用户不再操作DOM元素，解放了用户的双手，让程序员可以更多的时间去关注业务逻辑；</li>
 <li>能够帮助我们减少不必要的DOM操作；提高渲染效率；双向数据绑定的概念【通过框架提供的指令，我们前端程序员只需要关心数据的业务逻辑，不再关心DOM是如何渲染的了】</li>
-</ul>
-</li>
 </ul>
 <h2 id="Vue调试工具"><a href="#Vue调试工具" class="headerlink" title="Vue调试工具"></a>Vue调试工具</h2><h2 id="vue-devtools的安装步骤和使用"><a href="#vue-devtools的安装步骤和使用" class="headerlink" title="vue-devtools的安装步骤和使用"></a>vue-devtools的安装步骤和使用</h2><p><a target="_blank" rel="noopener" href="https://chrome.google.com/webstore/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd?hl=zh-CN">Vue.js devtools - 翻墙安装方式 - 推荐</a></p>
 <h1 id="Vue基础语法"><a href="#Vue基础语法" class="headerlink" title="Vue基础语法"></a>Vue基础语法</h1><h2 id="基本的代码结构和插值表达式"><a href="#基本的代码结构和插值表达式" class="headerlink" title="基本的代码结构和插值表达式"></a>基本的代码结构和插值表达式</h2><h2 id="v-cloak"><a href="#v-cloak" class="headerlink" title="v-cloak"></a>v-cloak</h2><h2 id="Vue语法之v-text"><a href="#Vue语法之v-text" class="headerlink" title="Vue语法之v-text"></a>Vue语法之<code>v-text</code></h2><h2 id="v-html"><a href="#v-html" class="headerlink" title="v-html"></a>v-html</h2><h2 id="Vue指令之v-bind的三种用法"><a href="#Vue指令之v-bind的三种用法" class="headerlink" title="Vue指令之v-bind的三种用法"></a>Vue指令之<code>v-bind</code>的三种用法</h2><ol>
@@ -437,6 +514,8 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;h1 :style&#x3D;&quot;&#123;color: &#39;red&#39;, &#39;font-size&#39;: &#39;40px&#39;&#125;&quot;&gt;这是一个善良的H1&lt;&#x2F;h1&gt;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>将样式对象，定义到 <code>data</code> 中，并直接引用到 <code>:style</code> 中</p>
+</li>
+</ol>
 <ul>
 <li><p>在data上定义样式：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">data: &#123;</span><br><span class="line">        h1StyleObj: &#123; color: &#39;red&#39;, &#39;font-size&#39;: &#39;40px&#39;, &#39;font-weight&#39;: &#39;200&#39; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -445,16 +524,15 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;h1 :style&#x3D;&quot;h1StyleObj&quot;&gt;这是一个善良的H1&lt;&#x2F;h1&gt;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-</li>
-<li><p>在 <code>:style</code> 中通过数组，引用多个 <code>data</code> 上的样式对象</p>
+<ol start="3">
+<li>在 <code>:style</code> 中通过数组，引用多个 <code>data</code> 上的样式对象</li>
+</ol>
 <ul>
 <li>在data上定义样式：<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">data: &#123;</span><br><span class="line">        h1StyleObj: &#123; color: &#39;red&#39;, &#39;font-size&#39;: &#39;40px&#39;, &#39;font-weight&#39;: &#39;200&#39; &#125;,</span><br><span class="line">        h1StyleObj2: &#123; fontStyle: &#39;italic&#39; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 <li>在元素中，通过属性绑定的形式，将样式对象应用到元素中：<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;h1 :style&#x3D;&quot;[h1StyleObj, h1StyleObj2]&quot;&gt;这是一个善良的H1&lt;&#x2F;h1&gt;</span><br></pre></td></tr></table></figure>
 
 </li>
 </ul>
-</li>
-</ol>
 <h2 id="过滤器"><a href="#过滤器" class="headerlink" title="过滤器"></a>过滤器</h2><p>概念：Vue.js 允许你自定义过滤器，<strong>可被用作一些常见的文本格式化</strong>。过滤器可以用在两个地方：<strong>mustache 插值和 v-bind 表达式</strong>。过滤器应该被添加在 JavaScript 表达式的尾部，由“管道”符指示；</p>
 <h3 id="私有过滤器"><a href="#私有过滤器" class="headerlink" title="私有过滤器"></a>私有过滤器</h3><ol>
 <li><p>HTML元素：</p>
@@ -629,7 +707,7 @@
   </footer>
 
   
-  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.0/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
 <script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
 
   
@@ -670,7 +748,7 @@ NexT.utils.loadComments('#valine-comments', () => {
     new Valine(Object.assign({"enable":true,"appId":"wrre3Nrx21CqKiChLnKn034M-gzGzoHsz","appKey":"rkWWNONo7LAJhlS936vnywQ9","serverURLs":null,"placeholder":"请输入您的评论","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"lang":null,"visitor":false,"comment_count":true,"recordIP":false,"enableQQ":false,"requiredFields":["nick","mail"]}, {
       el: '#valine-comments',
       path: "/2020/07/07/es6_vue_study_day1/",
-      serverURLs: "https://wrre3nrx.api.lncld.net"
+      serverURLs: "https://wrre3nrx.api.lncldglobal.com"
     }));
   }, window.Valine);
 });

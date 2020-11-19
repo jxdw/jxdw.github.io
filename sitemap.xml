@@ -2,6 +2,76 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://jxdw.github.io/2018/07/21/redis_interview_knowledge/</loc>
+    
+    <lastmod>2020-11-19</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jxdw.github.io/2019/05/19/redis-sentinel-install/</loc>
+    
+    <lastmod>2020-11-19</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jxdw.github.io/2017/07/21/redis3-2-1-install/</loc>
+    
+    <lastmod>2020-11-19</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jxdw.github.io/2019/08/21/redis_golang_client_insert_billion_data/</loc>
+    
+    <lastmod>2020-11-19</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jxdw.github.io/2017/07/21/redis-protocol/</loc>
+    
+    <lastmod>2020-11-19</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jxdw.github.io/2017/07/21/centos-install-redis3-2-1/</loc>
+    
+    <lastmod>2020-11-19</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jxdw.github.io/2018/08/25/redis-cluster-install/</loc>
+    
+    <lastmod>2020-11-19</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jxdw.github.io/2017/07/21/redis-config-introduce/</loc>
+    
+    <lastmod>2020-11-19</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jxdw.github.io/2019/04/19/redis-5-0-install/</loc>
+    
+    <lastmod>2020-11-19</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jxdw.github.io/2017/03/13/redis-docker-master-slave/</loc>
+    
+    <lastmod>2020-11-19</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://jxdw.github.io/2017/06/21/mysql-conf-introduce/</loc>
     
     <lastmod>2020-11-19</lastmod>
@@ -555,14 +625,14 @@
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/about/index.html</loc>
+    <loc>https://jxdw.github.io/categories/index.html</loc>
     
     <lastmod>2020-11-13</lastmod>
     
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/categories/index.html</loc>
+    <loc>https://jxdw.github.io/about/index.html</loc>
     
     <lastmod>2020-11-13</lastmod>
     
@@ -611,70 +681,7 @@
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/2017/03/13/redis-docker-master-slave/</loc>
-    
-    <lastmod>2020-11-13</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jxdw.github.io/2017/07/21/redis-protocol/</loc>
-    
-    <lastmod>2020-11-13</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jxdw.github.io/2019/05/19/redis-sentinel-install/</loc>
-    
-    <lastmod>2020-11-13</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jxdw.github.io/2017/07/21/redis3-2-1-install/</loc>
-    
-    <lastmod>2020-11-13</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jxdw.github.io/2019/08/21/redis_golang_client_insert_billion_data/</loc>
-    
-    <lastmod>2020-11-13</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jxdw.github.io/2018/07/21/redis_interview_knowledge/</loc>
-    
-    <lastmod>2020-11-13</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jxdw.github.io/2019/04/19/redis-5-0-install/</loc>
-    
-    <lastmod>2020-11-13</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jxdw.github.io/2018/08/25/redis-cluster-install/</loc>
-    
-    <lastmod>2020-11-13</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://jxdw.github.io/2017/12/22/rabbitmqctl-handbook/</loc>
-    
-    <lastmod>2020-11-13</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jxdw.github.io/2017/07/21/redis-config-introduce/</loc>
     
     <lastmod>2020-11-13</lastmod>
     
@@ -716,7 +723,7 @@
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/2019/01/01/jishuzongjie-2018/</loc>
+    <loc>https://jxdw.github.io/2020/03/25/jishuzongjie-2019/</loc>
     
     <lastmod>2020-11-13</lastmod>
     
@@ -730,7 +737,7 @@
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/2020/03/25/jishuzongjie-2019/</loc>
+    <loc>https://jxdw.github.io/2019/01/01/jishuzongjie-2018/</loc>
     
     <lastmod>2020-11-13</lastmod>
     
@@ -765,7 +772,7 @@
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/2017/02/14/docker-network-introduce/</loc>
+    <loc>https://jxdw.github.io/2018/07/29/elastic-job-basic-use/</loc>
     
     <lastmod>2020-11-13</lastmod>
     
@@ -779,14 +786,14 @@
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/2018/10/31/docker-registry-harbor-154-install/</loc>
+    <loc>https://jxdw.github.io/2017/02/14/docker-network-introduce/</loc>
     
     <lastmod>2020-11-13</lastmod>
     
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/2018/07/29/elastic-job-basic-use/</loc>
+    <loc>https://jxdw.github.io/2018/10/31/docker-registry-harbor-154-install/</loc>
     
     <lastmod>2020-11-13</lastmod>
     
@@ -807,7 +814,7 @@
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/2018/12/15/docker-1-12-swarm-ops/</loc>
+    <loc>https://jxdw.github.io/2017/03/25/docker-import-and-export/</loc>
     
     <lastmod>2020-11-13</lastmod>
     
@@ -828,14 +835,7 @@
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/2017/03/25/docker-import-and-export/</loc>
-    
-    <lastmod>2020-11-13</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jxdw.github.io/2018/12/28/container-kubernetes-1-8-install/</loc>
+    <loc>https://jxdw.github.io/2018/12/15/docker-1-12-swarm-ops/</loc>
     
     <lastmod>2020-11-13</lastmod>
     
@@ -849,7 +849,7 @@
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/2018/04/29/container-why-learn-kubernetes/</loc>
+    <loc>https://jxdw.github.io/2018/12/28/container-kubernetes-1-8-install/</loc>
     
     <lastmod>2020-11-13</lastmod>
     
@@ -857,6 +857,13 @@
   
   <url>
     <loc>https://jxdw.github.io/2017/02/05/docker-1-10-install/</loc>
+    
+    <lastmod>2020-11-13</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jxdw.github.io/2018/04/29/container-why-learn-kubernetes/</loc>
     
     <lastmod>2020-11-13</lastmod>
     
@@ -899,13 +906,6 @@
   
   <url>
     <loc>https://jxdw.github.io/2018/02/05/apollo-config-wrapper-install/</loc>
-    
-    <lastmod>2020-11-13</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jxdw.github.io/2017/07/21/centos-install-redis3-2-1/</loc>
     
     <lastmod>2020-11-13</lastmod>
     
@@ -958,21 +958,21 @@
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/categories/nacos-apollo%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/</loc>
-    <lastmod>2020-11-19</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://jxdw.github.io/categories/redis%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/</loc>
-    <lastmod>2020-11-19</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://jxdw.github.io/categories/centos%E6%8A%80%E6%9C%AF/</loc>
+    <lastmod>2020-11-19</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://jxdw.github.io/categories/redis%E6%8A%80%E6%9C%AF/</loc>
+    <lastmod>2020-11-19</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://jxdw.github.io/categories/nacos-apollo%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/</loc>
     <lastmod>2020-11-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -986,14 +986,14 @@
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/categories/%E5%B7%A5%E5%85%B7%E8%BD%AF%E4%BB%B6/</loc>
+    <loc>https://jxdw.github.io/categories/java%E8%AF%AD%E8%A8%80/</loc>
     <lastmod>2020-11-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/categories/java%E8%AF%AD%E8%A8%80/</loc>
+    <loc>https://jxdw.github.io/categories/%E5%B7%A5%E5%85%B7%E8%BD%AF%E4%BB%B6/</loc>
     <lastmod>2020-11-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -1028,14 +1028,14 @@
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/categories/harbor%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/</loc>
+    <loc>https://jxdw.github.io/categories/job%E8%B0%83%E5%BA%A6%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/</loc>
     <lastmod>2020-11-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/categories/job%E8%B0%83%E5%BA%A6%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/</loc>
+    <loc>https://jxdw.github.io/categories/harbor%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/</loc>
     <lastmod>2020-11-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>

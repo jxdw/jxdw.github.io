@@ -2,6 +2,69 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://jxdw.github.io/2017/06/21/mysql-conf-introduce/</loc>
+    
+    <lastmod>2020-11-19</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jxdw.github.io/2017/03/13/docker-mysql-master-slave/</loc>
+    
+    <lastmod>2020-11-19</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jxdw.github.io/2018/06/20/mysql-server-architecture/</loc>
+    
+    <lastmod>2020-11-19</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jxdw.github.io/2018/06/30/mysql-percona-server-5-7-10/</loc>
+    
+    <lastmod>2020-11-19</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jxdw.github.io/2017/06/21/mysql5-7-install/</loc>
+    
+    <lastmod>2020-11-19</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jxdw.github.io/2019/04/13/percona-xtrabackup-for-mysql-8-0/</loc>
+    
+    <lastmod>2020-11-19</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jxdw.github.io/2019/03/04/percona-server-for-mysql-8-0-install/</loc>
+    
+    <lastmod>2020-11-19</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jxdw.github.io/2018/12/22/jenkins-yum-install/</loc>
+    
+    <lastmod>2020-11-19</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jxdw.github.io/2018/12/23/jenkins-restful-api/</loc>
+    
+    <lastmod>2020-11-19</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://jxdw.github.io/2017/01/15/centos7-disk-ops/</loc>
     
     <lastmod>2020-11-19</lastmod>
@@ -618,20 +681,6 @@
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/2019/03/04/percona-server-for-mysql-8-0-install/</loc>
-    
-    <lastmod>2020-11-13</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jxdw.github.io/2019/04/13/percona-xtrabackup-for-mysql-8-0/</loc>
-    
-    <lastmod>2020-11-13</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://jxdw.github.io/2018/04/14/prometheus-monitor-mysql/</loc>
     
     <lastmod>2020-11-13</lastmod>
@@ -660,41 +709,6 @@
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/2018/06/30/mysql-percona-server-5-7-10/</loc>
-    
-    <lastmod>2020-11-13</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jxdw.github.io/2018/06/20/mysql-server-architecture/</loc>
-    
-    <lastmod>2020-11-13</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jxdw.github.io/2017/06/21/mysql5-7-install/</loc>
-    
-    <lastmod>2020-11-13</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jxdw.github.io/2018/12/23/jenkins-restful-api/</loc>
-    
-    <lastmod>2020-11-13</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jxdw.github.io/2018/12/22/jenkins-yum-install/</loc>
-    
-    <lastmod>2020-11-13</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://jxdw.github.io/2016/01/01/jishuzongjie-2015/</loc>
     
     <lastmod>2020-11-13</lastmod>
@@ -717,13 +731,6 @@
   
   <url>
     <loc>https://jxdw.github.io/2020/03/25/jishuzongjie-2019/</loc>
-    
-    <lastmod>2020-11-13</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jxdw.github.io/2017/06/21/mysql-conf-introduce/</loc>
     
     <lastmod>2020-11-13</lastmod>
     
@@ -765,7 +772,7 @@
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/2017/03/13/docker-mysql-master-slave/</loc>
+    <loc>https://jxdw.github.io/2018/01/14/docker-registry-harbor-05-install/</loc>
     
     <lastmod>2020-11-13</lastmod>
     
@@ -786,13 +793,6 @@
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/2018/01/14/docker-registry-harbor-05-install/</loc>
-    
-    <lastmod>2020-11-13</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://jxdw.github.io/2018/10/07/docker-1-12-install/</loc>
     
     <lastmod>2020-11-13</lastmod>
@@ -800,14 +800,14 @@
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/2018/12/27/docker-1-12-management/</loc>
+    <loc>https://jxdw.github.io/2018/12/15/docker-1-12-swarm-ops/</loc>
     
     <lastmod>2020-11-13</lastmod>
     
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/2018/12/15/docker-1-12-swarm-ops/</loc>
+    <loc>https://jxdw.github.io/2018/12/27/docker-1-12-management/</loc>
     
     <lastmod>2020-11-13</lastmod>
     
@@ -849,14 +849,14 @@
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/2017/02/05/docker-1-10-install/</loc>
+    <loc>https://jxdw.github.io/2018/04/29/container-why-learn-kubernetes/</loc>
     
     <lastmod>2020-11-13</lastmod>
     
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/2018/04/29/container-why-learn-kubernetes/</loc>
+    <loc>https://jxdw.github.io/2017/02/05/docker-1-10-install/</loc>
     
     <lastmod>2020-11-13</lastmod>
     
@@ -958,6 +958,13 @@
   </url>
   
   <url>
+    <loc>https://jxdw.github.io/categories/centos%E6%8A%80%E6%9C%AF/</loc>
+    <lastmod>2020-11-19</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://jxdw.github.io/categories/nacos-apollo%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/</loc>
     <lastmod>2020-11-19</lastmod>
     <changefreq>daily</changefreq>
@@ -966,13 +973,6 @@
   
   <url>
     <loc>https://jxdw.github.io/categories/redis%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/</loc>
-    <lastmod>2020-11-19</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://jxdw.github.io/categories/centos%E6%8A%80%E6%9C%AF/</loc>
     <lastmod>2020-11-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -1021,7 +1021,7 @@
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/categories/mysql%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/</loc>
+    <loc>https://jxdw.github.io/categories/mysql%E6%8A%80%E6%9C%AF/</loc>
     <lastmod>2020-11-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -1056,7 +1056,7 @@
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/categories/jenkins%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/</loc>
+    <loc>https://jxdw.github.io/categories/jenkins%E6%8A%80%E6%9C%AF/</loc>
     <lastmod>2020-11-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>

@@ -800,14 +800,14 @@
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/2018/12/15/docker-1-12-swarm-ops/</loc>
+    <loc>https://jxdw.github.io/2018/12/27/docker-1-12-management/</loc>
     
     <lastmod>2020-11-13</lastmod>
     
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/2018/12/27/docker-1-12-management/</loc>
+    <loc>https://jxdw.github.io/2018/12/15/docker-1-12-swarm-ops/</loc>
     
     <lastmod>2020-11-13</lastmod>
     
@@ -958,13 +958,6 @@
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/categories/centos%E6%8A%80%E6%9C%AF/</loc>
-    <lastmod>2020-11-19</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://jxdw.github.io/categories/nacos-apollo%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/</loc>
     <lastmod>2020-11-19</lastmod>
     <changefreq>daily</changefreq>
@@ -973,6 +966,13 @@
   
   <url>
     <loc>https://jxdw.github.io/categories/redis%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/</loc>
+    <lastmod>2020-11-19</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://jxdw.github.io/categories/centos%E6%8A%80%E6%9C%AF/</loc>
     <lastmod>2020-11-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>

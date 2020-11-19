@@ -856,14 +856,14 @@
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/tags/index.html</loc>
+    <loc>https://jxdw.github.io/categories/index.html</loc>
     
     <lastmod>2020-11-13</lastmod>
     
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/categories/index.html</loc>
+    <loc>https://jxdw.github.io/tags/index.html</loc>
     
     <lastmod>2020-11-13</lastmod>
     
@@ -951,14 +951,14 @@
 
   
   <url>
-    <loc>https://jxdw.github.io/categories/nacos-apollo%E6%8A%80%E6%9C%AF/</loc>
+    <loc>https://jxdw.github.io/categories/zipkin-jaeger%E6%8A%80%E6%9C%AF/</loc>
     <lastmod>2020-11-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/categories/zipkin-jaeger%E6%8A%80%E6%9C%AF/</loc>
+    <loc>https://jxdw.github.io/categories/nacos-apollo%E6%8A%80%E6%9C%AF/</loc>
     <lastmod>2020-11-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -993,14 +993,14 @@
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/categories/nginx-haproxy%E6%8A%80%E6%9C%AF/</loc>
+    <loc>https://jxdw.github.io/categories/java%E8%AF%AD%E8%A8%80/</loc>
     <lastmod>2020-11-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/categories/java%E8%AF%AD%E8%A8%80/</loc>
+    <loc>https://jxdw.github.io/categories/nginx-haproxy%E6%8A%80%E6%9C%AF/</loc>
     <lastmod>2020-11-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>

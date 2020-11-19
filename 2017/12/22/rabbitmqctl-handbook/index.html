@@ -224,7 +224,7 @@
   </li>
         <li class="menu-item menu-item-config">
 
-    <a href="/categories/nacos-apollo%E6%8A%80%E6%9C%AF/" rel="section"><i class="fab fa-dev fa-fw"></i>apollo配置技术</a>
+    <a href="/categories/nacos-apollo%E6%8A%80%E6%9C%AF/" rel="section"><i class="fab fa-neos fa-fw"></i>nacos-apollo配置技术</a>
 
   </li>
         <li class="menu-item menu-item-comprehension">
@@ -539,7 +539,7 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">## rabbitmqctl eval &#123;expr&#125;</span><br></pre></td></tr></table></figure>
 <p>评估一个任务Erlang表达式<br>rabbitmqctl eval ‘node().’<br>上述例子，将返回 rabbitmqctl 已经连接的节点名称</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"># Miscellaneous(繁杂)</span><br><span class="line">##  rabbitmqctl close_connection &#123;connectionpid&#125; &#123;explanation&#125;</span><br></pre></td></tr></table></figure>
-<p>{connectionpid} 表示待关闭连接的Erlang进程的ID号<br>{explanation} 表示解释字符串<br>指引broker去关闭与ID为 {connectionid} Erlang进程相关联的连接，作为AMQP连接关闭协议的一部分，它也会向连接的客户端传递 {explanation} 字符串<br>rabbitmqctl close_connection “<a href="mailto:&#114;&#97;&#98;&#98;&#105;&#116;&#64;&#116;&#x61;&#x6e;&#116;&#111;&#46;&#52;&#x32;&#54;&#x32;&#46;&#48;">&#114;&#97;&#98;&#98;&#105;&#116;&#64;&#116;&#x61;&#x6e;&#116;&#111;&#46;&#52;&#x32;&#54;&#x32;&#46;&#48;</a>“ “go away”<br>上述例子，表示关闭与ID号为 “<a href="mailto:&#114;&#97;&#x62;&#98;&#105;&#x74;&#64;&#116;&#x61;&#110;&#x74;&#x6f;&#x2e;&#52;&#x32;&#x36;&#50;&#x2e;&#x30;">&#114;&#97;&#x62;&#98;&#105;&#x74;&#64;&#116;&#x61;&#110;&#x74;&#x6f;&#x2e;&#52;&#x32;&#x36;&#50;&#x2e;&#x30;</a>“ 的Erlang进程相关联的连接，并向连接的客户端传输解释性语句 “go away”。</p>
+<p>{connectionpid} 表示待关闭连接的Erlang进程的ID号<br>{explanation} 表示解释字符串<br>指引broker去关闭与ID为 {connectionid} Erlang进程相关联的连接，作为AMQP连接关闭协议的一部分，它也会向连接的客户端传递 {explanation} 字符串<br>rabbitmqctl close_connection “<a href="mailto:&#114;&#97;&#x62;&#98;&#105;&#x74;&#x40;&#116;&#97;&#x6e;&#116;&#x6f;&#46;&#x34;&#x32;&#x36;&#50;&#x2e;&#x30;">&#114;&#97;&#x62;&#98;&#105;&#x74;&#x40;&#116;&#97;&#x6e;&#116;&#x6f;&#46;&#x34;&#x32;&#x36;&#50;&#x2e;&#x30;</a>“ “go away”<br>上述例子，表示关闭与ID号为 “<a href="mailto:&#x72;&#97;&#x62;&#98;&#x69;&#x74;&#x40;&#116;&#x61;&#110;&#x74;&#111;&#x2e;&#52;&#50;&#54;&#50;&#x2e;&#48;">&#x72;&#97;&#x62;&#98;&#x69;&#x74;&#x40;&#116;&#x61;&#110;&#x74;&#111;&#x2e;&#52;&#50;&#54;&#50;&#x2e;&#48;</a>“ 的Erlang进程相关联的连接，并向连接的客户端传输解释性语句 “go away”。</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">## rabbitmqctl trace_on [-p vhost]</span><br></pre></td></tr></table></figure>
 <p>vhost 表示要启动跟踪的虚拟机名称。开始跟踪。注意，跟踪状态不是持久的，如果服务重启，它将恢复为关闭</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">## rabbitmqctl trace_off [-p vhost]</span><br><span class="line">作用:停止跟踪</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">## rabbitmqctl set_vm_memory_high_watermark &#123;fraction&#125;</span><br></pre></td></tr></table></figure>

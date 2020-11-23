@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://jxdw.github.io/2018/01/14/docker-registry-harbor-05-install/</loc>
+    
+    <lastmod>2020-11-23</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jxdw.github.io/2018/10/31/docker-registry-harbor-154-install/</loc>
+    
+    <lastmod>2020-11-23</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://jxdw.github.io/2020/11/21/mysql-sever-brew-install/</loc>
     
     <lastmod>2020-11-23</lastmod>
@@ -241,20 +255,6 @@
   
   <url>
     <loc>https://jxdw.github.io/2017/06/28/docker-build-basic-image/</loc>
-    
-    <lastmod>2020-11-19</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jxdw.github.io/2018/01/14/docker-registry-harbor-05-install/</loc>
-    
-    <lastmod>2020-11-19</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jxdw.github.io/2018/10/31/docker-registry-harbor-154-install/</loc>
     
     <lastmod>2020-11-19</lastmod>
     
@@ -856,14 +856,14 @@
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/about/index.html</loc>
+    <loc>https://jxdw.github.io/categories/index.html</loc>
     
     <lastmod>2020-11-13</lastmod>
     
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/categories/index.html</loc>
+    <loc>https://jxdw.github.io/about/index.html</loc>
     
     <lastmod>2020-11-13</lastmod>
     
@@ -1000,14 +1000,14 @@
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/categories/docker-k8s%E6%8A%80%E6%9C%AF/</loc>
+    <loc>https://jxdw.github.io/categories/nginx-haproxy%E6%8A%80%E6%9C%AF/</loc>
     <lastmod>2020-11-23</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/categories/nginx-haproxy%E6%8A%80%E6%9C%AF/</loc>
+    <loc>https://jxdw.github.io/categories/docker-k8s%E6%8A%80%E6%9C%AF/</loc>
     <lastmod>2020-11-23</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -1022,13 +1022,6 @@
   
   <url>
     <loc>https://jxdw.github.io/categories/mysql%E6%8A%80%E6%9C%AF/</loc>
-    <lastmod>2020-11-23</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://jxdw.github.io/categories/harbor%E6%8A%80%E6%9C%AF/</loc>
     <lastmod>2020-11-23</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>

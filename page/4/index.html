@@ -159,11 +159,6 @@
     <a href="/categories/redis%E6%8A%80%E6%9C%AF/" rel="section"><i class="fas fa-coins fa-fw"></i>redis技术</a>
 
   </li>
-        <li class="menu-item menu-item-network">
-
-    <a href="/categories/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E7%9F%A5%E8%AF%86/" rel="section"><i class="fas fa-network-wired fa-fw"></i>网络协议知识</a>
-
-  </li>
         <li class="menu-item menu-item-rabbitmq">
 
     <a href="/categories/rabbitmq-kafka%E6%8A%80%E6%9C%AF/" rel="section"><i class="fas fa-envelope fa-fw"></i>rabbitmq-kafka技术</a>
@@ -194,24 +189,29 @@
     <a href="/categories/nacos-apollo%E6%8A%80%E6%9C%AF/" rel="section"><i class="fab fa-adn fa-fw"></i>nacos-apollo技术</a>
 
   </li>
-        <li class="menu-item menu-item-centos">
+        <li class="menu-item menu-item-elasticsearch">
 
-    <a href="/categories/centos%E4%B8%8Emacos%E7%B3%BB%E7%BB%9F/" rel="section"><i class="fab fa-centos fa-fw"></i>centos与macos系统</a>
-
-  </li>
-        <li class="menu-item menu-item-tools">
-
-    <a href="/categories/%E5%B7%A5%E5%85%B7%E8%BD%AF%E4%BB%B6/" rel="section"><i class="fas fa-tools fa-fw"></i>工具软件</a>
+    <a href="/categories/elasticsearch%E6%8A%80%E6%9C%AF/" rel="section"><i class="fab fa-etsy fa-fw"></i>elasticsearch技术</a>
 
   </li>
         <li class="menu-item menu-item-jenkins">
 
-    <a href="/categories/jenkins%E6%8A%80%E6%9C%AF/" rel="section"><i class="fab fa-jenkins fa-fw"></i>jenkins技术</a>
+    <a href="/categories/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%8A%80%E6%9C%AF/" rel="section"><i class="fab fa-jenkins fa-fw"></i>持续集成技术</a>
 
   </li>
         <li class="menu-item menu-item-docker">
 
     <a href="/categories/docker-k8s%E6%8A%80%E6%9C%AF/" rel="section"><i class="fab fa-docker fa-fw"></i>docker-k8s技术</a>
+
+  </li>
+        <li class="menu-item menu-item-network">
+
+    <a href="/categories/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E7%9F%A5%E8%AF%86/" rel="section"><i class="fas fa-network-wired fa-fw"></i>网络协议知识</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AE%B1/" rel="section"><i class="fas fa-briefcase fa-fw"></i>工具箱</a>
 
   </li>
         <li class="menu-item menu-item-architectrue">
@@ -274,7 +274,7 @@
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -323,6 +323,314 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jxdw.github.io/2019/04/19/redis-5-0-install/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/favicon.png">
+      <meta itemprop="name" content="渐学顿悟">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="渐学顿悟">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/04/19/redis-5-0-install/" class="post-title-link" itemprop="url">【redis使用系列】单节点安装redis 5.0集群</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-04-19 16:46:12 16:46:12" itemprop="dateCreated datePublished" datetime="2019-04-19T16:46:12+08:00">2019-04-19 16:46:12</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-11-19 14:13:40 14:13:40" itemprop="dateModified" datetime="2020-11-19T14:13:40+08:00">2020-11-19 14:13:40</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/redis%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">redis技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2019/04/19/redis-5-0-install/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/04/19/redis-5-0-install/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><h2 id="主要参考资料"><a href="#主要参考资料" class="headerlink" title="主要参考资料"></a>主要参考资料</h2><p><a target="_blank" rel="noopener" href="https://blog.51cto.com/andyxu/2319767">https://blog.51cto.com/andyxu/2319767</a><br><a target="_blank" rel="noopener" href="https://www.oschina.net/news/100931/redis-5-0-released">https://www.oschina.net/news/100931/redis-5-0-released</a></p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/04/19/redis-5-0-install/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jxdw.github.io/2019/04/13/percona-xtrabackup-for-mysql-8-0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/favicon.png">
+      <meta itemprop="name" content="渐学顿悟">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="渐学顿悟">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/04/13/percona-xtrabackup-for-mysql-8-0/" class="post-title-link" itemprop="url">【mysql使用系列】percona-xtrabackup 8.0安装和初步使用</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-04-13 12:58:32 12:58:32" itemprop="dateCreated datePublished" datetime="2019-04-13T12:58:32+08:00">2019-04-13 12:58:32</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-11-19 14:08:38 14:08:38" itemprop="dateModified" datetime="2020-11-19T14:08:38+08:00">2020-11-19 14:08:38</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/mysql%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">mysql技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2019/04/13/percona-xtrabackup-for-mysql-8-0/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/04/13/percona-xtrabackup-for-mysql-8-0/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">https:&#x2F;&#x2F;blog.csdn.net&#x2F;wfs1994&#x2F;article&#x2F;details&#x2F;80396604</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/04/13/percona-xtrabackup-for-mysql-8-0/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jxdw.github.io/2019/04/01/centos7-kernel-upgrade/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/favicon.png">
+      <meta itemprop="name" content="渐学顿悟">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="渐学顿悟">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/04/01/centos7-kernel-upgrade/" class="post-title-link" itemprop="url">【centos使用系列】centos7内核升级</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-04-01 21:12:52 21:12:52" itemprop="dateCreated datePublished" datetime="2019-04-01T21:12:52+08:00">2019-04-01 21:12:52</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-11-26 22:43:18 22:43:18" itemprop="dateModified" datetime="2020-11-26T22:43:18+08:00">2020-11-26 22:43:18</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AE%B1/" itemprop="url" rel="index"><span itemprop="name">工具箱</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2019/04/01/centos7-kernel-upgrade/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/04/01/centos7-kernel-upgrade/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">https:&#x2F;&#x2F;linux.cn&#x2F;article-8310-1.html</span><br></pre></td></tr></table></figure>
+
+<h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>基于以下三点，让我有种升级内核的冲动：<br>1.docker容器近期暴露的漏洞，问了”专家”说是都是内核的问题。<br>2.centos7还是用的3.10，centos8（RHEL用的是4.18版本）发布时间表还不知道。<br>3.linux的内核稳定版本已经到5.0.X。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/04/01/centos7-kernel-upgrade/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://jxdw.github.io/2019/03/31/rhel8-beta-experience/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -355,7 +663,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2020-11-23 22:38:24 22:38:24" itemprop="dateModified" datetime="2020-11-23T22:38:24+08:00">2020-11-23 22:38:24</time>
+        <time title="修改时间：2020-11-26 22:43:18 22:43:18" itemprop="dateModified" datetime="2020-11-26T22:43:18+08:00">2020-11-26 22:43:18</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -363,7 +671,7 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E5%B7%A5%E5%85%B7%E8%BD%AF%E4%BB%B6/" itemprop="url" rel="index"><span itemprop="name">工具软件</span></a>
+          <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AE%B1/" itemprop="url" rel="index"><span itemprop="name">工具箱</span></a>
         </span>
     </span>
 
@@ -965,7 +1273,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2020-11-19 14:26:04 14:26:04" itemprop="dateModified" datetime="2020-11-19T14:26:04+08:00">2020-11-19 14:26:04</time>
+        <time title="修改时间：2020-11-26 22:10:29 22:10:29" itemprop="dateModified" datetime="2020-11-26T22:10:29+08:00">2020-11-26 22:10:29</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1005,312 +1313,6 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2019/02/07/docker-1-17-install/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jxdw.github.io/2019/02/02/spring-cloud-2x-cloud-stream/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/favicon.png">
-      <meta itemprop="name" content="渐学顿悟">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="渐学顿悟">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/02/02/spring-cloud-2x-cloud-stream/" class="post-title-link" itemprop="url">【java实现微服务架构系列】spring-cloud-stream</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2019-02-02 17:44:15 17:44:15" itemprop="dateCreated datePublished" datetime="2019-02-02T17:44:15+08:00">2019-02-02 17:44:15</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2020-11-19 14:04:47 14:04:47" itemprop="dateModified" datetime="2020-11-19T14:04:47+08:00">2020-11-19 14:04:47</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/java%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index"><span itemprop="name">java语言</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2019/02/02/spring-cloud-2x-cloud-stream/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/02/02/spring-cloud-2x-cloud-stream/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="关于spring-cloud-2-X系列"><a href="#关于spring-cloud-2-X系列" class="headerlink" title="关于spring cloud 2.X系列"></a>关于spring cloud 2.X系列</h1><p>spring.io在spring boot和springcloud推出之前，开源了很多的框架（见下文附录），但是除了spring framework自身，影响力都不够。直到spring boot、spring cloud系列框架推出，才成了spring框架的扩展中最有影响力的两个(或者说集大成者)。<br>Spring Boot的设计目的是用来简化新Spring应用的初始搭建以及开发过程。该框架使用了特定的方式来进行配置，从而使开发人员不再需要定义样板化的配置。<br>通俗点理解，就是spring boot其实不是什么新的框架，它默认配置了很多框架的使用方式，就像maven整合了很多的jar包，比如散落在各处的spring框架：spring amqp、spring dat redis client、spring web service、prometheus client，进而集大成。<br>Spring Cloud为开发人员提供了快速构建分布式系统中一些常见模式的工具，例如配置管理，服务发现，断路器，智能路由，微代理，控制总线，一次性令牌，全局锁定，领导选举，分布式会话，集群状态。<br>从技术实现上来说，也是集成开源届的各种方案比如 client、rabbitmq client。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/02/02/spring-cloud-2x-cloud-stream/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jxdw.github.io/2019/01/01/jishuzongjie-2018/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/favicon.png">
-      <meta itemprop="name" content="渐学顿悟">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="渐学顿悟">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/01/01/jishuzongjie-2018/" class="post-title-link" itemprop="url">2018年度的技术总结</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2019-01-01 10:35:47 10:35:47" itemprop="dateCreated datePublished" datetime="2019-01-01T10:35:47+08:00">2019-01-01 10:35:47</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2020-11-13 22:29:54 22:29:54" itemprop="dateModified" datetime="2020-11-13T22:29:54+08:00">2020-11-13 22:29:54</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%84%9F%E6%82%9F/" itemprop="url" rel="index"><span itemprop="name">感悟</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2019/01/01/jishuzongjie-2018/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/01/01/jishuzongjie-2018/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>新年了，按惯例，要盘盘肚子里面的“存货”了.</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/01/01/jishuzongjie-2018/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jxdw.github.io/2018/12/30/container-kubernetes-jieduanxing-zongjie/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/favicon.png">
-      <meta itemprop="name" content="渐学顿悟">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="渐学顿悟">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/12/30/container-kubernetes-jieduanxing-zongjie/" class="post-title-link" itemprop="url">【docker使用系列】玩转kubernetes之kubernetes阶段性成果</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2018-12-30 10:38:44 10:38:44" itemprop="dateCreated datePublished" datetime="2018-12-30T10:38:44+08:00">2018-12-30 10:38:44</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2020-11-19 14:26:03 14:26:03" itemprop="dateModified" datetime="2020-11-19T14:26:03+08:00">2020-11-19 14:26:03</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/docker-k8s%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">docker/k8s技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2018/12/30/container-kubernetes-jieduanxing-zongjie/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2018/12/30/container-kubernetes-jieduanxing-zongjie/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>这两天到搭建好的kubernetes集群上，把公司的一个项目放到了集群上。最终的架构如下。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2018/12/30/container-kubernetes-jieduanxing-zongjie/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>

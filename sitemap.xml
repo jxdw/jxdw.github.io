@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://jxdw.github.io/about/index.html</loc>
+    
+    <lastmod>2020-12-04</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://jxdw.github.io/2018/12/01/jishuzongjie-2018_beta/</loc>
     
     <lastmod>2020-12-04</lastmod>
@@ -894,13 +901,6 @@
     <loc>https://jxdw.github.io/2019/08/11/apache_dubbo_zipkin_merge/</loc>
     
     <lastmod>2020-12-04</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jxdw.github.io/about/index.html</loc>
-    
-    <lastmod>2020-11-27</lastmod>
     
   </url>
   

@@ -905,14 +905,14 @@
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/tags/index.html</loc>
+    <loc>https://jxdw.github.io/categories/index.html</loc>
     
     <lastmod>2020-11-13</lastmod>
     
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/categories/index.html</loc>
+    <loc>https://jxdw.github.io/tags/index.html</loc>
     
     <lastmod>2020-11-13</lastmod>
     
@@ -979,14 +979,14 @@
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/categories/%E4%B8%9A%E5%8A%A1%E5%BC%80%E5%8F%91%E6%89%80%E9%9C%80%E4%B8%AD%E9%97%B4%E4%BB%B6/redis%E6%8A%80%E6%9C%AF/</loc>
+    <loc>https://jxdw.github.io/categories/%E4%B8%9A%E5%8A%A1%E5%BC%80%E5%8F%91%E6%89%80%E9%9C%80%E4%B8%AD%E9%97%B4%E4%BB%B6/nacos-apollo%E6%8A%80%E6%9C%AF/</loc>
     <lastmod>2020-12-04</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/categories/%E4%B8%9A%E5%8A%A1%E5%BC%80%E5%8F%91%E6%89%80%E9%9C%80%E4%B8%AD%E9%97%B4%E4%BB%B6/nacos-apollo%E6%8A%80%E6%9C%AF/</loc>
+    <loc>https://jxdw.github.io/categories/%E4%B8%9A%E5%8A%A1%E5%BC%80%E5%8F%91%E6%89%80%E9%9C%80%E4%B8%AD%E9%97%B4%E4%BB%B6/redis%E6%8A%80%E6%9C%AF/</loc>
     <lastmod>2020-12-04</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>

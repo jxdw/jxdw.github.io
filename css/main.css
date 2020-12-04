@@ -2674,6 +2674,9 @@ ul.breadcrumb li:last-child {
 .sub-menu .menu-item-active:hover {
   border-bottom-color: #fc6423;
 }
+.submenu-item {
+  margin-left: 10%;
+}
 .sidebar {
   margin-top: 12px;
   position: -webkit-sticky;

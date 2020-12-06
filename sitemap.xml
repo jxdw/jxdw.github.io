@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://jxdw.github.io/2019/06/28/docker-architecture/</loc>
+    
+    <lastmod>2020-12-06</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://jxdw.github.io/2020/12/06/percona-server-brew-install/</loc>
     
     <lastmod>2020-12-06</lastmod>

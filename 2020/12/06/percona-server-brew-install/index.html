@@ -24,17 +24,20 @@
     var CONFIG = {"hostname":"jxdw.github.io","root":"/","scheme":"Pisces","version":"8.0.2","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"width":240},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
   </script>
 
-  <meta name="description" content="title: 【mysql技术】brew安装Percona Server8.0.* date: 2020-12-06 10:43:32 tags: 数据存储中间件 categories:    - 数据存储中间件   - mysql技术 ​&#96;&#96;&#96;  # 本文背景 换了pc，所有的软件都要重新装。而percona-server没有打包好的dmg文件，只能brew安装。 而brew安装，完成后，系统安">
+  <meta name="description" content="​ 本文背景换了pc，所有的软件都要重新装。而percona-server没有打包好的dmg文件，只能brew安装。而brew安装，完成后，系统安装的目录，太深了，不利于观察物理文件的属性。而去年的centos的安装过程https:&#x2F;&#x2F;jxdw.github.io&#x2F;2019&#x2F;03&#x2F;04&#x2F;percona-server-for-mysql-8-0-install&#x2F;的配置文件，也不能用了。所以，各种瞎折">
 <meta property="og:type" content="article">
-<meta property="og:title" content="渐学顿悟">
+<meta property="og:title" content="【mysql技术】brew安装Percona Server8.0.X">
 <meta property="og:url" content="https://jxdw.github.io/2020/12/06/percona-server-brew-install/index.html">
 <meta property="og:site_name" content="渐学顿悟">
-<meta property="og:description" content="title: 【mysql技术】brew安装Percona Server8.0.* date: 2020-12-06 10:43:32 tags: 数据存储中间件 categories:    - 数据存储中间件   - mysql技术 ​&#96;&#96;&#96;  # 本文背景 换了pc，所有的软件都要重新装。而percona-server没有打包好的dmg文件，只能brew安装。 而brew安装，完成后，系统安">
+<meta property="og:description" content="​ 本文背景换了pc，所有的软件都要重新装。而percona-server没有打包好的dmg文件，只能brew安装。而brew安装，完成后，系统安装的目录，太深了，不利于观察物理文件的属性。而去年的centos的安装过程https:&#x2F;&#x2F;jxdw.github.io&#x2F;2019&#x2F;03&#x2F;04&#x2F;percona-server-for-mysql-8-0-install&#x2F;的配置文件，也不能用了。所以，各种瞎折">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-12-06T08:06:28.833Z">
-<meta property="article:modified_time" content="2020-12-06T08:26:50.708Z">
+<meta property="og:image" content="https://jxdw.github.io/img/percna-server.png">
+<meta property="article:published_time" content="2020-12-06T02:43:32.000Z">
+<meta property="article:modified_time" content="2020-12-06T08:51:46.976Z">
 <meta property="article:author" content="渐学顿悟">
+<meta property="article:tag" content="数据存储中间件">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jxdw.github.io/img/percna-server.png">
 
 
 <link rel="canonical" href="https://jxdw.github.io/2020/12/06/percona-server-brew-install/">
@@ -50,7 +53,7 @@
   };
 </script>
 
-  <title> | 渐学顿悟</title>
+  <title>【mysql技术】brew安装Percona Server8.0.X | 渐学顿悟</title>
   
 
 
@@ -543,7 +546,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          
+          【mysql技术】brew安装Percona Server8.0.X
         </h1>
 
         <div class="post-meta-container">
@@ -554,15 +557,28 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2020-12-06 16:06:28 16:06:28" itemprop="dateCreated datePublished" datetime="2020-12-06T16:06:28+08:00">2020-12-06 16:06:28</time>
+      <time title="创建时间：2020-12-06 10:43:32 10:43:32" itemprop="dateCreated datePublished" datetime="2020-12-06T10:43:32+08:00">2020-12-06 10:43:32</time>
     </span>
       <span class="post-meta-item">
         <span class="post-meta-item-icon">
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2020-12-06 16:26:50 16:26:50" itemprop="dateModified" datetime="2020-12-06T16:26:50+08:00">2020-12-06 16:26:50</time>
+        <time title="修改时间：2020-12-06 16:51:46 16:51:46" itemprop="dateModified" datetime="2020-12-06T16:51:46+08:00">2020-12-06 16:51:46</time>
       </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E4%B8%AD%E9%97%B4%E4%BB%B6/" itemprop="url" rel="index"><span itemprop="name">数据存储中间件</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E4%B8%AD%E9%97%B4%E4%BB%B6/mysql%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">mysql技术</span></a>
+        </span>
+    </span>
 
   
   
@@ -588,31 +604,11 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <pre><code>title: 【mysql技术】brew安装Percona Server8.0.*
-date: 2020-12-06 10:43:32
-tags: 数据存储中间件
-categories: 
-  - 数据存储中间件
-  - mysql技术
-​```
-
-# 本文背景
-换了pc，所有的软件都要重新装。而percona-server没有打包好的dmg文件，只能brew安装。
-而brew安装，完成后，系统安装的目录，太深了，不利于观察物理文件的属性。
-而去年的centos的安装过程https://jxdw.github.io/2019/03/04/percona-server-for-mysql-8-0-install/
-的配置文件，也不能用了。
-所以，各种瞎折腾，最后还是折腾成了。这个过程中，也发现了一个盲点：data dictionary。
-
-# 整个安装过程
-![](https://jxdw.github.io/img/percna-server.png)
-
-# 知识盲点
-## 启动出现Different lower_case_table_names settings for server (&#39;1&#39;)
-MySQL8.0  新增了data dictionary的概念，数据初始化的时候在linux下默认使用lower-case-table-names=0的参数，数据库启动的时候读取的my.cnf文件中的值。若二者值不一致则在mysql的错误日志中记录报错信息。
-在MySQL 5.7之前则允许数据库初始化和启动的值不一致且以启动值为准。
-在MySQL 官方提供的RPM包中默认是使用lower-case-table-names=0，不太适合生产环境部署。在生产环境建议使用官方的二进制包。
-
-</code></pre>
+        <p>​</p>
+<h1 id="本文背景"><a href="#本文背景" class="headerlink" title="本文背景"></a>本文背景</h1><p>换了pc，所有的软件都要重新装。而percona-server没有打包好的dmg文件，只能brew安装。<br>而brew安装，完成后，系统安装的目录，太深了，不利于观察物理文件的属性。<br>而去年的centos的安装过程<br><a href="https://jxdw.github.io/2019/03/04/percona-server-for-mysql-8-0-install/">https://jxdw.github.io/2019/03/04/percona-server-for-mysql-8-0-install/</a><br>的配置文件，也不能用了。<br>所以，各种瞎折腾，最后还是折腾成了。这个过程中，也发现了一个盲点：data dictionary。</p>
+<a id="more"></a>
+<h1 id="整个安装过程"><a href="#整个安装过程" class="headerlink" title="整个安装过程"></a>整个安装过程</h1><p>整个安装过程如下：<br><img src="https://jxdw.github.io/img/percna-server.png"></p>
+<h1 id="知识盲点"><a href="#知识盲点" class="headerlink" title="知识盲点"></a>知识盲点</h1><h2 id="启动出现Different-lower-case-table-names-settings-for-server-‘1’"><a href="#启动出现Different-lower-case-table-names-settings-for-server-‘1’" class="headerlink" title="启动出现Different lower_case_table_names settings for server (‘1’)"></a>启动出现Different lower_case_table_names settings for server (‘1’)</h2><p>MySQL8.0  新增了data dictionary的概念，数据初始化的时候在linux下默认使用lower-case-table-names=0的参数，数据库启动的时候读取的my.cnf文件中的值。若二者值不一致则在mysql的错误日志中记录报错信息。<br>在MySQL 5.7之前则允许数据库初始化和启动的值不一致且以启动值为准。<br>在MySQL 官方提供的RPM包中默认是使用lower-case-table-names=0，不太适合生产环境部署。在生产环境建议使用官方的二进制包。</p>
 
     </div>
 
@@ -621,6 +617,9 @@ MySQL8.0  新增了data dictionary的概念，数据初始化的时候在linux�
     
 
     <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="tag"># 数据存储中间件</a>
+          </div>
 
         
 

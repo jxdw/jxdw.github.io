@@ -24,16 +24,16 @@
     var CONFIG = {"hostname":"jxdw.github.io","root":"/","scheme":"Pisces","version":"8.0.2","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"width":240},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
   </script>
 
-  <meta name="description" content="redis4.0服务端启动过程">
+  <meta name="description" content="redis4.0服务端启动过程 Redis源码阅读参考（来源于网络）1.基础数据结构 内存分配 zmalloc.h、zmalloc.c 简单动态字符串 sds.h、sds.c 双端链表 adlist.h、adlist.c 字典dict.h、dict.c 跳跃表server.h、（zskiplist以及zskiplistNode结构）、t_zset.c 整数集合intset.h、intset.c 压">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【redis架构系列】redis v4.0服务端的启动顺序">
 <meta property="og:url" content="https://jxdw.github.io/2018/12/21/redis-server-start-process/index.html">
 <meta property="og:site_name" content="渐学顿悟">
-<meta property="og:description" content="redis4.0服务端启动过程">
+<meta property="og:description" content="redis4.0服务端启动过程 Redis源码阅读参考（来源于网络）1.基础数据结构 内存分配 zmalloc.h、zmalloc.c 简单动态字符串 sds.h、sds.c 双端链表 adlist.h、adlist.c 字典dict.h、dict.c 跳跃表server.h、（zskiplist以及zskiplistNode结构）、t_zset.c 整数集合intset.h、intset.c 压">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://jxdw.github.io/img/redis/redis_server_start_processor.jpeg">
 <meta property="article:published_time" content="2018-12-21T09:07:03.000Z">
-<meta property="article:modified_time" content="2020-12-07T06:01:32.551Z">
+<meta property="article:modified_time" content="2020-12-07T06:49:49.148Z">
 <meta property="article:author" content="渐学顿悟">
 <meta property="article:tag" content="数据存储中间件">
 <meta name="twitter:card" content="summary">
@@ -570,7 +570,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2020-12-07 14:01:32 14:01:32" itemprop="dateModified" datetime="2020-12-07T14:01:32+08:00">2020-12-07 14:01:32</time>
+        <time title="修改时间：2020-12-07 14:49:49 14:49:49" itemprop="dateModified" datetime="2020-12-07T14:49:49+08:00">2020-12-07 14:49:49</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -611,6 +611,86 @@
     
     <div class="post-body" itemprop="articleBody">
         <h1 id="redis4-0服务端启动过程"><a href="#redis4-0服务端启动过程" class="headerlink" title="redis4.0服务端启动过程"></a>redis4.0服务端启动过程</h1><p><img src="https://jxdw.github.io/img/redis/redis_server_start_processor.jpeg"></p>
+<h2 id="Redis源码阅读参考（来源于网络）"><a href="#Redis源码阅读参考（来源于网络）" class="headerlink" title="Redis源码阅读参考（来源于网络）"></a>Redis源码阅读参考（来源于网络）</h2><h3 id="1-基础数据结构"><a href="#1-基础数据结构" class="headerlink" title="1.基础数据结构"></a>1.基础数据结构</h3><ul>
+<li>内存分配 zmalloc.h、zmalloc.c</li>
+<li>简单动态字符串 sds.h、sds.c</li>
+<li>双端链表 adlist.h、adlist.c</li>
+<li>字典dict.h、dict.c</li>
+<li>跳跃表server.h、（zskiplist以及zskiplistNode结构）、t_zset.c</li>
+<li>整数集合intset.h、intset.c</li>
+<li>压缩列表ziplist.h、ziplist.c</li>
+<li>压缩字典 zipmap.h、zipmap.c</li>
+<li>快速链表 quicklist.h、quicklist.c</li>
+<li>基数统计 hyperloglog.c(hllhdr结构, hll 开头的函数)</li>
+<li>geohash geohash.h、geohash.c</li>
+</ul>
+<h3 id="2-Redis数据类型"><a href="#2-Redis数据类型" class="headerlink" title="2.Redis数据类型"></a>2.Redis数据类型</h3><ul>
+<li>对象系统 object.c</li>
+<li>字符串键 t_string.c</li>
+<li>列表建 t_list.c</li>
+<li>哈希键 t_hash.c</li>
+<li>集合键 t_set.c</li>
+<li>有序集合键 t_zset.c(除zsl开头的所有函数)</li>
+<li>HyperLogLog键 hyperloglog.c(pf开头的函数)</li>
+<li>地理位置 geo.h、geo.c</li>
+</ul>
+<h3 id="3-Redis数据库"><a href="#3-Redis数据库" class="headerlink" title="3.Redis数据库"></a>3.Redis数据库</h3><ul>
+<li>数据库实现 db.c</li>
+<li>通知功能 notify.c</li>
+<li>RDB持久化 rdb.h、rdb.c</li>
+<li>AOF持久化 aof.c</li>
+</ul>
+<h3 id="4-客户端-服务端"><a href="#4-客户端-服务端" class="headerlink" title="4.客户端/服务端"></a>4.客户端/服务端</h3><ul>
+<li>事件处理模块 ae.h、ae.c、ae_epoll.c、ae_evport.c、ae_kqueue.c、ae_select.c</li>
+<li>网路链接库 anet.h、anet.c、networking.c</li>
+<li>服务器端 server.h、server.c</li>
+<li>客户端 redis-cli.c</li>
+</ul>
+<h3 id="5-分布式Redis"><a href="#5-分布式Redis" class="headerlink" title="5.分布式Redis"></a>5.分布式Redis</h3><ul>
+<li>复制功能 replication.c</li>
+<li>Redis哨兵 sentinel.c</li>
+<li>Redis集群 cluster.h、cluster.c</li>
+</ul>
+<h3 id="6-独立功能模块"><a href="#6-独立功能模块" class="headerlink" title="6.独立功能模块"></a>6.独立功能模块</h3><ul>
+<li>发布和订阅 pubsub.c</li>
+<li>事务 multi.c</li>
+</ul>
+<h3 id="7-测试"><a href="#7-测试" class="headerlink" title="7.测试"></a>7.测试</h3><ul>
+<li>内存检测 memtest.c</li>
+<li>redis性能测试 redis_benchmark.c</li>
+<li>更新日志检查 redis_check_aof.c</li>
+<li>本地数据库检查 redis_check_rdb.c</li>
+<li>C风格的小型测试框架 testhelp.c</li>
+</ul>
+<h3 id="8-工具类"><a href="#8-工具类" class="headerlink" title="8.工具类"></a>8.工具类</h3><ul>
+<li>二进制位操作命令 bitops.c</li>
+<li>调试 debug.c</li>
+<li>高低位转换 endianconv.h、endianconv.c(适配不同系统)</li>
+<li>辅助于命令的提示信息 help.h</li>
+<li>压缩算法 lzf.h、lzf_c.c、lzf_d.c、lzfP.h</li>
+<li>随机数 rand.h、rand.c</li>
+<li>版本发布 release.c</li>
+<li>sha加密算法 sha1.h、sha1.c</li>
+<li>通用工具类 util.h、util.c</li>
+<li>循环冗余校验 crc16.c、crc64.h、crc64.c</li>
+<li>SORT命令 sort.c</li>
+<li>伪随机函数 siphash.c</li>
+<li>进程信息操作 setproctitle.c</li>
+<li>geo工具类 geohash_helper.h、geohash_helper.c</li>
+</ul>
+<h3 id="9-封装类"><a href="#9-封装类" class="headerlink" title="9.封装类"></a>9.封装类</h3><ul>
+<li>后台线程I/O bio.h、bio.c</li>
+<li>延迟类 latency.h、latency.c</li>
+<li>排序算法类 pqsort.h、pqsort.c</li>
+<li>Redis定义的I/O类 rio.h、rio.c</li>
+<li>同步Socket和文件I/O操作 syncio.c</li>
+</ul>
+<h3 id="10-其他"><a href="#10-其他" class="headerlink" title="10.其他"></a>10.其他</h3><ul>
+<li>微线图 sparkline.h、sparkline.c</li>
+<li>慢日志 slowlog.h、slowlog.c</li>
+<li>脚本 scripting.c</li>
+<li>过期机制 expire.c</li>
+</ul>
 
     </div>
 

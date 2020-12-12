@@ -465,7 +465,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">135</span>
+          <span class="site-state-item-count">136</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -523,6 +523,110 @@
       
 
       
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jxdw.github.io/2020/07/10/es6_vue_study_day4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/favicon.png">
+      <meta itemprop="name" content="渐学顿悟">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="渐学顿悟">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/07/10/es6_vue_study_day4/" class="post-title-link" itemprop="url">【转载】vue学习之day4</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-07-10 21:15:16 21:15:16" itemprop="dateCreated datePublished" datetime="2020-07-10T21:15:16+08:00">2020-07-10 21:15:16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E4%B8%8E%E6%B5%8B%E8%AF%95%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">编程语言与测试技术</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E4%B8%8E%E6%B5%8B%E8%AF%95%E6%8A%80%E6%9C%AF/js%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index"><span itemprop="name">js语言</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/07/10/es6_vue_study_day4/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/07/10/es6_vue_study_day4/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="Vue-js-Day4"><a href="#Vue-js-Day4" class="headerlink" title="Vue.js - Day4"></a>Vue.js - Day4</h1><h2 id="父组件向子组件传值"><a href="#父组件向子组件传值" class="headerlink" title="父组件向子组件传值"></a>父组件向子组件传值</h2><ol>
+<li>组件实例定义方式，注意：一定要使用<code>props</code>属性来定义父组件传递过来的数据<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">    &#x2F;&#x2F; 创建 Vue 实例，得到 ViewModel</span><br><span class="line">    var vm &#x3D; new Vue(&#123;</span><br><span class="line">      el: &#39;#app&#39;,</span><br><span class="line">      data: &#123;</span><br><span class="line">        msg: &#39;这是父组件中的消息&#39;</span><br><span class="line">      &#125;,</span><br><span class="line">      components: &#123;</span><br><span class="line">        son: &#123;</span><br><span class="line">          template: &#39;&lt;h1&gt;这是子组件 --- &#123;&#123;finfo&#125;&#125;&lt;&#x2F;h1&gt;&#39;,</span><br><span class="line">          props: [&#39;finfo&#39;]</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">  &lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure></li>
+<li>使用<code>v-bind</code>或简化指令，将数据传递到子组件中：<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;div id&#x3D;&quot;app&quot;&gt;</span><br><span class="line">    &lt;son :finfo&#x3D;&quot;msg&quot;&gt;&lt;&#x2F;son&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/07/10/es6_vue_study_day4/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
     
 
 
@@ -1504,105 +1608,6 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2019/12/01/trace-jaeger-1150-install/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jxdw.github.io/2019/10/07/prometheus_monitor_rabbitmq/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/favicon.png">
-      <meta itemprop="name" content="渐学顿悟">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="渐学顿悟">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/10/07/prometheus_monitor_rabbitmq/" class="post-title-link" itemprop="url">【prometheus使用系列】Prometheus监控rabbitmq3.8.0</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2019-10-07 12:46:48 12:46:48" itemprop="dateCreated datePublished" datetime="2019-10-07T12:46:48+08:00">2019-10-07 12:46:48</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E7%9B%91%E6%8E%A7%E8%BF%BD%E8%B8%AA%E4%B8%AD%E9%97%B4%E4%BB%B6/" itemprop="url" rel="index"><span itemprop="name">监控追踪中间件</span></a>
-        </span>
-          ，
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E7%9B%91%E6%8E%A7%E8%BF%BD%E8%B8%AA%E4%B8%AD%E9%97%B4%E4%BB%B6/prometheus%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">prometheus技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2019/10/07/prometheus_monitor_rabbitmq/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/10/07/prometheus_monitor_rabbitmq/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><h2 id="官方介绍"><a href="#官方介绍" class="headerlink" title="官方介绍"></a>官方介绍</h2><p>链接: <a target="_blank" rel="noopener" href="https://www.rabbitmq.com/prometheus.html#overview-prometheus">https://www.rabbitmq.com/prometheus.html#overview-prometheus</a></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/10/07/prometheus_monitor_rabbitmq/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>

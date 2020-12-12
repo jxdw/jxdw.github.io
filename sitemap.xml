@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://jxdw.github.io/2020/10/31/harbor-20-top-architecture/</loc>
+    
+    <lastmod>2020-12-12</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://jxdw.github.io/2020/12/12/kubernetes-v120-architecture/</loc>
     
     <lastmod>2020-12-12</lastmod>
@@ -954,14 +961,14 @@
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/categories/index.html</loc>
+    <loc>https://jxdw.github.io/tags/index.html</loc>
     
     <lastmod>2020-11-13</lastmod>
     
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/tags/index.html</loc>
+    <loc>https://jxdw.github.io/categories/index.html</loc>
     
     <lastmod>2020-11-13</lastmod>
     

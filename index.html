@@ -1382,19 +1382,15 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="canal整体架构"><a href="#canal整体架构" class="headerlink" title="canal整体架构"></a>canal整体架构</h1><p><img src="https://jxdw.github.io/img/canal/canal_architecture.png"></p>
-<p>说明：</p>
-<ul>
-<li>server代表一个canal运行实例，对应于一个jvm</li>
-<li>instance对应于一个数据队列 （1个server对应1..n个instance)，instance含有4个功能模块：<ul>
-<li>eventParser (数据源接入，模拟slave协议和master进行交互，协议解析)</li>
-<li>eventSink (Parser和Store链接器，进行数据过滤，加工，分发的工作)</li>
-<li>eventStore (数据存储)</li>
-<li>metaManager (增量订阅&amp;消费信息管理器)</li>
-</ul>
-</li>
-</ul>
-
+          <h1 id="本文参考资料"><a href="#本文参考资料" class="headerlink" title="本文参考资料"></a>本文参考资料</h1><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/f-zhao/p/9112158.html">https://www.cnblogs.com/f-zhao/p/9112158.html</a></p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/08/15/canal_architecture/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 

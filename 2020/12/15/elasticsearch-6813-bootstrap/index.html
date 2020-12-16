@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"jxdw.github.io","root":"/","scheme":"Pisces","version":"8.0.2","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"width":240},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
+  </script>
+
+  <meta name="description" content="准备工作软件和源码版本说明 elasticsearch 6.8.13源码。可以从github checkout。 elasticsearch 6.8.13.tar.gz包。从elastic官网下载。 gradle 5.4.11.zip。 从网络下载 jdk12。可以brew或者windows安装包。启动过程会修改jdk的java.security文件（目录在&#x2F;Library&#x2F;Java&#x2F;JavaVi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【elasticsearch架构系列】elasticsearch 6.8.13源码分析系列(1)">
+<meta property="og:url" content="https://jxdw.github.io/2020/12/15/elasticsearch-6813-bootstrap/index.html">
+<meta property="og:site_name" content="渐学顿悟">
+<meta property="og:description" content="准备工作软件和源码版本说明 elasticsearch 6.8.13源码。可以从github checkout。 elasticsearch 6.8.13.tar.gz包。从elastic官网下载。 gradle 5.4.11.zip。 从网络下载 jdk12。可以brew或者windows安装包。启动过程会修改jdk的java.security文件（目录在&#x2F;Library&#x2F;Java&#x2F;JavaVi">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jxdw.github.io/img/elasticsearch6/elasticsearch_internal_architecture.png">
+<meta property="og:image" content="https://jxdw.github.io/img/elasticsearch6/elasticsearch_source_directory_6813.png">
+<meta property="article:published_time" content="2020-12-15T14:29:46.000Z">
+<meta property="article:modified_time" content="2020-12-16T09:26:22.499Z">
+<meta property="article:author" content="渐学顿悟">
+<meta property="article:tag" content="数据存储中间件">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jxdw.github.io/img/elasticsearch6/elasticsearch_internal_architecture.png">
+
+
+<link rel="canonical" href="https://jxdw.github.io/2020/12/15/elasticsearch-6813-bootstrap/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【elasticsearch架构系列】elasticsearch 6.8.13源码分析系列(1) | 渐学顿悟</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">渐学顿悟</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <!--<a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>-->
+    
+       
+        <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <!--<a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>-->
+    
+       
+        <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-categories-middleware">
+
+    <!--<a href="/categories/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="section"><i class="fa fa-th fa-fw"></i>数据存储中间件</a>-->
+    
+       
+        <a href="/categories/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="section"><i class="fa fa-th fa-fw"></i>数据存储中间件</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-mysql">
+
+    <!--<a href="/categories/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E4%B8%AD%E9%97%B4%E4%BB%B6/mysql%E6%8A%80%E6%9C%AF/" rel="section"><i class="fas fa-database fa-fw"></i>mysql技术</a>-->
+    
+       
+          <a href="/categories/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E4%B8%AD%E9%97%B4%E4%BB%B6/mysql%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fas fa-database fa-fw"></i>mysql技术</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-redis">
+
+    <!--<a href="/categories/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E4%B8%AD%E9%97%B4%E4%BB%B6/redis%E6%8A%80%E6%9C%AF/" rel="section"><i class="fas fa-coins fa-fw"></i>redis技术</a>-->
+    
+       
+          <a href="/categories/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E4%B8%AD%E9%97%B4%E4%BB%B6/redis%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fas fa-coins fa-fw"></i>redis技术</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-rabbitmq">
+
+    <!--<a href="/categories/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E4%B8%AD%E9%97%B4%E4%BB%B6/rabbitmq-kafka%E6%8A%80%E6%9C%AF/" rel="section"><i class="fas fa-envelope fa-fw"></i>rabbitmq-kafka技术</a>-->
+    
+       
+          <a href="/categories/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E4%B8%AD%E9%97%B4%E4%BB%B6/rabbitmq-kafka%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fas fa-envelope fa-fw"></i>rabbitmq-kafka技术</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-elasticsearch">
+
+    <!--<a href="/categories/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E4%B8%AD%E9%97%B4%E4%BB%B6/elasticsearch%E6%8A%80%E6%9C%AF/" rel="section"><i class="fab fa-etsy fa-fw"></i>elasticsearch技术</a>-->
+    
+       
+          <a href="/categories/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E4%B8%AD%E9%97%B4%E4%BB%B6/elasticsearch%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fab fa-etsy fa-fw"></i>elasticsearch技术</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-canal">
+
+    <!--<a href="/categories/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E4%B8%AD%E9%97%B4%E4%BB%B6/canal%E6%8A%80%E6%9C%AF/" rel="section"><i class="fab fa-usb fa-fw"></i>canal技术</a>-->
+    
+       
+          <a href="/categories/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E4%B8%AD%E9%97%B4%E4%BB%B6/canal%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fab fa-usb fa-fw"></i>canal技术</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-categories-trace">
+
+    <!--<a href="/categories/%E7%9B%91%E6%8E%A7%E8%BF%BD%E8%B8%AA%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="section"><i class="fab fa-medium-m fa-fw"></i>监控追踪中间件</a>-->
+    
+       
+        <a href="/categories/%E7%9B%91%E6%8E%A7%E8%BF%BD%E8%B8%AA%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="section"><i class="fab fa-medium-m fa-fw"></i>监控追踪中间件</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-tracer">
+
+    <!--<a href="/categories/%E7%9B%91%E6%8E%A7%E8%BF%BD%E8%B8%AA%E4%B8%AD%E9%97%B4%E4%BB%B6/zipkin%E6%8A%80%E6%9C%AF/" rel="section"><i class="fab fa-diaspora fa-fw"></i>zipkin-jaeger技术</a>-->
+    
+       
+          <a href="/categories/%E7%9B%91%E6%8E%A7%E8%BF%BD%E8%B8%AA%E4%B8%AD%E9%97%B4%E4%BB%B6/zipkin%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fab fa-diaspora fa-fw"></i>zipkin-jaeger技术</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-jaeger">
+
+    <!--<a href="/categories/%E7%9B%91%E6%8E%A7%E8%BF%BD%E8%B8%AA%E4%B8%AD%E9%97%B4%E4%BB%B6/jaeger%E6%8A%80%E6%9C%AF/" rel="section"><i class="fab fa-tumblr fa-fw"></i>jaeger技术</a>-->
+    
+       
+          <a href="/categories/%E7%9B%91%E6%8E%A7%E8%BF%BD%E8%B8%AA%E4%B8%AD%E9%97%B4%E4%BB%B6/jaeger%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fab fa-tumblr fa-fw"></i>jaeger技术</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-prometheus">
+
+    <!--<a href="/categories/%E7%9B%91%E6%8E%A7%E8%BF%BD%E8%B8%AA%E4%B8%AD%E9%97%B4%E4%BB%B6/prometheus%E6%8A%80%E6%9C%AF/" rel="section"><i class="fas fa-parking fa-fw"></i>prometheus技术</a>-->
+    
+       
+          <a href="/categories/%E7%9B%91%E6%8E%A7%E8%BF%BD%E8%B8%AA%E4%B8%AD%E9%97%B4%E4%BB%B6/prometheus%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fas fa-parking fa-fw"></i>prometheus技术</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-categories-find">
+
+    <!--<a href="/categories/%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E5%8F%91%E7%8E%B0%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="section"><i class="fab fa-facebook-f fa-fw"></i>服务注册发现中间件</a>-->
+    
+       
+        <a href="/categories/%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E5%8F%91%E7%8E%B0%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="section"><i class="fab fa-facebook-f fa-fw"></i>服务注册发现中间件</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-job">
+
+    <!--<a href="/categories/%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E5%8F%91%E7%8E%B0%E4%B8%AD%E9%97%B4%E4%BB%B6/job%E8%B0%83%E5%BA%A6%E6%8A%80%E6%9C%AF/" rel="section"><i class="fas fa-clipboard-check fa-fw"></i>job调度技术</a>-->
+    
+       
+          <a href="/categories/%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E5%8F%91%E7%8E%B0%E4%B8%AD%E9%97%B4%E4%BB%B6/job%E8%B0%83%E5%BA%A6%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fas fa-clipboard-check fa-fw"></i>job调度技术</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-apollo">
+
+    <!--<a href="/categories/%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E5%8F%91%E7%8E%B0%E4%B8%AD%E9%97%B4%E4%BB%B6/apollo%E6%8A%80%E6%9C%AF/" rel="section"><i class="fab fa-adn fa-fw"></i>nacos-apollo技术</a>-->
+    
+       
+          <a href="/categories/%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E5%8F%91%E7%8E%B0%E4%B8%AD%E9%97%B4%E4%BB%B6/apollo%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fab fa-adn fa-fw"></i>nacos-apollo技术</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-etcd">
+
+    <!--<a href="/categories/%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E5%8F%91%E7%8E%B0%E4%B8%AD%E9%97%B4%E4%BB%B6/etcd%E6%8A%80%E6%9C%AF/" rel="section"><i class="fab fa-edge-legacy fa-fw"></i>etcd技术</a>-->
+    
+       
+          <a href="/categories/%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E5%8F%91%E7%8E%B0%E4%B8%AD%E9%97%B4%E4%BB%B6/etcd%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fab fa-edge-legacy fa-fw"></i>etcd技术</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-nacos">
+
+    <!--<a href="/categories/%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E5%8F%91%E7%8E%B0%E4%B8%AD%E9%97%B4%E4%BB%B6/nacos%E6%8A%80%E6%9C%AF/" rel="section"><i class="fab fa-adn fa-fw"></i>nacos技术</a>-->
+    
+       
+          <a href="/categories/%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E5%8F%91%E7%8E%B0%E4%B8%AD%E9%97%B4%E4%BB%B6/nacos%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fab fa-adn fa-fw"></i>nacos技术</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-categories-gateway">
+
+    <!--<a href="/categories/%E7%BD%91%E5%85%B3%E4%B8%AD%E9%97%B4%E4%BB%B6" rel="section"><i class="fab fa-wikipedia-w fa-fw"></i>服务网关中间件</a>-->
+    
+       
+        <a href="/categories/%E7%BD%91%E5%85%B3%E4%B8%AD%E9%97%B4%E4%BB%B6" rel="section"><i class="fab fa-wikipedia-w fa-fw"></i>服务网关中间件</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-webserver">
+
+    <!--<a href="/categories/%E7%BD%91%E5%85%B3%E4%B8%AD%E9%97%B4%E4%BB%B6/nginx-haproxy%E6%8A%80%E6%9C%AF/" rel="section"><i class="fab fa-neos fa-fw"></i>nginx-haproxy技术</a>-->
+    
+       
+          <a href="/categories/%E7%BD%91%E5%85%B3%E4%B8%AD%E9%97%B4%E4%BB%B6/nginx-haproxy%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fab fa-neos fa-fw"></i>nginx-haproxy技术</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-categories-dev">
+
+    <!--<a href="/categories/%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="section"><i class="fas fa-cogs fa-fw"></i>服务部署中间件</a>-->
+    
+       
+        <a href="/categories/%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="section"><i class="fas fa-cogs fa-fw"></i>服务部署中间件</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-jenkins">
+
+    <!--<a href="/categories/%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E4%B8%AD%E9%97%B4%E4%BB%B6/jenkins%E6%8A%80%E6%9C%AF/" rel="section"><i class="fab fa-jenkins fa-fw"></i>jenkins技术</a>-->
+    
+       
+          <a href="/categories/%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E4%B8%AD%E9%97%B4%E4%BB%B6/jenkins%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fab fa-jenkins fa-fw"></i>jenkins技术</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-docker">
+
+    <!--<a href="/categories/%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E4%B8%AD%E9%97%B4%E4%BB%B6/docker%E6%8A%80%E6%9C%AF/" rel="section"><i class="fab fa-docker fa-fw"></i>docker-engine技术</a>-->
+    
+       
+          <a href="/categories/%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E4%B8%AD%E9%97%B4%E4%BB%B6/docker%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fab fa-docker fa-fw"></i>docker-engine技术</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-kubernetes">
+
+    <!--<a href="/categories/%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E4%B8%AD%E9%97%B4%E4%BB%B6/kubernetes%E6%8A%80%E6%9C%AF/" rel="section"><i class="fas fa-dharmachakra fa-fw"></i>kubernetes技术</a>-->
+    
+       
+          <a href="/categories/%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E4%B8%AD%E9%97%B4%E4%BB%B6/kubernetes%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fas fa-dharmachakra fa-fw"></i>kubernetes技术</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-harbor">
+
+    <!--<a href="/categories/%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E4%B8%AD%E9%97%B4%E4%BB%B6/harbor%E6%8A%80%E6%9C%AF/" rel="section"><i class="fab fa-watchman-monitoring fa-fw"></i>harbor技术</a>-->
+    
+       
+          <a href="/categories/%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E4%B8%AD%E9%97%B4%E4%BB%B6/harbor%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fab fa-watchman-monitoring fa-fw"></i>harbor技术</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-categories-program">
+
+    <!--<a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E4%B8%8E%E6%B5%8B%E8%AF%95%E6%8A%80%E6%9C%AF/" rel="section"><i class="fab fa-dev fa-fw"></i>编程语言与测试技术</a>-->
+    
+       
+        <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E4%B8%8E%E6%B5%8B%E8%AF%95%E6%8A%80%E6%9C%AF/" rel="section"><i class="fab fa-dev fa-fw"></i>编程语言与测试技术</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-network">
+
+    <!--<a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E4%B8%8E%E6%B5%8B%E8%AF%95%E6%8A%80%E6%9C%AF/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E7%9F%A5%E8%AF%86/" rel="section"><i class="fas fa-paper-plane fa-fw"></i>网络协议知识</a>-->
+    
+       
+          <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E4%B8%8E%E6%B5%8B%E8%AF%95%E6%8A%80%E6%9C%AF/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E7%9F%A5%E8%AF%86/" rel="section" class="submenu-item"><i class="fas fa-paper-plane fa-fw"></i>网络协议知识</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-go">
+
+    <!--<a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E4%B8%8E%E6%B5%8B%E8%AF%95%E6%8A%80%E6%9C%AF/go%E8%AF%AD%E8%A8%80/" rel="section"><i class="fab fa-goodreads fa-fw"></i>go编程语言</a>-->
+    
+       
+          <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E4%B8%8E%E6%B5%8B%E8%AF%95%E6%8A%80%E6%9C%AF/go%E8%AF%AD%E8%A8%80/" rel="section" class="submenu-item"><i class="fab fa-goodreads fa-fw"></i>go编程语言</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-java">
+
+    <!--<a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E4%B8%8E%E6%B5%8B%E8%AF%95%E6%8A%80%E6%9C%AF/java%E8%AF%AD%E8%A8%80/" rel="section"><i class="fab fa-java fa-fw"></i>java编程语言</a>-->
+    
+       
+          <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E4%B8%8E%E6%B5%8B%E8%AF%95%E6%8A%80%E6%9C%AF/java%E8%AF%AD%E8%A8%80/" rel="section" class="submenu-item"><i class="fab fa-java fa-fw"></i>java编程语言</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-js">
+
+    <!--<a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E4%B8%8E%E6%B5%8B%E8%AF%95%E6%8A%80%E6%9C%AF/js%E8%AF%AD%E8%A8%80/" rel="section"><i class="fab fa-node-js fa-fw"></i>js编程语言</a>-->
+    
+       
+          <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E4%B8%8E%E6%B5%8B%E8%AF%95%E6%8A%80%E6%9C%AF/js%E8%AF%AD%E8%A8%80/" rel="section" class="submenu-item"><i class="fab fa-node-js fa-fw"></i>js编程语言</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <!--<a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E4%B8%8E%E6%B5%8B%E8%AF%95%E6%8A%80%E6%9C%AF/%E5%B7%A5%E5%85%B7%E7%AE%B1/" rel="section"><i class="fas fa-tools fa-fw"></i>工具箱</a>-->
+    
+       
+          <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E4%B8%8E%E6%B5%8B%E8%AF%95%E6%8A%80%E6%9C%AF/%E5%B7%A5%E5%85%B7%E7%AE%B1/" rel="section" class="submenu-item"><i class="fas fa-tools fa-fw"></i>工具箱</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-categories-architectrue">
+
+    <!--<a href="/categories/%E5%BA%94%E7%94%A8%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%84%9F%E6%82%9F/" rel="section"><i class="fas fa-drafting-compass fa-fw"></i>应用架构</a>-->
+    
+       
+        <a href="/categories/%E5%BA%94%E7%94%A8%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%84%9F%E6%82%9F/" rel="section"><i class="fas fa-drafting-compass fa-fw"></i>应用架构</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-architectrue">
+
+    <!--<a href="/categories/%E5%BA%94%E7%94%A8%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%84%9F%E6%82%9F/%E5%BA%94%E7%94%A8%E6%9E%B6%E6%9E%84/" rel="section"><i class="fab fa-connectdevelop fa-fw"></i>应用架构</a>-->
+    
+       
+          <a href="/categories/%E5%BA%94%E7%94%A8%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%84%9F%E6%82%9F/%E5%BA%94%E7%94%A8%E6%9E%B6%E6%9E%84/" rel="section" class="submenu-item"><i class="fab fa-connectdevelop fa-fw"></i>应用架构</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-gerenganwu">
+
+    <!--<a href="/categories/%E5%BA%94%E7%94%A8%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%84%9F%E6%82%9F/%E4%B8%AA%E4%BA%BA%E6%84%9F%E6%82%9F/" rel="section"><i class="fas fa-mug-hot fa-fw"></i>个人感悟</a>-->
+    
+       
+          <a href="/categories/%E5%BA%94%E7%94%A8%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%84%9F%E6%82%9F/%E4%B8%AA%E4%BA%BA%E6%84%9F%E6%82%9F/" rel="section" class="submenu-item"><i class="fas fa-mug-hot fa-fw"></i>个人感悟</a>
+    
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <section class="post-toc-wrap sidebar-panel">
+        </section>
+        <!--/noindex-->
+
+        <section class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="渐学顿悟"
+      src="/favicon.png">
+  <p class="site-author-name" itemprop="name">渐学顿悟</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">138</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jxdw" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jxdw" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/wechat.png" title="WeChat → &#x2F;wechat.png"><i class="fab fa-weixin fa-fw"></i>WeChat</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:283593214@qq.com" title="E-Mail → mailto:283593214@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </section>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+      
+
+      
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jxdw.github.io/2020/12/15/elasticsearch-6813-bootstrap/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/favicon.png">
+      <meta itemprop="name" content="渐学顿悟">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="渐学顿悟">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【elasticsearch架构系列】elasticsearch 6.8.13源码分析系列(1)
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-12-15 22:29:46 22:29:46" itemprop="dateCreated datePublished" datetime="2020-12-15T22:29:46+08:00">2020-12-15 22:29:46</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E4%B8%AD%E9%97%B4%E4%BB%B6/" itemprop="url" rel="index"><span itemprop="name">数据存储中间件</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E4%B8%AD%E9%97%B4%E4%BB%B6/elasticsearch%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">elasticsearch技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/12/15/elasticsearch-6813-bootstrap/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/12/15/elasticsearch-6813-bootstrap/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><h2 id="软件和源码版本说明"><a href="#软件和源码版本说明" class="headerlink" title="软件和源码版本说明"></a>软件和源码版本说明</h2><ul>
+<li>elasticsearch 6.8.13源码。<br>可以从github checkout。</li>
+<li>elasticsearch 6.8.13.tar.gz包。<br>从elastic官网下载。</li>
+<li>gradle 5.4.11.zip。<br> 从网络下载</li>
+<li>jdk12。<br>可以brew或者windows安装包。启动过程会修改jdk的java.security文件（目录在/Library/Java/JavaVirtualMachines/jdk-12.jdk/Contents/Home/conf/security）</li>
+<li>idea 2020.2.3</li>
+</ul>
+<a id="more"></a>
+
+<h2 id="编译过程"><a href="#编译过程" class="headerlink" title="编译过程"></a>编译过程</h2><ul>
+<li>将下载的 gradle 5.4.11.zip放到源码包的gradle/wrapper/dists目录下（dists目录要新建）</li>
+<li>命令行进入源码目录执行./gradlew。<br>如果出现Sucessful，就说明初始化成功了。<br>如果出现什么bug，直接谷歌找答案。</li>
+<li>在idea打开源码项目.<br>idea会提示是否导入给gradle project。点是就可以了</li>
+<li>解压从elastic官网下载的module、config、plugin包到源码工程下<br>注意，在复制之前：把module包下的.iml文件删除<br>把plugin包重命名为plugin_bak先。</li>
+<li>配置debug参数<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">-Des.path.home&#x3D;&#x2F;Users&#x2F;xiaogang&#x2F;java&#x2F;elasticsearch-6.8.13</span><br><span class="line">-Des.path.conf&#x3D;&#x2F;Users&#x2F;xiaogang&#x2F;java&#x2F;elasticsearch-6.8.13&#x2F;config</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h1 id="补充知识"><a href="#补充知识" class="headerlink" title="补充知识"></a>补充知识</h1><h2 id="elasticsearch整体架构"><a href="#elasticsearch整体架构" class="headerlink" title="elasticsearch整体架构"></a>elasticsearch整体架构</h2><p><img src="https://jxdw.github.io/img/elasticsearch6/elasticsearch_internal_architecture.png"><br>ps:图片来源于网络</p>
+<h2 id="源码目录"><a href="#源码目录" class="headerlink" title="源码目录"></a>源码目录</h2><p><img src="https://jxdw.github.io/img/elasticsearch6/elasticsearch_source_directory_6813.png"></p>
+<h1 id="启动过程"><a href="#启动过程" class="headerlink" title="启动过程"></a>启动过程</h1><h2 id="elasticsearch服务debug启动参数"><a href="#elasticsearch服务debug启动参数" class="headerlink" title="elasticsearch服务debug启动参数"></a>elasticsearch服务debug启动参数</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;Library&#x2F;Java&#x2F;JavaVirtualMachines&#x2F;jdk-12.jdk&#x2F;Contents&#x2F;Home&#x2F;bin&#x2F;java </span><br><span class="line">-agentlib:jdwp&#x3D;transport&#x3D;dt_socket,address&#x3D;127.0.0.1:53251,suspend&#x3D;y,server&#x3D;n </span><br><span class="line">-Des.path.home&#x3D;&#x2F;Users&#x2F;xiaogang&#x2F;java&#x2F;elasticsearch-6.8.13 </span><br><span class="line">-Des.path.conf&#x3D;&#x2F;Users&#x2F;xiaogang&#x2F;java&#x2F;elasticsearch-6.8.13&#x2F;config </span><br><span class="line">-javaagent:&#x2F;Users&#x2F;xiaogang&#x2F;Library&#x2F;Caches&#x2F;JetBrains&#x2F;IntelliJIdea2020.2&#x2F;groovyHotSwap&#x2F;gragent.jar </span><br><span class="line">-javaagent:&#x2F;Users&#x2F;xiaogang&#x2F;Library&#x2F;Caches&#x2F;JetBrains&#x2F;IntelliJIdea2020.2&#x2F;captureAgent&#x2F;debugger-agent.jar </span><br><span class="line">-Dfile.encoding&#x3D;UTF-8 </span><br><span class="line">-classpath &#x2F;Users&#x2F;xiaogang&#x2F;java&#x2F;elasticsearch-6.8.13&#x2F;server&#x2F;build&#x2F;classes&#x2F;java&#x2F;main:&#x2F;Users&#x2F;xiaogang&#x2F;java&#x2F;elasticsearch-6.8.13&#x2F;server&#x2F;out&#x2F;production&#x2F;resources:&#x2F;Users&#x2F;xiaogang&#x2F;java&#x2F;elasticsearch-6.8.13&#x2F;libs&#x2F;x-content&#x2F;build&#x2F;classes&#x2F;java&#x2F;main:&#x2F;Users&#x2F;xiaogang&#x2F;java&#x2F;elasticsearch-6.8.13&#x2F;libs&#x2F;cli&#x2F;build&#x2F;classes&#x2F;java&#x2F;main:&#x2F;Users&#x2F;xiaogang&#x2F;java&#x2F;elasticsearch-6.8.13&#x2F;libs&#x2F;core&#x2F;build&#x2F;classes&#x2F;java&#x2F;main:&#x2F;Users&#x2F;xiaogang&#x2F;java&#x2F;elasticsearch-6.8.13&#x2F;libs&#x2F;secure-sm&#x2F;build&#x2F;classes&#x2F;java&#x2F;main:&#x2F;Users&#x2F;xiaogang&#x2F;.gradle&#x2F;caches&#x2F;modules-2&#x2F;files-2.1&#x2F;org.apache.lucene&#x2F;lucene-core&#x2F;7.7.3&#x2F;5faa5ae56f7599019fce6184accc6c968b7519e7&#x2F;lucene-core-7.7.3.jar:&#x2F;Users&#x2F;xiaogang&#x2F;.gradle&#x2F;caches&#x2F;modules-2&#x2F;files-2.1&#x2F;org.apache.lucene&#x2F;lucene-analyzers-common&#x2F;7.7.3&#x2F;a76cbf5e21bbbb0c2d6288b042450236248214e&#x2F;lucene-analyzers-common-7.7.3.jar:&#x2F;Users&#x2F;xiaogang&#x2F;.gradle&#x2F;caches&#x2F;modules-2&#x2F;files-2.1&#x2F;org.apache.lucene&#x2F;lucene-backward-codecs&#x2F;7.7.3&#x2F;40207d0dd023a0e2868a23dd87d72f1a3cdbb893&#x2F;lucene-backward-codecs-7.7.3.jar:&#x2F;Users&#x2F;xiaogang&#x2F;.gradle&#x2F;caches&#x2F;modules-2&#x2F;files-2.1&#x2F;org.apache.lucene&#x2F;lucene-grouping&#x2F;7.7.3&#x2F;f83db9f652630a8b39fbb455a91f59f21ff67779&#x2F;lucene-grouping-7.7.3.jar:&#x2F;Users&#x2F;xiaogang&#x2F;.gradle&#x2F;caches&#x2F;modules-2&#x2F;files-2.1&#x2F;org.apache.lucene&#x2F;lucene-highlighter&#x2F;7.7.3&#x2F;e271cfdaae0c1d3987e375ac9315cdc7fccdf203&#x2F;lucene-highlighter-7.7.3.jar:&#x2F;Users&#x2F;xiaogang&#x2F;.gradle&#x2F;caches&#x2F;modules-2&#x2F;files-2.1&#x2F;org.apache.lucene&#x2F;lucene-join&#x2F;7.7.3&#x2F;4e8c4b73a82db1dd898735671aa42d6cc839c977&#x2F;lucene-join-7.7.3.jar:&#x2F;Users&#x2F;xiaogang&#x2F;.gradle&#x2F;caches&#x2F;modules-2&#x2F;files-2.1&#x2F;org.apache.lucene&#x2F;lucene-memory&#x2F;7.7.3&#x2F;a23d27ab6e928a9e6b8b2a0dceeef8c719d82396&#x2F;lucene-memory-7.7.3.jar:&#x2F;Users&#x2F;xiaogang&#x2F;.gradle&#x2F;caches&#x2F;modules-2&#x2F;files-2.1&#x2F;org.apache.lucene&#x2F;lucene-misc&#x2F;7.7.3&#x2F;3aca078edf983059722fe61a81b7b7bd5ecdb222&#x2F;lucene-misc-7.7.3.jar:&#x2F;Users&#x2F;xiaogang&#x2F;.gradle&#x2F;caches&#x2F;modules-2&#x2F;files-2.1&#x2F;org.apache.lucene&#x2F;lucene-queries&#x2F;7.7.3&#x2F;f507367487e614b9915cef04761afca72a279047&#x2F;lucene-queries-7.7.3.jar:&#x2F;Users&#x2F;xiaogang&#x2F;.gradle&#x2F;caches&#x2F;modules-2&#x2F;files-2.1&#x2F;org.apache.lucene&#x2F;lucene-queryparser&#x2F;7.7.3&#x2F;685fc6166d29eb3e3441ae066873bb442aa02df1&#x2F;lucene-queryparser-7.7.3.jar:&#x2F;Users&#x2F;xiaogang&#x2F;.gradle&#x2F;caches&#x2F;modules-2&#x2F;files-2.1&#x2F;org.apache.lucene&#x2F;lucene-sandbox&#x2F;7.7.3&#x2F;8ae1fde038dbdf915a515166c0d0c142bea8bbe5&#x2F;lucene-sandbox-7.7.3.jar:&#x2F;Users&#x2F;xiaogang&#x2F;.gradle&#x2F;caches&#x2F;modules-2&#x2F;files-2.1&#x2F;org.apache.lucene&#x2F;lucene-spatial&#x2F;7.7.3&#x2F;6aca987f61da63aad6635ecc8d23de7f2bbb2aea&#x2F;lucene-spatial-7.7.3.jar:&#x2F;Users&#x2F;xiaogang&#x2F;.gradle&#x2F;caches&#x2F;modules-2&#x2F;files-2.1&#x2F;org.apache.lucene&#x2F;lucene-spatial-extras&#x2F;7.7.3&#x2F;455c20d05a2955a0cb67089377102cad1750bef2&#x2F;lucene-spatial-extras-7.7.3.jar:&#x2F;Users&#x2F;xiaogang&#x2F;.gradle&#x2F;caches&#x2F;modules-2&#x2F;files-2.1&#x2F;org.apache.lucene&#x2F;lucene-spatial3d&#x2F;7.7.3&#x2F;b46e052b83c546c6bfcc331347c06374b8d03ca&#x2F;lucene-spatial3d-7.7.3.jar:&#x2F;Users&#x2F;xiaogang&#x2F;.gradle&#x2F;caches&#x2F;modules-2&#x2F;files-2.1&#x2F;org.apache.lucene&#x2F;lucene-suggest&#x2F;7.7.3&#x2F;8d184d913dc6f4181afd61ee8f657909fa38516b&#x2F;lucene-suggest-7.7.3.jar:&#x2F;Users&#x2F;xiaogang&#x2F;.gradle&#x2F;caches&#x2F;modules-2&#x2F;files-2.1&#x2F;com.carrotsearch&#x2F;hppc&#x2F;0.7.1&#x2F;8b5057f74ea378c0150a1860874a3ebdcb713767&#x2F;hppc-0.7.1.jar:&#x2F;Users&#x2F;xiaogang&#x2F;.gradle&#x2F;caches&#x2F;modules-2&#x2F;files-2.1&#x2F;joda-time&#x2F;joda-time&#x2F;2.10.1&#x2F;9ac3dbf89dbf2ee385185dd0cd3064fe789efee0&#x2F;joda-time-2.10.1.jar:&#x2F;Users&#x2F;xiaogang&#x2F;.gradle&#x2F;caches&#x2F;modules-2&#x2F;files-2.1&#x2F;com.tdunning&#x2F;t-digest&#x2F;3.2&#x2F;2ab94758b0276a8a26102adf8d528cf6d0567b9a&#x2F;t-digest-3.2.jar:&#x2F;Users&#x2F;xiaogang&#x2F;.gradle&#x2F;caches&#x2F;modules-2&#x2F;files-2.1&#x2F;org.hdrhistogram&#x2F;HdrHistogram&#x2F;2.1.9&#x2F;e4631ce165eb400edecfa32e03d3f1be53dee754&#x2F;HdrHistogram-2.1.9.jar:&#x2F;Users&#x2F;xiaogang&#x2F;.gradle&#x2F;caches&#x2F;modules-2&#x2F;files-2.1&#x2F;org.locationtech.spatial4j&#x2F;spatial4j&#x2F;0.7&#x2F;faa8ba85d503da4ab872d17ba8c00da0098ab2f2&#x2F;spatial4j-0.7.jar:&#x2F;Users&#x2F;xiaogang&#x2F;.gradle&#x2F;caches&#x2F;modules-2&#x2F;files-2.1&#x2F;org.locationtech.jts&#x2F;jts-core&#x2F;1.15.0&#x2F;705981b7e25d05a76a3654e597dab6ba423eb79e&#x2F;jts-core-1.15.0.jar:&#x2F;Users&#x2F;xiaogang&#x2F;.gradle&#x2F;caches&#x2F;modules-2&#x2F;files-2.1&#x2F;org.apache.logging.log4j&#x2F;log4j-api&#x2F;2.11.1&#x2F;268f0fe4df3eefe052b57c87ec48517d64fb2a10&#x2F;log4j-api-2.11.1.jar:&#x2F;Users&#x2F;xiaogang&#x2F;.gradle&#x2F;caches&#x2F;modules-2&#x2F;files-2.1&#x2F;org.apache.logging.log4j&#x2F;log4j-core&#x2F;2.11.1&#x2F;592a48674c926b01a9a747c7831bcd82a9e6d6e4&#x2F;log4j-core-2.11.1.jar:&#x2F;Users&#x2F;xiaogang&#x2F;.gradle&#x2F;caches&#x2F;modules-2&#x2F;files-2.1&#x2F;org.apache.logging.log4j&#x2F;log4j-1.2-api&#x2F;2.11.1&#x2F;3aba3398fe064a3eab4331f88161c7480e848418&#x2F;log4j-1.2-api-2.11.1.jar:&#x2F;Users&#x2F;xiaogang&#x2F;.gradle&#x2F;caches&#x2F;modules-2&#x2F;files-2.1&#x2F;org.elasticsearch&#x2F;jna&#x2F;5.5.0&#x2F;ade077cbb2618a18bfc6c335413b2b7163d97601&#x2F;jna-5.5.0.jar:&#x2F;Users&#x2F;xiaogang&#x2F;java&#x2F;elasticsearch-6.8.13&#x2F;libs&#x2F;plugin-classloader&#x2F;build&#x2F;classes&#x2F;java&#x2F;main:&#x2F;Users&#x2F;xiaogang&#x2F;.gradle&#x2F;caches&#x2F;modules-2&#x2F;files-2.1&#x2F;org.yaml&#x2F;snakeyaml&#x2F;1.17&#x2F;7a27ea250c5130b2922b86dea63cbb1cc10a660c&#x2F;snakeyaml-1.17.jar:&#x2F;Users&#x2F;xiaogang&#x2F;.gradle&#x2F;caches&#x2F;modules-2&#x2F;files-2.1&#x2F;com.fasterxml.jackson.core&#x2F;jackson-core&#x2F;2.8.11&#x2F;876ead1db19f0c9e79c9789273a3ef8c6fd6c29b&#x2F;jackson-core-2.8.11.jar:&#x2F;Users&#x2F;xiaogang&#x2F;.gradle&#x2F;caches&#x2F;modules-2&#x2F;files-2.1&#x2F;com.fasterxml.jackson.dataformat&#x2F;jackson-dataformat-smile&#x2F;2.8.11&#x2F;d9d1c49c5d9d5e46e2aee55f3cdd119286fe0fc1&#x2F;jackson-dataformat-smile-2.8.11.jar:&#x2F;Users&#x2F;xiaogang&#x2F;.gradle&#x2F;caches&#x2F;modules-2&#x2F;files-2.1&#x2F;com.fasterxml.jackson.dataformat&#x2F;jackson-dataformat-yaml&#x2F;2.8.11&#x2F;2e77c6ff7342cd61ab1ae7cb14ed16aebfc8a72a&#x2F;jackson-dataformat-yaml-2.8.11.jar:&#x2F;Users&#x2F;xiaogang&#x2F;.gradle&#x2F;caches&#x2F;modules-2&#x2F;files-2.1&#x2F;com.fasterxml.jackson.dataformat&#x2F;jackson-dataformat-cbor&#x2F;2.8.11&#x2F;8b9826e16c3366764bfb7ad7362554f0471046c3&#x2F;jackson-dataformat-cbor-2.8.11.jar:&#x2F;Users&#x2F;xiaogang&#x2F;.gradle&#x2F;caches&#x2F;modules-2&#x2F;files-2.1&#x2F;net.sf.jopt-simple&#x2F;jopt-simple&#x2F;5.0.2&#x2F;98cafc6081d5632b61be2c9e60650b64ddbc637c&#x2F;jopt-simple-5.0.2.jar:&#x2F;Applications&#x2F;IntelliJ IDEA.app&#x2F;Contents&#x2F;lib&#x2F;idea_rt.jar </span><br><span class="line">org.elasticsearch.bootstrap.Elasticsearch</span><br></pre></td></tr></table></figure>
+
+<h2 id="日志输出"><a href="#日志输出" class="headerlink" title="日志输出"></a>日志输出</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Connected to the target VM, address: &#39;127.0.0.1:53251&#39;, transport: &#39;socket&#39;</span><br><span class="line">OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended</span><br><span class="line">2020-12-12 15:24:37,681 [INFO ][o.e.e.NodeEnvironment    ] [node-1] using [1] data paths, mounts [[&#x2F; (&#x2F;dev&#x2F;disk1s1)]], net usable_space [245.6gb], net total_space [465.6gb], types [apfs]</span><br><span class="line">2020-12-12 15:24:37,688 [INFO ][o.e.e.NodeEnvironment    ] [node-1] heap size [4gb], compressed ordinary object pointers [true]</span><br><span class="line">2020-12-12 15:24:37,692 [INFO ][o.e.n.Node               ] [node-1] node name [node-1], node ID [ejfYItYER0qc2qaepF3-PA]</span><br><span class="line">2020-12-12 15:24:37,692 [INFO ][o.e.n.Node               ] [node-1] version[6.8.13-SNAPSHOT], pid[7977], build[unknown&#x2F;unknown&#x2F;Unknown&#x2F;Unknown], OS[Mac OS X&#x2F;10.15.7&#x2F;x86_64], JVM[Oracle Corporation&#x2F;OpenJDK 64-Bit Server VM&#x2F;12&#x2F;12+33]</span><br><span class="line">2020-12-15 22:24:37,693 [INFO ][o.e.n.Node               ] [node-1] JVM arguments [-agentlib:jdwp&#x3D;transport&#x3D;dt_socket,address&#x3D;127.0.0.1:53251,suspend&#x3D;y,server&#x3D;n, -Des.path.home&#x3D;&#x2F;Users&#x2F;xiaogang&#x2F;java&#x2F;elasticsearch-6.8.13, -Des.path.conf&#x3D;&#x2F;Users&#x2F;xiaogang&#x2F;java&#x2F;elasticsearch-6.8.13&#x2F;config, -javaagent:&#x2F;Users&#x2F;xiaogang&#x2F;Library&#x2F;Caches&#x2F;JetBrains&#x2F;IntelliJIdea2020.2&#x2F;groovyHotSwap&#x2F;gragent.jar, -javaagent:&#x2F;Users&#x2F;xiaogang&#x2F;Library&#x2F;Caches&#x2F;JetBrains&#x2F;IntelliJIdea2020.2&#x2F;captureAgent&#x2F;debugger-agent.jar, -Dfile.encoding&#x3D;UTF-8]</span><br><span class="line">2020-12-15 22:24:37,693 [WARN ][o.e.n.Node               ] [node-1] version [6.8.13-SNAPSHOT] is a pre-release version of Elasticsearch and is not suitable for production</span><br><span class="line">2020-12-15 22:24:44,173 [INFO ][o.e.p.PluginsService     ] [node-1] loaded module [aggs-matrix-stats]</span><br><span class="line">2020-12-15 22:24:44,173 [INFO ][o.e.p.PluginsService     ] [node-1] loaded module [analysis-common]</span><br><span class="line">2020-12-15 22:24:44,173 [INFO ][o.e.p.PluginsService     ] [node-1] loaded module [ingest-common]</span><br><span class="line">2020-12-15 22:24:44,173 [INFO ][o.e.p.PluginsService     ] [node-1] loaded module [ingest-geoip]</span><br><span class="line">2020-12-15 22:24:44,173 [INFO ][o.e.p.PluginsService     ] [node-1] loaded module [ingest-user-agent]</span><br><span class="line">2020-12-15 22:24:44,173 [INFO ][o.e.p.PluginsService     ] [node-1] loaded module [lang-expression]</span><br><span class="line">2020-12-15 22:24:44,173 [INFO ][o.e.p.PluginsService     ] [node-1] loaded module [lang-mustache]</span><br><span class="line">2020-12-15 22:24:44,174 [INFO ][o.e.p.PluginsService     ] [node-1] loaded module [lang-painless]</span><br><span class="line">2020-12-15 22:24:44,174 [INFO ][o.e.p.PluginsService     ] [node-1] loaded module [mapper-extras]</span><br><span class="line">2020-12-15 22:24:44,174 [INFO ][o.e.p.PluginsService     ] [node-1] loaded module [parent-join]</span><br><span class="line">2020-12-15 22:24:44,174 [INFO ][o.e.p.PluginsService     ] [node-1] loaded module [percolator]</span><br><span class="line">2020-12-15 22:24:44,174 [INFO ][o.e.p.PluginsService     ] [node-1] loaded module [rank-eval]</span><br><span class="line">2020-12-15 22:24:44,174 [INFO ][o.e.p.PluginsService     ] [node-1] loaded module [reindex]</span><br><span class="line">2020-12-15 22:24:44,174 [INFO ][o.e.p.PluginsService     ] [node-1] loaded module [repository-url]</span><br><span class="line">2020-12-15 22:24:44,174 [INFO ][o.e.p.PluginsService     ] [node-1] loaded module [transport-netty4]</span><br><span class="line">2020-12-15 22:24:44,174 [INFO ][o.e.p.PluginsService     ] [node-1] loaded module [tribe]</span><br><span class="line">2020-12-15 22:24:44,175 [INFO ][o.e.p.PluginsService     ] [node-1] loaded module [x-pack-ccr]</span><br><span class="line">2020-12-15 22:24:44,175 [INFO ][o.e.p.PluginsService     ] [node-1] loaded module [x-pack-core]</span><br><span class="line">2020-12-15 22:24:44,175 [INFO ][o.e.p.PluginsService     ] [node-1] loaded module [x-pack-deprecation]</span><br><span class="line">2020-12-15 22:24:44,175 [INFO ][o.e.p.PluginsService     ] [node-1] loaded module [x-pack-graph]</span><br><span class="line">2020-12-15 22:24:44,175 [INFO ][o.e.p.PluginsService     ] [node-1] loaded module [x-pack-ilm]</span><br><span class="line">2020-12-15 22:24:44,175 [INFO ][o.e.p.PluginsService     ] [node-1] loaded module [x-pack-logstash]</span><br><span class="line">2020-12-15 22:24:44,175 [INFO ][o.e.p.PluginsService     ] [node-1] loaded module [x-pack-ml]</span><br><span class="line">2020-12-15 22:24:44,175 [INFO ][o.e.p.PluginsService     ] [node-1] loaded module [x-pack-monitoring]</span><br><span class="line">2020-12-15 22:24:44,175 [INFO ][o.e.p.PluginsService     ] [node-1] loaded module [x-pack-rollup]</span><br><span class="line">2020-12-15 22:24:44,175 [INFO ][o.e.p.PluginsService     ] [node-1] loaded module [x-pack-security]</span><br><span class="line">2020-12-15 22:24:44,176 [INFO ][o.e.p.PluginsService     ] [node-1] loaded module [x-pack-sql]</span><br><span class="line">2020-12-15 22:24:44,176 [INFO ][o.e.p.PluginsService     ] [node-1] loaded module [x-pack-upgrade]</span><br><span class="line">2020-12-15 22:24:44,176 [INFO ][o.e.p.PluginsService     ] [node-1] loaded module [x-pack-watcher]</span><br><span class="line">2020-12-15 22:24:44,176 [INFO ][o.e.p.PluginsService     ] [node-1] no plugins loaded</span><br><span class="line">2020-12-15 22:24:44,427 [INFO ][i.n.u.i.PlatformDependent] [node-1] Your platform does not provide complete low-level API for accessing direct buffers reliably. Unless explicitly requested, heap buffer will always be preferred to avoid potential system instability.</span><br><span class="line">2020-12-15 22:24:47,980 [INFO ][o.e.x.s.a.s.FileRolesStore] [node-1] parsed [0] roles from file [&#x2F;Users&#x2F;xiaogang&#x2F;java&#x2F;elasticsearch-6.8.13&#x2F;config&#x2F;roles.yml]</span><br><span class="line">2020-12-15 22:24:48,220 [INFO ][i.n.u.i.PlatformDependent] [node-1] Your platform does not provide complete low-level API for accessing direct buffers reliably. Unless explicitly requested, heap buffer will always be preferred to avoid potential system instability.</span><br><span class="line">2020-12-15 22:24:48,849 [INFO ][o.e.x.m.p.l.CppLogMessageHandler] [node-1] [controller&#x2F;7980] [Main.cc@114] controller (64 bit): Version 6.8.13 (Build c959f131d0de3b) Copyright (c) 2020 Elasticsearch BV</span><br><span class="line">2020-12-15 22:24:49,779 [DEBUG][o.e.a.ActionModule       ] [node-1] Using REST wrapper from plugin org.elasticsearch.xpack.security.Security</span><br><span class="line">2020-12-15 22:24:50,078 [INFO ][o.e.d.DiscoveryModule    ] [node-1] using discovery type [zen] and host providers [settings]</span><br><span class="line">2020-12-15 22:24:51,247 [INFO ][o.e.n.Node               ] [node-1] initialized</span><br><span class="line">2020-12-15 22:24:51,247 [INFO ][o.e.n.Node               ] [node-1] starting ...</span><br><span class="line">2020-12-15 22:24:51,505 [INFO ][o.e.t.TransportService   ] [node-1] publish_address &#123;127.0.0.1:9300&#125;, bound_addresses &#123;[::1]:9300&#125;, &#123;127.0.0.1:9300&#125;</span><br><span class="line">2020-12-15 22:24:51,551 [WARN ][o.e.b.BootstrapChecks    ] [node-1] initial heap size [268435456] not equal to maximum heap size [4294967296]; this can cause resize pauses and prevents mlockall from locking the entire heap</span><br><span class="line">2020-12-15 22:24:54,612 [INFO ][o.e.c.s.MasterService    ] [node-1] zen-disco-elected-as-master ([0] nodes joined), reason: new_master &#123;node-1&#125;&#123;ejfYItYER0qc2qaepF3-PA&#125;&#123;GNbgblpQTFSLDeq5uh5ZpA&#125;&#123;127.0.0.1&#125;&#123;127.0.0.1:9300&#125;&#123;ml.machine_memory&#x3D;17179869184, xpack.installed&#x3D;true, ml.max_open_jobs&#x3D;20, ml.enabled&#x3D;true&#125;</span><br><span class="line">2020-12-15 22:24:54,620 [INFO ][o.e.c.s.ClusterApplierService] [node-1] new_master &#123;node-1&#125;&#123;ejfYItYER0qc2qaepF3-PA&#125;&#123;GNbgblpQTFSLDeq5uh5ZpA&#125;&#123;127.0.0.1&#125;&#123;127.0.0.1:9300&#125;&#123;ml.machine_memory&#x3D;17179869184, xpack.installed&#x3D;true, ml.max_open_jobs&#x3D;20, ml.enabled&#x3D;true&#125;, reason: apply cluster state (from master [master &#123;node-1&#125;&#123;ejfYItYER0qc2qaepF3-PA&#125;&#123;GNbgblpQTFSLDeq5uh5ZpA&#125;&#123;127.0.0.1&#125;&#123;127.0.0.1:9300&#125;&#123;ml.machine_memory&#x3D;17179869184, xpack.installed&#x3D;true, ml.max_open_jobs&#x3D;20, ml.enabled&#x3D;true&#125; committed version [1] source [zen-disco-elected-as-master ([0] nodes joined)]])</span><br><span class="line">2020-12-15 22:24:54,678 [INFO ][o.e.h.n.Netty4HttpServerTransport] [node-1] publish_address &#123;127.0.0.1:9200&#125;, bound_addresses &#123;[::1]:9200&#125;, &#123;127.0.0.1:9200&#125;</span><br><span class="line">2020-12-15 22:24:54,679 [INFO ][o.e.n.Node               ] [node-1] started</span><br><span class="line">2020-12-15 22:24:54,944 [WARN ][o.e.x.s.a.s.m.NativeRoleMappingStore] [node-1] Failed to clear cache for realms [[]]</span><br><span class="line">2020-12-15 22:24:54,977 [INFO ][o.e.l.LicenseService     ] [node-1] license [1400b5fb-5387-4e18-b7c1-a307cabbbc82] mode [basic] - valid</span><br><span class="line">2020-12-15 22:24:54,990 [INFO ][o.e.g.GatewayService     ] [node-1] recovered [0] indices into cluster_state</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="tag"># 数据存储中间件</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/12/13/kubernetes-v120-architecture/" rel="prev" title="【kubernetes架构系列】kubernetes v1.20版本架构">
+                  <i class="fa fa-chevron-left"></i> 【kubernetes架构系列】kubernetes v1.20版本架构
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+      
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      
+
+      
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">渐学顿悟</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+NexT.utils.loadComments('#valine-comments', () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', () => {
+    new Valine(Object.assign({"enable":true,"appId":"wrre3Nrx21CqKiChLnKn034M-gzGzoHsz","appKey":"rkWWNONo7LAJhlS936vnywQ9","serverURLs":null,"placeholder":"请输入您的评论","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"lang":null,"visitor":false,"comment_count":true,"recordIP":false,"enableQQ":false,"requiredFields":["nick","mail"]}, {
+      el: '#valine-comments',
+      path: "/2020/12/15/elasticsearch-6813-bootstrap/",
+      serverURLs: "https://wrre3nrx.api.lncld.net"
+    }));
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

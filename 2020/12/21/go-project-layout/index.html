@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"jxdw.github.io","root":"/","scheme":"Pisces","version":"8.0.2","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"width":240},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
+  </script>
+
+  <meta name="description" content="Standard Go Project Layout这是Go应用程序项目的基本布局。它不是核心Go开发团队定义的官方标准；然而，它是Go生态系统中一组常见的老项目和新项目的局模式。其中一些模式比其他模式更受欢迎。它还具有许多小的增强，以及对任何足够大的实际应用程序通用的几个支持目录。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【go使用系列】【转载】go项目工程的布局">
+<meta property="og:url" content="https://jxdw.github.io/2020/12/21/go-project-layout/index.html">
+<meta property="og:site_name" content="渐学顿悟">
+<meta property="og:description" content="Standard Go Project Layout这是Go应用程序项目的基本布局。它不是核心Go开发团队定义的官方标准；然而，它是Go生态系统中一组常见的老项目和新项目的局模式。其中一些模式比其他模式更受欢迎。它还具有许多小的增强，以及对任何足够大的实际应用程序通用的几个支持目录。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://goreportcard.com/badge/github.com/golang-standards/project-layout?style=flat-square">
+<meta property="og:image" content="https://img.shields.io/badge/godoc-reference-blue.svg?style=flat-square">
+<meta property="og:image" content="https://img.shields.io/github/release/golang-standards/project-layout.svg?style=flat-square">
+<meta property="article:published_time" content="2020-12-21T10:41:34.000Z">
+<meta property="article:modified_time" content="2020-12-27T03:31:38.693Z">
+<meta property="article:author" content="渐学顿悟">
+<meta property="article:tag" content="编程语言与测试技术">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://goreportcard.com/badge/github.com/golang-standards/project-layout?style=flat-square">
+
+
+<link rel="canonical" href="https://jxdw.github.io/2020/12/21/go-project-layout/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【go使用系列】【转载】go项目工程的布局 | 渐学顿悟</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">渐学顿悟</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <!--<a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>-->
+    
+       
+        <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <!--<a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>-->
+    
+       
+        <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-categories-middleware">
+
+    <!--<a href="/categories/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="section"><i class="fa fa-th fa-fw"></i>数据存储中间件</a>-->
+    
+       
+        <a href="/categories/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="section"><i class="fa fa-th fa-fw"></i>数据存储中间件</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-mysql">
+
+    <!--<a href="/categories/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E4%B8%AD%E9%97%B4%E4%BB%B6/mysql%E6%8A%80%E6%9C%AF/" rel="section"><i class="fas fa-database fa-fw"></i>mysql技术</a>-->
+    
+       
+          <a href="/categories/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E4%B8%AD%E9%97%B4%E4%BB%B6/mysql%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fas fa-database fa-fw"></i>mysql技术</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-redis">
+
+    <!--<a href="/categories/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E4%B8%AD%E9%97%B4%E4%BB%B6/redis%E6%8A%80%E6%9C%AF/" rel="section"><i class="fas fa-coins fa-fw"></i>redis技术</a>-->
+    
+       
+          <a href="/categories/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E4%B8%AD%E9%97%B4%E4%BB%B6/redis%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fas fa-coins fa-fw"></i>redis技术</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-rabbitmq">
+
+    <!--<a href="/categories/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E4%B8%AD%E9%97%B4%E4%BB%B6/rabbitmq-kafka%E6%8A%80%E6%9C%AF/" rel="section"><i class="fas fa-envelope fa-fw"></i>rabbitmq-kafka技术</a>-->
+    
+       
+          <a href="/categories/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E4%B8%AD%E9%97%B4%E4%BB%B6/rabbitmq-kafka%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fas fa-envelope fa-fw"></i>rabbitmq-kafka技术</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-elasticsearch">
+
+    <!--<a href="/categories/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E4%B8%AD%E9%97%B4%E4%BB%B6/elasticsearch%E6%8A%80%E6%9C%AF/" rel="section"><i class="fab fa-etsy fa-fw"></i>elasticsearch技术</a>-->
+    
+       
+          <a href="/categories/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E4%B8%AD%E9%97%B4%E4%BB%B6/elasticsearch%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fab fa-etsy fa-fw"></i>elasticsearch技术</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-canal">
+
+    <!--<a href="/categories/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E4%B8%AD%E9%97%B4%E4%BB%B6/canal%E6%8A%80%E6%9C%AF/" rel="section"><i class="fab fa-usb fa-fw"></i>canal技术</a>-->
+    
+       
+          <a href="/categories/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E4%B8%AD%E9%97%B4%E4%BB%B6/canal%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fab fa-usb fa-fw"></i>canal技术</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-categories-find">
+
+    <!--<a href="/categories/%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E7%9B%91%E6%8E%A7%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="section"><i class="fab fa-facebook-f fa-fw"></i>服务注册监控中间件</a>-->
+    
+       
+        <a href="/categories/%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E7%9B%91%E6%8E%A7%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="section"><i class="fab fa-facebook-f fa-fw"></i>服务注册监控中间件</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-job">
+
+    <!--<a href="/categories/%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E7%9B%91%E6%8E%A7%E4%B8%AD%E9%97%B4%E4%BB%B6/job%E8%B0%83%E5%BA%A6%E6%8A%80%E6%9C%AF/" rel="section"><i class="fas fa-clipboard-check fa-fw"></i>job调度技术</a>-->
+    
+       
+          <a href="/categories/%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E7%9B%91%E6%8E%A7%E4%B8%AD%E9%97%B4%E4%BB%B6/job%E8%B0%83%E5%BA%A6%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fas fa-clipboard-check fa-fw"></i>job调度技术</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-apollo">
+
+    <!--<a href="/categories/%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E7%9B%91%E6%8E%A7%E4%B8%AD%E9%97%B4%E4%BB%B6/apollo%E6%8A%80%E6%9C%AF/" rel="section"><i class="fab fa-adn fa-fw"></i>apollo技术</a>-->
+    
+       
+          <a href="/categories/%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E7%9B%91%E6%8E%A7%E4%B8%AD%E9%97%B4%E4%BB%B6/apollo%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fab fa-adn fa-fw"></i>apollo技术</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-etcd">
+
+    <!--<a href="/categories/%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E7%9B%91%E6%8E%A7%E4%B8%AD%E9%97%B4%E4%BB%B6/etcd%E6%8A%80%E6%9C%AF/" rel="section"><i class="fab fa-edge-legacy fa-fw"></i>etcd技术</a>-->
+    
+       
+          <a href="/categories/%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E7%9B%91%E6%8E%A7%E4%B8%AD%E9%97%B4%E4%BB%B6/etcd%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fab fa-edge-legacy fa-fw"></i>etcd技术</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-nacos">
+
+    <!--<a href="/categories/%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E7%9B%91%E6%8E%A7%E4%B8%AD%E9%97%B4%E4%BB%B6/nacos%E6%8A%80%E6%9C%AF/" rel="section"><i class="fab fa-adn fa-fw"></i>nacos技术</a>-->
+    
+       
+          <a href="/categories/%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E7%9B%91%E6%8E%A7%E4%B8%AD%E9%97%B4%E4%BB%B6/nacos%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fab fa-adn fa-fw"></i>nacos技术</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-zipkin">
+
+    <!--<a href="/categories/%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E7%9B%91%E6%8E%A7%E4%B8%AD%E9%97%B4%E4%BB%B6/zipkin%E6%8A%80%E6%9C%AF/" rel="section"><i class="fab fa-diaspora fa-fw"></i>zipkin技术</a>-->
+    
+       
+          <a href="/categories/%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E7%9B%91%E6%8E%A7%E4%B8%AD%E9%97%B4%E4%BB%B6/zipkin%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fab fa-diaspora fa-fw"></i>zipkin技术</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-jaeger">
+
+    <!--<a href="/categories/%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E7%9B%91%E6%8E%A7%E4%B8%AD%E9%97%B4%E4%BB%B6/jaeger%E6%8A%80%E6%9C%AF/" rel="section"><i class="fab fa-tumblr fa-fw"></i>jaeger技术</a>-->
+    
+       
+          <a href="/categories/%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E7%9B%91%E6%8E%A7%E4%B8%AD%E9%97%B4%E4%BB%B6/jaeger%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fab fa-tumblr fa-fw"></i>jaeger技术</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-prometheus">
+
+    <!--<a href="/categories/%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E7%9B%91%E6%8E%A7%E4%B8%AD%E9%97%B4%E4%BB%B6/prometheus%E6%8A%80%E6%9C%AF/" rel="section"><i class="fas fa-parking fa-fw"></i>prometheus技术</a>-->
+    
+       
+          <a href="/categories/%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E7%9B%91%E6%8E%A7%E4%B8%AD%E9%97%B4%E4%BB%B6/prometheus%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fas fa-parking fa-fw"></i>prometheus技术</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-categories-gateway">
+
+    <!--<a href="/categories/%E7%BD%91%E5%85%B3%E4%B8%AD%E9%97%B4%E4%BB%B6" rel="section"><i class="fab fa-wikipedia-w fa-fw"></i>服务网关中间件</a>-->
+    
+       
+        <a href="/categories/%E7%BD%91%E5%85%B3%E4%B8%AD%E9%97%B4%E4%BB%B6" rel="section"><i class="fab fa-wikipedia-w fa-fw"></i>服务网关中间件</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-webserver">
+
+    <!--<a href="/categories/%E7%BD%91%E5%85%B3%E4%B8%AD%E9%97%B4%E4%BB%B6/%E6%B5%81%E9%87%8F%E7%BD%91%E5%85%B3%E6%8A%80%E6%9C%AF/" rel="section"><i class="fab fa-neos fa-fw"></i>流量网关技术</a>-->
+    
+       
+          <a href="/categories/%E7%BD%91%E5%85%B3%E4%B8%AD%E9%97%B4%E4%BB%B6/%E6%B5%81%E9%87%8F%E7%BD%91%E5%85%B3%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fab fa-neos fa-fw"></i>流量网关技术</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-apiserver">
+
+    <!--<a href="/categories/%E7%BD%91%E5%85%B3%E4%B8%AD%E9%97%B4%E4%BB%B6/%E4%B8%9A%E5%8A%A1%E7%BD%91%E5%85%B3%E6%8A%80%E6%9C%AF/" rel="section"><i class="fab fa-bootstrap fa-fw"></i>业务网关技术</a>-->
+    
+       
+          <a href="/categories/%E7%BD%91%E5%85%B3%E4%B8%AD%E9%97%B4%E4%BB%B6/%E4%B8%9A%E5%8A%A1%E7%BD%91%E5%85%B3%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fab fa-bootstrap fa-fw"></i>业务网关技术</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-categories-dev">
+
+    <!--<a href="/categories/%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="section"><i class="fas fa-cogs fa-fw"></i>服务部署中间件</a>-->
+    
+       
+        <a href="/categories/%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="section"><i class="fas fa-cogs fa-fw"></i>服务部署中间件</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-jenkins">
+
+    <!--<a href="/categories/%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E4%B8%AD%E9%97%B4%E4%BB%B6/jenkins%E6%8A%80%E6%9C%AF/" rel="section"><i class="fab fa-jenkins fa-fw"></i>jenkins技术</a>-->
+    
+       
+          <a href="/categories/%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E4%B8%AD%E9%97%B4%E4%BB%B6/jenkins%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fab fa-jenkins fa-fw"></i>jenkins技术</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-docker">
+
+    <!--<a href="/categories/%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E4%B8%AD%E9%97%B4%E4%BB%B6/docker%E6%8A%80%E6%9C%AF/" rel="section"><i class="fab fa-docker fa-fw"></i>dockerengine技术</a>-->
+    
+       
+          <a href="/categories/%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E4%B8%AD%E9%97%B4%E4%BB%B6/docker%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fab fa-docker fa-fw"></i>dockerengine技术</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-kubernetes">
+
+    <!--<a href="/categories/%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E4%B8%AD%E9%97%B4%E4%BB%B6/kubernetes%E6%8A%80%E6%9C%AF/" rel="section"><i class="fas fa-dharmachakra fa-fw"></i>kubernetes技术</a>-->
+    
+       
+          <a href="/categories/%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E4%B8%AD%E9%97%B4%E4%BB%B6/kubernetes%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fas fa-dharmachakra fa-fw"></i>kubernetes技术</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-harbor">
+
+    <!--<a href="/categories/%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E4%B8%AD%E9%97%B4%E4%BB%B6/harbor%E6%8A%80%E6%9C%AF/" rel="section"><i class="fab fa-watchman-monitoring fa-fw"></i>harbor技术</a>-->
+    
+       
+          <a href="/categories/%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E4%B8%AD%E9%97%B4%E4%BB%B6/harbor%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fab fa-watchman-monitoring fa-fw"></i>harbor技术</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-categories-program">
+
+    <!--<a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E4%B8%8E%E6%B5%8B%E8%AF%95%E6%8A%80%E6%9C%AF/" rel="section"><i class="fab fa-dev fa-fw"></i>编程语言与测试技术</a>-->
+    
+       
+        <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E4%B8%8E%E6%B5%8B%E8%AF%95%E6%8A%80%E6%9C%AF/" rel="section"><i class="fab fa-dev fa-fw"></i>编程语言与测试技术</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-network">
+
+    <!--<a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E4%B8%8E%E6%B5%8B%E8%AF%95%E6%8A%80%E6%9C%AF/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E7%9F%A5%E8%AF%86/" rel="section"><i class="fas fa-paper-plane fa-fw"></i>网络协议知识</a>-->
+    
+       
+          <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E4%B8%8E%E6%B5%8B%E8%AF%95%E6%8A%80%E6%9C%AF/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E7%9F%A5%E8%AF%86/" rel="section" class="submenu-item"><i class="fas fa-paper-plane fa-fw"></i>网络协议知识</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-go">
+
+    <!--<a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E4%B8%8E%E6%B5%8B%E8%AF%95%E6%8A%80%E6%9C%AF/go%E8%AF%AD%E8%A8%80/" rel="section"><i class="fab fa-goodreads fa-fw"></i>go编程语言</a>-->
+    
+       
+          <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E4%B8%8E%E6%B5%8B%E8%AF%95%E6%8A%80%E6%9C%AF/go%E8%AF%AD%E8%A8%80/" rel="section" class="submenu-item"><i class="fab fa-goodreads fa-fw"></i>go编程语言</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-java">
+
+    <!--<a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E4%B8%8E%E6%B5%8B%E8%AF%95%E6%8A%80%E6%9C%AF/java%E8%AF%AD%E8%A8%80/" rel="section"><i class="fab fa-java fa-fw"></i>java编程语言</a>-->
+    
+       
+          <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E4%B8%8E%E6%B5%8B%E8%AF%95%E6%8A%80%E6%9C%AF/java%E8%AF%AD%E8%A8%80/" rel="section" class="submenu-item"><i class="fab fa-java fa-fw"></i>java编程语言</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-js">
+
+    <!--<a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E4%B8%8E%E6%B5%8B%E8%AF%95%E6%8A%80%E6%9C%AF/js%E8%AF%AD%E8%A8%80/" rel="section"><i class="fab fa-node-js fa-fw"></i>js编程语言</a>-->
+    
+       
+          <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E4%B8%8E%E6%B5%8B%E8%AF%95%E6%8A%80%E6%9C%AF/js%E8%AF%AD%E8%A8%80/" rel="section" class="submenu-item"><i class="fab fa-node-js fa-fw"></i>js编程语言</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <!--<a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E4%B8%8E%E6%B5%8B%E8%AF%95%E6%8A%80%E6%9C%AF/%E5%B7%A5%E5%85%B7%E7%AE%B1/" rel="section"><i class="fas fa-tools fa-fw"></i>工具箱</a>-->
+    
+       
+          <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E4%B8%8E%E6%B5%8B%E8%AF%95%E6%8A%80%E6%9C%AF/%E5%B7%A5%E5%85%B7%E7%AE%B1/" rel="section" class="submenu-item"><i class="fas fa-tools fa-fw"></i>工具箱</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-categories-architectrue">
+
+    <!--<a href="/categories/%E5%BA%94%E7%94%A8%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%84%9F%E6%82%9F/" rel="section"><i class="fas fa-drafting-compass fa-fw"></i>应用架构</a>-->
+    
+       
+        <a href="/categories/%E5%BA%94%E7%94%A8%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%84%9F%E6%82%9F/" rel="section"><i class="fas fa-drafting-compass fa-fw"></i>应用架构</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-architectrue">
+
+    <!--<a href="/categories/%E5%BA%94%E7%94%A8%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%84%9F%E6%82%9F/%E5%BA%94%E7%94%A8%E6%9E%B6%E6%9E%84/" rel="section"><i class="fab fa-connectdevelop fa-fw"></i>应用架构</a>-->
+    
+       
+          <a href="/categories/%E5%BA%94%E7%94%A8%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%84%9F%E6%82%9F/%E5%BA%94%E7%94%A8%E6%9E%B6%E6%9E%84/" rel="section" class="submenu-item"><i class="fab fa-connectdevelop fa-fw"></i>应用架构</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-gerenganwu">
+
+    <!--<a href="/categories/%E5%BA%94%E7%94%A8%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%84%9F%E6%82%9F/%E4%B8%AA%E4%BA%BA%E6%84%9F%E6%82%9F/" rel="section"><i class="fas fa-mug-hot fa-fw"></i>个人感悟</a>-->
+    
+       
+          <a href="/categories/%E5%BA%94%E7%94%A8%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%84%9F%E6%82%9F/%E4%B8%AA%E4%BA%BA%E6%84%9F%E6%82%9F/" rel="section" class="submenu-item"><i class="fas fa-mug-hot fa-fw"></i>个人感悟</a>
+    
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <section class="post-toc-wrap sidebar-panel">
+        </section>
+        <!--/noindex-->
+
+        <section class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="渐学顿悟"
+      src="/favicon.png">
+  <p class="site-author-name" itemprop="name">渐学顿悟</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">140</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jxdw" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jxdw" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/wechat.png" title="WeChat → &#x2F;wechat.png"><i class="fab fa-weixin fa-fw"></i>WeChat</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:283593214@qq.com" title="E-Mail → mailto:283593214@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </section>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+      
+
+      
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jxdw.github.io/2020/12/21/go-project-layout/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/favicon.png">
+      <meta itemprop="name" content="渐学顿悟">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="渐学顿悟">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【go使用系列】【转载】go项目工程的布局
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-12-21 18:41:34 18:41:34" itemprop="dateCreated datePublished" datetime="2020-12-21T18:41:34+08:00">2020-12-21 18:41:34</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E4%B8%8E%E6%B5%8B%E8%AF%95%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">编程语言与测试技术</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E4%B8%8E%E6%B5%8B%E8%AF%95%E6%8A%80%E6%9C%AF/go%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index"><span itemprop="name">go语言</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/12/21/go-project-layout/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/12/21/go-project-layout/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Standard-Go-Project-Layout"><a href="#Standard-Go-Project-Layout" class="headerlink" title="Standard Go Project Layout"></a>Standard Go Project Layout</h1><p>这是Go应用程序项目的基本布局。它不是核心Go开发团队定义的官方标准；然而，它是Go生态系统中一组常见的老项目和新项目的局模式。其中一些模式比其他模式更受欢迎。它还具有许多小的增强，以及对任何足够大的实际应用程序通用的几个支持目录。</p>
+<a id="more"></a>
+<p>如果你尝试学习 Go，或者你正在为自己建立一个 PoC 或一个玩具项目，这个项目布局是没啥必要的。从一些非常简单的事情开始(一个 <code>main.go</code> 文件绰绰有余)。随着项目的增长，请记住保持代码结构良好非常重要，否则你最终会得到一个凌乱的代码，这其中就包含大量隐藏的依赖项和全局状态。当有更多的人参与这个项目时，你将需要更多的结构。这时候，介绍一种管理包/库的通用方法是很重要的。当你有一个开源项目时，或者当你知道其他项目从你的项目存储库中导入代码时，这时候拥有私有(又名 <code>internal</code>)包和代码就很重要。克隆存储库，保留你需要的内容，删除其他所有的内容!仅仅因为它在那里并不意味着你必须全部使用它。这些模式都没有在每个项目中使用。甚至 <code>vendor</code> 模式也不是通用的。</p>
+<p>Go 1.14 <a target="_blank" rel="noopener" href="https://github.com/golang/go/wiki/Modules"><code>Go Modules</code></a> 终于可以投入生产了。除非你有特定的理由不使用它们，否则使用 <a target="_blank" rel="noopener" href="https://blog.golang.org/using-go-modules"><code>Go Modules</code></a> 。如果你使用，就无需担心 $GOPATH 以及项目放置的位置。存储库中的 <code>go.mod</code> 文件基本假定你的项目托管在 Github 上，但这不是要求。模块路径可以是任何地方，尽管第一个模块路径组件的名称中应该有一个点（当前版本的 Go 不再强制使用该模块，但如果使用稍旧的版本，如果没有 <code>mod</code> 文件构建失败的话 ，不要惊讶）。如果你想知道更多信息，请参阅 Issues <a target="_blank" rel="noopener" href="https://github.com/golang/go/issues/37554"><code>37554</code></a> 和 <a target="_blank" rel="noopener" href="https://github.com/golang/go/issues/32819"><code>32819</code></a> 。</p>
+<p>此项目布局是通用的，并且不会尝试强加一个特定的 Go 包结构。</p>
+<p>这是社区的努力。 如果看到新的模式，或者认为一个现有的模式需要更新，请提一个 issue。</p>
+<p>如果需要命名、格式和样式方面的帮助，请运行 <a target="_blank" rel="noopener" href="https://golang.org/cmd/gofmt/"><code>gofmt</code></a> 和 <a target="_blank" rel="noopener" href="https://github.com/golang/lint"><code>golint</code></a> 。还要确保阅读这些 Go 代码风格的指导方针和建议:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://talks.golang.org/2014/names.slide">https://talks.golang.org/2014/names.slide</a></li>
+<li><a target="_blank" rel="noopener" href="https://golang.org/doc/effective_go.html#names">https://golang.org/doc/effective_go.html#names</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.golang.org/package-names">https://blog.golang.org/package-names</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/golang/go/wiki/CodeReviewComments">https://github.com/golang/go/wiki/CodeReviewComments</a></li>
+<li><a target="_blank" rel="noopener" href="https://rakyll.org/style-packages">Style guideline for Go packages</a> (rakyll/JBD)</li>
+</ul>
+<p>参见 <a target="_blank" rel="noopener" href="https://medium.com/golang-learn/go-project-layout-e5213cdcfaa2"><code>Go Project Layout</code></a> 了解更多的背景信息。</p>
+<p>更多关于包的命名和组织以及其他代码结构的建议:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=PTE4VJIdHPg">GopherCon EU 2018: Peter Bourgon - Best Practices for Industrial Programming</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=MzTcsI6tn-0">GopherCon Russia 2018: Ashley McNamara + Brian Ketelsen - Go best practices.</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=ltqV6pDKZD8">GopherCon 2017: Edward Muller - Go Anti-Patterns</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=oL6JBUk6tj0">GopherCon 2018: Kat Zien - How Do You Structure Your Go Apps</a></li>
+</ul>
+<h2 id="Go-目录"><a href="#Go-目录" class="headerlink" title="Go 目录"></a>Go 目录</h2><h3 id="cmd"><a href="#cmd" class="headerlink" title="/cmd"></a><code>/cmd</code></h3><p>本项目的主干。</p>
+<p>每个应用程序的目录名应该与你想要的可执行文件的名称相匹配(例如，<code>/cmd/myapp</code>)。</p>
+<p>不要在这个目录中放置太多代码。如果你认为代码可以导入并在其他项目中使用，那么它应该位于 <code>/pkg</code> 目录中。如果代码不是可重用的，或者你不希望其他人重用它，请将该代码放到 <code>/internal</code> 目录中。你会惊讶于别人会怎么做，所以要明确你的意图!</p>
+<p>通常有一个小的 <code>main</code> 函数，从 <code>/internal</code> 和 <code>/pkg</code> 目录导入和调用代码，除此之外没有别的东西。</p>
+<p>有关示例，请参阅 <a href="cmd/README.md"><code>/cmd</code></a> 目录。</p>
+<h3 id="internal"><a href="#internal" class="headerlink" title="/internal"></a><code>/internal</code></h3><p>私有应用程序和库代码。这是你不希望其他人在其应用程序或库中导入代码。请注意，这个布局模式是由 Go 编译器本身执行的。有关更多细节，请参阅Go 1.4 <a target="_blank" rel="noopener" href="https://golang.org/doc/go1.4#internalpackages"><code>release notes</code></a> 。注意，你并不局限于顶级 <code>internal</code> 目录。在项目树的任何级别上都可以有多个内部目录。</p>
+<p>你可以选择向 internal 包中添加一些额外的结构，以分隔共享和非共享的内部代码。这不是必需的(特别是对于较小的项目)，但是最好有有可视化的线索来显示预期的包的用途。你的实际应用程序代码可以放在 <code>/internal/app</code> 目录下(例如 <code>/internal/app/myapp</code>)，这些应用程序共享的代码可以放在 <code>/internal/pkg</code> 目录下(例如 <code>/internal/pkg/myprivlib</code>)。</p>
+<h3 id="pkg"><a href="#pkg" class="headerlink" title="/pkg"></a><code>/pkg</code></h3><p>外部应用程序可以使用的库代码(例如 <code>/pkg/mypubliclib</code>)。其他项目会导入这些库，希望它们能正常工作，所以在这里放东西之前要三思:-)注意，<code>internal</code> 目录是确保私有包不可导入的更好方法，因为它是由 Go 强制执行的。<code>/pkg</code> 目录仍然是一种很好的方式，可以显式地表示该目录中的代码对于其他人来说是安全使用的好方法。由 Travis Jeffery  撰写的 <a target="_blank" rel="noopener" href="https://travisjeffery.com/b/2019/11/i-ll-take-pkg-over-internal/"><code>I&#39;ll take pkg over internal</code></a> 博客文章提供了 <code>pkg</code> 和 <code>internal</code> 目录的一个很好的概述，以及什么时候使用它们是有意义的。</p>
+<p>当根目录包含大量非 Go 组件和目录时，这也是一种将 Go 代码分组到一个位置的方法，这使得运行各种 Go 工具变得更加容易（正如在这些演讲中提到的那样: 来自 GopherCon EU 2018 的 <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=PTE4VJIdHPg"><code>Best Practices for Industrial Programming</code></a> , <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=oL6JBUk6tj0">GopherCon 2018: Kat Zien - How Do You Structure Your Go Apps</a> 和 <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=3gQa1LWwuzk">GoLab 2018 - Massimiliano Pippi - Project layout patterns in Go</a> ）。</p>
+<p>如果你想查看哪个流行的 Go 存储库使用此项目布局模式，请查看 <a href="pkg/README.md"><code>/pkg</code></a> 目录。这是一种常见的布局模式，但并不是所有人都接受它，一些 Go 社区的人也不推荐它。</p>
+<p>如果你的应用程序项目真的很小，并且额外的嵌套并不能增加多少价值(除非你真的想要:-)，那就不要使用它。当它变得足够大时，你的根目录会变得非常繁琐时(尤其是当你有很多非 Go 应用组件时)，请考虑一下。</p>
+<h3 id="vendor"><a href="#vendor" class="headerlink" title="/vendor"></a><code>/vendor</code></h3><p>应用程序依赖项(手动管理或使用你喜欢的依赖项管理工具，如新的内置 <a target="_blank" rel="noopener" href="https://github.com/golang/go/wiki/Modules"><code>Go Modules</code></a> 功能)。<code>go mod vendor</code> 命令将为你创建 <code>/vendor</code> 目录。请注意，如果未使用默认情况下处于启用状态的 Go 1.14，则可能需要在 <code>go build</code> 命令中添加 <code>-mod=vendor</code> 标志。</p>
+<p>如果你正在构建一个库，那么不要提交你的应用程序依赖项。</p>
+<p>注意，自从 <a target="_blank" rel="noopener" href="https://golang.org/doc/go1.13#modules"><code>1.13</code></a> 以后，Go 还启用了模块代理功能(默认使用 <a target="_blank" rel="noopener" href="https://proxy.golang.org/"><code>https://proxy.golang.org</code></a> 作为他们的模块代理服务器)。在<a target="_blank" rel="noopener" href="https://blog.golang.org/module-mirror-launch"><code>here</code></a> 阅读更多关于它的信息，看看它是否符合你的所有需求和约束。如果需要，那么你根本不需要 <code>vendor</code> 目录。</p>
+<p>国内模块代理功能默认是被墙的，七牛云有维护专门的的<a target="_blank" rel="noopener" href="https://github.com/goproxy/goproxy.cn/blob/master/README.zh-CN.md"><code>模块代理</code></a> 。</p>
+<h2 id="服务应用程序目录"><a href="#服务应用程序目录" class="headerlink" title="服务应用程序目录"></a>服务应用程序目录</h2><h3 id="api"><a href="#api" class="headerlink" title="/api"></a><code>/api</code></h3><p>OpenAPI/Swagger 规范，JSON 模式文件，协议定义文件。</p>
+<p>有关示例，请参见 <a href="api/README.md"><code>/api</code></a> 目录。</p>
+<h2 id="Web-应用程序目录"><a href="#Web-应用程序目录" class="headerlink" title="Web 应用程序目录"></a>Web 应用程序目录</h2><h3 id="web"><a href="#web" class="headerlink" title="/web"></a><code>/web</code></h3><p>特定于 Web 应用程序的组件:静态 Web 资产、服务器端模板和 SPAs。</p>
+<h2 id="通用应用目录"><a href="#通用应用目录" class="headerlink" title="通用应用目录"></a>通用应用目录</h2><h3 id="configs"><a href="#configs" class="headerlink" title="/configs"></a><code>/configs</code></h3><p>配置文件模板或默认配置。</p>
+<p>将你的 <code>confd</code> 或 <code>consul-template</code> 模板文件放在这里。</p>
+<h3 id="init"><a href="#init" class="headerlink" title="/init"></a><code>/init</code></h3><p>System init（systemd，upstart，sysv）和 process manager/supervisor（runit，supervisor）配置。</p>
+<h3 id="scripts"><a href="#scripts" class="headerlink" title="/scripts"></a><code>/scripts</code></h3><p>执行各种构建、安装、分析等操作的脚本。</p>
+<p>这些脚本保持了根级别的 Makefile 变得小而简单(例如， <a target="_blank" rel="noopener" href="https://github.com/hashicorp/terraform/blob/master/Makefile"><code>https://github.com/hashicorp/terraform/blob/master/Makefile</code></a> )。</p>
+<p>有关示例，请参见  <a href="scripts/README.md"><code>/scripts</code></a> 目录。</p>
+<h3 id="build"><a href="#build" class="headerlink" title="/build"></a><code>/build</code></h3><p>打包和持续集成。</p>
+<p>将你的云( AMI )、容器( Docker )、操作系统( deb、rpm、pkg )包配置和脚本放在 <code>/build/package</code> 目录下。</p>
+<p>将你的 CI (travis、circle、drone)配置和脚本放在 <code>/build/ci</code> 目录中。请注意，有些 CI 工具(例如 Travis CI)对配置文件的位置非常挑剔。尝试将配置文件放在 <code>/build/ci</code> 目录中，将它们链接到 CI 工具期望它们的位置(如果可能的话)。</p>
+<h3 id="deployments"><a href="#deployments" class="headerlink" title="/deployments"></a><code>/deployments</code></h3><p>IaaS、PaaS、系统和容器编配部署配置和模板(docker-compose、kubernetes/helm、mesos、terraform、bosh)。注意，在一些存储库中(特别是使用 kubernetes 部署的应用程序)，这个目录被称为 <code>/deploy</code>。</p>
+<h3 id="test"><a href="#test" class="headerlink" title="/test"></a><code>/test</code></h3><p>额外的外部测试应用程序和测试数据。你可以随时根据需求构造 <code>/test</code> 目录。对于较大的项目，有一个数据子目录是有意义的。例如，你可以使用 <code>/test/data</code> 或 <code>/test/testdata</code> (如果你需要忽略目录中的内容)。请注意，Go 还会忽略以“.”或“_”开头的目录或文件，因此在如何命名测试数据目录方面有更大的灵活性。</p>
+<p>有关示例，请参见  <a href="test/README.md"><code>/test</code></a> 目录。</p>
+<h2 id="其他目录"><a href="#其他目录" class="headerlink" title="其他目录"></a>其他目录</h2><h3 id="docs"><a href="#docs" class="headerlink" title="/docs"></a><code>/docs</code></h3><p>设计和用户文档(除了 godoc 生成的文档之外)。</p>
+<p>有关示例，请参阅 <a href="docs/README.md"><code>/docs</code></a> 目录。</p>
+<h3 id="tools"><a href="#tools" class="headerlink" title="/tools"></a><code>/tools</code></h3><p>这个项目的支持工具。注意，这些工具可以从 <code>/pkg</code> 和 <code>/internal</code> 目录导入代码。</p>
+<p>有关示例，请参见 <a href="tools/README.md"><code>/tools</code></a> 目录。</p>
+<h3 id="examples"><a href="#examples" class="headerlink" title="/examples"></a><code>/examples</code></h3><p>你的应用程序和/或公共库的示例。</p>
+<p>有关示例，请参见 <a href="examples/README.md"><code>/examples</code></a> 目录。</p>
+<h3 id="third-party"><a href="#third-party" class="headerlink" title="/third_party"></a><code>/third_party</code></h3><p>外部辅助工具，分叉代码和其他第三方工具(例如 Swagger UI)。</p>
+<h3 id="githooks"><a href="#githooks" class="headerlink" title="/githooks"></a><code>/githooks</code></h3><p>Git hooks。</p>
+<h3 id="assets"><a href="#assets" class="headerlink" title="/assets"></a><code>/assets</code></h3><p>与存储库一起使用的其他资产(图像、徽标等)。</p>
+<h3 id="website"><a href="#website" class="headerlink" title="/website"></a><code>/website</code></h3><p>如果你不使用 Github 页面，则在这里放置项目的网站数据。</p>
+<p>有关示例，请参见 <a href="website/README.md"><code>/website</code></a> 目录。</p>
+<h2 id="你不应该拥有的目录"><a href="#你不应该拥有的目录" class="headerlink" title="你不应该拥有的目录"></a>你不应该拥有的目录</h2><h3 id="src"><a href="#src" class="headerlink" title="/src"></a><code>/src</code></h3><p>有些 Go 项目确实有一个 <code>src</code> 文件夹，但这通常发生在开发人员有 Java 背景，在那里它是一种常见的模式。如果可以的话，尽量不要采用这种 Java 模式。你真的不希望你的 Go 代码或 Go 项目看起来像 Java:-)</p>
+<p>不要将项目级别 <code>src</code> 目录与 Go 用于其工作空间的 <code>src</code> 目录(如 <a target="_blank" rel="noopener" href="https://golang.org/doc/code.html"><code>How to Write Go Code</code></a> 中所述)混淆。<code>$GOPATH</code> 环境变量指向你的(当前)工作空间(默认情况下，它指向非 windows 系统上的 <code>$HOME/go</code>)。这个工作空间包括顶层 <code>/pkg</code>, <code>/bin</code> 和 <code>/src</code> 目录。你的实际项目最终是 <code>/src</code> 下的一个子目录，因此，如果你的项目中有 <code>/src</code> 目录，那么项目路径将是这样的: <code>/some/path/to/workspace/src/your_project/src/your_code.go</code>。注意，在 Go 1.11 中，可以将项目放在 <code>GOPATH</code> 之外，但这并不意味着使用这种布局模式是一个好主意。</p>
+<h2 id="Badges"><a href="#Badges" class="headerlink" title="Badges"></a>Badges</h2><ul>
+<li><p><a target="_blank" rel="noopener" href="https://goreportcard.com/">Go Report Card</a> - It will scan your code with <code>gofmt</code>, <code>go vet</code>, <code>gocyclo</code>, <code>golint</code>, <code>ineffassign</code>, <code>license</code> and <code>misspell</code>. Replace <code>github.com/golang-standards/project-layout</code> with your project reference.</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="http://godoc.org/">GoDoc</a> - It will provide online version of your GoDoc generated documentation. Change the link to point to your project.</p>
+</li>
+<li><p>Release - It will show the latest release number for your project. Change the github link to point to your project.</p>
+</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://goreportcard.com/report/github.com/golang-standards/project-layout"><img src="https://goreportcard.com/badge/github.com/golang-standards/project-layout?style=flat-square" alt="Go Report Card"></a><br><a target="_blank" rel="noopener" href="http://godoc.org/github.com/golang-standards/project-layout"><img src="https://img.shields.io/badge/godoc-reference-blue.svg?style=flat-square" alt="Go Doc"></a><br><a target="_blank" rel="noopener" href="https://github.com/golang-standards/project-layout/releases/latest"><img src="https://img.shields.io/github/release/golang-standards/project-layout.svg?style=flat-square" alt="Release"></a></p>
+<h2 id="Notes"><a href="#Notes" class="headerlink" title="Notes"></a>Notes</h2><p>A more opinionated project template with sample/reusable configs, scripts and code is a WIP.</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E4%B8%8E%E6%B5%8B%E8%AF%95%E6%8A%80%E6%9C%AF/" rel="tag"># 编程语言与测试技术</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/12/15/elasticsearch-6813-bootstrap/" rel="prev" title="【elasticsearch架构系列】elasticsearch 6.8.13源码分析系列(1)">
+                  <i class="fa fa-chevron-left"></i> 【elasticsearch架构系列】elasticsearch 6.8.13源码分析系列(1)
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+      
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      
+
+      
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">渐学顿悟</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+NexT.utils.loadComments('#valine-comments', () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', () => {
+    new Valine(Object.assign({"enable":true,"appId":"wrre3Nrx21CqKiChLnKn034M-gzGzoHsz","appKey":"rkWWNONo7LAJhlS936vnywQ9","serverURLs":null,"placeholder":"请输入您的评论","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"lang":null,"visitor":false,"comment_count":true,"recordIP":false,"enableQQ":false,"requiredFields":["nick","mail"]}, {
+      el: '#valine-comments',
+      path: "/2020/12/21/go-project-layout/",
+      serverURLs: "https://wrre3nrx.api.lncld.net"
+    }));
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

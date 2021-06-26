@@ -32,7 +32,7 @@
 <meta property="og:description" content="TChannel 接收 agent 提交过来的数据 github.com&#x2F;jaegertracing&#x2F;jaeger&#x2F;cmd&#x2F;collector&#x2F;app&#x2F;span_handler.go #69  func (jbh *jaegerBatchesHandler) SubmitBatches(ctx thrift.Context, batches []*jaeger.Batch) ([]*jaeger.">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-05-01T11:00:00.000Z">
-<meta property="article:modified_time" content="2021-06-26T10:27:51.606Z">
+<meta property="article:modified_time" content="2021-06-26T10:34:12.560Z">
 <meta property="article:author" content="渐学顿悟">
 <meta property="article:tag" content="微服务所需中间件">
 <meta name="twitter:card" content="summary">
@@ -578,6 +578,8 @@
 <p>github.com/jaegertracing/jaeger/cmd/collector/app/span_handler.go #69</p>
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">func (jbh *jaegerBatchesHandler) SubmitBatches(ctx thrift.Context, batches []*jaeger.Batch) ([]*jaeger.BatchSubmitResponse, error) &#123;</span><br><span class="line">	responses :&#x3D; make([]*jaeger.BatchSubmitResponse, 0, len(batches))</span><br><span class="line">	for _, batch :&#x3D; range batches &#123;</span><br><span class="line">		mSpans :&#x3D; make([]*model.Span, 0, len(batch.Spans))</span><br><span class="line">		for _, span :&#x3D; range batch.Spans &#123;</span><br><span class="line">			mSpan :&#x3D; jConv.ToDomainSpan(span, batch.Process)</span><br><span class="line">			mSpans &#x3D; append(mSpans, mSpan)</span><br><span class="line">		&#125;</span><br><span class="line">		oks, err :&#x3D; jbh.modelProcessor.ProcessSpans(mSpans, JaegerFormatType)</span><br><span class="line">		if err !&#x3D; nil &#123;</span><br><span class="line">			return nil, err</span><br><span class="line">		&#125;</span><br><span class="line">		batchOk :&#x3D; true</span><br><span class="line">		for _, ok :&#x3D; range oks &#123;</span><br><span class="line">			if !ok &#123;</span><br><span class="line">				batchOk &#x3D; false</span><br><span class="line">				break</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		res :&#x3D; &amp;jaeger.BatchSubmitResponse&#123;</span><br><span class="line">			Ok: batchOk,</span><br><span class="line">		&#125;</span><br><span class="line">		responses &#x3D; append(responses, res)</span><br><span class="line">	&#125;</span><br><span class="line">	return responses, nil</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
 
 
 <h1 id="经过处理后数据放入BoundedQueue-有界队列"><a href="#经过处理后数据放入BoundedQueue-有界队列" class="headerlink" title="经过处理后数据放入BoundedQueue(有界队列)"></a>经过处理后数据放入BoundedQueue(有界队列)</h1><blockquote>

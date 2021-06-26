@@ -2,14 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://jxdw.github.io/2021/05/01/trace-jaeger-sourcecode-agent/</loc>
-    
-    <lastmod>2021-06-26</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jxdw.github.io/2021/05/01/trace-jaeger-sourcecode-sd/</loc>
+    <loc>https://jxdw.github.io/2021/05/01/trace-jaeger-sourcecode-distribution/</loc>
     
     <lastmod>2021-06-26</lastmod>
     
@@ -23,7 +16,14 @@
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/2021/05/01/trace-jaeger-sourcecode-distribution/</loc>
+    <loc>https://jxdw.github.io/2021/05/01/trace-jaeger-sourcecode-agent/</loc>
+    
+    <lastmod>2021-06-26</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jxdw.github.io/2021/05/01/trace-jaeger-sourcecode-sd/</loc>
     
     <lastmod>2021-06-26</lastmod>
     

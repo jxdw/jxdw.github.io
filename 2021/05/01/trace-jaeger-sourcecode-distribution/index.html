@@ -24,16 +24,16 @@
     var CONFIG = {"hostname":"jxdw.github.io","root":"/","scheme":"Pisces","version":"8.0.2","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"width":240},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
   </script>
 
-  <meta name="description" content="前言 &amp;emsp;分析Jaeger源码主要有以下原因：   公司正在使用Jaeger，通过了解其源码，可以更好的把控这套系统。 了解分布式系统的设计 提升对golang的理解 提升个人英语 分析的版本为最新版本0.10.0，时间2017-11-23     Agent ——3部曲 &amp;emsp;Agent处于jaeger-client和collector之间，属于代理的作用，主要是把client发送">
+  <meta name="description" content="前言 &amp;emsp;分析Jaeger源码主要有以下原因：   公司正在使用Jaeger，通过了解其源码，可以更好的把控这套系统。 了解分布式系统的设计 提升对golang的理解 提升个人英语 分析的版本为最新版本0.10.0，时间2017-11-23">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【zipkin&#x2F;jaeger使用系列】jaeger分布式系统知识">
+<meta property="og:title" content="【jaeger源码分析系列】分布式系统知识">
 <meta property="og:url" content="https://jxdw.github.io/2021/05/01/trace-jaeger-sourcecode-distribution/index.html">
 <meta property="og:site_name" content="渐学顿悟">
-<meta property="og:description" content="前言 &amp;emsp;分析Jaeger源码主要有以下原因：   公司正在使用Jaeger，通过了解其源码，可以更好的把控这套系统。 了解分布式系统的设计 提升对golang的理解 提升个人英语 分析的版本为最新版本0.10.0，时间2017-11-23     Agent ——3部曲 &amp;emsp;Agent处于jaeger-client和collector之间，属于代理的作用，主要是把client发送">
+<meta property="og:description" content="前言 &amp;emsp;分析Jaeger源码主要有以下原因：   公司正在使用Jaeger，通过了解其源码，可以更好的把控这套系统。 了解分布式系统的设计 提升对golang的理解 提升个人英语 分析的版本为最新版本0.10.0，时间2017-11-23">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://upload.cc/i/2JAQkp.png">
 <meta property="article:published_time" content="2021-05-01T11:00:00.000Z">
-<meta property="article:modified_time" content="2021-06-26T10:25:11.550Z">
+<meta property="article:modified_time" content="2021-06-26T10:36:48.380Z">
 <meta property="article:author" content="渐学顿悟">
 <meta property="article:tag" content="微服务所需中间件">
 <meta name="twitter:card" content="summary">
@@ -53,7 +53,7 @@
   };
 </script>
 
-  <title>【zipkin/jaeger使用系列】jaeger分布式系统知识 | 渐学顿悟</title>
+  <title>【jaeger源码分析系列】分布式系统知识 | 渐学顿悟</title>
   
 
 
@@ -525,7 +525,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          【zipkin/jaeger使用系列】jaeger分布式系统知识
+          【jaeger源码分析系列】分布式系统知识
         </h1>
 
         <div class="post-meta-container">
@@ -589,10 +589,12 @@
 </li>
 </ul>
 <p><img src="https://upload.cc/i/2JAQkp.png"></p>
-<h2 id="Agent-——3部曲"><a href="#Agent-——3部曲" class="headerlink" title="Agent ——3部曲"></a>Agent ——3部曲</h2><blockquote>
+<a id="more"></a>
+
+<h1 id="Agent-——3部曲"><a href="#Agent-——3部曲" class="headerlink" title="Agent ——3部曲"></a>Agent ——3部曲</h1><blockquote>
 <p>&emsp;Agent处于jaeger-client和collector之间，属于代理的作用，主要是把client发送过来的数据从thrift转为<a target="_blank" rel="noopener" href="https://github.com/jaegertracing/jaeger/blob/master/thrift-gen/jaeger/ttypes.go#L1582">Batch</a>，并通过RPC批量提交到collector。</p>
 </blockquote>
-<h4 id="初始化agent"><a href="#初始化agent" class="headerlink" title="初始化agent"></a>初始化agent</h4><blockquote>
+<h2 id="初始化agent"><a href="#初始化agent" class="headerlink" title="初始化agent"></a>初始化agent</h2><blockquote>
 <p>github.com/jaegertracing/jaeger/cmd/agent/app/flags.go #35</p>
 </blockquote>
 <figure class="highlight golang"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> defaultProcessors = []<span class="keyword">struct</span> &#123;</span><br><span class="line">	model    model</span><br><span class="line">	protocol protocol</span><br><span class="line">	hostPort <span class="keyword">string</span></span><br><span class="line">&#125;&#123;</span><br><span class="line">	&#123;model: <span class="string">&quot;zipkin&quot;</span>, protocol: <span class="string">&quot;compact&quot;</span>, hostPort: <span class="string">&quot;:5775&quot;</span>&#125;,</span><br><span class="line">	&#123;model: <span class="string">&quot;jaeger&quot;</span>, protocol: <span class="string">&quot;compact&quot;</span>, hostPort: <span class="string">&quot;:6831&quot;</span>&#125;,</span><br><span class="line">	&#123;model: <span class="string">&quot;jaeger&quot;</span>, protocol: <span class="string">&quot;binary&quot;</span>, hostPort: <span class="string">&quot;:6832&quot;</span>&#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -605,7 +607,7 @@
 <li><p>官方推荐使用6831端口接收数据</p>
 </li>
 </ul>
-<h4 id="接收Jaeger-client的数据"><a href="#接收Jaeger-client的数据" class="headerlink" title="接收Jaeger-client的数据"></a>接收Jaeger-client的数据</h4><blockquote>
+<h2 id="接收Jaeger-client的数据"><a href="#接收Jaeger-client的数据" class="headerlink" title="接收Jaeger-client的数据"></a>接收Jaeger-client的数据</h2><blockquote>
 <p>github.com/jaegertracing/jaeger/cmd/agent/app/servers/tbuffered_server.go #80</p>
 </blockquote>
 <figure class="highlight golang"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s *TBufferedServer)</span> <span class="title">Serve</span><span class="params">()</span></span> &#123;</span><br><span class="line">	atomic.StoreUint32(&amp;s.serving, <span class="number">1</span>)</span><br><span class="line">	<span class="keyword">for</span> s.IsServing() &#123;</span><br><span class="line">		readBuf := s.readBufPool.Get().(*ReadBuf)</span><br><span class="line">		n, err := s.transport.Read(readBuf.bytes)</span><br><span class="line">		<span class="keyword">if</span> err == <span class="literal">nil</span> &#123;</span><br><span class="line">			readBuf.n = n</span><br><span class="line">			s.metrics.PacketSize.Update(<span class="keyword">int64</span>(n))</span><br><span class="line">			<span class="keyword">select</span> &#123;</span><br><span class="line">			<span class="keyword">case</span> s.dataChan &lt;- readBuf:</span><br><span class="line">				s.metrics.PacketsProcessed.Inc(<span class="number">1</span>)</span><br><span class="line">				s.updateQueueSize(<span class="number">1</span>)</span><br><span class="line">			<span class="keyword">default</span>:</span><br><span class="line">			   <span class="comment">//这里需要注意，如果写比处理快，agent将会扔掉超出的部分数据</span></span><br><span class="line">			   s.metrics.PacketsDropped.Inc(<span class="number">1</span>)</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			s.metrics.ReadError.Inc(<span class="number">1</span>)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -617,7 +619,7 @@
 <li>增加队列长度（default 1000） –processor.jaeger-compact.server-queue-size</li>
 <li>增加worker数 （default 50） –processor.jaeger-compact.workers </li>
 </ul>
-<h5 id="优雅关闭"><a href="#优雅关闭" class="headerlink" title="优雅关闭"></a>优雅关闭</h5><blockquote>
+<h3 id="优雅关闭"><a href="#优雅关闭" class="headerlink" title="优雅关闭"></a>优雅关闭</h3><blockquote>
 <p>&emsp;go初始化一个服务很简单，使用for{}的形式就能实现。但是启动了就要考虑如何关闭，总不能直接强制关闭吧？请求处理了一半被中断，导致脏数据出现，显然不是我们想要的结果，所以有优雅关闭方式。实现优雅关闭的方式大致是：主服务接收信号，然后通知子服务执行完当前操作就不要再执行。</p>
 </blockquote>
 <blockquote>
@@ -645,7 +647,7 @@
 <blockquote>
 <p>Jaeger使用原子操作，通过原子操作把s.serving设为0，跳出for循环。</p>
 </blockquote>
-<h5 id="临时对象池"><a href="#临时对象池" class="headerlink" title="临时对象池"></a>临时对象池</h5><blockquote>
+<h3 id="临时对象池"><a href="#临时对象池" class="headerlink" title="临时对象池"></a>临时对象池</h3><blockquote>
 <p>&emsp;网上有篇博客对临时对象池介绍得挺详细的<a target="_blank" rel="noopener" href="http://ifeve.com/go-concurrency-object-pool/">《GO并发编程实战》—— 临时对象池</a>。临时对象池的作用是：<strong>存放可被复用值，减少垃圾回收。</strong></p>
 </blockquote>
 <blockquote>
@@ -674,10 +676,10 @@
 <blockquote>
 <p>&emsp;这里的使用相对容易理解点，先Get“<em>bytes.Buffer”，再处理m数据，最后再把“</em>bytes.Buffer”Put到池中。和Agent不同，writeMessageToBackend不会堆积数据，出现数据错乱的情况。还有一个小细节，当把“*bytes.Buffer”Put到池子再Get出来，b还会保留上次处理的数据，所以NSQ会清空数据，使用一个干净的值。</p>
 </blockquote>
-<h5 id="不怜悯数据"><a href="#不怜悯数据" class="headerlink" title="不怜悯数据"></a>不怜悯数据</h5><blockquote>
+<h3 id="不怜悯数据"><a href="#不怜悯数据" class="headerlink" title="不怜悯数据"></a>不怜悯数据</h3><blockquote>
 <p>&emsp;Agent的服务队列是有长度限制（default 1000），如果堆积超过1000个，Agent就会毫不怜悯的把数据丢掉。当然在这里并没有不妥，Jaeger的定位就是一套日志系统，不太看重数据的可靠性。如果要想减少数据丢失的问题，可通过配置或增加Agent节点。因为Jaeger和NSQ对于数据的定位不一样，所以就不对比这部分功能。NSQ比较注重数据的可靠性。</p>
 </blockquote>
-<h4 id="提交数据"><a href="#提交数据" class="headerlink" title="提交数据"></a>提交数据</h4><blockquote>
+<h2 id="提交数据"><a href="#提交数据" class="headerlink" title="提交数据"></a>提交数据</h2><blockquote>
 <p>github.com/jaegertracing/jaeger/cmd/agent/app/processors/thrift_processor.go #104</p>
 </blockquote>
 <figure class="highlight golang"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s *ThriftProcessor)</span> <span class="title">processBuffer</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">for</span> readBuf := <span class="keyword">range</span> s.server.DataChan() &#123;</span><br><span class="line">    	protocol := s.protocolPool.Get().(thrift.TProtocol)</span><br><span class="line">    	protocol.Transport().Write(readBuf.GetBytes())</span><br><span class="line">    	<span class="comment">//这步就是把“*ReadBuf”Put到池子</span></span><br><span class="line">    	s.server.DataRecd(readBuf) <span class="comment">// acknowledge receipt and release the buffer</span></span><br><span class="line">    </span><br><span class="line">        <span class="comment">//将数据从thrift解析成Batch并提交</span></span><br><span class="line">    	<span class="keyword">if</span> ok, _ := s.handler.Process(protocol, protocol); !ok &#123;</span><br><span class="line">    		<span class="comment">// TODO log the error</span></span><br><span class="line">    		s.metrics.HandlerProcessError.Inc(<span class="number">1</span>)</span><br><span class="line">    	&#125;</span><br><span class="line">    	s.protocolPool.Put(protocol)</span><br><span class="line">    &#125;</span><br><span class="line">    s.processing.Done()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -693,7 +695,7 @@
 <blockquote>
 <p>&emsp;解析thrift是一件很麻烦的事，这种格式的数据是给机器看得，需要按照指定的格式一步一步解析出来，不像Json那么方便，但是thrift又确实能<a target="_blank" rel="noopener" href="https://github.com/jukylin/blog/blob/master/Uber%E5%88%86%E5%B8%83%E5%BC%8F%E8%BF%BD%E8%B8%AA%E7%B3%BB%E7%BB%9FJaeger%E4%BD%BF%E7%94%A8%E4%BB%8B%E7%BB%8D%E5%92%8C%E6%A1%88%E4%BE%8B%E3%80%90PHP%20%20%20Hprose%20%20%20Go%E3%80%91.md#%E7%89%B9%E6%80%A7">减少占用的空间</a>。</p>
 </blockquote>
-<h5 id="提交数据-1"><a href="#提交数据-1" class="headerlink" title="提交数据"></a>提交数据</h5><blockquote>
+<h3 id="提交数据-1"><a href="#提交数据-1" class="headerlink" title="提交数据"></a>提交数据</h3><blockquote>
 <p>github.com/jaegertracing/jaeger/thrift-gen/jaeger/tchan-jaeger.go #39</p>
 </blockquote>
 <figure class="highlight golang"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(c *tchanCollectorClient)</span> <span class="title">SubmitBatches</span><span class="params">(ctx thrift.Context, batches []*Batch)</span> <span class="params">([]*BatchSubmitResponse, error)</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> resp CollectorSubmitBatchesResult</span><br><span class="line">	args := CollectorSubmitBatchesArgs&#123;</span><br><span class="line">		Batches: batches,</span><br><span class="line">	&#125;</span><br><span class="line">	success, err := c.client.Call(ctx, c.thriftService, <span class="string">&quot;submitBatches&quot;</span>, &amp;args, &amp;resp)</span><br><span class="line">	<span class="keyword">if</span> err == <span class="literal">nil</span> &amp;&amp; !success &#123;</span><br><span class="line">		<span class="keyword">switch</span> &#123;</span><br><span class="line">		<span class="keyword">default</span>:</span><br><span class="line">			err = fmt.Errorf(<span class="string">&quot;received no result or unknown exception for submitBatches&quot;</span>)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> resp.GetSuccess(), err</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -703,10 +705,10 @@
 <blockquote>
 <p>&emsp;不怜悯数据在Jaeger随处可见，从上面代码可以看出，如果提交失败，数据也一样丢失，没有重试，没有重新放入队列等操作。</p>
 </blockquote>
-<h2 id="Collectore-——3部曲"><a href="#Collectore-——3部曲" class="headerlink" title="Collectore ——3部曲"></a>Collectore ——3部曲</h2><blockquote>
+<h1 id="Collector-3部曲"><a href="#Collector-3部曲" class="headerlink" title="Collector 3部曲"></a>Collector 3部曲</h1><blockquote>
 <p>&emsp;Collector收集数据，把数据保存进数据库，虽然职责不一样，但在程序设计上和Agent是一样的，可以从它们的实现上看出属于不同开发人员分工开发完成。下面我们也是分3步拆解Collector的实现。</p>
 </blockquote>
-<h4 id="初始化Collector"><a href="#初始化Collector" class="headerlink" title="初始化Collector"></a>初始化Collector</h4><blockquote>
+<h2 id="初始化Collector"><a href="#初始化Collector" class="headerlink" title="初始化Collector"></a>初始化Collector</h2><blockquote>
 <p>&emsp;Collector是使用TChannel实现的RPC服务端，在启动时就开启了2个基于TCP的RPC服务，一个用来接收Jaeger格式数据，一个接收Zipkin格式数据。</p>
 </blockquote>
 <blockquote>
@@ -714,7 +716,7 @@
 </blockquote>
 <figure class="highlight golang"><table><tr><td class="code"><pre><span class="line">......</span><br><span class="line">ch, err := tchannel.NewChannel(serviceName, &amp;tchannel.ChannelOptions&#123;&#125;)</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">	logger.Fatal(<span class="string">&quot;Unable to create new TChannel&quot;</span>, zap.Error(err))</span><br><span class="line">&#125;</span><br><span class="line">server := thrift.NewServer(ch)</span><br><span class="line">zipkinSpansHandler, jaegerBatchesHandler := handlerBuilder.BuildHandlers()</span><br><span class="line">server.Register(jc.NewTChanCollectorServer(jaegerBatchesHandler))</span><br><span class="line">server.Register(zc.NewTChanZipkinCollectorServer(zipkinSpansHandler))</span><br><span class="line"></span><br><span class="line">portStr := <span class="string">&quot;:&quot;</span> + strconv.Itoa(builderOpts.CollectorPort)</span><br><span class="line">listener, err := net.Listen(<span class="string">&quot;tcp&quot;</span>, portStr)</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">	logger.Fatal(<span class="string">&quot;Unable to start listening on channel&quot;</span>, zap.Error(err))</span><br><span class="line">&#125;</span><br><span class="line">ch.Serve(listener)</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
 
-<h4 id="接收Agent的数据"><a href="#接收Agent的数据" class="headerlink" title="接收Agent的数据"></a>接收Agent的数据</h4><blockquote>
+<h2 id="接收Agent的数据"><a href="#接收Agent的数据" class="headerlink" title="接收Agent的数据"></a>接收Agent的数据</h2><blockquote>
 <p>github.com/jaegertracing/jaeger/cmd/collector/app/span_handler.go #69</p>
 </blockquote>
 <figure class="highlight golang"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(jbh *jaegerBatchesHandler)</span> <span class="title">SubmitBatches</span><span class="params">(ctx thrift.Context, batches []*jaeger.Batch)</span> <span class="params">([]*jaeger.BatchSubmitResponse, error)</span></span> &#123;</span><br><span class="line">	responses := <span class="built_in">make</span>([]*jaeger.BatchSubmitResponse, <span class="number">0</span>, <span class="built_in">len</span>(batches))</span><br><span class="line">	<span class="keyword">for</span> _, batch := <span class="keyword">range</span> batches &#123;</span><br><span class="line">		mSpans := <span class="built_in">make</span>([]*model.Span, <span class="number">0</span>, <span class="built_in">len</span>(batch.Spans))</span><br><span class="line">		<span class="keyword">for</span> _, span := <span class="keyword">range</span> batch.Spans &#123;</span><br><span class="line">			mSpan := jConv.ToDomainSpan(span, batch.Process)</span><br><span class="line">			mSpans = <span class="built_in">append</span>(mSpans, mSpan)</span><br><span class="line">		&#125;</span><br><span class="line">		oks, err := jbh.modelProcessor.ProcessSpans(mSpans, JaegerFormatType)</span><br><span class="line">		<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">nil</span>, err</span><br><span class="line">		&#125;</span><br><span class="line">        ......</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> responses, <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -736,7 +738,7 @@
 <li><p>–collector.num-workers （default 50）</p>
 </li>
 </ul>
-<h4 id="保存数据"><a href="#保存数据" class="headerlink" title="保存数据"></a>保存数据</h4><h5 id="消费队列数据"><a href="#消费队列数据" class="headerlink" title="消费队列数据"></a>消费队列数据</h5><blockquote>
+<h2 id="保存数据"><a href="#保存数据" class="headerlink" title="保存数据"></a>保存数据</h2><h3 id="消费队列数据"><a href="#消费队列数据" class="headerlink" title="消费队列数据"></a>消费队列数据</h3><blockquote>
 <p>github.com/jaegertracing/jaeger/pkg/queue/bounded_queue.go #53</p>
 </blockquote>
 <figure class="highlight golang"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(q *BoundedQueue)</span> <span class="title">StartConsumers</span><span class="params">(num <span class="keyword">int</span>, consumer <span class="keyword">func</span>(item <span class="keyword">interface</span>&#123;&#125;)</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> startWG sync.WaitGroup</span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; num; i++ &#123;</span><br><span class="line">    	q.stopWG.Add(<span class="number">1</span>)</span><br><span class="line">    	startWG.Add(<span class="number">1</span>)</span><br><span class="line">    	<span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">    		startWG.Done()</span><br><span class="line">    		<span class="keyword">defer</span> q.stopWG.Done()</span><br><span class="line">    		<span class="keyword">for</span> &#123;</span><br><span class="line">    			<span class="keyword">select</span> &#123;</span><br><span class="line">    			<span class="keyword">case</span> item := &lt;-q.items:</span><br><span class="line">    				atomic.AddInt32(&amp;q.size, <span class="number">-1</span>)</span><br><span class="line">    				consumer(item)</span><br><span class="line">    			<span class="keyword">case</span> &lt;-q.stopCh:</span><br><span class="line">    				<span class="keyword">return</span></span><br><span class="line">    			&#125;</span><br><span class="line">    		&#125;</span><br><span class="line">    	&#125;()</span><br><span class="line">    &#125;</span><br><span class="line">    startWG.Wait()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -748,7 +750,7 @@
 <blockquote>
 <p>优雅关闭队列方式：close(q.stopCh)</p>
 </blockquote>
-<h5 id="数据保存到数据库——cassandra"><a href="#数据保存到数据库——cassandra" class="headerlink" title="数据保存到数据库——cassandra"></a>数据保存到数据库——cassandra</h5><blockquote>
+<h3 id="数据保存到数据库——cassandra"><a href="#数据保存到数据库——cassandra" class="headerlink" title="数据保存到数据库——cassandra"></a>数据保存到数据库——cassandra</h3><blockquote>
 <p>github.com/jaegertracing/jaeger/plugin/storage/cassandra/spanstore/writer.go #122</p>
 </blockquote>
 <figure class="highlight golang"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s *SpanWriter)</span> <span class="title">WriteSpan</span><span class="params">(span *model.Span)</span> <span class="title">error</span></span> &#123;</span><br><span class="line">	ds := dbmodel.FromDomain(span)</span><br><span class="line">	mainQuery := s.session.Query(</span><br><span class="line">		insertSpan,</span><br><span class="line">		ds.TraceID,</span><br><span class="line">		ds.SpanID,</span><br><span class="line">		ds.SpanHash,</span><br><span class="line">		ds.ParentID,</span><br><span class="line">		ds.OperationName,</span><br><span class="line">		ds.Flags,</span><br><span class="line">		ds.StartTime,</span><br><span class="line">		ds.Duration,</span><br><span class="line">		ds.Tags,</span><br><span class="line">		ds.Logs,</span><br><span class="line">		ds.Refs,</span><br><span class="line">		ds.Process,</span><br><span class="line">	)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> err := s.writerMetrics.traces.Exec(mainQuery, s.logger); err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> s.logError(ds, err, <span class="string">&quot;Failed to insert span&quot;</span>, s.logger)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> err := s.saveServiceNameAndOperationName(ds.ServiceName, ds.OperationName); err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="comment">// should this be a soft failure?</span></span><br><span class="line">		<span class="keyword">return</span> s.logError(ds, err, <span class="string">&quot;Failed to insert service name and operation name&quot;</span>, s.logger)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">    ......</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -780,7 +782,7 @@
 <blockquote>
 <p>惊奇吧？虽然没有报错，但也会保证唯一性。有兴趣的同学可简单[了解一下]<br>(<a target="_blank" rel="noopener" href="http://www.yiibai.com/cassandra/what-is-cassandra.html)%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95%EF%BC%8C%E8%AF%AD%E6%B3%95%E5%92%8Cmysql%E5%BE%88%E5%83%8F%E3%80%82">http://www.yiibai.com/cassandra/what-is-cassandra.html)基本用法，语法和mysql很像。</a><br>关于cassandra我们也是摸着石头过河，不做过多描述。</p>
 </blockquote>
-<h2 id="golang使用规范"><a href="#golang使用规范" class="headerlink" title="golang使用规范"></a>golang使用规范</h2><table>
+<h1 id="golang使用规范"><a href="#golang使用规范" class="headerlink" title="golang使用规范"></a>golang使用规范</h1><table>
 <thead>
 <tr>
 <th>&emsp;</th>

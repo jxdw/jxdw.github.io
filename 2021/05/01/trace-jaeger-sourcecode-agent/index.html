@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"jxdw.github.io","root":"/","scheme":"Pisces","version":"8.0.2","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"width":240},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
+  </script>
+
+  <meta name="description" content="agent udp使用初始化udp 在agent开启时初始化了3个UDP服务   每个服务对应处理不同的数据格式   官方推荐使用6831端口接收数据   github.com&#x2F;uber&#x2F;jaeger&#x2F;cmd&#x2F;agent&#x2F;app&#x2F;flags.go #35  var defaultProcessors &#x3D; []struct &amp;#123;	model    model	protocol protoco">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【jaeger源码分析】jaeger agent源码分析">
+<meta property="og:url" content="https://jxdw.github.io/2021/05/01/trace-jaeger-sourcecode-agent/index.html">
+<meta property="og:site_name" content="渐学顿悟">
+<meta property="og:description" content="agent udp使用初始化udp 在agent开启时初始化了3个UDP服务   每个服务对应处理不同的数据格式   官方推荐使用6831端口接收数据   github.com&#x2F;uber&#x2F;jaeger&#x2F;cmd&#x2F;agent&#x2F;app&#x2F;flags.go #35  var defaultProcessors &#x3D; []struct &amp;#123;	model    model	protocol protoco">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-05-01T11:00:00.000Z">
+<meta property="article:modified_time" content="2021-06-26T10:30:38.043Z">
+<meta property="article:author" content="渐学顿悟">
+<meta property="article:tag" content="微服务所需中间件">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://jxdw.github.io/2021/05/01/trace-jaeger-sourcecode-agent/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【jaeger源码分析】jaeger agent源码分析 | 渐学顿悟</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">渐学顿悟</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <!--<a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>-->
+    
+       
+        <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <!--<a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>-->
+    
+       
+        <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-categories-middleware">
+
+    <!--<a href="/categories/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="section"><i class="fa fa-th fa-fw"></i>数据存储中间件</a>-->
+    
+       
+        <a href="/categories/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="section"><i class="fa fa-th fa-fw"></i>数据存储中间件</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-mysql">
+
+    <!--<a href="/categories/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E4%B8%AD%E9%97%B4%E4%BB%B6/mysql%E6%8A%80%E6%9C%AF/" rel="section"><i class="fas fa-database fa-fw"></i>mysql技术</a>-->
+    
+       
+          <a href="/categories/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E4%B8%AD%E9%97%B4%E4%BB%B6/mysql%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fas fa-database fa-fw"></i>mysql技术</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-redis">
+
+    <!--<a href="/categories/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E4%B8%AD%E9%97%B4%E4%BB%B6/redis%E6%8A%80%E6%9C%AF/" rel="section"><i class="fas fa-coins fa-fw"></i>redis技术</a>-->
+    
+       
+          <a href="/categories/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E4%B8%AD%E9%97%B4%E4%BB%B6/redis%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fas fa-coins fa-fw"></i>redis技术</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-kafka">
+
+    <!--<a href="/categories/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E4%B8%AD%E9%97%B4%E4%BB%B6/kafka%E6%8A%80%E6%9C%AF/" rel="section"><i class="fab fa-kaggle fa-fw"></i>kafka技术</a>-->
+    
+       
+          <a href="/categories/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E4%B8%AD%E9%97%B4%E4%BB%B6/kafka%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fab fa-kaggle fa-fw"></i>kafka技术</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-elasticsearch">
+
+    <!--<a href="/categories/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E4%B8%AD%E9%97%B4%E4%BB%B6/elasticsearch%E6%8A%80%E6%9C%AF/" rel="section"><i class="fab fa-etsy fa-fw"></i>elasticsearch技术</a>-->
+    
+       
+          <a href="/categories/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E4%B8%AD%E9%97%B4%E4%BB%B6/elasticsearch%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fab fa-etsy fa-fw"></i>elasticsearch技术</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-canal">
+
+    <!--<a href="/categories/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E4%B8%AD%E9%97%B4%E4%BB%B6/canal%E6%8A%80%E6%9C%AF/" rel="section"><i class="fab fa-usb fa-fw"></i>canal技术</a>-->
+    
+       
+          <a href="/categories/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E4%B8%AD%E9%97%B4%E4%BB%B6/canal%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fab fa-usb fa-fw"></i>canal技术</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-categories-find">
+
+    <!--<a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%89%80%E9%9C%80%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="section"><i class="fab fa-facebook-f fa-fw"></i>微服务所需中间件</a>-->
+    
+       
+        <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%89%80%E9%9C%80%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="section"><i class="fab fa-facebook-f fa-fw"></i>微服务所需中间件</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-rabbitmq">
+
+    <!--<a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%89%80%E9%9C%80%E4%B8%AD%E9%97%B4%E4%BB%B6/rabbitmq%E6%8A%80%E6%9C%AF/" rel="section"><i class="fas fa-envelope fa-fw"></i>rabbitmq技术</a>-->
+    
+       
+          <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%89%80%E9%9C%80%E4%B8%AD%E9%97%B4%E4%BB%B6/rabbitmq%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fas fa-envelope fa-fw"></i>rabbitmq技术</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-job">
+
+    <!--<a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%89%80%E9%9C%80%E4%B8%AD%E9%97%B4%E4%BB%B6/job%E8%B0%83%E5%BA%A6%E6%8A%80%E6%9C%AF/" rel="section"><i class="fas fa-clipboard-check fa-fw"></i>job调度技术</a>-->
+    
+       
+          <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%89%80%E9%9C%80%E4%B8%AD%E9%97%B4%E4%BB%B6/job%E8%B0%83%E5%BA%A6%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fas fa-clipboard-check fa-fw"></i>job调度技术</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-apollo">
+
+    <!--<a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%89%80%E9%9C%80%E4%B8%AD%E9%97%B4%E4%BB%B6/apollo%E6%8A%80%E6%9C%AF/" rel="section"><i class="fab fa-adn fa-fw"></i>apollo技术</a>-->
+    
+       
+          <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%89%80%E9%9C%80%E4%B8%AD%E9%97%B4%E4%BB%B6/apollo%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fab fa-adn fa-fw"></i>apollo技术</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-etcd">
+
+    <!--<a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%89%80%E9%9C%80%E4%B8%AD%E9%97%B4%E4%BB%B6/etcd%E6%8A%80%E6%9C%AF/" rel="section"><i class="fab fa-edge-legacy fa-fw"></i>etcd技术</a>-->
+    
+       
+          <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%89%80%E9%9C%80%E4%B8%AD%E9%97%B4%E4%BB%B6/etcd%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fab fa-edge-legacy fa-fw"></i>etcd技术</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-zipkin">
+
+    <!--<a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%89%80%E9%9C%80%E4%B8%AD%E9%97%B4%E4%BB%B6/zipkin-jaeger%E6%8A%80%E6%9C%AF/" rel="section"><i class="fab fa-diaspora fa-fw"></i>zipkin-jaeger技术</a>-->
+    
+       
+          <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%89%80%E9%9C%80%E4%B8%AD%E9%97%B4%E4%BB%B6/zipkin-jaeger%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fab fa-diaspora fa-fw"></i>zipkin-jaeger技术</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-prometheus">
+
+    <!--<a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%89%80%E9%9C%80%E4%B8%AD%E9%97%B4%E4%BB%B6/prometheus%E6%8A%80%E6%9C%AF/" rel="section"><i class="fas fa-parking fa-fw"></i>prometheus技术</a>-->
+    
+       
+          <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%89%80%E9%9C%80%E4%B8%AD%E9%97%B4%E4%BB%B6/prometheus%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fas fa-parking fa-fw"></i>prometheus技术</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-apiserver">
+
+    <!--<a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%89%80%E9%9C%80%E4%B8%AD%E9%97%B4%E4%BB%B6/%E4%B8%9A%E5%8A%A1%E7%BD%91%E5%85%B3%E6%8A%80%E6%9C%AF/" rel="section"><i class="fab fa-bootstrap fa-fw"></i>业务网关技术</a>-->
+    
+       
+          <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%89%80%E9%9C%80%E4%B8%AD%E9%97%B4%E4%BB%B6/%E4%B8%9A%E5%8A%A1%E7%BD%91%E5%85%B3%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fab fa-bootstrap fa-fw"></i>业务网关技术</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-categories-dev">
+
+    <!--<a href="/categories/%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="section"><i class="fas fa-cogs fa-fw"></i>服务部署中间件</a>-->
+    
+       
+        <a href="/categories/%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="section"><i class="fas fa-cogs fa-fw"></i>服务部署中间件</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-jenkins">
+
+    <!--<a href="/categories/%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E4%B8%AD%E9%97%B4%E4%BB%B6/jenkins%E6%8A%80%E6%9C%AF/" rel="section"><i class="fab fa-jenkins fa-fw"></i>jenkins技术</a>-->
+    
+       
+          <a href="/categories/%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E4%B8%AD%E9%97%B4%E4%BB%B6/jenkins%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fab fa-jenkins fa-fw"></i>jenkins技术</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-docker">
+
+    <!--<a href="/categories/%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E4%B8%AD%E9%97%B4%E4%BB%B6/docker%E6%8A%80%E6%9C%AF/" rel="section"><i class="fab fa-docker fa-fw"></i>dockerengine技术</a>-->
+    
+       
+          <a href="/categories/%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E4%B8%AD%E9%97%B4%E4%BB%B6/docker%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fab fa-docker fa-fw"></i>dockerengine技术</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-kubernetes">
+
+    <!--<a href="/categories/%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E4%B8%AD%E9%97%B4%E4%BB%B6/kubernetes%E6%8A%80%E6%9C%AF/" rel="section"><i class="fas fa-dharmachakra fa-fw"></i>kubernetes技术</a>-->
+    
+       
+          <a href="/categories/%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E4%B8%AD%E9%97%B4%E4%BB%B6/kubernetes%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fas fa-dharmachakra fa-fw"></i>kubernetes技术</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-harbor">
+
+    <!--<a href="/categories/%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E4%B8%AD%E9%97%B4%E4%BB%B6/harbor%E6%8A%80%E6%9C%AF/" rel="section"><i class="fab fa-watchman-monitoring fa-fw"></i>harbor技术</a>-->
+    
+       
+          <a href="/categories/%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E4%B8%AD%E9%97%B4%E4%BB%B6/harbor%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fab fa-watchman-monitoring fa-fw"></i>harbor技术</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-centos">
+
+    <!--<a href="/categories/%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E4%B8%AD%E9%97%B4%E4%BB%B6/centos%E6%8A%80%E6%9C%AF/" rel="section"><i class="fab fa-centos fa-fw"></i>centos技术</a>-->
+    
+       
+          <a href="/categories/%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E4%B8%AD%E9%97%B4%E4%BB%B6/centos%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fab fa-centos fa-fw"></i>centos技术</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-categories-program">
+
+    <!--<a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E4%B8%8E%E7%AE%97%E6%B3%95/" rel="section"><i class="fab fa-dev fa-fw"></i>编程语言与算法</a>-->
+    
+       
+        <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E4%B8%8E%E7%AE%97%E6%B3%95/" rel="section"><i class="fab fa-dev fa-fw"></i>编程语言与算法</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-network">
+
+    <!--<a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E7%9F%A5%E8%AF%86/" rel="section"><i class="fas fa-paper-plane fa-fw"></i>网络协议知识</a>-->
+    
+       
+          <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E7%9F%A5%E8%AF%86/" rel="section" class="submenu-item"><i class="fas fa-paper-plane fa-fw"></i>网络协议知识</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-go">
+
+    <!--<a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E4%B8%8E%E7%AE%97%E6%B3%95/go%E8%AF%AD%E8%A8%80/" rel="section"><i class="fab fa-goodreads fa-fw"></i>go编程语言</a>-->
+    
+       
+          <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E4%B8%8E%E7%AE%97%E6%B3%95/go%E8%AF%AD%E8%A8%80/" rel="section" class="submenu-item"><i class="fab fa-goodreads fa-fw"></i>go编程语言</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-java">
+
+    <!--<a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E4%B8%8E%E7%AE%97%E6%B3%95/java%E8%AF%AD%E8%A8%80/" rel="section"><i class="fab fa-java fa-fw"></i>java编程语言</a>-->
+    
+       
+          <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E4%B8%8E%E7%AE%97%E6%B3%95/java%E8%AF%AD%E8%A8%80/" rel="section" class="submenu-item"><i class="fab fa-java fa-fw"></i>java编程语言</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-js">
+
+    <!--<a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E4%B8%8E%E7%AE%97%E6%B3%95/js%E8%AF%AD%E8%A8%80/" rel="section"><i class="fab fa-node-js fa-fw"></i>js编程语言</a>-->
+    
+       
+          <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E4%B8%8E%E7%AE%97%E6%B3%95/js%E8%AF%AD%E8%A8%80/" rel="section" class="submenu-item"><i class="fab fa-node-js fa-fw"></i>js编程语言</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-categories-architectrue">
+
+    <!--<a href="/categories/%E5%BA%94%E7%94%A8%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%84%9F%E6%82%9F/" rel="section"><i class="fas fa-drafting-compass fa-fw"></i>技术架构与应用架构</a>-->
+    
+       
+        <a href="/categories/%E5%BA%94%E7%94%A8%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%84%9F%E6%82%9F/" rel="section"><i class="fas fa-drafting-compass fa-fw"></i>技术架构与应用架构</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-architectrue">
+
+    <!--<a href="/categories/%E5%BA%94%E7%94%A8%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%84%9F%E6%82%9F/%E5%BA%94%E7%94%A8%E6%9E%B6%E6%9E%84/" rel="section"><i class="fab fa-connectdevelop fa-fw"></i>应用架构</a>-->
+    
+       
+          <a href="/categories/%E5%BA%94%E7%94%A8%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%84%9F%E6%82%9F/%E5%BA%94%E7%94%A8%E6%9E%B6%E6%9E%84/" rel="section" class="submenu-item"><i class="fab fa-connectdevelop fa-fw"></i>应用架构</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-gerenganwu">
+
+    <!--<a href="/categories/%E5%BA%94%E7%94%A8%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%84%9F%E6%82%9F/%E4%B8%AA%E4%BA%BA%E6%84%9F%E6%82%9F/" rel="section"><i class="fas fa-mug-hot fa-fw"></i>个人感悟</a>-->
+    
+       
+          <a href="/categories/%E5%BA%94%E7%94%A8%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%84%9F%E6%82%9F/%E4%B8%AA%E4%BA%BA%E6%84%9F%E6%82%9F/" rel="section" class="submenu-item"><i class="fas fa-mug-hot fa-fw"></i>个人感悟</a>
+    
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <section class="post-toc-wrap sidebar-panel">
+        </section>
+        <!--/noindex-->
+
+        <section class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="渐学顿悟"
+      src="/favicon.png">
+  <p class="site-author-name" itemprop="name">渐学顿悟</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jxdw" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jxdw" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/wechat.png" title="WeChat → &#x2F;wechat.png"><i class="fab fa-weixin fa-fw"></i>WeChat</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:283593214@qq.com" title="E-Mail → mailto:283593214@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </section>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+      
+
+      
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jxdw.github.io/2021/05/01/trace-jaeger-sourcecode-agent/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/favicon.png">
+      <meta itemprop="name" content="渐学顿悟">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="渐学顿悟">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【jaeger源码分析】jaeger agent源码分析
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-05-01 19:00:00 19:00:00" itemprop="dateCreated datePublished" datetime="2021-05-01T19:00:00+08:00">2021-05-01 19:00:00</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%89%80%E9%9C%80%E4%B8%AD%E9%97%B4%E4%BB%B6/" itemprop="url" rel="index"><span itemprop="name">微服务所需中间件</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%89%80%E9%9C%80%E4%B8%AD%E9%97%B4%E4%BB%B6/zipkin-jaeger%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">zipkin/jaeger技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/05/01/trace-jaeger-sourcecode-agent/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/05/01/trace-jaeger-sourcecode-agent/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="agent-udp使用"><a href="#agent-udp使用" class="headerlink" title="agent udp使用"></a>agent udp使用</h1><h3 id="初始化udp"><a href="#初始化udp" class="headerlink" title="初始化udp"></a>初始化udp</h3><blockquote>
+<p>在agent开启时初始化了3个UDP服务</p>
+</blockquote>
+<blockquote>
+<p>每个服务对应处理不同的数据格式</p>
+</blockquote>
+<blockquote>
+<p>官方推荐使用6831端口接收数据</p>
+</blockquote>
+<blockquote>
+<p>github.com/uber/jaeger/cmd/agent/app/flags.go #35</p>
+</blockquote>
+<figure class="highlight golang"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> defaultProcessors = []<span class="keyword">struct</span> &#123;</span><br><span class="line">	model    model</span><br><span class="line">	protocol protocol</span><br><span class="line">	hostPort <span class="keyword">string</span></span><br><span class="line">&#125;&#123;</span><br><span class="line">	&#123;model: <span class="string">&quot;zipkin&quot;</span>, protocol: <span class="string">&quot;compact&quot;</span>, hostPort: <span class="string">&quot;:5775&quot;</span>&#125;,</span><br><span class="line">	&#123;model: <span class="string">&quot;jaeger&quot;</span>, protocol: <span class="string">&quot;compact&quot;</span>, hostPort: <span class="string">&quot;:6831&quot;</span>&#125;,</span><br><span class="line">	&#123;model: <span class="string">&quot;jaeger&quot;</span>, protocol: <span class="string">&quot;binary&quot;</span>, hostPort: <span class="string">&quot;:6832&quot;</span>&#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<h4 id="UDP服务端初始化"><a href="#UDP服务端初始化" class="headerlink" title="UDP服务端初始化"></a>UDP服务端初始化</h4><blockquote>
+<p>github.com/uber/jaeger/cmd/agent/app/servers/thriftudp/transport.go #73</p>
+</blockquote>
+<figure class="highlight golang"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewTUDPServerTransport</span><span class="params">(hostPort <span class="keyword">string</span>)</span> <span class="params">(*TUDPTransport, error)</span></span> &#123;</span><br><span class="line">    addr, err := net.ResolveUDPAddr(<span class="string">&quot;udp&quot;</span>, hostPort)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">    	<span class="keyword">return</span> <span class="literal">nil</span>, thrift.NewTTransportException(thrift.NOT_OPEN, err.Error())</span><br><span class="line">    &#125;</span><br><span class="line">    conn, err := net.ListenUDP(addr.Network(), addr)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">    	<span class="keyword">return</span> <span class="literal">nil</span>, thrift.NewTTransportException(thrift.NOT_OPEN, err.Error())</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> &amp;TUDPTransport&#123;addr: conn.LocalAddr(), conn: conn&#125;, <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="初始化worker"><a href="#初始化worker" class="headerlink" title="初始化worker"></a>初始化worker</h4><blockquote>
+<p>github.com/uber/jaeger/cmd/agent/app/processors/thrift_processor.go #78</p>
+</blockquote>
+<figure class="highlight golang"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Serve initiates the readers and starts serving traffic</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s *ThriftProcessor)</span> <span class="title">Serve</span><span class="params">()</span></span> &#123;</span><br><span class="line">	s.processing.Add(s.numProcessors)</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; s.numProcessors; i++ &#123;</span><br><span class="line">		<span class="keyword">go</span> s.processBuffer()</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	s.server.Serve()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="数据接收使用对象池和队列处理"><a href="#数据接收使用对象池和队列处理" class="headerlink" title="数据接收使用对象池和队列处理"></a>数据接收使用对象池和队列处理</h4><blockquote>
+<p>github.com/uber/jaeger/cmd/agent/app/servers/tbuffered_server.go</p>
+</blockquote>
+<figure class="highlight golang"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewTBufferedServer</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">	transport thrift.TTransport,</span></span></span><br><span class="line"><span class="function"><span class="params">	maxQueueSize <span class="keyword">int</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">	maxPacketSize <span class="keyword">int</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">	mFactory metrics.Factory,</span></span></span><br><span class="line"><span class="function"><span class="params">)</span> <span class="params">(*TBufferedServer, error)</span></span> &#123;</span><br><span class="line">    <span class="comment">//数据队列</span></span><br><span class="line">    dataChan := <span class="built_in">make</span>(<span class="keyword">chan</span> *ReadBuf, maxQueueSize)</span><br><span class="line">    <span class="comment">//对象池初始化</span></span><br><span class="line">    <span class="keyword">var</span> readBufPool = &amp;sync.Pool&#123;</span><br><span class="line">    	New: <span class="function"><span class="keyword">func</span><span class="params">()</span> <span class="title">interface</span></span>&#123;&#125; &#123;</span><br><span class="line">    		<span class="keyword">return</span> &amp;ReadBuf&#123;bytes: <span class="built_in">make</span>([]<span class="keyword">byte</span>, maxPacketSize)&#125;</span><br><span class="line">    	&#125;,</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    res := &amp;TBufferedServer&#123;dataChan: dataChan,</span><br><span class="line">    	transport:     transport,</span><br><span class="line">    	maxQueueSize:  maxQueueSize,</span><br><span class="line">    	maxPacketSize: maxPacketSize,</span><br><span class="line">    	readBufPool:   readBufPool,</span><br><span class="line">    &#125;</span><br><span class="line">    metrics.Init(&amp;res.metrics, mFactory, <span class="literal">nil</span>)</span><br><span class="line">    <span class="keyword">return</span> res, <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="从客户端接收数据放入队列"><a href="#从客户端接收数据放入队列" class="headerlink" title="从客户端接收数据放入队列"></a>从客户端接收数据放入队列</h4><blockquote>
+<p>github.com/uber/jaeger/cmd/agent/app/servers/tbuffered_server.go #80</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">func (s *TBufferedServer) Serve() &#123;</span><br><span class="line">	atomic.StoreUint32(&amp;s.serving, 1)</span><br><span class="line">	for s.IsServing() &#123;</span><br><span class="line">		readBuf :&#x3D; s.readBufPool.Get().(*ReadBuf)</span><br><span class="line">		n, err :&#x3D; s.transport.Read(readBuf.bytes)</span><br><span class="line">		if err &#x3D;&#x3D; nil &#123;</span><br><span class="line">			readBuf.n &#x3D; n</span><br><span class="line">			s.metrics.PacketSize.Update(int64(n))</span><br><span class="line">			select &#123;</span><br><span class="line">			case s.dataChan &lt;- readBuf:</span><br><span class="line">				s.metrics.PacketsProcessed.Inc(1)</span><br><span class="line">				s.updateQueueSize(1)</span><br><span class="line">			default:</span><br><span class="line">			   &#x2F;&#x2F;这里需要注意，如果写比处理快，agent将会扔掉超出的部分数据</span><br><span class="line">			   s.metrics.PacketsDropped.Inc(1)</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; else &#123;</span><br><span class="line">			s.metrics.ReadError.Inc(1)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p> 注意点：agent的队列默认存放1000条消息，超过部分会被扔掉。</p>
+</blockquote>
+<blockquote>
+<p>基于服务器的承载能力可以适当调节参数，减少数据的丢失，保持调用链的完整。</p>
+</blockquote>
+<ul>
+<li>增加队列长度（default 1000） –processor.zipkin-compact.server-queue-size</li>
+<li>增加处理协成数 （default 50） –processor.zipkin-compact.workers </li>
+<li>增加agent服务节点</li>
+</ul>
+<h4 id="处理队列数据"><a href="#处理队列数据" class="headerlink" title="处理队列数据"></a>处理队列数据</h4><blockquote>
+<p>github.com/uber/jaeger/cmd/agent/app/processors/thrift_processor.go #104</p>
+</blockquote>
+<figure class="highlight golang"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s *ThriftProcessor)</span> <span class="title">processBuffer</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">for</span> readBuf := <span class="keyword">range</span> s.server.DataChan() &#123;</span><br><span class="line">		protocol := s.protocolPool.Get().(thrift.TProtocol)</span><br><span class="line">		protocol.Transport().Write(readBuf.GetBytes())</span><br><span class="line">		s.server.DataRecd(readBuf) <span class="comment">// acknowledge receipt and release the buffer</span></span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> ok, _ := s.handler.Process(protocol, protocol); !ok &#123;</span><br><span class="line">			<span class="comment">// TODO log the error</span></span><br><span class="line">			s.metrics.HandlerProcessError.Inc(<span class="number">1</span>)</span><br><span class="line">		&#125;</span><br><span class="line">		s.protocolPool.Put(protocol)</span><br><span class="line">	&#125;</span><br><span class="line">	s.processing.Done()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="jaeger-解析6831端口的数据"><a href="#jaeger-解析6831端口的数据" class="headerlink" title="jaeger 解析6831端口的数据"></a>jaeger 解析6831端口的数据</h2><blockquote>
+<p>github.com/uber/jaeger/thrift-gen/jaeger/agent.go #105</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">func (p *AgentProcessor) Process(iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) &#123;</span><br><span class="line">	name, _, seqId, err :&#x3D; iprot.ReadMessageBegin()</span><br><span class="line"></span><br><span class="line">	if err !&#x3D; nil &#123;</span><br><span class="line">		return false, err</span><br><span class="line">	&#125;</span><br><span class="line">	if processor, ok :&#x3D; p.GetProcessorFunction(name); ok &#123;</span><br><span class="line">		return processor.Process(seqId, iprot, oprot)</span><br><span class="line">	&#125;</span><br><span class="line">	iprot.Skip(thrift.STRUCT)</span><br><span class="line">	iprot.ReadMessageEnd()</span><br><span class="line">	x7 :&#x3D; thrift.NewTApplicationException(thrift.UNKNOWN_METHOD, &quot;Unknown function &quot;+name)</span><br><span class="line">	oprot.WriteMessageBegin(name, thrift.EXCEPTION, seqId)</span><br><span class="line">	x7.Write(oprot)</span><br><span class="line">	oprot.WriteMessageEnd()</span><br><span class="line">	oprot.Flush()</span><br><span class="line">	return false, x7</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="解析EmitBatch数据"><a href="#解析EmitBatch数据" class="headerlink" title="解析EmitBatch数据"></a>解析EmitBatch数据</h2><blockquote>
+<p>github.com/uber/jaeger/thrift-gen/agent/agent.go #187</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">func (p *agentProcessorEmitBatch) Process(seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) &#123;</span><br><span class="line">	args :&#x3D; AgentEmitBatchArgs&#123;&#125;</span><br><span class="line">	if err &#x3D; args.Read(iprot); err !&#x3D; nil &#123;</span><br><span class="line">		iprot.ReadMessageEnd()</span><br><span class="line">		return false, err</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	iprot.ReadMessageEnd()</span><br><span class="line">	var err2 error</span><br><span class="line">	if err2 &#x3D; p.handler.EmitBatch(args.Batch); err2 !&#x3D; nil &#123;</span><br><span class="line">		return true, err2</span><br><span class="line">	&#125;</span><br><span class="line">	return true, nil</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="数据解析完后使用tchan-提交数据"><a href="#数据解析完后使用tchan-提交数据" class="headerlink" title="数据解析完后使用tchan 提交数据"></a>数据解析完后使用tchan 提交数据</h2><blockquote>
+<p>github.com/uber/jaeger/thrift-gen/jaeger/tchan-jaeger.go #39</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">func (c *tchanCollectorClient) SubmitBatches(ctx thrift.Context, batches []*Batch) ([]*BatchSubmitResponse, error) &#123;</span><br><span class="line">	var resp CollectorSubmitBatchesResult</span><br><span class="line">	args :&#x3D; CollectorSubmitBatchesArgs&#123;</span><br><span class="line">		Batches: batches,</span><br><span class="line">	&#125;</span><br><span class="line">	success, err :&#x3D; c.client.Call(ctx, c.thriftService, &quot;submitBatches&quot;, &amp;args, &amp;resp)</span><br><span class="line">	if err &#x3D;&#x3D; nil &amp;&amp; !success &#123;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	return resp.GetSuccess(), err</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%89%80%E9%9C%80%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="tag"># 微服务所需中间件</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/05/01/trace-jaeger-sourcecode-sd/" rel="prev" title="【zipkin/jaeger使用系列】jaeger 服务注册与发现源码">
+                  <i class="fa fa-chevron-left"></i> 【zipkin/jaeger使用系列】jaeger 服务注册与发现源码
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/05/01/trace-jaeger-architectrue/" rel="next" title="【zipkin/jaeger使用系列】jaeger整体架构">
+                  【zipkin/jaeger使用系列】jaeger整体架构 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+      
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      
+
+      
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">渐学顿悟</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+NexT.utils.loadComments('#valine-comments', () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', () => {
+    new Valine(Object.assign({"enable":true,"appId":"wrre3Nrx21CqKiChLnKn034M-gzGzoHsz","appKey":"rkWWNONo7LAJhlS936vnywQ9","serverURLs":null,"placeholder":"请输入您的评论","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"lang":null,"visitor":false,"comment_count":true,"recordIP":false,"enableQQ":false,"requiredFields":["nick","mail"]}, {
+      el: '#valine-comments',
+      path: "/2021/05/01/trace-jaeger-sourcecode-agent/",
+      serverURLs: "https://wrre3nrx.api.lncld.net"
+    }));
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

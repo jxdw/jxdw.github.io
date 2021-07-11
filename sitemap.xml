@@ -2,6 +2,62 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://jxdw.github.io/2021/05/01/trace-jaeger-architectrue/</loc>
+    
+    <lastmod>2021-07-11</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jxdw.github.io/2021/05/31/tech-architecture-wu/</loc>
+    
+    <lastmod>2021-07-11</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jxdw.github.io/2020/03/25/jishuzongjie-2019/</loc>
+    
+    <lastmod>2021-07-11</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jxdw.github.io/2018/12/01/jishuzongjie-2018_beta/</loc>
+    
+    <lastmod>2021-07-11</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jxdw.github.io/2019/01/01/jishuzongjie-2018/</loc>
+    
+    <lastmod>2021-07-11</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jxdw.github.io/2018/12/06/jishuzongjie_2019_learn_plan/</loc>
+    
+    <lastmod>2021-07-11</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jxdw.github.io/2016/01/01/jishuzongjie-2015/</loc>
+    
+    <lastmod>2021-07-11</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jxdw.github.io/2019/05/12/spring-architecture/</loc>
+    
+    <lastmod>2021-07-11</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://jxdw.github.io/2018/07/29/elastic-job-basic-use/</loc>
     
     <lastmod>2021-07-11</lastmod>
@@ -135,13 +191,6 @@
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/2021/05/01/trace-jaeger-architectrue/</loc>
-    
-    <lastmod>2021-07-11</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://jxdw.github.io/2017/03/10/webserver-ha-software-haproxy/</loc>
     
     <lastmod>2021-07-11</lastmod>
@@ -157,55 +206,6 @@
   
   <url>
     <loc>https://jxdw.github.io/2017/12/23/rabbitmq-cluster-install_2/</loc>
-    
-    <lastmod>2021-07-11</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jxdw.github.io/2018/12/01/jishuzongjie-2018_beta/</loc>
-    
-    <lastmod>2021-07-11</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jxdw.github.io/2019/01/01/jishuzongjie-2018/</loc>
-    
-    <lastmod>2021-07-11</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jxdw.github.io/2020/03/25/jishuzongjie-2019/</loc>
-    
-    <lastmod>2021-07-11</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jxdw.github.io/2021/05/31/tech-architecture-wu/</loc>
-    
-    <lastmod>2021-07-11</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jxdw.github.io/2018/12/06/jishuzongjie_2019_learn_plan/</loc>
-    
-    <lastmod>2021-07-11</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jxdw.github.io/2019/05/12/spring-architecture/</loc>
-    
-    <lastmod>2021-07-11</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jxdw.github.io/2016/01/01/jishuzongjie-2015/</loc>
     
     <lastmod>2021-07-11</lastmod>
     
@@ -998,14 +998,14 @@
 
   
   <url>
-    <loc>https://jxdw.github.io/tags/%E6%9C%8D%E5%8A%A1%E8%BF%90%E8%A1%8C%E4%B8%AD%E9%97%B4%E4%BB%B6/</loc>
+    <loc>https://jxdw.github.io/tags/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E4%B8%AD%E9%97%B4%E4%BB%B6/</loc>
     <lastmod>2021-07-11</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/tags/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E4%B8%AD%E9%97%B4%E4%BB%B6/</loc>
+    <loc>https://jxdw.github.io/tags/%E6%9C%8D%E5%8A%A1%E8%BF%90%E8%A1%8C%E4%B8%AD%E9%97%B4%E4%BB%B6/</loc>
     <lastmod>2021-07-11</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -1026,20 +1026,27 @@
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/tags/%E5%BA%94%E7%94%A8%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%8A%80%E6%9C%AF%E6%9E%B6%E6%9E%84/</loc>
+    <loc>https://jxdw.github.io/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6%E6%8A%80%E6%9C%AF%E6%9E%B6%E6%9E%84/</loc>
+    <lastmod>2021-07-11</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://jxdw.github.io/tags/%E5%BA%94%E7%94%A8%E6%9E%B6%E6%9E%84/</loc>
+    <lastmod>2021-07-11</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://jxdw.github.io/tags/%E6%9C%8D%E5%8A%A1%E4%B8%AD%E9%97%B4%E4%BB%B6%E6%8A%80%E6%9C%AF%E6%9E%B6%E6%9E%84/</loc>
     <lastmod>2021-07-11</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
 
-  
-  <url>
-    <loc>https://jxdw.github.io/categories/%E6%9C%8D%E5%8A%A1%E8%BF%90%E8%A1%8C%E4%B8%AD%E9%97%B4%E4%BB%B6/</loc>
-    <lastmod>2021-07-11</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
   
   <url>
     <loc>https://jxdw.github.io/categories/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E4%B8%AD%E9%97%B4%E4%BB%B6/</loc>
@@ -1049,14 +1056,7 @@
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/categories/%E6%9C%8D%E5%8A%A1%E8%BF%90%E8%A1%8C%E4%B8%AD%E9%97%B4%E4%BB%B6/zipkin-jaeger%E6%8A%80%E6%9C%AF/</loc>
-    <lastmod>2021-07-11</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://jxdw.github.io/categories/%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E4%B8%AD%E9%97%B4%E4%BB%B6/</loc>
+    <loc>https://jxdw.github.io/categories/%E6%9C%8D%E5%8A%A1%E8%BF%90%E8%A1%8C%E4%B8%AD%E9%97%B4%E4%BB%B6/</loc>
     <lastmod>2021-07-11</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -1070,7 +1070,7 @@
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/categories/%E6%9C%8D%E5%8A%A1%E8%BF%90%E8%A1%8C%E4%B8%AD%E9%97%B4%E4%BB%B6/apollo%E6%8A%80%E6%9C%AF/</loc>
+    <loc>https://jxdw.github.io/categories/%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E4%B8%AD%E9%97%B4%E4%BB%B6/</loc>
     <lastmod>2021-07-11</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -1078,6 +1078,20 @@
   
   <url>
     <loc>https://jxdw.github.io/categories/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E4%B8%AD%E9%97%B4%E4%BB%B6/redis%E6%8A%80%E6%9C%AF/</loc>
+    <lastmod>2021-07-11</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://jxdw.github.io/categories/%E6%9C%8D%E5%8A%A1%E8%BF%90%E8%A1%8C%E4%B8%AD%E9%97%B4%E4%BB%B6/zipkin-jaeger%E6%8A%80%E6%9C%AF/</loc>
+    <lastmod>2021-07-11</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://jxdw.github.io/categories/%E6%9C%8D%E5%8A%A1%E8%BF%90%E8%A1%8C%E4%B8%AD%E9%97%B4%E4%BB%B6/apollo%E6%8A%80%E6%9C%AF/</loc>
     <lastmod>2021-07-11</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -1175,7 +1189,7 @@
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/categories/%E5%BA%94%E7%94%A8%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%8A%80%E6%9C%AF%E6%9E%B6%E6%9E%84/</loc>
+    <loc>https://jxdw.github.io/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6%E6%8A%80%E6%9C%AF%E6%9E%B6%E6%9E%84/</loc>
     <lastmod>2021-07-11</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -1210,7 +1224,7 @@
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/categories/%E5%BA%94%E7%94%A8%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%8A%80%E6%9C%AF%E6%9E%B6%E6%9E%84/%E4%B8%9A%E5%8A%A1%E5%BA%94%E7%94%A8%E7%9A%84%E5%BA%94%E7%94%A8%E6%9E%B6%E6%9E%84/</loc>
+    <loc>https://jxdw.github.io/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6%E6%8A%80%E6%9C%AF%E6%9E%B6%E6%9E%84/%E6%9C%8D%E5%8A%A1%E4%B8%AD%E9%97%B4%E4%BB%B6%E6%8A%80%E6%9C%AF%E6%9E%B6%E6%9E%84/</loc>
     <lastmod>2021-07-11</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>

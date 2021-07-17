@@ -2,55 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://jxdw.github.io/2018/12/28/kubernetes-1-8-install/</loc>
-    
-    <lastmod>2021-07-17</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jxdw.github.io/2018/12/06/jishuzongjie_2019_learn_plan/</loc>
-    
-    <lastmod>2021-07-17</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jxdw.github.io/2020/03/25/jishuzongjie-2019/</loc>
-    
-    <lastmod>2021-07-17</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jxdw.github.io/2018/12/01/jishuzongjie-2018_beta/</loc>
-    
-    <lastmod>2021-07-17</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jxdw.github.io/2019/01/01/jishuzongjie-2018/</loc>
-    
-    <lastmod>2021-07-17</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jxdw.github.io/2016/01/01/jishuzongjie-2015/</loc>
-    
-    <lastmod>2021-07-17</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jxdw.github.io/2021/05/01/trace-jaeger-architectrue/</loc>
-    
-    <lastmod>2021-07-17</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://jxdw.github.io/2017/01/15/centos7-disk-ops/</loc>
     
     <lastmod>2021-07-17</lastmod>
@@ -275,6 +226,13 @@
   </url>
   
   <url>
+    <loc>https://jxdw.github.io/2018/12/28/kubernetes-1-8-install/</loc>
+    
+    <lastmod>2021-07-17</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://jxdw.github.io/2019/06/30/cicd-jira-crack-restfulapi/</loc>
     
     <lastmod>2021-07-17</lastmod>
@@ -283,6 +241,48 @@
   
   <url>
     <loc>https://jxdw.github.io/2017/06/28/docker-build-basic-image/</loc>
+    
+    <lastmod>2021-07-17</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jxdw.github.io/2018/12/06/jishuzongjie_2019_learn_plan/</loc>
+    
+    <lastmod>2021-07-17</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jxdw.github.io/2020/03/25/jishuzongjie-2019/</loc>
+    
+    <lastmod>2021-07-17</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jxdw.github.io/2018/12/01/jishuzongjie-2018_beta/</loc>
+    
+    <lastmod>2021-07-17</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jxdw.github.io/2019/01/01/jishuzongjie-2018/</loc>
+    
+    <lastmod>2021-07-17</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jxdw.github.io/2016/01/01/jishuzongjie-2015/</loc>
+    
+    <lastmod>2021-07-17</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jxdw.github.io/2021/05/01/trace-jaeger-architectrue/</loc>
     
     <lastmod>2021-07-17</lastmod>
     
@@ -1012,7 +1012,7 @@
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/tags/%E6%95%88%E7%8E%87%E4%B8%AD%E9%97%B4%E4%BB%B6/</loc>
+    <loc>https://jxdw.github.io/tags/%E7%A0%94%E5%8F%91%E6%95%88%E7%8E%87%E4%B8%AD%E9%97%B4%E4%BB%B6/</loc>
     <lastmod>2021-07-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -1049,7 +1049,7 @@
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/categories/%E6%95%88%E7%8E%87%E4%B8%AD%E9%97%B4%E4%BB%B6/</loc>
+    <loc>https://jxdw.github.io/categories/%E7%A0%94%E5%8F%91%E6%95%88%E7%8E%87%E4%B8%AD%E9%97%B4%E4%BB%B6/</loc>
     <lastmod>2021-07-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -1077,7 +1077,7 @@
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/categories/%E6%95%88%E7%8E%87%E4%B8%AD%E9%97%B4%E4%BB%B6/centos%E6%8A%80%E6%9C%AF/</loc>
+    <loc>https://jxdw.github.io/categories/%E7%A0%94%E5%8F%91%E6%95%88%E7%8E%87%E4%B8%AD%E9%97%B4%E4%BB%B6/centos%E6%8A%80%E6%9C%AF/</loc>
     <lastmod>2021-07-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -1098,7 +1098,7 @@
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/categories/%E6%95%88%E7%8E%87%E4%B8%AD%E9%97%B4%E4%BB%B6/docker%E6%8A%80%E6%9C%AF/</loc>
+    <loc>https://jxdw.github.io/categories/%E7%A0%94%E5%8F%91%E6%95%88%E7%8E%87%E4%B8%AD%E9%97%B4%E4%BB%B6/docker%E6%8A%80%E6%9C%AF/</loc>
     <lastmod>2021-07-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -1147,7 +1147,7 @@
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/categories/%E6%95%88%E7%8E%87%E4%B8%AD%E9%97%B4%E4%BB%B6/harbor%E6%8A%80%E6%9C%AF/</loc>
+    <loc>https://jxdw.github.io/categories/%E7%A0%94%E5%8F%91%E6%95%88%E7%8E%87%E4%B8%AD%E9%97%B4%E4%BB%B6/harbor%E6%8A%80%E6%9C%AF/</loc>
     <lastmod>2021-07-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -1161,7 +1161,7 @@
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/categories/%E6%95%88%E7%8E%87%E4%B8%AD%E9%97%B4%E4%BB%B6/jenkins%E6%8A%80%E6%9C%AF/</loc>
+    <loc>https://jxdw.github.io/categories/%E7%A0%94%E5%8F%91%E6%95%88%E7%8E%87%E4%B8%AD%E9%97%B4%E4%BB%B6/jenkins%E6%8A%80%E6%9C%AF/</loc>
     <lastmod>2021-07-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -1175,7 +1175,7 @@
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/categories/%E6%95%88%E7%8E%87%E4%B8%AD%E9%97%B4%E4%BB%B6/kubernetes%E6%8A%80%E6%9C%AF/</loc>
+    <loc>https://jxdw.github.io/categories/%E7%A0%94%E5%8F%91%E6%95%88%E7%8E%87%E4%B8%AD%E9%97%B4%E4%BB%B6/kubernetes%E6%8A%80%E6%9C%AF/</loc>
     <lastmod>2021-07-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>

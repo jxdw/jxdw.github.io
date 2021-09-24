@@ -456,7 +456,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">140</span>
+          <span class="site-state-item-count">141</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -514,178 +514,6 @@
       
 
       
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jxdw.github.io/2019/12/21/redis-server-5-start-process/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/favicon.png">
-      <meta itemprop="name" content="渐学顿悟">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="渐学顿悟">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/21/redis-server-5-start-process/" class="post-title-link" itemprop="url">【redis架构系列】redis v5.0服务端的启动过程</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2019-12-21 17:07:03 17:07:03" itemprop="dateCreated datePublished" datetime="2019-12-21T17:07:03+08:00">2019-12-21 17:07:03</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E4%B8%AD%E9%97%B4%E4%BB%B6/" itemprop="url" rel="index"><span itemprop="name">数据存储中间件</span></a>
-        </span>
-          ，
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E4%B8%AD%E9%97%B4%E4%BB%B6/redis%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">redis技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2019/12/21/redis-server-5-start-process/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/21/redis-server-5-start-process/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="redis5-0服务端启动过程"><a href="#redis5-0服务端启动过程" class="headerlink" title="redis5.0服务端启动过程"></a>redis5.0服务端启动过程</h1><p><img src="https://jxdw.github.io/img/redis/redis_server_start_processor.jpeg"></p>
-<h2 id="Redis源码阅读参考（来源于网络）"><a href="#Redis源码阅读参考（来源于网络）" class="headerlink" title="Redis源码阅读参考（来源于网络）"></a>Redis源码阅读参考（来源于网络）</h2><h3 id="1-基础数据结构"><a href="#1-基础数据结构" class="headerlink" title="1.基础数据结构"></a>1.基础数据结构</h3><ul>
-<li>内存分配 zmalloc.h、zmalloc.c</li>
-<li>简单动态字符串 sds.h、sds.c</li>
-<li>双端链表 adlist.h、adlist.c</li>
-<li>字典dict.h、dict.c</li>
-<li>跳跃表server.h、（zskiplist以及zskiplistNode结构）、t_zset.c</li>
-<li>整数集合intset.h、intset.c</li>
-<li>压缩列表ziplist.h、ziplist.c</li>
-<li>压缩字典 zipmap.h、zipmap.c</li>
-<li>快速链表 quicklist.h、quicklist.c</li>
-<li>基数统计 hyperloglog.c(hllhdr结构, hll 开头的函数)</li>
-<li>geohash geohash.h、geohash.c</li>
-</ul>
-<h3 id="2-Redis数据类型"><a href="#2-Redis数据类型" class="headerlink" title="2.Redis数据类型"></a>2.Redis数据类型</h3><ul>
-<li>对象系统 object.c</li>
-<li>字符串键 t_string.c</li>
-<li>列表建 t_list.c</li>
-<li>哈希键 t_hash.c</li>
-<li>集合键 t_set.c</li>
-<li>有序集合键 t_zset.c(除zsl开头的所有函数)</li>
-<li>HyperLogLog键 hyperloglog.c(pf开头的函数)</li>
-<li>地理位置 geo.h、geo.c</li>
-</ul>
-<h3 id="3-Redis数据库"><a href="#3-Redis数据库" class="headerlink" title="3.Redis数据库"></a>3.Redis数据库</h3><ul>
-<li>数据库实现 db.c</li>
-<li>通知功能 notify.c</li>
-<li>RDB持久化 rdb.h、rdb.c</li>
-<li>AOF持久化 aof.c</li>
-</ul>
-<h3 id="4-客户端-服务端"><a href="#4-客户端-服务端" class="headerlink" title="4.客户端/服务端"></a>4.客户端/服务端</h3><ul>
-<li>事件处理模块 ae.h、ae.c、ae_epoll.c、ae_evport.c、ae_kqueue.c、ae_select.c</li>
-<li>网路链接库 anet.h、anet.c、networking.c</li>
-<li>服务器端 server.h、server.c</li>
-<li>客户端 redis-cli.c</li>
-</ul>
-<h3 id="5-分布式Redis"><a href="#5-分布式Redis" class="headerlink" title="5.分布式Redis"></a>5.分布式Redis</h3><ul>
-<li>复制功能 replication.c</li>
-<li>Redis哨兵 sentinel.c</li>
-<li>Redis集群 cluster.h、cluster.c</li>
-</ul>
-<h3 id="6-独立功能模块"><a href="#6-独立功能模块" class="headerlink" title="6.独立功能模块"></a>6.独立功能模块</h3><ul>
-<li>发布和订阅 pubsub.c</li>
-<li>事务 multi.c</li>
-</ul>
-<h3 id="7-测试"><a href="#7-测试" class="headerlink" title="7.测试"></a>7.测试</h3><ul>
-<li>内存检测 memtest.c</li>
-<li>redis性能测试 redis_benchmark.c</li>
-<li>更新日志检查 redis_check_aof.c</li>
-<li>本地数据库检查 redis_check_rdb.c</li>
-<li>C风格的小型测试框架 testhelp.c</li>
-</ul>
-<h3 id="8-工具类"><a href="#8-工具类" class="headerlink" title="8.工具类"></a>8.工具类</h3><ul>
-<li>二进制位操作命令 bitops.c</li>
-<li>调试 debug.c</li>
-<li>高低位转换 endianconv.h、endianconv.c(适配不同系统)</li>
-<li>辅助于命令的提示信息 help.h</li>
-<li>压缩算法 lzf.h、lzf_c.c、lzf_d.c、lzfP.h</li>
-<li>随机数 rand.h、rand.c</li>
-<li>版本发布 release.c</li>
-<li>sha加密算法 sha1.h、sha1.c</li>
-<li>通用工具类 util.h、util.c</li>
-<li>循环冗余校验 crc16.c、crc64.h、crc64.c</li>
-<li>SORT命令 sort.c</li>
-<li>伪随机函数 siphash.c</li>
-<li>进程信息操作 setproctitle.c</li>
-<li>geo工具类 geohash_helper.h、geohash_helper.c</li>
-</ul>
-<h3 id="9-封装类"><a href="#9-封装类" class="headerlink" title="9.封装类"></a>9.封装类</h3><ul>
-<li>后台线程I/O bio.h、bio.c</li>
-<li>延迟类 latency.h、latency.c</li>
-<li>排序算法类 pqsort.h、pqsort.c</li>
-<li>Redis定义的I/O类 rio.h、rio.c</li>
-<li>同步Socket和文件I/O操作 syncio.c</li>
-</ul>
-<h3 id="10-其他"><a href="#10-其他" class="headerlink" title="10.其他"></a>10.其他</h3><ul>
-<li>微线图 sparkline.h、sparkline.c</li>
-<li>慢日志 slowlog.h、slowlog.c</li>
-<li>脚本 scripting.c</li>
-<li>过期机制 expire.c</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
     
 
 
@@ -1191,6 +1019,102 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jxdw.github.io/2019/09/09/c_language_standard_library_implement/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/favicon.png">
+      <meta itemprop="name" content="渐学顿悟">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="渐学顿悟">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/09/09/c_language_standard_library_implement/" class="post-title-link" itemprop="url">【C语言标准库使用】C语言标准库及3个操作系统下的实现</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-09-09 21:26:11 21:26:11" itemprop="dateCreated datePublished" datetime="2019-09-09T21:26:11+08:00">2019-09-09 21:26:11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index"><span itemprop="name">编程语言</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/C%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index"><span itemprop="name">C编程语言</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2019/09/09/c_language_standard_library_implement/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/09/09/c_language_standard_library_implement/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="C标准库"><a href="#C标准库" class="headerlink" title="C标准库"></a>C标准库</h1><p>C标准库也叫ISO C库，定义了一组宏、类型和函数，用于输入/输出处理、字符串处理、内存管理、数学计算以及许多与操作系统服务相关的。它们在C标准（如C11标准）中做了规定。内容分布在各个头文件中，比如上面提到的math.h。</p>
+<h1 id="实现C和C-标准库"><a href="#实现C和C-标准库" class="headerlink" title="实现C和C++标准库"></a>实现C和C++标准库</h1><p>从这部分开始讨论真实的代码。实现标准库的开发者先阅读官方ISO文档需求，然后把它们转成代码。实现时必须依赖特定操作系统提供的功能（读/写文件，分配内存，创建线程等等，通过所谓的系统调用），因此每个平台都要有自己的一套标准库实现。有时它是系统的一个核心部分，有时由另外的组件（编译器）提供，这个必须另外下载。</p>
+<h2 id="GNU-Linux的实现"><a href="#GNU-Linux的实现" class="headerlink" title="GNU/Linux的实现"></a>GNU/Linux的实现</h2><p>GNU C库即glibc，是GNU项目对C标准库的实现。并不是所有的标准C函数都能在glibc中找到：大部分数学函数其实由libm实现，它是另外的一个库。<br>目前glibc是Linux上使用最广泛的C库。不过在90年代有个glibc的竞争者叫Linux libc（或者就叫libc），它fork自glibc 1.x。有段时间内，Linux libc是许多Linux发行版的标准C库。<br>经过多年的开发，glibc被证明远远优于Linux libc，曾经使用libc的Linux发行版都转成使用glibc了。所以要是你的磁盘上有个文件叫libc.so.6请不要惊慌，它是个现代的glibc。版本号涨到6是为了避免与之前Linux libc的版本混淆（不能把它命名成glibc.so.6，因为所有的Linux库命名都必须以lib开头）。<br>再来看看C++库，实现于libstdc++，或者叫GNU标准C++库。它是个一直持续着的项目，在GNU/Linux上实现了标准C++库。一般常见的Linux发行版默认使用libstdc++。</p>
+<h2 id="Mac和iOS的实现"><a href="#Mac和iOS的实现" class="headerlink" title="Mac和iOS的实现"></a>Mac和iOS的实现</h2><p>在Mac和iOS上，C标准库的实现是核心库libSystem的一部分，位于/usr/lib/libSystem.dylib。LibSystem还包括了数学库、线程库及其他底层组件。<br>至于C++标准库，Mac在OS X Mavericks(10.9 版本)前默认使用libstdc++，与现代Linux系操作系统使用相同的。自OS X Mavericks之后，苹果转而使用libc++，它由Mac官方编译器框架LLVM项目实现，用以替代GNU libstdc++标准库。<br>iOS开发者通过iOS SDK(Software Development Kit)使用标准库。iOS SDK是一组用于创建移动App的工具集。</p>
+<h2 id="Windows的实现"><a href="#Windows的实现" class="headerlink" title="Windows的实现"></a>Windows的实现</h2><p>Windows上标准库的实现与微软官方编译器Visual Studio严格绑在一起，称为C/C++运行时库(CRT)，它包括了标准库的实现。<br>最初将CRT实现为CRTDLL.DLL库（我猜那时不含C++标准库）。从Windows 95开始，微软把它实现在MSVCR[版本号].DLL（MSVCR20.DLL, MSVCR70.DLL等）中，猜测也包含了C++标准库。1997年左右，他们决定把文件名简化为MSVCRT.DLL，这不幸导致了臭名昭著的DLL mess。这也就是为什么从Visual Studio 7.0后又转回每个版本搭载DLLs。<br>Visual Studio 2015对CRT做了大规模重构，C/C++标准库实现在一个新的库，名为统一C运行时库(Universal CRT or UCRT)，编译成UCRTBASE.DLL。UCRT目前已成为Windows的组件，从Windows 10开始作为操作系统的一部分。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://jxdw.github.io/2019/08/21/go_run_principle/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1582,7 +1506,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 

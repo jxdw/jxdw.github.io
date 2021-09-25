@@ -24,16 +24,21 @@
     var CONFIG = {"hostname":"jxdw.github.io","root":"/","scheme":"Pisces","version":"8.0.2","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"width":240},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
   </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="渐学顿悟">
-<meta property="og:url" content="https://jxdw.github.io/archives/2021/09/index.html">
+  <meta name="description" content="mac固件激活，初始化硬件，加载BootX引导器。BootX加载内核与内核扩展(kext)。内核启动launchd进程launchd根据如下目录的文件，启动守护进程&#x2F;System&#x2F;Library&#x2F;LaunchAgents &#x2F;System&#x2F;Library&#x2F;LaunchDaemons&#x2F;Library&#x2F;LaunchDaemo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【macOS使用系列】【转载】macOS的启动原理">
+<meta property="og:url" content="https://jxdw.github.io/2020/08/05/macos_launched_process/index.html">
 <meta property="og:site_name" content="渐学顿悟">
+<meta property="og:description" content="mac固件激活，初始化硬件，加载BootX引导器。BootX加载内核与内核扩展(kext)。内核启动launchd进程launchd根据如下目录的文件，启动守护进程&#x2F;System&#x2F;Library&#x2F;LaunchAgents &#x2F;System&#x2F;Library&#x2F;LaunchDaemons&#x2F;Library&#x2F;LaunchDaemo">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-08-05T06:09:32.000Z">
+<meta property="article:modified_time" content="2021-09-25T15:13:55.303Z">
 <meta property="article:author" content="渐学顿悟">
+<meta property="article:tag" content="操作系统">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://jxdw.github.io/archives/2021/09/">
+<link rel="canonical" href="https://jxdw.github.io/2020/08/05/macos_launched_process/">
 
 
 <script class="page-configurations">
@@ -41,12 +46,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>归档 | 渐学顿悟</title>
+  <title>【macOS使用系列】【转载】macOS的启动原理 | 渐学顿悟</title>
   
 
 
@@ -447,7 +452,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">143</span>
+          <span class="site-state-item-count">142</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -501,58 +506,122 @@
 </noscript>
 
 
-    <div class="main-inner archive posts-collapse">
+    <div class="main-inner post posts-expand">
       
 
       
 
   
+
+
+<div class="post-block">
   
   
-  <div class="post-block">
-    <div class="post-content">
-      <div class="collection-title">
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jxdw.github.io/2020/08/05/macos_launched_process/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/favicon.png">
+      <meta itemprop="name" content="渐学顿悟">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="渐学顿悟">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【macOS使用系列】【转载】macOS的启动原理
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-08-05 14:09:32 14:09:32" itemprop="dateCreated datePublished" datetime="2020-08-05T14:09:32+08:00">2020-08-05 14:09:32</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8E%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index"><span itemprop="name">操作系统与编程语言</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8E%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/macos%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">macos技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/08/05/macos_launched_process/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/08/05/macos_launched_process/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="mac固件激活，初始化硬件，加载BootX引导器。"><a href="#mac固件激活，初始化硬件，加载BootX引导器。" class="headerlink" title="mac固件激活，初始化硬件，加载BootX引导器。"></a>mac固件激活，初始化硬件，加载BootX引导器。</h1><h1 id="BootX加载内核与内核扩展-kext-。"><a href="#BootX加载内核与内核扩展-kext-。" class="headerlink" title="BootX加载内核与内核扩展(kext)。"></a>BootX加载内核与内核扩展(kext)。</h1><h1 id="内核启动launchd进程"><a href="#内核启动launchd进程" class="headerlink" title="内核启动launchd进程"></a>内核启动launchd进程</h1><h1 id="launchd根据如下目录的文件，启动守护进程"><a href="#launchd根据如下目录的文件，启动守护进程" class="headerlink" title="launchd根据如下目录的文件，启动守护进程"></a>launchd根据如下目录的文件，启动守护进程</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;System&#x2F;Library&#x2F;LaunchAgents </span><br><span class="line">&#x2F;System&#x2F;Library&#x2F;LaunchDaemons</span><br><span class="line">&#x2F;Library&#x2F;LaunchDaemons</span><br><span class="line">&#x2F;Library&#x2F;LaunchAgents</span><br></pre></td></tr></table></figure>
+<p>目录下的plist配置，启动服务守护进程。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag"># 操作系统</a>
+          </div>
+
         
-        <span class="collection-header">非常好! 目前共计 143 篇日志。 继续努力。</span>
-      </div>
 
-      
-    <div class="collection-year">
-      <span class="collection-header">2021</span>
-    </div>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2021-09-25T22:57:36+08:00"
-              content="2021-09-25 22:57:36">
-          09-25
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/09/25/macos_launched_process/" itemprop="url">
-            <span itemprop="name">未命名</span>
-          </a>
-      </div>
-
-      
-    </header>
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/03/25/how_to_learn_a_language/" rel="prev" title="【感悟】如何学习一门编程语言">
+                  <i class="fa fa-chevron-left"></i> 【感悟】如何学习一门编程语言
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/08/15/canal_architecture/" rel="next" title="【canal架构系列】canal整体架构">
+                  【canal架构系列】canal整体架构 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
   </article>
+</div>
 
 
-    </div>
-  </div>
-  
-  
-  
 
-  
 
 
 
       
+    <div class="comments" id="valine-comments"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -635,23 +704,13 @@
   
 
   
-  <script src="//cdn.jsdelivr.net/npm/quicklink@2.0.0/dist/quicklink.umd.js"></script>
-  <script>
-      window.addEventListener('load', () => {
-      quicklink.listen({
-        timeout : 3000,
-        priority: true,
-        ignores : [uri => uri.includes('#'),uri => uri === 'https://jxdw.github.io/archives/2021/09/',]
-      });
-      });
-  </script>
 
 <script>
 NexT.utils.loadComments('#valine-comments', () => {
   NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', () => {
     new Valine(Object.assign({"enable":true,"appId":"wrre3Nrx21CqKiChLnKn034M-gzGzoHsz","appKey":"rkWWNONo7LAJhlS936vnywQ9","serverURLs":null,"placeholder":"请输入您的评论","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"lang":null,"visitor":false,"comment_count":true,"recordIP":false,"enableQQ":false,"requiredFields":["nick","mail"]}, {
       el: '#valine-comments',
-      path: "/archives/2021/09/",
+      path: "/2020/08/05/macos_launched_process/",
       serverURLs: "https://wrre3nrx.api.lncld.net"
     }));
   }, window.Valine);

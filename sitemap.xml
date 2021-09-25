@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://jxdw.github.io/2020/08/05/macos_launched_process/</loc>
+    <loc>https://jxdw.github.io/2019/09/11/c_program_network_process/</loc>
     
     <lastmod>2021-09-25</lastmod>
     
@@ -10,6 +10,13 @@
   
   <url>
     <loc>https://jxdw.github.io/2019/09/09/c_language_standard_library_implement/</loc>
+    
+    <lastmod>2021-09-25</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jxdw.github.io/2020/08/05/macos_launched_process/</loc>
     
     <lastmod>2021-09-25</lastmod>
     

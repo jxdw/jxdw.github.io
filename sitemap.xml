@@ -1010,14 +1010,14 @@
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/categories/index.html</loc>
+    <loc>https://jxdw.github.io/tags/index.html</loc>
     
     <lastmod>2020-11-13</lastmod>
     
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/tags/index.html</loc>
+    <loc>https://jxdw.github.io/categories/index.html</loc>
     
     <lastmod>2020-11-13</lastmod>
     
@@ -1084,7 +1084,7 @@
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/canal%E6%8A%80%E6%9C%AF/</loc>
+    <loc>https://jxdw.github.io/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/redis%E6%8A%80%E6%9C%AF/</loc>
     <lastmod>2021-11-03</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -1092,13 +1092,6 @@
   
   <url>
     <loc>https://jxdw.github.io/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/apollo%E6%8A%80%E6%9C%AF/</loc>
-    <lastmod>2021-11-03</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://jxdw.github.io/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/redis%E6%8A%80%E6%9C%AF/</loc>
     <lastmod>2021-11-03</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -1113,6 +1106,13 @@
   
   <url>
     <loc>https://jxdw.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8E%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/C%E8%AF%AD%E8%A8%80/</loc>
+    <lastmod>2021-11-03</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://jxdw.github.io/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/canal%E6%8A%80%E6%9C%AF/</loc>
     <lastmod>2021-11-03</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -1140,13 +1140,6 @@
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/%E6%95%B0%E6%8D%AE%E4%B8%AD%E9%97%B4%E4%BB%B6%E6%8A%80%E6%9C%AF%E6%9E%B6%E6%9E%84/</loc>
-    <lastmod>2021-11-03</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://jxdw.github.io/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/docker%E6%8A%80%E6%9C%AF/</loc>
     <lastmod>2021-11-03</lastmod>
     <changefreq>daily</changefreq>
@@ -1161,13 +1154,6 @@
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/mysql%E6%8A%80%E6%9C%AF/</loc>
-    <lastmod>2021-11-03</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://jxdw.github.io/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E7%9F%A5%E8%AF%86/</loc>
     <lastmod>2021-11-03</lastmod>
     <changefreq>daily</changefreq>
@@ -1175,7 +1161,21 @@
   </url>
   
   <url>
+    <loc>https://jxdw.github.io/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/mysql%E6%8A%80%E6%9C%AF/</loc>
+    <lastmod>2021-11-03</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://jxdw.github.io/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/job%E8%B0%83%E5%BA%A6%E6%8A%80%E6%9C%AF/</loc>
+    <lastmod>2021-11-03</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://jxdw.github.io/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/%E6%95%B0%E6%8D%AE%E4%B8%AD%E9%97%B4%E4%BB%B6%E6%8A%80%E6%9C%AF%E6%9E%B6%E6%9E%84/</loc>
     <lastmod>2021-11-03</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>

@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"jxdw.github.io","root":"/","scheme":"Pisces","version":"8.0.2","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"width":240},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
+  </script>
+
+  <meta name="description" content="分布式系统已经无处不在  分布式系统渗透到包括金融与商业、信息社会、创意产业和娱乐、医疗保健、教育、交通与物流、科学、环境管理等行业中。  其中，三个典型的案例可以让我们了解到它的存在性和重要性：Web搜索、大型多人在线游戏、金融交易。 Web搜索Web搜索引擎的任务是为万维网的所有内容建立索引，其中包含上千亿的页面、上万亿的Web地址。google，它代表了计算历史上最大和最复杂的分布式系统之一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="分布式应用系统概念">
+<meta property="og:url" content="https://jxdw.github.io/2016/03/25/distribution_system_conecpt/index.html">
+<meta property="og:site_name" content="渐学顿悟">
+<meta property="og:description" content="分布式系统已经无处不在  分布式系统渗透到包括金融与商业、信息社会、创意产业和娱乐、医疗保健、教育、交通与物流、科学、环境管理等行业中。  其中，三个典型的案例可以让我们了解到它的存在性和重要性：Web搜索、大型多人在线游戏、金融交易。 Web搜索Web搜索引擎的任务是为万维网的所有内容建立索引，其中包含上千亿的页面、上万亿的Web地址。google，它代表了计算历史上最大和最复杂的分布式系统之一">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2016-03-25T11:35:47.000Z">
+<meta property="article:modified_time" content="2021-12-18T14:26:01.074Z">
+<meta property="article:author" content="渐学顿悟">
+<meta property="article:tag" content="分布式应用系统">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://jxdw.github.io/2016/03/25/distribution_system_conecpt/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>分布式应用系统概念 | 渐学顿悟</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">渐学顿悟</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <!--<a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>-->
+    
+       
+        <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-categories-os">
+
+    <!--<a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8E%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" rel="section"><i class="fab fa-dev fa-fw"></i>操作系统与编程语言</a>-->
+    
+       
+        <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8E%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" rel="section"><i class="fab fa-dev fa-fw"></i>操作系统与编程语言</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-centos">
+
+    <!--<a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8E%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/centos%E4%B8%8Emacos%E6%8A%80%E6%9C%AF/" rel="section"><i class="fab fa-centos fa-fw"></i>centos与macos技术</a>-->
+    
+       
+          <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8E%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/centos%E4%B8%8Emacos%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fab fa-centos fa-fw"></i>centos与macos技术</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-c">
+
+    <!--<a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8E%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/C%E8%AF%AD%E8%A8%80/" rel="section"><i class="fab fa-contao fa-fw"></i>c语言</a>-->
+    
+       
+          <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8E%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/C%E8%AF%AD%E8%A8%80/" rel="section" class="submenu-item"><i class="fab fa-contao fa-fw"></i>c语言</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-go">
+
+    <!--<a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8E%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/go%E8%AF%AD%E8%A8%80/" rel="section"><i class="fab fa-goodreads fa-fw"></i>go语言</a>-->
+    
+       
+          <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8E%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/go%E8%AF%AD%E8%A8%80/" rel="section" class="submenu-item"><i class="fab fa-goodreads fa-fw"></i>go语言</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-java">
+
+    <!--<a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8E%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/java%E8%AF%AD%E8%A8%80/" rel="section"><i class="fab fa-java fa-fw"></i>java语言</a>-->
+    
+       
+          <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8E%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/java%E8%AF%AD%E8%A8%80/" rel="section" class="submenu-item"><i class="fab fa-java fa-fw"></i>java语言</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-categories-middleware">
+
+    <!--<a href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="section"><i class="fa fa-th fa-fw"></i>中间件</a>-->
+    
+       
+        <a href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="section"><i class="fa fa-th fa-fw"></i>中间件</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-network">
+
+    <!--<a href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E7%9F%A5%E8%AF%86/" rel="section"><i class="fas fa-paper-plane fa-fw"></i>网络协议知识</a>-->
+    
+       
+          <a href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E7%9F%A5%E8%AF%86/" rel="section" class="submenu-item"><i class="fas fa-paper-plane fa-fw"></i>网络协议知识</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-mysql">
+
+    <!--<a href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/mysql%E6%8A%80%E6%9C%AF/" rel="section"><i class="fas fa-database fa-fw"></i>mysql技术</a>-->
+    
+       
+          <a href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/mysql%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fas fa-database fa-fw"></i>mysql技术</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-redis">
+
+    <!--<a href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/redis%E6%8A%80%E6%9C%AF/" rel="section"><i class="fas fa-coins fa-fw"></i>redis技术</a>-->
+    
+       
+          <a href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/redis%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fas fa-coins fa-fw"></i>redis技术</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-kafka">
+
+    <!--<a href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/kafka%E6%8A%80%E6%9C%AF/" rel="section"><i class="fab fa-kaggle fa-fw"></i>kafka技术</a>-->
+    
+       
+          <a href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/kafka%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fab fa-kaggle fa-fw"></i>kafka技术</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-elasticsearch">
+
+    <!--<a href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/elasticsearch%E6%8A%80%E6%9C%AF/" rel="section"><i class="fab fa-etsy fa-fw"></i>elasticsearch技术</a>-->
+    
+       
+          <a href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/elasticsearch%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fab fa-etsy fa-fw"></i>elasticsearch技术</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-job">
+
+    <!--<a href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/job%E8%B0%83%E5%BA%A6%E6%8A%80%E6%9C%AF/" rel="section"><i class="fas fa-clipboard-check fa-fw"></i>job调度技术</a>-->
+    
+       
+          <a href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/job%E8%B0%83%E5%BA%A6%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fas fa-clipboard-check fa-fw"></i>job调度技术</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-etcd">
+
+    <!--<a href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/etcd%E6%8A%80%E6%9C%AF/" rel="section"><i class="fab fa-edge-legacy fa-fw"></i>etcd技术</a>-->
+    
+       
+          <a href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/etcd%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fab fa-edge-legacy fa-fw"></i>etcd技术</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-zipkin">
+
+    <!--<a href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/%E6%A1%86%E6%9E%B6%E4%B8%8E%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA%E6%8A%80%E6%9C%AF/" rel="section"><i class="fab fa-diaspora fa-fw"></i>框架与链路追踪技术</a>-->
+    
+       
+          <a href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/%E6%A1%86%E6%9E%B6%E4%B8%8E%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fab fa-diaspora fa-fw"></i>框架与链路追踪技术</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-prometheus">
+
+    <!--<a href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/prometheus%E6%8A%80%E6%9C%AF/" rel="section"><i class="fas fa-parking fa-fw"></i>prometheus技术</a>-->
+    
+       
+          <a href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/prometheus%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fas fa-parking fa-fw"></i>prometheus技术</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-webserver">
+
+    <!--<a href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/%E6%B5%81%E9%87%8F%E7%BD%91%E5%85%B3%E6%8A%80%E6%9C%AF/" rel="section"><i class="fab fa-bootstrap fa-fw"></i>流量网关技术</a>-->
+    
+       
+          <a href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/%E6%B5%81%E9%87%8F%E7%BD%91%E5%85%B3%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fab fa-bootstrap fa-fw"></i>流量网关技术</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-docker">
+
+    <!--<a href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/dockerengine%E6%8A%80%E6%9C%AF/" rel="section"><i class="fab fa-docker fa-fw"></i>dockerengine技术</a>-->
+    
+       
+          <a href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/dockerengine%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fab fa-docker fa-fw"></i>dockerengine技术</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-categories-distribution">
+
+    <!--<a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F%E5%BA%94%E7%94%A8%E7%B3%BB%E7%BB%9F/" rel="section"><i class="fas fa-cogs fa-fw"></i>分布式应用系统</a>-->
+    
+       
+        <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F%E5%BA%94%E7%94%A8%E7%B3%BB%E7%BB%9F/" rel="section"><i class="fas fa-cogs fa-fw"></i>分布式应用系统</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-categories-dis-little">
+
+    <!--<a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F%E5%BA%94%E7%94%A8%E7%B3%BB%E7%BB%9F/%E5%B0%8F%E5%9E%8B%E5%88%86%E5%B8%83%E5%BC%8F%E5%BA%94%E7%94%A8%E7%B3%BB%E7%BB%9F/" rel="section"><i class="fas fa-cogs fa-fw"></i>小型分布式应用系统</a>-->
+    
+       
+          <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F%E5%BA%94%E7%94%A8%E7%B3%BB%E7%BB%9F/%E5%B0%8F%E5%9E%8B%E5%88%86%E5%B8%83%E5%BC%8F%E5%BA%94%E7%94%A8%E7%B3%BB%E7%BB%9F/" rel="section" class="submenu-item"><i class="fas fa-cogs fa-fw"></i>小型分布式应用系统</a>
+    
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <!--<a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>-->
+    
+       
+        <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+    
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <section class="post-toc-wrap sidebar-panel">
+        </section>
+        <!--/noindex-->
+
+        <section class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="渐学顿悟"
+      src="/favicon.png">
+  <p class="site-author-name" itemprop="name">渐学顿悟</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">144</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">23</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jxdw" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jxdw" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/wechat.png" title="WeChat → &#x2F;wechat.png"><i class="fab fa-weixin fa-fw"></i>WeChat</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:283593214@qq.com" title="E-Mail → mailto:283593214@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </section>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+      
+
+      
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jxdw.github.io/2016/03/25/distribution_system_conecpt/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/favicon.png">
+      <meta itemprop="name" content="渐学顿悟">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="渐学顿悟">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          分布式应用系统概念
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2016-03-25 19:35:47 19:35:47" itemprop="dateCreated datePublished" datetime="2016-03-25T19:35:47+08:00">2016-03-25 19:35:47</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F%E5%BA%94%E7%94%A8%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="index"><span itemprop="name">分布式应用系统</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F%E5%BA%94%E7%94%A8%E7%B3%BB%E7%BB%9F/%E5%88%86%E5%B8%83%E5%BC%8F%E5%BA%94%E7%94%A8%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5/" itemprop="url" rel="index"><span itemprop="name">分布式应用系统概念</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2016/03/25/distribution_system_conecpt/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2016/03/25/distribution_system_conecpt/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="分布式系统已经无处不在"><a href="#分布式系统已经无处不在" class="headerlink" title="分布式系统已经无处不在"></a>分布式系统已经无处不在</h1><p>  分布式系统渗透到包括金融与商业、信息社会、创意产业和娱乐、医疗保健、教育、交通与物流、科学、环境管理等行业中。<br>  其中，三个典型的案例可以让我们了解到它的存在性和重要性：Web搜索、大型多人在线游戏、金融交易。</p>
+<h2 id="Web搜索"><a href="#Web搜索" class="headerlink" title="Web搜索"></a>Web搜索</h2><p>Web搜索引擎的任务是为万维网的所有内容建立索引，其中包含上千亿的页面、上万亿的Web地址。google，它代表了计算历史上最大和最复杂的分布式系统之一。最近的数字表明Google一个月的搜索量已经超过1000亿。其中代表性三大论文是整个业界学习的典范。</p>
+<h2 id="大型多人在线游戏"><a href="#大型多人在线游戏" class="headerlink" title="大型多人在线游戏"></a>大型多人在线游戏</h2><p>它提供一种身临其境的感觉，博主一直认为游戏是最高端软件，也是入行的第一个动力。想想超大数量的用户通过互联网在一个持久的虚拟世界中交互，是一件多么神奇的事情。</p>
+<h2 id="金融交易"><a href="#金融交易" class="headerlink" title="金融交易"></a>金融交易</h2><p>金融行业一直以其需求处在分布式系统技术的前沿。特别是在实时需求的领域上。它通常再用分布式基于时间的系统。其中，感兴趣数据项被称为事件，而需求就是可靠和及时的传递事件给大量对此信息感兴趣的用户。</p>
+<h1 id="分布式系统的挑战"><a href="#分布式系统的挑战" class="headerlink" title="分布式系统的挑战"></a>分布式系统的挑战</h1><h2 id="异构性"><a href="#异构性" class="headerlink" title="异构性"></a>异构性</h2><p>  网络、计算机硬件、操作系统、编程语言、由不同的开发者完成的软件实现都是造成异构性的主因。其中网络的异构通过互联网协议相互通信而被屏蔽；中间件的流行屏蔽的底层网络、硬件、操作系统和编程语言的异构，它为分布式应用和服务器提供了一直的计算模型，包括RPC、远程事件通知、远程SQL访问和分布式事物调用；虚拟机也是使代码到处运行的一种方法。</p>
+<h2 id="开放性"><a href="#开放性" class="headerlink" title="开放性"></a>开放性</h2><p>  它取决于新的资源共享服务能被增加和供多种客户程序使用的程度。特征就是发布系统的关键接口，使其基于一致的通信机制，让不同提供商提供异构硬件和软件。</p>
+<h2 id="安全性"><a href="#安全性" class="headerlink" title="安全性"></a>安全性</h2><p>  包括三个部分：机密性（防止泄露给未授权的个人）、完整性（防止被改变或被破坏）、可用性（防止对访问资源的手段的干扰）。其中有两个重要的安全问题：拒绝服务攻击和移动代码的安全性仍然没有得到圆满解决。</p>
+<h2 id="可伸缩性"><a href="#可伸缩性" class="headerlink" title="可伸缩性"></a>可伸缩性</h2><p>  顾名思义就是随着资源数量的增加和用户访问的增加，系统仍然能保持其有效性，该系统就被称为可伸缩的。其中有控制物理资源的开销、控制性能损失、防止软件资源用尽和避免性能瓶颈四大挑战。</p>
+<h2 id="故障处理"><a href="#故障处理" class="headerlink" title="故障处理"></a>故障处理</h2><p>  在一个分布式系统中，硬件或软件都会出现未知的故障或者不正常运行，因此故障处理是贯穿整个系统的难题。容错（设计容错机制如重传）、故障恢复（数据恢复或“回滚”保证一致性）、冗余（多条路由或者备份等技术）都是故障处理技术。</p>
+<h2 id="并发性"><a href="#并发性" class="headerlink" title="并发性"></a>并发性</h2><p>  多个用户对同一资源的使用，要保持操作的正确性就必须在数据保持一致的基础上同步。如使用操作系统的信号量。</p>
+<h2 id="透明性"><a href="#透明性" class="headerlink" title="透明性"></a>透明性</h2><ul>
+<li>访问透明性：用相同的操作访问本地资源和远程资源（电子邮件）</li>
+<li>位置透明性：不需要知道资源的物理位置或网络位置（电子邮件、URL）</li>
+<li>并发透明性：几个进程能并发的使用共享资源而不互相干扰</li>
+<li>复制透明性：使用资源的多个实例提升可靠性和性能，而用户和程序员无需知道副本的相关信息</li>
+<li>故障透明性：屏蔽错误</li>
+<li>移动透明性：资源和客户能够在系统内移动而不受影响（移动电话）</li>
+<li>性能透明性：负载变化时，系统能够被重新配置以提高性能</li>
+<li>伸缩透明性：系统和应用能够进行扩展而不改变系统结构和应用算法</li>
+<li>服务质量。影响客户和用户体验的服务质量是可靠性、安全性和性能。</li>
+</ul>
+<p>这些概念虽然很抽象，且看似简单，但如果能够正确而深入的理解，将受益很多。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E5%BA%94%E7%94%A8%E7%B3%BB%E7%BB%9F/" rel="tag"># 分布式应用系统</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2016/03/12/java_how_to_stop_a_running_thread/" rel="prev" title="【java标准库系列】如何停止一个正在运行的线程">
+                  <i class="fa fa-chevron-left"></i> 【java标准库系列】如何停止一个正在运行的线程
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2016/07/30/spring_boot_1.4.0_exprience/" rel="next" title="【java框架系列】spring boot 1.4.0体验">
+                  【java框架系列】spring boot 1.4.0体验 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+      
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      
+
+      
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">渐学顿悟</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+NexT.utils.loadComments('#valine-comments', () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', () => {
+    new Valine(Object.assign({"enable":true,"appId":"wrre3Nrx21CqKiChLnKn034M-gzGzoHsz","appKey":"rkWWNONo7LAJhlS936vnywQ9","serverURLs":null,"placeholder":"请输入您的评论","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"lang":null,"visitor":false,"comment_count":true,"recordIP":false,"enableQQ":false,"requiredFields":["nick","mail"]}, {
+      el: '#valine-comments',
+      path: "/2016/03/25/distribution_system_conecpt/",
+      serverURLs: "https://wrre3nrx.api.lncld.net"
+    }));
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

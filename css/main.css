@@ -1482,21 +1482,17 @@ pre code {
 .sidebar-overview-active .sidebar-nav-overview:hover {
   color: #fc6423;
 }
-.sidebar-panel-container {
+.sidebar-panel {
+  display: none;
   max-height: var(--sidebar-wrapper-height);
   overflow-x: hidden;
   overflow-y: auto;
 }
-.sidebar-panel {
-  display: none;
-}
+.sidebar-toc-active .post-toc-wrap,
 .sidebar-overview-active .site-overview-wrap {
   display: flex;
   flex-direction: column;
   justify-content: center;
-}
-.sidebar-toc-active .post-toc-wrap {
-  display: block;
 }
 .sidebar-toggle {
   bottom: 45px;
@@ -2649,6 +2645,9 @@ ul.breadcrumb li:last-child {
   top: 50%;
   width: 6px;
 }
+.submenu-item {
+  margin-left: 10%;
+}
 .sub-menu {
   margin: 0;
   padding: 6px 0;
@@ -2673,9 +2672,6 @@ ul.breadcrumb li:last-child {
 }
 .sub-menu .menu-item-active:hover {
   border-bottom-color: #fc6423;
-}
-.submenu-item {
-  margin-left: 10%;
 }
 .sidebar {
   margin-top: 12px;

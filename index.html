@@ -321,18 +321,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-count">146</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">23</span>
+        <span class="site-state-item-count">24</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -378,6 +378,169 @@
       
 
       
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jxdw.github.io/2024/01/21/jenkins_install_and_practice/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/favicon.png">
+      <meta itemprop="name" content="渐学顿悟">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="渐学顿悟">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/01/21/jenkins_install_and_practice/" class="post-title-link" itemprop="url">【jenkins/jira使用系列】centos7下tomcat安装jenkins</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-01-21 10:41:23 10:41:23" itemprop="dateCreated datePublished" datetime="2024-01-21T10:41:23+08:00">2024-01-21 10:41:23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%86%85%E9%83%A8%E5%BC%80%E5%8F%91%E8%80%85%E5%B9%B3%E5%8F%B0/" itemprop="url" rel="index"><span itemprop="name">内部开发者平台</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%86%85%E9%83%A8%E5%BC%80%E5%8F%91%E8%80%85%E5%B9%B3%E5%8F%B0/jenkins%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">jenkins技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2024/01/21/jenkins_install_and_practice/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2024/01/21/jenkins_install_and_practice/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><h2 id="机器规划"><a href="#机器规划" class="headerlink" title="机器规划"></a>机器规划</h2><table>
+<thead>
+<tr>
+<th>角色</th>
+<th>ip地址</th>
+<th>操作系统版本</th>
+<th>机器配置</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>jenkins master</td>
+<td>192.168.172.9</td>
+<td>CentOS Linux release 7.6.1810 (Core)</td>
+<td>４核８G 500G磁盘</td>
+</tr>
+<tr>
+<td>jenkins node1</td>
+<td>192.168.172.3</td>
+<td>CentOS Linux release 7.6.1810 (Core)</td>
+<td>４核８G 500G磁盘</td>
+</tr>
+<tr>
+<td>jenkins node2</td>
+<td>192168.172.4</td>
+<td>CentOS Linux release 7.6.1810 (Core)</td>
+<td>４核８G 500G磁盘</td>
+</tr>
+<tr>
+<td>jenkins node3</td>
+<td>192.168.172.5</td>
+<td>CentOS Linux release 7.6.1810 (Core)</td>
+<td>４核８G 500G磁盘</td>
+</tr>
+<tr>
+<td>prometheus服务器</td>
+<td>192.168.172.7</td>
+<td>CentOS Linux release 7.6.1810 (Core)</td>
+<td>４核８G 500G磁盘</td>
+</tr>
+<tr>
+<td>业务服务器1</td>
+<td>192.168.172.10</td>
+<td>CentOS Linux release 7.6.1810 (Core)</td>
+<td>４核８G 500G磁盘</td>
+</tr>
+<tr>
+<td>业务服务器2</td>
+<td>192.168.172.11</td>
+<td>CentOS Linux release 7.6.1810 (Core)</td>
+<td>４核８G 500G磁盘</td>
+</tr>
+<tr>
+<td>业务服务器3</td>
+<td>192.168.172.12</td>
+<td>CentOS Linux release 7.6.1810 (Core)</td>
+<td>４核８G 500G磁盘</td>
+</tr>
+<tr>
+<td>业务服务器4</td>
+<td>192.168.172.13</td>
+<td>CentOS Linux release 7.6.1810 (Core)</td>
+<td>４核８G 500G磁盘</td>
+</tr>
+<tr>
+<td>业务服务器5</td>
+<td>192.168.172.14</td>
+<td>CentOS Linux release 7.6.1810 (Core)</td>
+<td>４核８G 500G磁盘</td>
+</tr>
+</tbody></table>
+<h2 id="系统与软件版本"><a href="#系统与软件版本" class="headerlink" title="系统与软件版本"></a>系统与软件版本</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">prometheus版本:　centos 7</span><br><span class="line">    jdk版本:　oracle jdk17.0.9 Lts版本</span><br><span class="line">jenkins版本:　2.426.3版本</span><br><span class="line">  maven版本: 3.9.0</span><br><span class="line"> thrift版本: 0.9.3</span><br><span class="line"> tomcat版本: Apache Tomcat&#x2F;9.0.73</span><br></pre></td></tr></table></figure>
+<h2 id="规划目录"><a href="#规划目录" class="headerlink" title="规划目录"></a>规划目录</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">java安装目录:&#x2F;data&#x2F;jenkins&#x2F;jdk17.0.9</span><br><span class="line">jenkins目录: &#x2F;data&#x2F;jenkins&#x2F;jenkins_data</span><br><span class="line">tomcat目录:&#x2F;data&#x2F;jenkins&#x2F;apache-tomcat-9.0.73</span><br><span class="line">maven目录:&#x2F;data&#x2F;jenkins&#x2F;apache-maven-3.9.0</span><br><span class="line">maven仓库:&#x2F;data&#x2F;jenkins&#x2F;mavenlib</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
     
 
 
@@ -1290,105 +1453,6 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/12/13/kubernetes-v120-architecture/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jxdw.github.io/2020/12/12/docker-containerd-architecture/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/favicon.png">
-      <meta itemprop="name" content="渐学顿悟">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="渐学顿悟">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/12/12/docker-containerd-architecture/" class="post-title-link" itemprop="url">【docker架构系列】docker高层运行时contaninerd架构图</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2020-12-12 09:54:55 09:54:55" itemprop="dateCreated datePublished" datetime="2020-12-12T09:54:55+08:00">2020-12-12 09:54:55</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E4%B8%9A%E5%8A%A1%E8%BF%90%E8%A1%8C%E7%9A%84%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E5%B9%B3%E5%8F%B0/" itemprop="url" rel="index"><span itemprop="name">业务运行的基础设施平台</span></a>
-        </span>
-          ，
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E4%B8%9A%E5%8A%A1%E8%BF%90%E8%A1%8C%E7%9A%84%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E5%B9%B3%E5%8F%B0/dockerengine%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">dockerengine技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/12/12/docker-containerd-architecture/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/12/12/docker-containerd-architecture/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="docker高层运行时containerd架构图"><a href="#docker高层运行时containerd架构图" class="headerlink" title="docker高层运行时containerd架构图"></a>docker高层运行时containerd架构图</h1><p>docker高层运行时containerd架构图如下：<br><img src="https://jxdw.github.io/img/docker/containerd_architecture.png"></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/12/12/docker-containerd-architecture/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>

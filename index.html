@@ -451,7 +451,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><h2 id="机器规划"><a href="#机器规划" class="headerlink" title="机器规划"></a>机器规划</h2><table>
+          <h2 id="机器规划"><a href="#机器规划" class="headerlink" title="机器规划"></a>机器规划</h2><table>
 <thead>
 <tr>
 <th>角色</th>
@@ -570,7 +570,9 @@
 <h2 id="node3节点各个软件的安装、以及jenkins的启动"><a href="#node3节点各个软件的安装、以及jenkins的启动" class="headerlink" title="node3节点各个软件的安装、以及jenkins的启动"></a>node3节点各个软件的安装、以及jenkins的启动</h2><p>参考master节点上的步骤，做一遍。</p>
 <h2 id="node1、node2、node3被master节点管控"><a href="#node1、node2、node3被master节点管控" class="headerlink" title="node1、node2、node3被master节点管控"></a>node1、node2、node3被master节点管控</h2><p>这里以node3为例,在/data/jenkins目录下，创建一个shell脚本start_agent.sh</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">nohup java -jar agent.jar -jnlpUrl http:&#x2F;&#x2F;192.168.172.9:8080&#x2F;jenkins&#x2F;computer&#x2F;172%5F5&#x2F;jenkins-agent.jnlp -secret &#39;由master节点生成&#39; -workDir &quot;&#x2F;data&#x2F;jenkins&#x2F;jenkins_data&quot; 2&gt;&amp;1 &gt;nohup.out  &amp;</span><br></pre></td></tr></table></figure>
-<p>并执行这个脚本。最终达到下面这个效果:<br><img src="https://jxdw.github.io/img/jenkins/jenkins_master_node.png"></p>
+<p>并执行这个脚本。</p>
+<h2 id="jenkins集群最终的效果"><a href="#jenkins集群最终的效果" class="headerlink" title="jenkins集群最终的效果"></a>jenkins集群最终的效果</h2><p>最终达到下面这个效果:<br><img src="https://jxdw.github.io/img/jenkins/jenkins_master_node.png"></p>
+<h2 id="prometheus的监控情况"><a href="#prometheus的监控情况" class="headerlink" title="prometheus的监控情况"></a>prometheus的监控情况</h2><p><img src="https://jxdw.github.io/img/jenkins/jenkins_prometheus.png"></p>
 
       
     </div>

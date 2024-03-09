@@ -22,12 +22,12 @@
     var CONFIG = {"hostname":"jxdw.github.io","root":"/","scheme":"Pisces","version":"8.0.2","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"width":240},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
   </script>
 
-  <meta name="description" content="安装机器规划   角色 ip地址 操作系统版本 机器配置 linux登录账号规划    jenkins master 192.168.172.9 CentOS Linux release 7.6.1810 (Core) ４核８G 500G磁盘 root账号,并创建业务服务器操作账号,假设为bbs、publicfund   jenkins node1 192.168.172.3 CentOS Lin">
+  <meta name="description" content="机器规划   角色 ip地址 操作系统版本 机器配置 linux登录账号规划    jenkins master 192.168.172.9 CentOS Linux release 7.6.1810 (Core) ４核８G 500G磁盘 root账号,并创建业务服务器操作账号,假设为bbs、publicfund   jenkins node1 192.168.172.3 CentOS Linux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【jenkins系列】centos安装jenkins的lts版本(主从模式)、pipeline使用(1)">
 <meta property="og:url" content="https://jxdw.github.io/2024/01/28/jenkins_install_and_practice/index.html">
 <meta property="og:site_name" content="渐学顿悟">
-<meta property="og:description" content="安装机器规划   角色 ip地址 操作系统版本 机器配置 linux登录账号规划    jenkins master 192.168.172.9 CentOS Linux release 7.6.1810 (Core) ４核８G 500G磁盘 root账号,并创建业务服务器操作账号,假设为bbs、publicfund   jenkins node1 192.168.172.3 CentOS Lin">
+<meta property="og:description" content="机器规划   角色 ip地址 操作系统版本 机器配置 linux登录账号规划    jenkins master 192.168.172.9 CentOS Linux release 7.6.1810 (Core) ４核８G 500G磁盘 root账号,并创建业务服务器操作账号,假设为bbs、publicfund   jenkins node1 192.168.172.3 CentOS Linux">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://jxdw.github.io/img/jenkins/jenkins_need_software.png">
 <meta property="og:image" content="https://jxdw.github.io/img/jenkins/jenkins_pipeline.png">
@@ -37,8 +37,9 @@
 <meta property="og:image" content="https://jxdw.github.io/img/jenkins/jenkins_plugin_1.png">
 <meta property="og:image" content="https://jxdw.github.io/img/jenkins/jenkins_plugin_prometheus.png">
 <meta property="og:image" content="https://jxdw.github.io/img/jenkins/jenkins_master_node.png">
+<meta property="og:image" content="https://jxdw.github.io/img/jenkins/jenkins_prometheus.png">
 <meta property="article:published_time" content="2024-01-28T02:41:23.000Z">
-<meta property="article:modified_time" content="2024-03-07T02:54:49.548Z">
+<meta property="article:modified_time" content="2024-03-09T13:38:36.640Z">
 <meta property="article:author" content="渐学顿悟">
 <meta property="article:tag" content="内部开发者平台">
 <meta name="twitter:card" content="summary">
@@ -465,7 +466,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><h2 id="机器规划"><a href="#机器规划" class="headerlink" title="机器规划"></a>机器规划</h2><table>
+        <h2 id="机器规划"><a href="#机器规划" class="headerlink" title="机器规划"></a>机器规划</h2><table>
 <thead>
 <tr>
 <th>角色</th>
@@ -584,7 +585,9 @@
 <h2 id="node3节点各个软件的安装、以及jenkins的启动"><a href="#node3节点各个软件的安装、以及jenkins的启动" class="headerlink" title="node3节点各个软件的安装、以及jenkins的启动"></a>node3节点各个软件的安装、以及jenkins的启动</h2><p>参考master节点上的步骤，做一遍。</p>
 <h2 id="node1、node2、node3被master节点管控"><a href="#node1、node2、node3被master节点管控" class="headerlink" title="node1、node2、node3被master节点管控"></a>node1、node2、node3被master节点管控</h2><p>这里以node3为例,在/data/jenkins目录下，创建一个shell脚本start_agent.sh</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">nohup java -jar agent.jar -jnlpUrl http:&#x2F;&#x2F;192.168.172.9:8080&#x2F;jenkins&#x2F;computer&#x2F;172%5F5&#x2F;jenkins-agent.jnlp -secret &#39;由master节点生成&#39; -workDir &quot;&#x2F;data&#x2F;jenkins&#x2F;jenkins_data&quot; 2&gt;&amp;1 &gt;nohup.out  &amp;</span><br></pre></td></tr></table></figure>
-<p>并执行这个脚本。最终达到下面这个效果:<br><img src="https://jxdw.github.io/img/jenkins/jenkins_master_node.png"></p>
+<p>并执行这个脚本。</p>
+<h2 id="jenkins集群最终的效果"><a href="#jenkins集群最终的效果" class="headerlink" title="jenkins集群最终的效果"></a>jenkins集群最终的效果</h2><p>最终达到下面这个效果:<br><img src="https://jxdw.github.io/img/jenkins/jenkins_master_node.png"></p>
+<h2 id="prometheus的监控情况"><a href="#prometheus的监控情况" class="headerlink" title="prometheus的监控情况"></a>prometheus的监控情况</h2><p><img src="https://jxdw.github.io/img/jenkins/jenkins_prometheus.png"></p>
 
     </div>
 

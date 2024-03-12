@@ -321,7 +321,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">147</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -378,6 +378,106 @@
       
 
       
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jxdw.github.io/2024/02/25/jenkins_pipeline_coding_practice/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/favicon.png">
+      <meta itemprop="name" content="渐学顿悟">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="渐学顿悟">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/02/25/jenkins_pipeline_coding_practice/" class="post-title-link" itemprop="url">【jenkins系列】jenkins pipeline实现wrapper程序部署自动化</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-02-25 10:41:23 10:41:23" itemprop="dateCreated datePublished" datetime="2024-02-25T10:41:23+08:00">2024-02-25 10:41:23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%86%85%E9%83%A8%E5%BC%80%E5%8F%91%E8%80%85%E5%B9%B3%E5%8F%B0/" itemprop="url" rel="index"><span itemprop="name">内部开发者平台</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%86%85%E9%83%A8%E5%BC%80%E5%8F%91%E8%80%85%E5%B9%B3%E5%8F%B0/jenkins%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">jenkins技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2024/02/25/jenkins_pipeline_coding_practice/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2024/02/25/jenkins_pipeline_coding_practice/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="使用的软件版本"><a href="#使用的软件版本" class="headerlink" title="使用的软件版本"></a>使用的软件版本</h2><ul>
+<li>jdk-17.0.9.tar.gz</li>
+<li>apache-maven-3.9.0.tar.gz</li>
+<li>apache-tomcat-9.0.3.tar.gz</li>
+<li>jenkins 2.246.3<br>备注：jenkins.war已经提前通过wget，已经下载到放在其webapps目录下<br>jenkins的下载路径:<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">https:&#x2F;&#x2F;get.jenkins.io&#x2F;war-stable&#x2F;2.426.3&#x2F;jenkins.war</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="pipeline如下"><a href="#pipeline如下" class="headerlink" title="pipeline如下"></a>pipeline如下</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pipeline&#123;</span><br><span class="line">    environment&#123;</span><br><span class="line">        branch_version&#x3D;&#39;2.0.0&#39;</span><br><span class="line">    &#125;</span><br><span class="line">    agent &#123;</span><br><span class="line">        label &#39;172_11&#39;</span><br><span class="line">    &#125;</span><br><span class="line">    triggers &#123;</span><br><span class="line">       pollSCM (&quot;H&#x2F;5 * * * *&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">    tools &#123;</span><br><span class="line">        &#x2F;&#x2F; 指定JDK版本</span><br><span class="line">        jdk &#39;jdk8&#39;</span><br><span class="line">    &#125;</span><br><span class="line">    stages &#123;</span><br><span class="line">        stage(&#39;checkout&#39;) &#123;</span><br><span class="line">            steps &#123;</span><br><span class="line">                checkout scmGit(branches: [[name: &#39;*&#x2F;mc_2.0.0&#39;]], extensions: [], userRemoteConfigs: [[credentialsId: &#39;账号id&#39;, url: &#39;git仓库地址&#39;]])</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        stage(&#39;Build&#39;) &#123;</span><br><span class="line">            steps &#123;</span><br><span class="line">                &#x2F;&#x2F; 设置环境变量</span><br><span class="line">                withEnv([&#39;JAVA_HOME&#x3D;&#x2F;usr&#x2F;lib&#x2F;jdk1.8.0_161&#39;, &#39;PATH+JAVA&#x3D;$JAVA_HOME&#x2F;bin&#39;]) &#123;</span><br><span class="line">                    &#x2F;&#x2F; 执行编译命令</span><br><span class="line">                    sh &#39;mvn clean install \&#39;-Dmaven.test.skip\&#39;&#39;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            post &#123;</span><br><span class="line">                &#x2F;&#x2F; If Maven was able to run the tests, even if some of the test</span><br><span class="line">                &#x2F;&#x2F; failed, record the test results and archive the jar file.</span><br><span class="line">                success &#123;</span><br><span class="line">                    qyWechatNotification mentionedId: &#39;&#39;, mentionedMobile: &#39;&#39;, moreInfo: &#39;&#39;, webhookUrl: &#39;https:&#x2F;&#x2F;qyapi.weixin.qq.com&#x2F;cgi-bin&#x2F;webhook&#x2F;send?key&#x3D;生成的key&#39;</span><br><span class="line"></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        stage(&#39;deploy&#39;)&#123;</span><br><span class="line">            steps&#123;</span><br><span class="line">                </span><br><span class="line">                sshagent (credentials: [&#39;bbs_rsa_private_key&#39;]) &#123;</span><br><span class="line">                        script &#123;</span><br><span class="line">                            env.WORKSPACE2 &#x3D; pwd()</span><br><span class="line">                        &#125;</span><br><span class="line">                        &#x2F;&#x2F;调试，打印所有env变量</span><br><span class="line">                        sh &quot;printenv | sort&quot;  </span><br><span class="line">                        sh &#39;cd $&#123;WORKSPACE2&#125;&#39;</span><br><span class="line">                        sh &#39;cd &#96;pwd&#96;&#39;</span><br><span class="line">                        sh &#39;scp .&#x2F;msgcenter_server&#x2F;target&#x2F;lib&#x2F;* bbs@目标机器id:&#x2F;data&#x2F;server&#x2F;bbs&#x2F;mc_deploy&#x2F;lib&#39;</span><br><span class="line">                        sh &#39;scp .&#x2F;msgcenter_server&#x2F;target&#x2F;msgcenter-server-2.0.0.RELEASE-without-configs.jar bbs@目标机器id:&#x2F;data&#x2F;server&#x2F;bbs&#x2F;mc_deploy&#x2F;lib&#39;</span><br><span class="line">                        sh &#39;ssh -o StrictHostKeyChecking&#x3D;no -l bbs 目标机器id &#x2F;data&#x2F;server&#x2F;bbs&#x2F;mc_deploy&#x2F;bin&#x2F;server.sh restart &amp;&#39;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">            post &#123;</span><br><span class="line">                &#x2F;&#x2F; If Maven was able to run the tests, even if some of the test</span><br><span class="line">                &#x2F;&#x2F; failed, record the test results and archive the jar file.</span><br><span class="line">                success &#123;</span><br><span class="line">                   script &#123;</span><br><span class="line">                        def duration &#x3D; currentBuild.durationString</span><br><span class="line">                        def splitDuration &#x3D; duration.split(&quot;and counting&quot;)[0]</span><br><span class="line">                        &#x2F;&#x2F;def eventCause&#x3D;currentBuild.getBuildCauses(&#39;hudson.model.Cause$UserIdCause&#39;)</span><br><span class="line">                        def message &#x3D;&quot;&lt;font color&#x3D;&#39;green&#39;&gt;【 $&#123;env.JOB_NAME&#125; 】部署$&#123;currentBuild.currentResult&#125;~😄&lt;&#x2F;font&gt; &lt;@企业微信用户id&gt;  \n &gt; 构建号码： $&#123;env.BUILD_NUMBER&#125;  \n &gt; 持续时间： $&#123;splitDuration&#125; \n &gt; 执行人： $&#123;currentBuild.buildCauses.shortDescription&#125;  \n &gt; 部署分支: $&#123;env.branch_version&#125;  \n &gt; 部署ip: 目标机器id   \n &gt; 部署路径:&#x2F;data&#x2F;server&#x2F;bbs&#x2F;mc_deploy \n &gt; [查看控制台]: $&#123;env.BUILD_URL&#125; &quot;</span><br><span class="line">                        sh &quot;curl -X POST -H &#39;Content-Type: application&#x2F;json&#39; -d &#39;&#123;\&quot;msgtype\&quot;: \&quot;markdown\&quot;, \&quot;markdown\&quot;: &#123;\&quot;content\&quot;: \&quot;$&#123;message&#125;\&quot;&#125;&#125;&#39; https:&#x2F;&#x2F;qyapi.weixin.qq.com&#x2F;cgi-bin&#x2F;webhook&#x2F;send?key&#x3D;生成的key&quot;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
     
 
 
@@ -1372,105 +1472,6 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/12/15/elasticsearch-6813-bootstrap/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jxdw.github.io/2020/12/13/kubernetes-v120-architecture/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/favicon.png">
-      <meta itemprop="name" content="渐学顿悟">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="渐学顿悟">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/12/13/kubernetes-v120-architecture/" class="post-title-link" itemprop="url">【kubernetes架构系列】kubernetes v1.20版本架构</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2020-12-13 10:38:44 10:38:44" itemprop="dateCreated datePublished" datetime="2020-12-13T10:38:44+08:00">2020-12-13 10:38:44</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E5%86%85%E9%83%A8%E5%BC%80%E5%8F%91%E8%80%85%E5%B9%B3%E5%8F%B0/" itemprop="url" rel="index"><span itemprop="name">内部开发者平台</span></a>
-        </span>
-          ，
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E5%86%85%E9%83%A8%E5%BC%80%E5%8F%91%E8%80%85%E5%B9%B3%E5%8F%B0/dockerengine%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">dockerengine技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/12/13/kubernetes-v120-architecture/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/12/13/kubernetes-v120-architecture/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="kubernetes顶层架构"><a href="#kubernetes顶层架构" class="headerlink" title="kubernetes顶层架构"></a>kubernetes顶层架构</h1><p><img src="https://jxdw.github.io/img/k8s/k8s_top_architecture.png"></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/12/13/kubernetes-v120-architecture/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>

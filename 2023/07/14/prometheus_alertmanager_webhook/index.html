@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"jxdw.github.io","root":"/","scheme":"Pisces","version":"8.0.2","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"width":240},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
+  </script>
+
+  <meta name="description" content="使用的软件版本 prometheus版本：2.45 alertmanger版本:0.25.0 web hook版本:java自定义实现  prometheus的安装与配置prometheus的安装直接下载对应的二进制文件到&#x2F;data&#x2F;prometheus目录，并解压。 配置prometheus.yml">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【prometheus使用系列】利用Prometheus+alertmanager+自定义webhook实现监控报警">
+<meta property="og:url" content="https://jxdw.github.io/2023/07/14/prometheus_alertmanager_webhook/index.html">
+<meta property="og:site_name" content="渐学顿悟">
+<meta property="og:description" content="使用的软件版本 prometheus版本：2.45 alertmanger版本:0.25.0 web hook版本:java自定义实现  prometheus的安装与配置prometheus的安装直接下载对应的二进制文件到&#x2F;data&#x2F;prometheus目录，并解压。 配置prometheus.yml">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jxdw.github.io/img/prometheus/prometheus_binary.png">
+<meta property="og:image" content="https://jxdw.github.io/img/prometheus/alertmanager_binary.png">
+<meta property="article:published_time" content="2023-07-14T13:39:46.000Z">
+<meta property="article:modified_time" content="2024-03-20T02:14:52.970Z">
+<meta property="article:author" content="渐学顿悟">
+<meta property="article:tag" content="业务运行的基础设施平台">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jxdw.github.io/img/prometheus/prometheus_binary.png">
+
+
+<link rel="canonical" href="https://jxdw.github.io/2023/07/14/prometheus_alertmanager_webhook/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【prometheus使用系列】利用Prometheus+alertmanager+自定义webhook实现监控报警 | 渐学顿悟</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">渐学顿悟</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">日拱一卒，功不唐捐</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home">
+    
+    
+        <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+    
+  </li>
+        <li class="menu-item menu-item-categories-os">
+    
+    
+        <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE-%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" rel="section"><i class="fab fa-centos fa-fw"></i>操作系统&网络协议&编程语言</a>
+    
+  </li>
+        <li class="menu-item menu-item-centos">
+    
+    
+        <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE-%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/centos%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fab fa-centos fa-fw"></i>centos技术</a>
+    
+  </li>
+        <li class="menu-item menu-item-macos">
+    
+    
+        <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE-%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/macos%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fab fa-apple fa-fw"></i>macos技术</a>
+    
+  </li>
+        <li class="menu-item menu-item-network">
+    
+    
+        <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE-%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E7%9F%A5%E8%AF%86/" rel="section" class="submenu-item"><i class="fas fa-paper-plane fa-fw"></i>网络协议知识</a>
+    
+  </li>
+        <li class="menu-item menu-item-c">
+    
+    
+        <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE-%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/C%E8%AF%AD%E8%A8%80/" rel="section" class="submenu-item"><i class="fab fa-contao fa-fw"></i>C语言</a>
+    
+  </li>
+        <li class="menu-item menu-item-go">
+    
+    
+        <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE-%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/go%E8%AF%AD%E8%A8%80/" rel="section" class="submenu-item"><i class="fab fa-goodreads fa-fw"></i>go语言</a>
+    
+  </li>
+        <li class="menu-item menu-item-java">
+    
+    
+        <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE-%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/java%E8%AF%AD%E8%A8%80/" rel="section" class="submenu-item"><i class="fab fa-java fa-fw"></i>java语言</a>
+    
+  </li>
+        <li class="menu-item menu-item-python">
+    
+    
+        <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE-%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/python%E8%AF%AD%E8%A8%80/" rel="section" class="submenu-item"><i class="fab fa-python fa-fw"></i>python语言</a>
+    
+  </li>
+        <li class="menu-item menu-item-javascript">
+    
+    
+        <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE-%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/javascript%E8%AF%AD%E8%A8%80/" rel="section" class="submenu-item"><i class="fab fa-js fa-fw"></i>javascript语言</a>
+    
+  </li>
+        <li class="menu-item menu-item-categories-dev">
+    
+    
+        <a href="/categories/%E5%86%85%E9%83%A8%E5%BC%80%E5%8F%91%E8%80%85%E5%B9%B3%E5%8F%B0/" rel="section"><i class="fab fa-dev fa-fw"></i>内部开发者平台</a>
+    
+  </li>
+        <li class="menu-item menu-item-jenkins">
+    
+    
+        <a href="/categories/%E5%86%85%E9%83%A8%E5%BC%80%E5%8F%91%E8%80%85%E5%B9%B3%E5%8F%B0/jenkins%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fab fa-jenkins fa-fw"></i>jenkins技术</a>
+    
+  </li>
+        <li class="menu-item menu-item-docker">
+    
+    
+        <a href="/categories/%E5%86%85%E9%83%A8%E5%BC%80%E5%8F%91%E8%80%85%E5%B9%B3%E5%8F%B0/dockerengine%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fab fa-docker fa-fw"></i>dockerengine技术</a>
+    
+  </li>
+        <li class="menu-item menu-item-categories-middleware">
+    
+    
+        <a href="/categories/%E4%B8%9A%E5%8A%A1%E8%BF%90%E8%A1%8C%E7%9A%84%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E5%B9%B3%E5%8F%B0/" rel="section"><i class="fas fa-cogs fa-fw"></i>业务运行的基础设施平台</a>
+    
+  </li>
+        <li class="menu-item menu-item-mysql">
+    
+    
+        <a href="/categories/%E4%B8%9A%E5%8A%A1%E8%BF%90%E8%A1%8C%E7%9A%84%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E5%B9%B3%E5%8F%B0/mysql%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fas fa-database fa-fw"></i>mysql技术</a>
+    
+  </li>
+        <li class="menu-item menu-item-redis">
+    
+    
+        <a href="/categories/%E4%B8%9A%E5%8A%A1%E8%BF%90%E8%A1%8C%E7%9A%84%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E5%B9%B3%E5%8F%B0/redis%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fas fa-coins fa-fw"></i>redis技术</a>
+    
+  </li>
+        <li class="menu-item menu-item-kafka">
+    
+    
+        <a href="/categories/%E4%B8%9A%E5%8A%A1%E8%BF%90%E8%A1%8C%E7%9A%84%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E5%B9%B3%E5%8F%B0/kafka%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fab fa-kaggle fa-fw"></i>kafka技术</a>
+    
+  </li>
+        <li class="menu-item menu-item-elasticsearch">
+    
+    
+        <a href="/categories/%E4%B8%9A%E5%8A%A1%E8%BF%90%E8%A1%8C%E7%9A%84%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E5%B9%B3%E5%8F%B0/elasticsearch%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fab fa-etsy fa-fw"></i>elasticsearch技术</a>
+    
+  </li>
+        <li class="menu-item menu-item-job">
+    
+    
+        <a href="/categories/%E4%B8%9A%E5%8A%A1%E8%BF%90%E8%A1%8C%E7%9A%84%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E5%B9%B3%E5%8F%B0/job%E8%B0%83%E5%BA%A6%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fas fa-clipboard-check fa-fw"></i>job调度技术</a>
+    
+  </li>
+        <li class="menu-item menu-item-etcd">
+    
+    
+        <a href="/categories/%E4%B8%9A%E5%8A%A1%E8%BF%90%E8%A1%8C%E7%9A%84%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E5%B9%B3%E5%8F%B0/etcd%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fab fa-edge-legacy fa-fw"></i>etcd技术</a>
+    
+  </li>
+        <li class="menu-item menu-item-zipkin">
+    
+    
+        <a href="/categories/%E4%B8%9A%E5%8A%A1%E8%BF%90%E8%A1%8C%E7%9A%84%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E5%B9%B3%E5%8F%B0/%E6%A1%86%E6%9E%B6%E4%B8%8E%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fab fa-diaspora fa-fw"></i>框架与链路追踪技术</a>
+    
+  </li>
+        <li class="menu-item menu-item-prometheus">
+    
+    
+        <a href="/categories/%E4%B8%9A%E5%8A%A1%E8%BF%90%E8%A1%8C%E7%9A%84%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E5%B9%B3%E5%8F%B0/prometheus%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fas fa-parking fa-fw"></i>prometheus技术</a>
+    
+  </li>
+        <li class="menu-item menu-item-webserver">
+    
+    
+        <a href="/categories/%E4%B8%9A%E5%8A%A1%E8%BF%90%E8%A1%8C%E7%9A%84%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E5%B9%B3%E5%8F%B0/%E6%B5%81%E9%87%8F%E7%BD%91%E5%85%B3%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fab fa-bootstrap fa-fw"></i>流量网关技术</a>
+    
+  </li>
+        <li class="menu-item menu-item-categories-distribution">
+    
+    
+        <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%9A%E5%8A%A1%E7%B3%BB%E7%BB%9F/" rel="section"><i class="fa fa-th fa-fw"></i>分布式业务系统</a>
+    
+  </li>
+        <li class="menu-item menu-item-categories-dis-little">
+    
+    
+        <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%9A%E5%8A%A1%E7%B3%BB%E7%BB%9F/%E5%88%86%E5%B8%83%E5%BC%8F%E5%9F%BA%E9%87%91%E4%BA%A4%E6%98%93%E7%B3%BB%E7%BB%9F/" rel="section" class="submenu-item"><i class="fas fa-hand-holding-usd fa-fw"></i>分布式基金交易系统</a>
+    
+  </li>
+        <li class="menu-item menu-item-about">
+    
+    
+        <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+    
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="渐学顿悟"
+      src="/favicon.png">
+  <p class="site-author-name" itemprop="name">渐学顿悟</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">148</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jxdw" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jxdw" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/wechat.png" title="WeChat → &#x2F;wechat.png"><i class="fab fa-weixin fa-fw"></i>WeChat</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:283593214@qq.com" title="E-Mail → mailto:283593214@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+      
+
+      
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jxdw.github.io/2023/07/14/prometheus_alertmanager_webhook/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/favicon.png">
+      <meta itemprop="name" content="渐学顿悟">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="渐学顿悟">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【prometheus使用系列】利用Prometheus+alertmanager+自定义webhook实现监控报警
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-07-14 21:39:46 21:39:46" itemprop="dateCreated datePublished" datetime="2023-07-14T21:39:46+08:00">2023-07-14 21:39:46</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E4%B8%9A%E5%8A%A1%E8%BF%90%E8%A1%8C%E7%9A%84%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E5%B9%B3%E5%8F%B0/" itemprop="url" rel="index"><span itemprop="name">业务运行的基础设施平台</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E4%B8%9A%E5%8A%A1%E8%BF%90%E8%A1%8C%E7%9A%84%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E5%B9%B3%E5%8F%B0/prometheus%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">prometheus技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2023/07/14/prometheus_alertmanager_webhook/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2023/07/14/prometheus_alertmanager_webhook/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="使用的软件版本"><a href="#使用的软件版本" class="headerlink" title="使用的软件版本"></a>使用的软件版本</h2><ul>
+<li>prometheus版本：2.45</li>
+<li>alertmanger版本:0.25.0</li>
+<li>web hook版本:java自定义实现</li>
+</ul>
+<h2 id="prometheus的安装与配置"><a href="#prometheus的安装与配置" class="headerlink" title="prometheus的安装与配置"></a>prometheus的安装与配置</h2><h3 id="prometheus的安装"><a href="#prometheus的安装" class="headerlink" title="prometheus的安装"></a>prometheus的安装</h3><p>直接下载对应的二进制文件到/data/prometheus目录，并解压。<br><img src="https://jxdw.github.io/img/prometheus/prometheus_binary.png"></p>
+<h3 id="配置prometheus-yml"><a href="#配置prometheus-yml" class="headerlink" title="配置prometheus.yml"></a>配置prometheus.yml</h3><a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># my global config</span><br><span class="line">global:</span><br><span class="line">  scrape_interval: 15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.</span><br><span class="line">  evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.</span><br><span class="line">  # scrape_timeout is set to the global default (10s).</span><br><span class="line"></span><br><span class="line"># Alertmanager configuration</span><br><span class="line">alerting:</span><br><span class="line">  alertmanagers:</span><br><span class="line">    - static_configs:</span><br><span class="line">        - targets:</span><br><span class="line">          - 192.168.1.7:9093</span><br><span class="line"></span><br><span class="line"># Load rules once and periodically evaluate them according to the global &#39;evaluation_interval&#39;.</span><br><span class="line">rule_files:</span><br><span class="line">  - &quot;&#x2F;data&#x2F;prometheus&#x2F;alert.rules&quot;</span><br><span class="line">  # - &quot;second_rules.yml&quot;</span><br><span class="line"></span><br><span class="line"># A scrape configuration containing exactly one endpoint to scrape:</span><br><span class="line"># Here it&#39;s Prometheus itself.</span><br><span class="line">scrape_configs:</span><br><span class="line">  - job_name: &quot;prometheus&quot;</span><br><span class="line">    static_configs:</span><br><span class="line">      - targets: [&quot;192.168.1.7:9090&quot;]</span><br><span class="line"></span><br><span class="line">  - job_name: &quot;gm_172_linuxserver&quot;</span><br><span class="line">    static_configs:</span><br><span class="line">      - targets: [&quot;192.168.1.9:9100&quot;,&quot;192.168.1.8:9100&quot;,&quot;192.168.1.7:9100&quot;,&quot;192.168.1.6:9100&quot;,&quot;192.168.1.5:9100&quot;,&quot;192.168.1.4:9100&quot;,&quot;192.168.1.3:9100&quot;,&quot;192.168.1.2:9100&quot;,&quot;192.168.1.1:9100&quot;,&quot;192.168.1.10:9100&quot;,&quot;192.168.1.11:9100&quot;,&quot;192.168.1.12:9100&quot;,&quot;192.168.1.13:9100&quot;,&quot;192.168.1.14:9100&quot;]</span><br><span class="line">        labels:</span><br><span class="line">          project: linux_node_exporter</span><br><span class="line"></span><br><span class="line">  - job_name: &quot;gm_172_windows_node&quot;</span><br><span class="line">    scrape_interval: 15s</span><br><span class="line">    static_configs:</span><br><span class="line">      - targets: [&#39;192.168.1.201:9182&#39;,&#39;192.168.1.202:9182&#39;,&#39;192.168.1.203:9182&#39;]</span><br><span class="line">        labels:</span><br><span class="line">          project: windows_node_exporter</span><br><span class="line">    relabel_configs:</span><br><span class="line">      - source_labels: [__address__]</span><br><span class="line">        target_label: instance</span><br><span class="line"></span><br><span class="line">  - job_name: &quot;sm_172_windows_node&quot;</span><br><span class="line">    scrape_interval: 15s</span><br><span class="line">    static_configs:</span><br><span class="line">      - targets: [&#39;192.168.1.204:9182&#39;,&#39;192.168.1.205:9182&#39;,&#39;192.168.1.206:9182&#39;]</span><br><span class="line">        labels:</span><br><span class="line">          project: windows_node_exporter</span><br><span class="line">    relabel_configs:</span><br><span class="line">      - source_labels: [__address__]</span><br><span class="line">        target_label: instance</span><br><span class="line">  </span><br><span class="line">  - job_name: &#39;java-eureka-service&#39;</span><br><span class="line">    static_configs:</span><br><span class="line">      - labels:</span><br><span class="line">          project: linux_node_exporter</span><br><span class="line">    relabel_configs:</span><br><span class="line">      - source_labels: [__address__]</span><br><span class="line">        target_label: instance</span><br><span class="line">    eureka_sd_configs:</span><br><span class="line">      - server: http:&#x2F;&#x2F;192.168.1.4:8761&#x2F;eureka</span><br></pre></td></tr></table></figure>
+<h3 id="配置alert-rules文件"><a href="#配置alert-rules文件" class="headerlink" title="配置alert.rules文件"></a>配置alert.rules文件</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">groups:</span><br><span class="line">  - name: java_service_health</span><br><span class="line">    rules:</span><br><span class="line">    - alert: java服务宕机</span><br><span class="line">      expr: up&#123;job&#x3D;~&quot;java-eureka-service&quot;&#125; &#x3D;&#x3D; 0</span><br><span class="line">      for: 3m</span><br><span class="line">      labels:</span><br><span class="line">        severity: critical</span><br><span class="line">      annotations:</span><br><span class="line">        summary: &quot;&#123;&#123;$labels.instance&#125;&#125; 所在服务宕机，请尽快处理！&quot;</span><br><span class="line">        description: &quot;&#123;&#123;$labels.instance&#125;&#125; 所在服务延时超过3分钟，当前状态&#123;&#123; $value &#125;&#125;. &quot;</span><br><span class="line"></span><br><span class="line">  - name: linux_node_health</span><br><span class="line">    rules:</span><br><span class="line">    - alert: linux磁盘容量使用过高</span><br><span class="line">      expr: (node_filesystem_size_bytes&#123;fstype&#x3D;~&quot;ext.*|xfs&quot;,mountpoint !~&quot;.*pod.*&quot;&#125;-node_filesystem_free_bytes&#123;fstype&#x3D;~&quot;ext.*|xfs&quot;,mountpoint !~&quot;.*pod.*&quot;&#125;) *100&#x2F;(node_filesystem_avail_bytes &#123;fstype&#x3D;~&quot;ext.*|xfs&quot;,mountpoint !~&quot;.*pod.*&quot;&#125;+(node_filesystem_size_bytes&#123;fstype&#x3D;~&quot;ext.*|xfs&quot;,mountpoint !~&quot;.*pod.*&quot;&#125;-node_filesystem_free_bytes&#123;fstype&#x3D;~&quot;ext.*|xfs&quot;,mountpoint !~&quot;.*pod.*&quot;&#125;))&gt;&#x3D;80</span><br><span class="line">      for: 1m</span><br><span class="line">      labels: </span><br><span class="line">        severity: warning</span><br><span class="line">      annotations: </span><br><span class="line">        summary: &quot; &#123;&#123; $labels.instance &#125;&#125; 所在linux服务器磁盘使用率超过80% &quot;</span><br><span class="line">        description: &quot;&#123;&#123;$labels.instance&#125;&#125; 磁盘分区使用大于80%，当前使用率&#123;&#123; $value &#125;&#125;%.&quot;</span><br><span class="line">    - alert: linux服务器宕机</span><br><span class="line">      expr: up&#123;project&#x3D;~&quot;linux_node_exporter&quot;&#125; &#x3D;&#x3D; 0</span><br><span class="line">      for: 3m</span><br><span class="line">      labels:</span><br><span class="line">        severity: critical</span><br><span class="line">      annotations:</span><br><span class="line">        summary: &quot;&#123;&#123;$labels.instance&#125;&#125; 所在linux服务器宕机，请尽快处理！&quot;</span><br><span class="line">        description: &quot;&#123;&#123;$labels.instance&#125;&#125; 所在linux服务器延时超过3分钟，当前状态&#123;&#123; $value &#125;&#125;. &quot;</span><br><span class="line">    - alert: linux TCP连接数</span><br><span class="line">      expr: node_netstat_Tcp_CurrEstab &gt; 1000</span><br><span class="line">      for: 2m</span><br><span class="line">      labels:</span><br><span class="line">        severity: critical</span><br><span class="line">      annotations:</span><br><span class="line">        summary: &quot; TCP_ESTABLISHED过高！&quot;</span><br><span class="line">        description: &quot;&#123;&#123;$labels.instance&#125;&#125; TCP_ESTABLISHED大于1000,当前使用率&#123;&#123; $value &#125;&#125;%.&quot;</span><br><span class="line">    - alert: 内存使用率过高</span><br><span class="line">      expr:  (1- (node_memory_Buffers_bytes + node_memory_Cached_bytes + node_memory_MemFree_bytes) &#x2F; node_memory_MemTotal_bytes) * 100 &gt; 80 </span><br><span class="line">      for: 5m  # 告警持续时间，超过这个时间才会发送给alertmanager</span><br><span class="line">      labels:</span><br><span class="line">        severity: critical</span><br><span class="line">      annotations:</span><br><span class="line">        summary: &quot;&#123;&#123; $labels.instance &#125;&#125; 内存使用率过高，请尽快处理！&quot;</span><br><span class="line">        description: &quot;&#123;&#123; $labels.instance &#125;&#125;内存使用率超过80%,当前使用率&#123;&#123; $value &#125;&#125;%.&quot;</span><br><span class="line"></span><br><span class="line">  - name: Windows_node_health</span><br><span class="line">    rules:</span><br><span class="line">    - alert: windows CPU高负荷</span><br><span class="line">      expr: 100 - (avg by (instance,job) (irate(windows_cpu_time_total&#123;mode&#x3D;&quot;idle&quot;&#125;[2m])) * 100) &gt; 70</span><br><span class="line">      for: 1m</span><br><span class="line">      labels:</span><br><span class="line">        severity: critical</span><br><span class="line">      annotations:</span><br><span class="line">        summary: &quot;&#123;&#123;$labels.instance&#125;&#125; CPU使用率过高，请尽快处理！&quot;</span><br><span class="line">        description: &quot;&#123;&#123;$labels.instance&#125;&#125; CPU使用大于90%，当前使用率&#123;&#123; $value &#125;&#125;%. &quot;</span><br><span class="line">    - alert: windows内存使用率过高</span><br><span class="line">      expr: 100 - 100 * windows_os_physical_memory_free_bytes &#x2F; windows_cs_physical_memory_bytes &gt; 80</span><br><span class="line">      for: 3m  # 告警持续时间，超过这个时间才会发送给alertmanager</span><br><span class="line">      labels:</span><br><span class="line">        severity: critical</span><br><span class="line">      annotations:</span><br><span class="line">        summary: &quot;&#123;&#123; $labels.instance &#125;&#125; 内存使用率过高，请尽快处理！&quot;</span><br><span class="line">        description: &quot;&#123;&#123; $labels.instance &#125;&#125;内存使用率超过80%,当前使用率&#123;&#123; $value &#125;&#125;%.&quot;                                                                                  </span><br><span class="line">    - alert: windows服务器宕机</span><br><span class="line">      expr: up&#123;project&#x3D;~&quot;windows_node_exporter&quot;&#125; &#x3D;&#x3D; 0</span><br><span class="line">      for: 1m</span><br><span class="line">      labels:</span><br><span class="line">        severity: critical</span><br><span class="line">      annotations:</span><br><span class="line">        summary: &quot;&#123;&#123;$labels.instance&#125;&#125; 所在windows服务器宕机，请尽快处理！&quot;</span><br><span class="line">        description: &quot;&#123;&#123;$labels.instance&#125;&#125; 所在windows服务器延时超过3分钟，当前状态&#123;&#123; $value &#125;&#125;. &quot;</span><br><span class="line">    - alert: windows磁盘容量</span><br><span class="line">      expr: 100 - 100 * (windows_logical_disk_free_bytes &#123;volume&#x3D;~&quot;C:&quot;&#125; &#x2F; windows_logical_disk_size_bytes &#123;volume&#x3D;~&quot;C:&quot;&#125;) &gt; 65</span><br><span class="line">      for: 1m</span><br><span class="line">      labels:</span><br><span class="line">        severity: critical</span><br><span class="line">      annotations:</span><br><span class="line">        summary: &quot;&#123;&#123;$labels.mountpoint&#125;&#125; 磁盘分区使用率过高，请尽快处理！&quot;</span><br><span class="line">        description: &quot;&#123;&#123;$labels.instance&#125;&#125; &#123;&#123;$labels.volume&#125;&#125;  磁盘分区使用大于65%，当前使用率&#123;&#123; $value &#125;&#125;%.&quot;</span><br></pre></td></tr></table></figure>
+<h3 id="启动Prometheus服务"><a href="#启动Prometheus服务" class="headerlink" title="启动Prometheus服务"></a>启动Prometheus服务</h3><p>/usr/lib/systemd/system/prometheus.service内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">[Unit]</span><br><span class="line">Description&#x3D;Prometheus</span><br><span class="line">Wants&#x3D;network-online.target</span><br><span class="line">After&#x3D;network-online.target</span><br><span class="line">[Service]</span><br><span class="line">Type&#x3D;simple</span><br><span class="line">ExecStart&#x3D;&#x2F;data&#x2F;prometheus&#x2F;prometheus --config.file &#x2F;data&#x2F;prometheus&#x2F;prometheus.yml --storage.tsdb.path &#x2F;data&#x2F;prometheus&#x2F;data --web.console.templates&#x3D;&#x2F;data&#x2F;prometheus&#x2F;consoles --web.console.libraries&#x3D;&#x2F;data&#x2F;prometheus&#x2F;console_libraries --web.enable-lifecycle</span><br><span class="line">[Install]</span><br><span class="line">WantedBy&#x3D;multi-user.target</span><br></pre></td></tr></table></figure>
+
+<h2 id="alertmanager的安装与配置"><a href="#alertmanager的安装与配置" class="headerlink" title="alertmanager的安装与配置"></a>alertmanager的安装与配置</h2><h3 id="alertmanager的安装"><a href="#alertmanager的安装" class="headerlink" title="alertmanager的安装"></a>alertmanager的安装</h3><p>直接下载对应的二进制文件到/data/alertmanager目录，并解压<br><img src="https://jxdw.github.io/img/prometheus/alertmanager_binary.png"></p>
+<h3 id="alertmanager的配置"><a href="#alertmanager的配置" class="headerlink" title="alertmanager的配置"></a>alertmanager的配置</h3><p>alertmanager.yml文件的内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">global:</span><br><span class="line">  resolve_timeout: 5m</span><br><span class="line"></span><br><span class="line">route:</span><br><span class="line">  group_by: [&#39;alertname&#39;]</span><br><span class="line">  group_wait: 30s</span><br><span class="line">  group_interval: 1m</span><br><span class="line">  repeat_interval: 2m</span><br><span class="line">  receiver: &#39;webhook&#39;</span><br><span class="line">receivers:</span><br><span class="line">  - name: &#39;webhook&#39;</span><br><span class="line">    webhook_configs:</span><br><span class="line">      - url: &#39;http:&#x2F;&#x2F;webhook服务器的对外暴露的url地址&#39;</span><br><span class="line">        #message: &#39;&#123;&#123; template &quot;wechat.default.message&quot; . &#125;&#125;&#39;</span><br><span class="line">inhibit_rules:</span><br><span class="line">  - source_match:</span><br><span class="line">      severity: &#39;critical&#39;</span><br><span class="line">    target_match:</span><br><span class="line">      severity: &#39;warning&#39;</span><br><span class="line">    equal: [&#39;alertname&#39;, &#39;dev&#39;, &#39;instance&#39;]</span><br><span class="line">templates:</span><br><span class="line"> - &#39;安装目录&#x2F;wechat.tmpl&#39;</span><br></pre></td></tr></table></figure>
+
+<h3 id="alertmanager的启动"><a href="#alertmanager的启动" class="headerlink" title="alertmanager的启动"></a>alertmanager的启动</h3><p>使用systemctl启动服务。<br><br>/usr/lib/systemd/system/alertmanager.service的内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description&#x3D;alertmanager</span><br><span class="line">Documentation&#x3D;https:&#x2F;&#x2F;prometheus.io&#x2F;</span><br><span class="line">After&#x3D;network.target</span><br><span class="line">StartLimitIntervalSec&#x3D;0</span><br><span class="line">[Service]</span><br><span class="line">Type&#x3D;simple</span><br><span class="line">ExecStart&#x3D;&#x2F;data&#x2F;alertmanager&#x2F;alertmanager  --config.file&#x3D;&#x2F;data&#x2F;alertmanager&#x2F;alertmanager.yml --storage.path&#x3D;&#x2F;data&#x2F;alertmanager&#x2F;data --log.level&#x3D;info --log.format&#x3D;json</span><br><span class="line">WorkingDirectory&#x3D;&#x2F;data&#x2F;alertmanager&#x2F;</span><br><span class="line">Restart&#x3D;on-failure</span><br><span class="line">[Install]</span><br><span class="line">WantedBy&#x3D;multi-user.target</span><br></pre></td></tr></table></figure>
+
+<h3 id="alertmanager发送web-hook时的json串"><a href="#alertmanager发送web-hook时的json串" class="headerlink" title="alertmanager发送web hook时的json串"></a>alertmanager发送web hook时的json串</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;receiver&quot;: &quot;webhook&quot;,</span><br><span class="line">  &quot;status&quot;: &quot;firing&quot;,</span><br><span class="line">  &quot;alerts&quot;: [</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;status&quot;: &quot;firing&quot;,</span><br><span class="line">      &quot;labels&quot;: &#123;</span><br><span class="line">        &quot;alertname&quot;: &quot;CPU使用率&quot;,</span><br><span class="line">        &quot;instance&quot;: &quot;server1&quot;,</span><br><span class="line">        &quot;job&quot;: &quot;node_exporter&quot;</span><br><span class="line">      &#125;,</span><br><span class="line">      &quot;annotations&quot;: &#123;</span><br><span class="line">        &quot;summary&quot;: &quot;CPU使用率超过阈值&quot;</span><br><span class="line">      &#125;,</span><br><span class="line">      &quot;startsAt&quot;: &quot;2021-01-01T00:00:00.000Z&quot;,</span><br><span class="line">      &quot;endsAt&quot;: &quot;0001-01-01T00:00:00Z&quot;,</span><br><span class="line">      &quot;generatorURL&quot;: &quot;http:&#x2F;&#x2F;localhost:9090&#x2F;graph?g0.expr&#x3D;100%20-%20(avg%20by%20(instance)%20(irate(node_cpu_seconds_total%7Bmode%3D%22idle%22%7D%5B5m%5D))%20*%20100)&amp;g0.tab&#x3D;1&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  ],</span><br><span class="line">  &quot;groupLabels&quot;: &#123;</span><br><span class="line">    &quot;alertname&quot;: &quot;CPU使用率&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;commonLabels&quot;: &#123;</span><br><span class="line">    &quot;alertname&quot;: &quot;CPU使用率&quot;,</span><br><span class="line">    &quot;instance&quot;: &quot;server1&quot;,</span><br><span class="line">    &quot;job&quot;: &quot;node_exporter&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;commonAnnotations&quot;: &#123;</span><br><span class="line">    &quot;summary&quot;: &quot;CPU使用率超过阈值&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;externalURL&quot;: &quot;http:&#x2F;&#x2F;localhost:9093&quot;,</span><br><span class="line">  &quot;version&quot;: &quot;4&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="用各种编程语言实现web-hook服务"><a href="#用各种编程语言实现web-hook服务" class="headerlink" title="用各种编程语言实现web hook服务"></a>用各种编程语言实现web hook服务</h2><p>这里用java语言实现web hook服务，java版本的web服务主要工作就两个：</p>
+<ul>
+<li>解析json串</li>
+<li>将解析后的json串，发给企业微信机器人，其实就是实现一个http client。这种，在网上有很多的例子。</li>
+</ul>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.puppeteers.net/blog/testing-alertmanager-webhooks-with-curl/">https://www.puppeteers.net/blog/testing-alertmanager-webhooks-with-curl/</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E4%B8%9A%E5%8A%A1%E8%BF%90%E8%A1%8C%E7%9A%84%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E5%B9%B3%E5%8F%B0/" rel="tag"># 业务运行的基础设施平台</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/05/31/tech-architecture-wu/" rel="prev" title="技术选型感悟">
+                  <i class="fa fa-chevron-left"></i> 技术选型感悟
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024/01/28/jenkins_install_and_practice/" rel="next" title="【jenkins系列】centos安装jenkins　lts版本的主从集群以及监控">
+                  【jenkins系列】centos安装jenkins　lts版本的主从集群以及监控 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+      
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      
+
+      
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">渐学顿悟</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+NexT.utils.loadComments('#valine-comments', () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', () => {
+    new Valine(Object.assign({"enable":true,"appId":"wrre3Nrx21CqKiChLnKn034M-gzGzoHsz","appKey":"rkWWNONo7LAJhlS936vnywQ9","serverURLs":null,"placeholder":"请输入您的评论","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"lang":null,"visitor":false,"comment_count":true,"recordIP":false,"enableQQ":false,"requiredFields":["nick","mail"]}, {
+      el: '#valine-comments',
+      path: "/2023/07/14/prometheus_alertmanager_webhook/",
+      serverURLs: "https://wrre3nrx.api.lncld.net"
+    }));
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

@@ -322,7 +322,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">147</span>
+          <span class="site-state-item-count">148</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -379,6 +379,105 @@
       
 
       
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jxdw.github.io/2018/11/18/spring-boot-2x-boot-micrometer/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/favicon.png">
+      <meta itemprop="name" content="渐学顿悟">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="渐学顿悟">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/11/18/spring-boot-2x-boot-micrometer/" class="post-title-link" itemprop="url">【java实现微服务架构系列】spring框架系列之spring boot micrometer监控</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-11-18 17:15:59 17:15:59" itemprop="dateCreated datePublished" datetime="2018-11-18T17:15:59+08:00">2018-11-18 17:15:59</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE-%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index"><span itemprop="name">操作系统&网络协议&编程语言</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE-%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/java%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index"><span itemprop="name">java语言</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2018/11/18/spring-boot-2x-boot-micrometer/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2018/11/18/spring-boot-2x-boot-micrometer/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="关于spring-boot-2-X系列"><a href="#关于spring-boot-2-X系列" class="headerlink" title="关于spring boot 2.X系列"></a>关于spring boot 2.X系列</h1><p>spring.io在spring boot和springcloud推出之前，开源了很多的框架（见下文附录），但是除了spring framework自身，影响力都不够。直到spring boot、spring cloud系列框架推出，才成了spring框架的扩展中最有影响力的两个(或者说集大成者)。<br>Spring Boot的设计目的是用来简化新Spring应用的初始搭建以及开发过程。该框架使用了特定的方式来进行配置，从而使开发人员不再需要定义样板化的配置。<br>通俗点理解，就是spring boot其实不是什么新的框架，它默认配置了很多框架的使用方式，就像maven整合了很多的jar包，比如散落在各处的spring框架：spring amqp、spring data redis client、spring web service、prometheus client，进而集大成。<br>Spring Cloud为开发人员提供了快速构建分布式系统中一些常见模式的工具，例如配置管理，服务发现，断路器，智能路由，微代理，控制总线，一次性令牌，全局锁定，领导选举，分布式会话，集群状态。<br>从技术实现上来说，也是集成开源届的各种方案比如 client、rabbitmq client。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2018/11/18/spring-boot-2x-boot-micrometer/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
     
 
 
@@ -1239,105 +1338,6 @@
     <div class="post-body" itemprop="articleBody">
           <p>第一阶段阅读Redis的数据结构部分，基本位于如下文件中：<br>内存分配 zmalloc.c和zmalloc.h动态字符串 sds.h和sds.c双端链表 adlist.c和adlist.h字典 dict.h和dict.c跳跃表 server.h文件里面关于zskiplist结构和zskiplistNode结构，以及t_zset.c中所有zsl开头的函数，比如 zslCreate、zslInsert、zslDeleteNode等等。基数统计 hyperloglog.c 中的 hllhdr 结构， 以及所有以 hll 开头的函数第二阶段 熟悉Redis的内存编码结构整数集合数据结构 intset.h和intset.c压缩列表数据结构 ziplist.h和ziplist.c第三阶段 熟悉Redis数据类型的实现对象系统 object.c字符串键 t_string.c列表建 t_list.c散列键 t_hash.c集合键 t_set.c有序集合键 t_zset.c中除 zsl 开头的函数之外的所有函数HyperLogLog键 hyperloglog.c中所有以pf开头的函数第四阶段 熟悉Redis数据库的实现数据库实现 redis.h文件中的redisDb结构，以及db.c文件通知功能 notify.cRDB持久化 rdb.cAOF持久化 aof.c以及一些独立功能模块的实现发布和订阅 redis.h文件的pubsubPattern结构，以及pubsub.c文件事务 redis.h文件的multiState结构以及multiCmd结构，multi.c文件第五阶段 熟悉客户端和服务器端的代码实现事件处理模块 ae.c/ae_epoll.c/ae_evport.c/ae_kqueue.c/ae_select.c网路链接库 anet.c和networking.c服务器端 redis.c客户端 redis-cli.c这个时候可以阅读下面的独立功能模块的代码实现lua脚本 scripting.c慢查询 slowlog.c监视 monitor.c第六阶段 这一阶段主要是熟悉Redis多机部分的代码实现复制功能 replication.cRedis Sentinel sentinel.c集群 cluster.c其他代码文件介绍关于测试方面的文件有：memtest.c 内存检测redis_benchmark.c 用于redis性能测试的实现。redis_check_aof.c 用于更新日志检查的实现。redis_check_dump.c 用于本地数据库检查的实现。testhelp.c 一个C风格的小型测试框架。一些工具类的文件如下：bitops.c GETBIT、SETBIT 等二进制位操作命令的实现debug.c 用于调试时使用endianconv.c 高低位转换，不同系统，高低位顺序不同help.h  辅助于命令的提示信息lzf_c.c 压缩算法系列lzf_d.c  压缩算法系列rand.c 用于产生随机数release.c 用于发布时使用sha1.c sha加密算法的实现util.c  通用工具方法crc64.c 循环冗余校验sort.c SORT命令的实现一些封装类的代码实现：bio.c background I/O的意思，开启后台线程用的latency.c 延迟类migrate.c 命令迁移类，包括命令的还原迁移等pqsort.c  排序算法类rio.c redis定义的一个I/O类syncio.c 用于同步Socket和文件I/O操作</p>
 
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jxdw.github.io/2018/08/20/golang-post-json-file-to-http-server/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/favicon.png">
-      <meta itemprop="name" content="渐学顿悟">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="渐学顿悟">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/08/20/golang-post-json-file-to-http-server/" class="post-title-link" itemprop="url">【go标准库系列】go语言模拟curl将json发送到httpserver</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2018-08-20 19:17:59 19:17:59" itemprop="dateCreated datePublished" datetime="2018-08-20T19:17:59+08:00">2018-08-20 19:17:59</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE-%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index"><span itemprop="name">操作系统&网络协议&编程语言</span></a>
-        </span>
-          ，
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE-%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/go%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index"><span itemprop="name">go语言</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2018/08/20/golang-post-json-file-to-http-server/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2018/08/20/golang-post-json-file-to-http-server/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="业务背景"><a href="#业务背景" class="headerlink" title="业务背景"></a>业务背景</h1><p>最近一个需求：需要将某些数据塞到数据。如果会ui，搞个前后端分离，这个需求很简单。<br><br>不过我的前端技术实在拿不出手。而我又想固化成程序(造轮子、实现curl命令的部分功能)。<br><br>不说了，只能直接上源码。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2018/08/20/golang-post-json-file-to-http-server/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
       
     </div>
 

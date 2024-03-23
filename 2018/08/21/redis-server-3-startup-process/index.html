@@ -50,7 +50,7 @@
 </script>
 
   <title>【redis架构系列】redis server 3.0启动过程 | 渐学顿悟</title>
-
+  
 
 
 
@@ -129,160 +129,202 @@
 <nav class="site-nav">
   <ul class="main-menu menu">
         <li class="menu-item menu-item-home">
-
-
+    
+    
         <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
-
+    
   </li>
         <li class="menu-item menu-item-categories-os">
-
-
+    
+    
         <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE-%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" rel="section"><i class="fab fa-centos fa-fw"></i>操作系统&网络协议&编程语言</a>
-
+    
   </li>
         <li class="menu-item menu-item-centos">
-
-
+    
+    
         <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE-%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/centos%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fab fa-centos fa-fw"></i>centos技术</a>
-
+    
   </li>
         <li class="menu-item menu-item-macos">
-
-
+    
+    
         <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE-%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/macos%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fab fa-apple fa-fw"></i>macos技术</a>
-
+    
   </li>
         <li class="menu-item menu-item-network">
-
-
+    
+    
         <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE-%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E7%9F%A5%E8%AF%86/" rel="section" class="submenu-item"><i class="fas fa-paper-plane fa-fw"></i>网络协议知识</a>
-
+    
   </li>
         <li class="menu-item menu-item-c">
-
-
+    
+    
         <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE-%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/C%E8%AF%AD%E8%A8%80/" rel="section" class="submenu-item"><i class="fab fa-contao fa-fw"></i>C语言</a>
-
+    
   </li>
         <li class="menu-item menu-item-go">
-
-
+    
+    
         <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE-%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/go%E8%AF%AD%E8%A8%80/" rel="section" class="submenu-item"><i class="fab fa-goodreads fa-fw"></i>go语言</a>
-
+    
   </li>
         <li class="menu-item menu-item-java">
-
-
+    
+    
         <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE-%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/java%E8%AF%AD%E8%A8%80/" rel="section" class="submenu-item"><i class="fab fa-java fa-fw"></i>java语言</a>
-
+    
   </li>
         <li class="menu-item menu-item-python">
-
-
+    
+    
         <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE-%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/python%E8%AF%AD%E8%A8%80/" rel="section" class="submenu-item"><i class="fab fa-python fa-fw"></i>python语言</a>
-
+    
   </li>
         <li class="menu-item menu-item-javascript">
-
-
+    
+    
         <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE-%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/javascript%E8%AF%AD%E8%A8%80/" rel="section" class="submenu-item"><i class="fab fa-js fa-fw"></i>javascript语言</a>
-
+    
   </li>
         <li class="menu-item menu-item-categories-dev">
-
-
+    
+    
         <a href="/categories/%E5%86%85%E9%83%A8%E5%BC%80%E5%8F%91%E8%80%85%E5%B9%B3%E5%8F%B0/" rel="section"><i class="fab fa-dev fa-fw"></i>内部开发者平台</a>
-
+    
   </li>
         <li class="menu-item menu-item-jenkins">
-
-
+    
+    
         <a href="/categories/%E5%86%85%E9%83%A8%E5%BC%80%E5%8F%91%E8%80%85%E5%B9%B3%E5%8F%B0/jenkins%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fab fa-jenkins fa-fw"></i>jenkins技术</a>
-
+    
   </li>
         <li class="menu-item menu-item-docker">
-
-
+    
+    
         <a href="/categories/%E5%86%85%E9%83%A8%E5%BC%80%E5%8F%91%E8%80%85%E5%B9%B3%E5%8F%B0/dockerengine%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fab fa-docker fa-fw"></i>dockerengine技术</a>
-
+    
   </li>
         <li class="menu-item menu-item-categories-middleware">
-
-
+    
+    
         <a href="/categories/%E4%B8%9A%E5%8A%A1%E8%BF%90%E8%A1%8C%E7%9A%84%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E5%B9%B3%E5%8F%B0/" rel="section"><i class="fas fa-cogs fa-fw"></i>业务运行的基础设施平台</a>
-
+    
   </li>
         <li class="menu-item menu-item-mysql">
-
-
+    
+    
         <a href="/categories/%E4%B8%9A%E5%8A%A1%E8%BF%90%E8%A1%8C%E7%9A%84%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E5%B9%B3%E5%8F%B0/mysql%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fas fa-database fa-fw"></i>mysql技术</a>
-
+    
   </li>
         <li class="menu-item menu-item-redis">
-
-
+    
+    
         <a href="/categories/%E4%B8%9A%E5%8A%A1%E8%BF%90%E8%A1%8C%E7%9A%84%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E5%B9%B3%E5%8F%B0/redis%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fas fa-coins fa-fw"></i>redis技术</a>
-
+    
   </li>
         <li class="menu-item menu-item-kafka">
-
-
+    
+    
         <a href="/categories/%E4%B8%9A%E5%8A%A1%E8%BF%90%E8%A1%8C%E7%9A%84%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E5%B9%B3%E5%8F%B0/kafka%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fab fa-kaggle fa-fw"></i>kafka技术</a>
-
+    
   </li>
         <li class="menu-item menu-item-elasticsearch">
-
-
+    
+    
         <a href="/categories/%E4%B8%9A%E5%8A%A1%E8%BF%90%E8%A1%8C%E7%9A%84%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E5%B9%B3%E5%8F%B0/elasticsearch%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fab fa-etsy fa-fw"></i>elasticsearch技术</a>
-
+    
   </li>
         <li class="menu-item menu-item-job">
-
-
+    
+    
         <a href="/categories/%E4%B8%9A%E5%8A%A1%E8%BF%90%E8%A1%8C%E7%9A%84%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E5%B9%B3%E5%8F%B0/job%E8%B0%83%E5%BA%A6%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fas fa-clipboard-check fa-fw"></i>job调度技术</a>
-
+    
   </li>
         <li class="menu-item menu-item-etcd">
-
-
+    
+    
         <a href="/categories/%E4%B8%9A%E5%8A%A1%E8%BF%90%E8%A1%8C%E7%9A%84%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E5%B9%B3%E5%8F%B0/etcd%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fab fa-edge-legacy fa-fw"></i>etcd技术</a>
-
+    
   </li>
         <li class="menu-item menu-item-zipkin">
-
-
+    
+    
         <a href="/categories/%E4%B8%9A%E5%8A%A1%E8%BF%90%E8%A1%8C%E7%9A%84%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E5%B9%B3%E5%8F%B0/%E6%A1%86%E6%9E%B6%E4%B8%8E%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fab fa-diaspora fa-fw"></i>框架与链路追踪技术</a>
-
+    
   </li>
         <li class="menu-item menu-item-prometheus">
-
-
+    
+    
         <a href="/categories/%E4%B8%9A%E5%8A%A1%E8%BF%90%E8%A1%8C%E7%9A%84%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E5%B9%B3%E5%8F%B0/prometheus%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fas fa-parking fa-fw"></i>prometheus技术</a>
-
+    
   </li>
         <li class="menu-item menu-item-webserver">
-
-
+    
+    
         <a href="/categories/%E4%B8%9A%E5%8A%A1%E8%BF%90%E8%A1%8C%E7%9A%84%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E5%B9%B3%E5%8F%B0/%E6%B5%81%E9%87%8F%E7%BD%91%E5%85%B3%E6%8A%80%E6%9C%AF/" rel="section" class="submenu-item"><i class="fab fa-bootstrap fa-fw"></i>流量网关技术</a>
-
+    
+  </li>
+        <li class="menu-item menu-item-softskill">
+    
+    
+        <a href="/categories/%E4%B8%AA%E4%BA%BA%E9%80%9A%E7%94%A8%E6%8A%80%E8%83%BD/" rel="section"><i class="fas fa-comments fa-fw"></i>个人通用技能</a>
+    
+  </li>
+        <li class="menu-item menu-item-learningskill">
+    
+    
+        <a href="/categories/%E4%B8%AA%E4%BA%BA%E9%80%9A%E7%94%A8%E6%8A%80%E8%83%BD/%E5%AD%A6%E4%B9%A0skill/" rel="section" class="submenu-item"><i class="fas fa-graduation-cap fa-fw"></i>学习skill</a>
+    
+  </li>
+        <li class="menu-item menu-item-communicationskill">
+    
+    
+        <a href="/categories/%E4%B8%AA%E4%BA%BA%E9%80%9A%E7%94%A8%E6%8A%80%E8%83%BD/%E6%B2%9F%E9%80%9A%E8%A1%A8%E8%BE%BEskill/" rel="section" class="submenu-item"><i class="fas fa-phone fa-fw"></i>沟通表达skill</a>
+    
+  </li>
+        <li class="menu-item menu-item-writingskill">
+    
+    
+        <a href="/categories/%E4%B8%AA%E4%BA%BA%E9%80%9A%E7%94%A8%E6%8A%80%E8%83%BD/%E5%86%99%E4%BD%9Cskill/" rel="section" class="submenu-item"><i class="fas fa-pen fa-fw"></i>写作skill</a>
+    
+  </li>
+        <li class="menu-item menu-item-emotionskill">
+    
+    
+        <a href="/categories/%E4%B8%AA%E4%BA%BA%E9%80%9A%E7%94%A8%E6%8A%80%E8%83%BD/%E6%83%85%E7%BB%AA%E8%B0%83%E8%8A%82skill/" rel="section" class="submenu-item"><i class="fas fa-smile fa-fw"></i>情绪调节skill</a>
+    
+  </li>
+        <li class="menu-item menu-item-healthskill">
+    
+    
+        <a href="/categories/%E4%B8%AA%E4%BA%BA%E9%80%9A%E7%94%A8%E6%8A%80%E8%83%BD/%E5%81%A5%E5%BA%B7%E7%AE%A1%E7%90%86skill/" rel="section" class="submenu-item"><i class="fas fa-walking fa-fw"></i>健康管理skill</a>
+    
+  </li>
+        <li class="menu-item menu-item-moneyskill">
+    
+    
+        <a href="/categories/%E4%B8%AA%E4%BA%BA%E9%80%9A%E7%94%A8%E6%8A%80%E8%83%BD/%E6%8A%95%E8%B5%84skill/" rel="section" class="submenu-item"><i class="fas fa-hand-holding-usd fa-fw"></i>投资skill</a>
+    
   </li>
         <li class="menu-item menu-item-categories-distribution">
-
-
-        <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%9A%E5%8A%A1%E7%B3%BB%E7%BB%9F/" rel="section"><i class="fa fa-th fa-fw"></i>分布式业务系统</a>
-
+    
+    
+        <a href="/categories/%E4%B8%80%E5%AE%B6%E4%B9%8B%E8%A8%80/" rel="section"><i class="fa fa-th fa-fw"></i>一家之言</a>
+    
   </li>
         <li class="menu-item menu-item-categories-dis-little">
-
-
-        <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%9A%E5%8A%A1%E7%B3%BB%E7%BB%9F/%E5%88%86%E5%B8%83%E5%BC%8F%E5%9F%BA%E9%87%91%E4%BA%A4%E6%98%93%E7%B3%BB%E7%BB%9F/" rel="section" class="submenu-item"><i class="fas fa-hand-holding-usd fa-fw"></i>分布式基金交易系统</a>
-
+    
+    
+        <a href="/categories/%E4%B8%80%E5%AE%B6%E4%B9%8B%E8%A8%80/%E6%8A%80%E6%9C%AF%E6%84%9F%E6%82%9F/" rel="section" class="submenu-item"><i class="fab fa-weebly fa-fw"></i>技术感悟</a>
+    
   </li>
         <li class="menu-item menu-item-about">
-
-
+    
+    
         <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
-
+    
   </li>
   </ul>
 </nav>
@@ -291,8 +333,8 @@
 
 
 </div>
-
-
+        
+  
   <div class="toggle sidebar-toggle">
     <span class="toggle-line"></span>
     <span class="toggle-line"></span>
@@ -368,7 +410,7 @@
 
     </header>
 
-
+    
   <div class="back-to-top">
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
@@ -381,16 +423,16 @@
 
 
     <div class="main-inner post posts-expand">
+      
 
+      
 
-
-
-
+  
 
 
 <div class="post-block">
-
-
+  
+  
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://jxdw.github.io/2018/08/21/redis-server-3-startup-process/">
@@ -433,44 +475,44 @@
         </span>
     </span>
 
-
-
+  
+  
   <span class="post-meta-item">
-
+    
       <span class="post-meta-item-icon">
         <i class="far fa-comment"></i>
       </span>
       <span class="post-meta-item-text">Valine：</span>
-
+    
     <a title="valine" href="/2018/08/21/redis-server-3-startup-process/#valine-comments" itemprop="discussionUrl">
       <span class="post-comments-count valine-comment-count" data-xid="/2018/08/21/redis-server-3-startup-process/" itemprop="commentCount"></span>
     </a>
   </span>
-
-
+  
+  
 </div>
 
         </div>
       </header>
 
-
-
-
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
         <p>第一阶段阅读Redis的数据结构部分，基本位于如下文件中：<br>内存分配 zmalloc.c和zmalloc.h动态字符串 sds.h和sds.c双端链表 adlist.c和adlist.h字典 dict.h和dict.c跳跃表 server.h文件里面关于zskiplist结构和zskiplistNode结构，以及t_zset.c中所有zsl开头的函数，比如 zslCreate、zslInsert、zslDeleteNode等等。基数统计 hyperloglog.c 中的 hllhdr 结构， 以及所有以 hll 开头的函数第二阶段 熟悉Redis的内存编码结构整数集合数据结构 intset.h和intset.c压缩列表数据结构 ziplist.h和ziplist.c第三阶段 熟悉Redis数据类型的实现对象系统 object.c字符串键 t_string.c列表建 t_list.c散列键 t_hash.c集合键 t_set.c有序集合键 t_zset.c中除 zsl 开头的函数之外的所有函数HyperLogLog键 hyperloglog.c中所有以pf开头的函数第四阶段 熟悉Redis数据库的实现数据库实现 redis.h文件中的redisDb结构，以及db.c文件通知功能 notify.cRDB持久化 rdb.cAOF持久化 aof.c以及一些独立功能模块的实现发布和订阅 redis.h文件的pubsubPattern结构，以及pubsub.c文件事务 redis.h文件的multiState结构以及multiCmd结构，multi.c文件第五阶段 熟悉客户端和服务器端的代码实现事件处理模块 ae.c/ae_epoll.c/ae_evport.c/ae_kqueue.c/ae_select.c网路链接库 anet.c和networking.c服务器端 redis.c客户端 redis-cli.c这个时候可以阅读下面的独立功能模块的代码实现lua脚本 scripting.c慢查询 slowlog.c监视 monitor.c第六阶段 这一阶段主要是熟悉Redis多机部分的代码实现复制功能 replication.cRedis Sentinel sentinel.c集群 cluster.c其他代码文件介绍关于测试方面的文件有：memtest.c 内存检测redis_benchmark.c 用于redis性能测试的实现。redis_check_aof.c 用于更新日志检查的实现。redis_check_dump.c 用于本地数据库检查的实现。testhelp.c 一个C风格的小型测试框架。一些工具类的文件如下：bitops.c GETBIT、SETBIT 等二进制位操作命令的实现debug.c 用于调试时使用endianconv.c 高低位转换，不同系统，高低位顺序不同help.h  辅助于命令的提示信息lzf_c.c 压缩算法系列lzf_d.c  压缩算法系列rand.c 用于产生随机数release.c 用于发布时使用sha1.c sha加密算法的实现util.c  通用工具方法crc64.c 循环冗余校验sort.c SORT命令的实现一些封装类的代码实现：bio.c background I/O的意思，开启后台线程用的latency.c 延迟类migrate.c 命令迁移类，包括命令的还原迁移等pqsort.c  排序算法类rio.c redis定义的一个I/O类syncio.c 用于同步Socket和文件I/O操作</p>
 
     </div>
 
-
-
-
+    
+    
+    
 
     <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/%E4%B8%9A%E5%8A%A1%E8%BF%90%E8%A1%8C%E7%9A%84%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E5%B9%B3%E5%8F%B0/" rel="tag"># 业务运行的基础设施平台</a>
           </div>
 
-
+        
 
           <div class="post-nav">
             <div class="post-nav-item">
@@ -493,7 +535,7 @@
 
 
 
-
+      
     <div class="comments" id="valine-comments"></div>
 
 <script>
@@ -523,13 +565,13 @@
 
   <footer class="footer">
     <div class="footer-inner">
+      
 
-
-
+      
 
 <div class="copyright">
-
-  &copy;
+  
+  &copy; 
   <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
@@ -542,10 +584,11 @@
     </div>
   </footer>
 
-
+  
   <script src="//gcore.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
 <script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
 
+  
 
 
 
@@ -564,6 +607,7 @@
 
 
 
+  
 
 
 
@@ -572,11 +616,9 @@
 
 
 
+  
 
-
-
-
-
+  
 
 <script>
 NexT.utils.loadComments('#valine-comments', () => {
@@ -584,7 +626,7 @@ NexT.utils.loadComments('#valine-comments', () => {
     new Valine(Object.assign({"enable":true,"appId":"wrre3Nrx21CqKiChLnKn034M-gzGzoHsz","appKey":"rkWWNONo7LAJhlS936vnywQ9","serverURLs":null,"placeholder":"请输入您的评论","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"lang":null,"visitor":false,"comment_count":true,"recordIP":false,"enableQQ":false,"requiredFields":["nick","mail"]}, {
       el: '#valine-comments',
       path: "/2018/08/21/redis-server-3-startup-process/",
-      serverURLs: "https://wrre3nrx.avoscloud.com"
+      serverURLs: "https://wrre3nrx.api.lncld.net"
     }));
   }, window.Valine);
 });

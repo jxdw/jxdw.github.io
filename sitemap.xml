@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://jxdw.github.io/2019/07/02/golang_viper_config_use/</loc>
+    
+    <lastmod>2024-04-02</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jxdw.github.io/2019/03/24/golang-gin-source-code-v1/</loc>
+    
+    <lastmod>2024-04-02</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://jxdw.github.io/2019/12/20/golang-upload-file-to-alicloud/</loc>
     
     <lastmod>2024-04-02</lastmod>
@@ -10,13 +24,6 @@
   
   <url>
     <loc>https://jxdw.github.io/2020/09/25/nacos-go-client-config-example/</loc>
-    
-    <lastmod>2024-04-02</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jxdw.github.io/2019/03/24/golang-gin-source-code-v1/</loc>
     
     <lastmod>2024-04-02</lastmod>
     
@@ -759,13 +766,6 @@
   
   <url>
     <loc>https://jxdw.github.io/2018/04/25/golang-standard-lib-for-time/</loc>
-    
-    <lastmod>2024-02-20</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jxdw.github.io/2019/07/02/golang_viper_config_use/</loc>
     
     <lastmod>2024-02-20</lastmod>
     

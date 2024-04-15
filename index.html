@@ -364,7 +364,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">148</span>
+          <span class="site-state-item-count">149</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1456,7 +1456,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jxdw.github.io/2020/12/21/golang-project-layout/">
+    <link itemprop="mainEntityOfPage" href="https://jxdw.github.io/2020/12/26/go_redis_client_use/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/favicon.png">
@@ -1470,7 +1470,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/12/21/golang-project-layout/" class="post-title-link" itemprop="url">【go使用系列】【转载】go项目工程的布局</a>
+            <a href="/2020/12/26/go_redis_client_use/" class="post-title-link" itemprop="url">【中间件go client系列】redis的go client使用</a>
         </h2>
 
         <div class="post-meta-container">
@@ -1481,7 +1481,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2020-12-21 18:41:34 18:41:34" itemprop="dateCreated datePublished" datetime="2020-12-21T18:41:34+08:00">2020-12-21 18:41:34</time>
+      <time title="创建时间：2020-12-26 20:17:59 20:17:59" itemprop="dateCreated datePublished" datetime="2020-12-26T20:17:59+08:00">2020-12-26 20:17:59</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1506,8 +1506,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2020/12/21/golang-project-layout/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/12/21/golang-project-layout/" itemprop="commentCount"></span>
+    <a title="valine" href="/2020/12/26/go_redis_client_use/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/12/26/go_redis_client_use/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1521,15 +1521,11 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="Standard-Go-Project-Layout"><a href="#Standard-Go-Project-Layout" class="headerlink" title="Standard Go Project Layout"></a>Standard Go Project Layout</h1><p>这是Go应用程序项目的基本布局。它不是核心Go开发团队定义的官方标准；然而，它是Go生态系统中一组常见的老项目和新项目的局模式。其中一些模式比其他模式更受欢迎。它还具有许多小的增强，以及对任何足够大的实际应用程序通用的几个支持目录。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/12/21/golang-project-layout/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
+          <p>有时候需要对key值的进行统计，这时候就需要写个工具类。<br>用法如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.&#x2F;keys_count_tool -address &#39;ip:6379&#39; -filename &#39;userinfo_key.txt&#39; -findkeys &#39;*_USERINFOCENTER_*&#39;</span><br></pre></td></tr></table></figure>
+<p>代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;flag&quot;</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">	&quot;github.com&#x2F;go-redis&#x2F;redis&quot;</span><br><span class="line">	&quot;os&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">var address string</span><br><span class="line">var filename string</span><br><span class="line">var findkeys string</span><br><span class="line"></span><br><span class="line">func init() &#123;</span><br><span class="line">	flag.StringVar(&amp;address, &quot;address&quot;, &quot;redis server ip and port&quot;, &quot;-address&quot;)</span><br><span class="line">	flag.StringVar(&amp;filename, &quot;filename&quot;, &quot;file name&quot;, &quot;-filename&quot;)</span><br><span class="line">	flag.StringVar(&amp;findkeys, &quot;findkeys&quot;, &quot;find keys&quot;, &quot;-findkeys&quot;)</span><br><span class="line">&#125;</span><br><span class="line">func main() &#123;</span><br><span class="line">	flag.Parse()</span><br><span class="line">	client :&#x3D; redis.NewClient(&amp;redis.Options&#123;</span><br><span class="line">		Addr:     address,</span><br><span class="line">		Password: &quot;&quot;, &#x2F;&#x2F; no password set</span><br><span class="line">		DB:       0,  &#x2F;&#x2F; use default DB</span><br><span class="line">	&#125;)</span><br><span class="line"></span><br><span class="line">	var cursor uint64</span><br><span class="line">	var n int</span><br><span class="line">	file, err :&#x3D; os.OpenFile(filename, os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0777)</span><br><span class="line">	if err !&#x3D; nil &#123;</span><br><span class="line">		fmt.Println(&quot;文件打开失败&quot;, err)</span><br><span class="line">	&#125;</span><br><span class="line">	&#x2F;&#x2F;及时关闭file句柄</span><br><span class="line">	defer file.Close()</span><br><span class="line">	for &#123;</span><br><span class="line">		var keys []string</span><br><span class="line">		var err error</span><br><span class="line">		&#x2F;&#x2F;*扫描所有key，每次20条</span><br><span class="line"></span><br><span class="line">		keys, cursor, err &#x3D; client.Scan(cursor, findkeys, 20).Result()</span><br><span class="line">		if err !&#x3D; nil &#123;</span><br><span class="line">			panic(err)</span><br><span class="line">		&#125;</span><br><span class="line">		for _, key :&#x3D; range keys &#123;</span><br><span class="line">			data :&#x3D; key + &quot;\n&quot;</span><br><span class="line">			n, err :&#x3D; file.Write([]byte(data))</span><br><span class="line">			if err &#x3D;&#x3D; nil &amp;&amp; n &lt; len(data) &#123;</span><br><span class="line">				fmt.Println(&quot;写入文件失败&quot;, err)</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		n +&#x3D; len(keys)</span><br><span class="line">		fmt.Printf(&quot;\nfound %d keys\n&quot;, n)</span><br><span class="line">		if cursor &#x3D;&#x3D; 0 &#123;</span><br><span class="line">			break</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
       
     </div>
 

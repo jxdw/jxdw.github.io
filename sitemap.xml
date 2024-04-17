@@ -2,6 +2,41 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://jxdw.github.io/2018/12/06/jishuzongjie_2019_learn_plan/</loc>
+    
+    <lastmod>2024-04-17</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jxdw.github.io/2021/05/31/jishuzongjie-tech-architecture-wu/</loc>
+    
+    <lastmod>2024-04-17</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jxdw.github.io/2020/03/25/jishuzongjie-2019/</loc>
+    
+    <lastmod>2024-04-17</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jxdw.github.io/2019/01/01/jishuzongjie-2018/</loc>
+    
+    <lastmod>2024-04-17</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jxdw.github.io/2016/01/01/jishuzongjie-2015/</loc>
+    
+    <lastmod>2024-04-17</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://jxdw.github.io/2020/03/25/how_build_skill_architecture/</loc>
     
     <lastmod>2024-04-17</lastmod>
@@ -9,14 +44,14 @@
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/about/index.html</loc>
+    <loc>https://jxdw.github.io/2020/03/25/how_to_learn_a_language/</loc>
     
     <lastmod>2024-04-17</lastmod>
     
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/2020/03/25/how_to_learn_a_language/</loc>
+    <loc>https://jxdw.github.io/about/index.html</loc>
     
     <lastmod>2024-04-17</lastmod>
     
@@ -86,42 +121,7 @@
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/2016/01/01/jishuzongjie-2015/</loc>
-    
-    <lastmod>2024-03-23</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jxdw.github.io/2018/12/06/jishuzongjie_2019_learn_plan/</loc>
-    
-    <lastmod>2024-03-23</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jxdw.github.io/2019/01/01/jishuzongjie-2018/</loc>
-    
-    <lastmod>2024-03-23</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jxdw.github.io/2020/03/25/jishuzongjie-2019/</loc>
-    
-    <lastmod>2024-03-23</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://jxdw.github.io/2016/03/25/distribution_system_conecpt/</loc>
-    
-    <lastmod>2024-03-23</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jxdw.github.io/2021/05/31/tech-architecture-wu/</loc>
     
     <lastmod>2024-03-23</lastmod>
     
@@ -1301,14 +1301,14 @@
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/categories/%E4%B8%9A%E5%8A%A1%E8%BF%90%E8%A1%8C%E7%9A%84%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E5%B9%B3%E5%8F%B0/%E6%B5%81%E9%87%8F%E7%BD%91%E5%85%B3%E6%8A%80%E6%9C%AF/</loc>
+    <loc>https://jxdw.github.io/categories/%E4%B8%AA%E4%BA%BA%E9%80%9A%E7%94%A8%E6%8A%80%E8%83%BD/%E5%AD%A6%E4%B9%A0skill/</loc>
     <lastmod>2024-04-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/categories/%E4%B8%AA%E4%BA%BA%E9%80%9A%E7%94%A8%E6%8A%80%E8%83%BD/%E5%AD%A6%E4%B9%A0skill/</loc>
+    <loc>https://jxdw.github.io/categories/%E4%B8%9A%E5%8A%A1%E8%BF%90%E8%A1%8C%E7%9A%84%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E5%B9%B3%E5%8F%B0/%E6%B5%81%E9%87%8F%E7%BD%91%E5%85%B3%E6%8A%80%E6%9C%AF/</loc>
     <lastmod>2024-04-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>

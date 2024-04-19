@@ -22,16 +22,21 @@
     var CONFIG = {"hostname":"jxdw.github.io","root":"/","scheme":"Pisces","version":"8.0.2","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"width":240},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
   </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="渐学顿悟">
-<meta property="og:url" content="https://jxdw.github.io/archives/2019/09/index.html">
+  <meta name="description" content="1.备份原有源tar -zcvf CentOS-bk.tar.gz &#x2F;etc&#x2F;yum.repos.d&#x2F;CentOS-* 2.替换为阿里云源curl -o &#x2F;etc&#x2F;yum.repos.d&#x2F;CentOS-Base.repo http:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;repo&#x2F;Centos-7.repocurl -o &amp;#">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Python基础系列】centos7下Python3.10安装">
+<meta property="og:url" content="https://jxdw.github.io/2022/12/23/python3-install/index.html">
 <meta property="og:site_name" content="渐学顿悟">
+<meta property="og:description" content="1.备份原有源tar -zcvf CentOS-bk.tar.gz &#x2F;etc&#x2F;yum.repos.d&#x2F;CentOS-* 2.替换为阿里云源curl -o &#x2F;etc&#x2F;yum.repos.d&#x2F;CentOS-Base.repo http:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;repo&#x2F;Centos-7.repocurl -o &amp;#">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-12-23T12:30:54.000Z">
+<meta property="article:modified_time" content="2024-04-19T09:17:58.512Z">
 <meta property="article:author" content="渐学顿悟">
+<meta property="article:tag" content="操作系统&amp;网络协议&amp;编程语言">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://jxdw.github.io/archives/2019/09/">
+<link rel="canonical" href="https://jxdw.github.io/2022/12/23/python3-install/">
 
 
 <script class="page-configurations">
@@ -39,12 +44,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>归档 | 渐学顿悟</title>
+  <title>【Python基础系列】centos7下Python3.10安装 | 渐学顿悟</title>
   
 
 
@@ -411,98 +416,147 @@
 </noscript>
 
 
-    <div class="main-inner archive posts-collapse">
+    <div class="main-inner post posts-expand">
       
 
       
 
   
+
+
+<div class="post-block">
   
   
-  <div class="post-block">
-    <div class="post-content">
-      <div class="collection-title">
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jxdw.github.io/2022/12/23/python3-install/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/favicon.png">
+      <meta itemprop="name" content="渐学顿悟">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="渐学顿悟">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【Python基础系列】centos7下Python3.10安装
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-12-23 20:30:54 20:30:54" itemprop="dateCreated datePublished" datetime="2022-12-23T20:30:54+08:00">2022-12-23 20:30:54</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE-%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index"><span itemprop="name">操作系统&网络协议&编程语言</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE-%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/python%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index"><span itemprop="name">python语言</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2022/12/23/python3-install/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/12/23/python3-install/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="1-备份原有源"><a href="#1-备份原有源" class="headerlink" title="1.备份原有源"></a>1.备份原有源</h1><p>tar -zcvf CentOS-bk.tar.gz /etc/yum.repos.d/CentOS-*</p>
+<h1 id="2-替换为阿里云源"><a href="#2-替换为阿里云源" class="headerlink" title="2.替换为阿里云源"></a>2.替换为阿里云源</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">curl -o &#x2F;etc&#x2F;yum.repos.d&#x2F;CentOS-Base.repo http:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;repo&#x2F;Centos-7.repo</span><br><span class="line">curl -o &#x2F;etc&#x2F;yum.repos.d&#x2F;epel.repo http:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;repo&#x2F;epel-7.repo</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<h1 id="3-nameserver"><a href="#3-nameserver" class="headerlink" title="3.nameserver"></a>3.nameserver</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">vim &#x2F;etc&#x2F;resolv.conf</span><br><span class="line">nameserver 8.8.8.8</span><br><span class="line">nameserver 114.114.114.114</span><br></pre></td></tr></table></figure>
+<p>并执行</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">service network restart</span><br></pre></td></tr></table></figure>
+
+<h1 id="4-安装依赖"><a href="#4-安装依赖" class="headerlink" title="4.安装依赖"></a>4.安装依赖</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">yum -y groupinstall &quot;Development tools&quot;</span><br><span class="line">yum install -y ncurses-devel gdbm-devel xz-devel sqlite-devel tk-devel uuid-devel readline-devel bzip2-devel libffi-devel</span><br><span class="line">yum install -y openssl-devel openssl11 openssl11-devel</span><br></pre></td></tr></table></figure>
+<p>指定编译版本</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">export CFLAGS&#x3D;$(pkg-config --cflags openssl11)</span><br><span class="line">export LDFLAGS&#x3D;$(pkg-config --libs openssl11)</span><br></pre></td></tr></table></figure>
+
+<h1 id="5-下载源码包并编译"><a href="#5-下载源码包并编译" class="headerlink" title="5.下载源码包并编译"></a>5.下载源码包并编译</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">tar xvzf Python-3.10.4.tgz</span><br><span class="line">cd Python-3.10.4</span><br><span class="line"></span><br><span class="line">.&#x2F;configure --enable-optimizations &amp;&amp; make altinstall</span><br><span class="line"></span><br><span class="line">&#x2F;usr&#x2F;local&#x2F;bin&#x2F;python3.10 --version</span><br><span class="line">&#x2F;usr&#x2F;local&#x2F;bin&#x2F;pip3.10 --version</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="6-建立软连接"><a href="#6-建立软连接" class="headerlink" title="6.建立软连接"></a>6.建立软连接</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ln -sf &#x2F;usr&#x2F;local&#x2F;bin&#x2F;python3.10 &#x2F;usr&#x2F;bin&#x2F;python3</span><br><span class="line">ln -sf &#x2F;usr&#x2F;local&#x2F;bin&#x2F;pip3.10  &#x2F;usr&#x2F;bin&#x2F;pip3</span><br></pre></td></tr></table></figure>
+
+<h1 id="7-替换源"><a href="#7-替换源" class="headerlink" title="7.替换源"></a>7.替换源</h1><p>vim ~/.pip/pip.conf</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[global]</span><br><span class="line">index-url&#x3D;https:&#x2F;&#x2F;pypi.tuna.tsinghua.edu.cn&#x2F;simple&#x2F;</span><br><span class="line">extra-index-url&#x3D;</span><br><span class="line">http:&#x2F;&#x2F;pypi.douban.com&#x2F;simple&#x2F;</span><br><span class="line">http:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;pypi&#x2F;simple&#x2F;</span><br><span class="line">#proxy &#x3D; [user:passwd@]proxy.server:port</span><br><span class="line">[install]</span><br><span class="line">trusted-host&#x3D;</span><br><span class="line">#        pypi.tuna.tsinghua.edu.cn</span><br><span class="line">#        pypi.douban.com</span><br><span class="line">        mirrors.aliyun.com</span><br><span class="line">ssl_verify: false</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pip3 install --upgrade pip</span><br></pre></td></tr></table></figure>
+
+<h1 id="9-尝试安装包到指定目录"><a href="#9-尝试安装包到指定目录" class="headerlink" title="9.尝试安装包到指定目录"></a>9.尝试安装包到指定目录</h1><p>安装包到指定的目录：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pip install numpy -t &#x2F;usr&#x2F;local&#x2F;lib&#x2F;python3.10&#x2F;site-packages</span><br></pre></td></tr></table></figure>
+
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p><a target="_blank" rel="noopener" href="https://www.zhihu.com/tardis/zm/art/491817098?source_id=1003">https://www.zhihu.com/tardis/zm/art/491817098?source_id=1003</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE-%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" rel="tag"># 操作系统&网络协议&编程语言</a>
+          </div>
+
         
-        <span class="collection-header">非常好! 目前共计 154 篇日志。 继续努力。</span>
-      </div>
 
-      
-    <div class="collection-year">
-      <span class="collection-header">2019</span>
-    </div>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2019-09-25T19:35:47+08:00"
-              content="2019-09-25 19:35:47">
-          09-25
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2019/09/25/go_syscall_basic/" itemprop="url">
-            <span itemprop="name">【go底层实现系列】golang对linux系统调用的封装</span>
-          </a>
-      </div>
-
-      
-    </header>
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/12/23/python%E2%80%942-7-5-install/" rel="prev" title="【Python基础系列】centos7下Python2.7.5重新安装">
+                  <i class="fa fa-chevron-left"></i> 【Python基础系列】centos7下Python2.7.5重新安装
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/07/14/prometheus_alertmanager_webhook/" rel="next" title="【prometheus使用系列】利用Prometheus+alertmanager+自定义webhook实现监控报警">
+                  【prometheus使用系列】利用Prometheus+alertmanager+自定义webhook实现监控报警 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
   </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2019-09-11T19:00:00+08:00"
-              content="2019-09-11 19:00:00">
-          09-11
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2019/09/11/c_program_network_process/" itemprop="url">
-            <span itemprop="name">C语言网络编程过程</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2019-09-09T21:26:11+08:00"
-              content="2019-09-09 21:26:11">
-          09-09
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2019/09/09/c_language_standard_library_implement/" itemprop="url">
-            <span itemprop="name">【C语言标准库使用】C语言标准库及3个操作系统下的实现</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
+</div>
 
 
-    </div>
-  </div>
-  
-  
-  
 
-  
 
 
 
       
+    <div class="comments" id="valine-comments"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -585,23 +639,13 @@
   
 
   
-  <script src="//gcore.jsdelivr.net/npm/quicklink@2.0.0/dist/quicklink.umd.js"></script>
-  <script>
-      window.addEventListener('load', () => {
-      quicklink.listen({
-        timeout : 3000,
-        priority: true,
-        ignores : [uri => uri.includes('#'),uri => uri === 'https://jxdw.github.io/archives/2019/09/',]
-      });
-      });
-  </script>
 
 <script>
 NexT.utils.loadComments('#valine-comments', () => {
   NexT.utils.getScript('//gcore.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', () => {
     new Valine(Object.assign({"enable":true,"appId":"wrre3Nrx21CqKiChLnKn034M-gzGzoHsz","appKey":"rkWWNONo7LAJhlS936vnywQ9","serverURLs":null,"placeholder":"请输入您的评论","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"lang":null,"visitor":false,"comment_count":true,"recordIP":false,"enableQQ":false,"requiredFields":["nick","mail"]}, {
       el: '#valine-comments',
-      path: "/archives/2019/09/",
+      path: "/2022/12/23/python3-install/",
       serverURLs: "https://wrre3nrx.api.lncld.net"
     }));
   }, window.Valine);

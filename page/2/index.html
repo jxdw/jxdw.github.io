@@ -322,7 +322,7 @@
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-count">21</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -381,7 +381,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jxdw.github.io/2021/05/01/trace-jaeger-sourcecode-distribution/">
+    <link itemprop="mainEntityOfPage" href="https://jxdw.github.io/2021/05/01/trace-jaeger-sourcecode-collector/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/favicon.png">
@@ -395,7 +395,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/05/01/trace-jaeger-sourcecode-distribution/" class="post-title-link" itemprop="url">【jaeger源码分析系列】链路追踪系统知识</a>
+            <a href="/2021/05/01/trace-jaeger-sourcecode-collector/" class="post-title-link" itemprop="url">【jaeger源码分析系列】jaeger collector源码分析</a>
         </h2>
 
         <div class="post-meta-container">
@@ -431,8 +431,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2021/05/01/trace-jaeger-sourcecode-distribution/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/05/01/trace-jaeger-sourcecode-distribution/" itemprop="commentCount"></span>
+    <a title="valine" href="/2021/05/01/trace-jaeger-sourcecode-collector/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/05/01/trace-jaeger-sourcecode-collector/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -446,21 +446,13 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
-<p>&emsp;分析Jaeger源码主要有以下原因：</p>
+          <h1 id="TChannel-接收-agent-提交过来的数据"><a href="#TChannel-接收-agent-提交过来的数据" class="headerlink" title="TChannel 接收 agent 提交过来的数据"></a>TChannel 接收 agent 提交过来的数据</h1><blockquote>
+<p>github.com/jaegertracing/jaeger/cmd/collector/app/span_handler.go #69</p>
 </blockquote>
-<ul>
-<li>公司正在使用Jaeger，通过了解其源码，可以更好的把控这套系统。</li>
-<li>了解分布式系统的设计</li>
-<li>提升对golang的理解</li>
-<li>提升个人英语<blockquote>
-<p>分析的版本为最新版本0.10.0，时间2017-11-23</p>
-</blockquote>
-</li>
-</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">func (jbh *jaegerBatchesHandler) SubmitBatches(ctx thrift.Context, batches []*jaeger.Batch) ([]*jaeger.BatchSubmitResponse, error) &#123;</span><br><span class="line">	responses :&#x3D; make([]*jaeger.BatchSubmitResponse, 0, len(batches))</span><br><span class="line">	for _, batch :&#x3D; range batches &#123;</span><br><span class="line">		mSpans :&#x3D; make([]*model.Span, 0, len(batch.Spans))</span><br><span class="line">		for _, span :&#x3D; range batch.Spans &#123;</span><br><span class="line">			mSpan :&#x3D; jConv.ToDomainSpan(span, batch.Process)</span><br><span class="line">			mSpans &#x3D; append(mSpans, mSpan)</span><br><span class="line">		&#125;</span><br><span class="line">		oks, err :&#x3D; jbh.modelProcessor.ProcessSpans(mSpans, JaegerFormatType)</span><br><span class="line">		if err !&#x3D; nil &#123;</span><br><span class="line">			return nil, err</span><br><span class="line">		&#125;</span><br><span class="line">		batchOk :&#x3D; true</span><br><span class="line">		for _, ok :&#x3D; range oks &#123;</span><br><span class="line">			if !ok &#123;</span><br><span class="line">				batchOk &#x3D; false</span><br><span class="line">				break</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		res :&#x3D; &amp;jaeger.BatchSubmitResponse&#123;</span><br><span class="line">			Ok: batchOk,</span><br><span class="line">		&#125;</span><br><span class="line">		responses &#x3D; append(responses, res)</span><br><span class="line">	&#125;</span><br><span class="line">	return responses, nil</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2021/05/01/trace-jaeger-sourcecode-distribution/#more" rel="contents">
+              <a class="btn" href="/2021/05/01/trace-jaeger-sourcecode-collector/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>

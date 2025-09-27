@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://jxdw.github.io/2018/04/29/kubernetes-why-learn-kubernetes/</loc>
+    
+    <lastmod>2025-09-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jxdw.github.io/2018/12/28/kubernetes-1-8-install/</loc>
+    
+    <lastmod>2025-09-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jxdw.github.io/2019/04/28/docker-v112-architecture/</loc>
+    
+    <lastmod>2025-09-27</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://jxdw.github.io/2017/06/28/docker-build-basic-image/</loc>
     
     <lastmod>2025-09-27</lastmod>
@@ -345,13 +366,6 @@
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/2018/04/29/kubernetes-why-learn-kubernetes/</loc>
-    
-    <lastmod>2025-09-27</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://jxdw.github.io/2018/10/31/harbor-154-install/</loc>
     
     <lastmod>2025-09-27</lastmod>
@@ -464,13 +478,6 @@
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/2018/12/28/kubernetes-1-8-install/</loc>
-    
-    <lastmod>2025-09-27</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://jxdw.github.io/2018/02/05/apollo-config-wrapper-install/</loc>
     
     <lastmod>2025-09-27</lastmod>
@@ -479,13 +486,6 @@
   
   <url>
     <loc>https://jxdw.github.io/2017/12/23/rabbitmq-cluster-install/</loc>
-    
-    <lastmod>2025-09-27</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jxdw.github.io/2019/04/28/docker-v112-architecture/</loc>
     
     <lastmod>2025-09-27</lastmod>
     
@@ -1147,20 +1147,6 @@
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/categories/%E5%90%8E%E7%AB%AF%E6%8A%80%E6%9C%AF/%E6%A1%86%E6%9E%B6%E4%B8%8E%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA%E6%8A%80%E6%9C%AF/</loc>
-    <lastmod>2025-09-27</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://jxdw.github.io/categories/%E5%90%8E%E7%AB%AF%E6%8A%80%E6%9C%AF/redis%E6%8A%80%E6%9C%AF/</loc>
-    <lastmod>2025-09-27</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://jxdw.github.io/categories/%E5%90%8E%E7%AB%AF%E6%8A%80%E6%9C%AF/etcd%E6%8A%80%E6%9C%AF/</loc>
     <lastmod>2025-09-27</lastmod>
     <changefreq>daily</changefreq>
@@ -1175,14 +1161,21 @@
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/categories/%E5%86%85%E9%83%A8%E5%BC%80%E5%8F%91%E8%80%85%E5%B9%B3%E5%8F%B0/</loc>
+    <loc>https://jxdw.github.io/categories/%E5%90%8E%E7%AB%AF%E6%8A%80%E6%9C%AF/%E6%A1%86%E6%9E%B6%E4%B8%8E%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA%E6%8A%80%E6%9C%AF/</loc>
     <lastmod>2025-09-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/categories/%E5%86%85%E9%83%A8%E5%BC%80%E5%8F%91%E8%80%85%E5%B9%B3%E5%8F%B0/jenkins%E6%8A%80%E6%9C%AF/</loc>
+    <loc>https://jxdw.github.io/categories/%E5%90%8E%E7%AB%AF%E6%8A%80%E6%9C%AF/redis%E6%8A%80%E6%9C%AF/</loc>
+    <lastmod>2025-09-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://jxdw.github.io/categories/%E5%86%85%E9%83%A8%E5%BC%80%E5%8F%91%E8%80%85%E5%B9%B3%E5%8F%B0/</loc>
     <lastmod>2025-09-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -1224,7 +1217,7 @@
   </url>
   
   <url>
-    <loc>https://jxdw.github.io/categories/%E5%90%8E%E7%AB%AF%E6%8A%80%E6%9C%AF/dockerengine%E6%8A%80%E6%9C%AF/</loc>
+    <loc>https://jxdw.github.io/categories/%E5%90%8E%E7%AB%AF%E6%8A%80%E6%9C%AF/job%E8%B0%83%E5%BA%A6%E6%8A%80%E6%9C%AF/</loc>
     <lastmod>2025-09-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -1232,13 +1225,6 @@
   
   <url>
     <loc>https://jxdw.github.io/categories/%E5%90%8E%E7%AB%AF%E6%8A%80%E6%9C%AF/elasticsearch%E6%8A%80%E6%9C%AF/</loc>
-    <lastmod>2025-09-27</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://jxdw.github.io/categories/%E5%90%8E%E7%AB%AF%E6%8A%80%E6%9C%AF/job%E8%B0%83%E5%BA%A6%E6%8A%80%E6%9C%AF/</loc>
     <lastmod>2025-09-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -1253,6 +1239,13 @@
   
   <url>
     <loc>https://jxdw.github.io/categories/%E5%90%8E%E7%AB%AF%E6%8A%80%E6%9C%AF/%E6%B5%81%E9%87%8F%E7%BD%91%E5%85%B3%E6%8A%80%E6%9C%AF/</loc>
+    <lastmod>2025-09-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://jxdw.github.io/categories/%E5%86%85%E9%83%A8%E5%BC%80%E5%8F%91%E8%80%85%E5%B9%B3%E5%8F%B0/jenkins%E6%8A%80%E6%9C%AF/</loc>
     <lastmod>2025-09-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
